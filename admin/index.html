@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070b09;
+    --sidebar:#0b110e;
+    --card:#101713;
+    --card2:#121b16;
+    --border:#1e2b24;
+    --green:#16a34a;
+    --green2:#22c55e;
+    --text:#f5f7f6;
+    --muted:#91a098;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+    --purple:#8b5cf6;
+    --radius:18px;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font:inherit;
+    cursor:pointer;
+}
+
+.layout{
+    min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:255px;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    overflow-y:auto;
+    z-index:1000;
+    transition:.3s;
+}
+
+.brand{
+    padding:22px 18px;
+    border-bottom:1px solid var(--border);
+}
+
+.brand-main{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-icon{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--green),#0d6b31);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    box-shadow:0 10px 30px rgba(22,163,74,.22);
+}
+
+.brand-title{
+    font-size:17px;
+    font-weight:800;
+}
+
+.brand-sub{
+    margin-top:5px;
+    margin-left:56px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.nav{
+    padding:12px 10px 25px;
+}
+
+.nav-label{
+    padding:13px 12px 7px;
+    color:#5f7067;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 12px;
+    margin:3px 0;
+    border-radius:11px;
+    color:#aebbb4;
+    font-size:12px;
+    transition:.2s;
+}
+
+.nav a:hover{
+    background:#111b15;
+    color:#fff;
+}
+
+.nav a.active{
+    color:#4ade80;
+    background:rgba(22,163,74,.13);
+}
+
+.nav a i{
+    width:18px;
+    text-align:center;
+}
+
+.nav a .arrow{
+    margin-left:auto;
+    font-size:9px;
+    opacity:.4;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:255px;
+    padding:24px;
+    min-height:100vh;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.menu-btn{
+    display:none;
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:#fff;
+}
+
+.title h1{
+    font-size:25px;
+    font-weight:800;
+}
+
+.title p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:#dce5e0;
+    border-radius:11px;
+    padding:10px 13px;
+    font-size:12px;
+    transition:.2s;
+}
+
+.btn:hover{
+    border-color:#31523e;
+}
+
+.btn-primary{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#15803d;
+}
+
+/* ================= WELCOME ================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:25px;
+    border-radius:22px;
+    border:1px solid #21412d;
+    background:
+        radial-gradient(circle at 90% 10%,rgba(34,197,94,.16),transparent 35%),
+        linear-gradient(135deg,#102017,#0d1511);
+    margin-bottom:20px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-70px;
+    bottom:-100px;
+    border-radius:50%;
+    background:rgba(34,197,94,.08);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:6px 10px;
+    border-radius:30px;
+    background:rgba(34,197,94,.1);
+    color:#4ade80;
+    font-size:10px;
+    margin-bottom:12px;
+}
+
+.hero h2{
+    font-size:24px;
+    font-weight:800;
+}
+
+.hero p{
+    color:#91a098;
+    font-size:12px;
+    margin-top:8px;
+    line-height:1.6;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:17px;
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-icon{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(22,163,74,.1);
+    color:#4ade80;
+}
+
+.stat-number{
+    font-size:24px;
+    font-weight:800;
+    margin-top:14px;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:4px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    margin-bottom:24px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.section-head h2{
+    font-size:16px;
+}
+
+.section-head span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* ================= CARDS ================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+}
+
+.admin-card{
+    position:relative;
+    display:block;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px;
+    min-height:125px;
+    transition:.22s;
+    overflow:hidden;
+}
+
+.admin-card:hover{
+    transform:translateY(-2px);
+    border-color:#31523e;
+    background:var(--card2);
+}
+
+.admin-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#142119;
+    color:#4ade80;
+    margin-bottom:13px;
+}
+
+.admin-card strong{
+    display:block;
+    font-size:13px;
+}
+
+.admin-card span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
+    line-height:1.5;
+}
+
+.admin-card .card-arrow{
+    position:absolute;
+    right:15px;
+    top:17px;
+    color:#516159;
+    font-size:10px;
+}
+
+/* different icon accents */
+
+.icon-blue{
+    color:#60a5fa;
+    background:rgba(59,130,246,.1);
+}
+
+.icon-purple{
+    color:#a78bfa;
+    background:rgba(139,92,246,.1);
+}
+
+.icon-orange{
+    color:#fbbf24;
+    background:rgba(245,158,11,.1);
+}
+
+.icon-red{
+    color:#fb7185;
+    background:rgba(239,68,68,.1);
+}
+
+/* ================= TWO COLUMN ================= */
+
+.two-col{
+    display:grid;
+    grid-template-columns:1.4fr .6fr;
+    gap:18px;
+}
+
+/* ================= ACTIVITY ================= */
+
+.activity{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+}
+
+.activity-list{
+    display:flex;
+    flex-direction:column;
+}
+
+.activity-item{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+    padding:12px 0;
+    border-bottom:1px solid #19251f;
+}
+
+.activity-item:last-child{
+    border-bottom:0;
+}
+
+.activity-icon{
+    width:31px;
+    height:31px;
+    flex:none;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#142119;
+    color:#4ade80;
+    font-size:11px;
+}
+
+.activity-text strong{
+    display:block;
+    font-size:11px;
+}
+
+.activity-text span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:4px;
+}
+
+/* ================= QUICK ================= */
+
+.quick{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+}
+
+.quick-list{
+    display:grid;
+    gap:8px;
+}
+
+.quick-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    border:1px solid var(--border);
+    background:#0b110e;
+    color:#dce5e0;
+    padding:11px;
+    border-radius:11px;
+    text-align:left;
+    font-size:11px;
+}
+
+.quick-btn:hover{
+    border-color:#31523e;
+}
+
+.quick-btn i{
+    width:18px;
+    text-align:center;
+    color:#4ade80;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    margin-top:30px;
+    padding:18px 0 5px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    color:#637169;
+    font-size:9px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:9999;
+    background:#122019;
+    border:1px solid #285238;
+    color:#fff;
+    padding:12px 15px;
+    border-radius:12px;
+    font-size:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    transform:translateY(80px);
+    opacity:0;
+    transition:.3s;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1050px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .card-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .two-col{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:760px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .title h1{
+        font-size:20px;
+    }
+
+    .title p{
+        font-size:10px;
+    }
+
+    .top-actions .btn span{
+        display:none;
+    }
+
+    .top-actions .btn{
+        width:40px;
+        height:40px;
+        padding:0;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .hero h2{
+        font-size:20px;
+    }
+
+    .stats{
+        gap:9px;
+    }
+
+    .stat{
+        padding:13px;
+    }
+
+    .stat-number{
+        font-size:20px;
+    }
+
+    .card-grid{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .admin-card{
+        min-height:120px;
+        padding:13px;
+    }
+
+    .admin-card strong{
+        font-size:11px;
+    }
+
+    .admin-card span{
+        font-size:9px;
+    }
+
+    .footer{
+        flex-direction:column;
+        gap:7px;
+    }
+
+}
+
+@media(max-width:420px){
+
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-main">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-dumbbell"></i>
+            </div>
+
+            <div class="brand-title">
+                Sai Fitness
+            </div>
+
+        </div>
+
+        <div class="brand-sub">
+            Bidupur • Admin Panel
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <div class="nav-label">
+            Dashboard
+        </div>
+
+        <a href="index.html" class="active">
+            <i class="fa-solid fa-chart-pie"></i>
+            Dashboard
+        </a>
+
+
+        <div class="nav-label">
+            Management
+        </div>
+
+        <a href="members.html">
+            <i class="fa-solid fa-users"></i>
+            Members
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="workouts.html">
+            <i class="fa-solid fa-fire"></i>
+            Workouts
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="exercises.html">
+            <i class="fa-solid fa-person-running"></i>
+            Exercises
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="diet.html">
+            <i class="fa-solid fa-utensils"></i>
+            Diet
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="goals.html">
+            <i class="fa-solid fa-bullseye"></i>
+            Goals
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="achievements.html">
+            <i class="fa-solid fa-trophy"></i>
+            Achievements
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="notifications.html">
+            <i class="fa-solid fa-bell"></i>
+            Notifications
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+
+        <div class="nav-label">
+            Customization
+        </div>
+
+        <a href="theme.html">
+            <i class="fa-solid fa-palette"></i>
+            Theme Studio
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="css-manager.html">
+            <i class="fa-solid fa-code"></i>
+            CSS Manager
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="animation-manager.html">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Animations
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="media.html">
+            <i class="fa-solid fa-images"></i>
+            Media Library
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="page-builder.html">
+            <i class="fa-solid fa-layer-group"></i>
+            Page Builder
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="content.html">
+            <i class="fa-solid fa-file-lines"></i>
+            Content
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+
+        <div class="nav-label">
+            Growth
+        </div>
+
+        <a href="seo.html">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            SEO Manager
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="analytics.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Analytics
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+
+        <div class="nav-label">
+            System
+        </div>
+
+        <a href="backup.html">
+            <i class="fa-solid fa-database"></i>
+            Backup & Restore
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="pwa.html">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            PWA Manager
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="version.html">
+            <i class="fa-solid fa-code-branch"></i>
+            Version Manager
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="maintenance.html">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            Maintenance
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="security.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Security
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="top-left">
+
+            <button
+                class="menu-btn"
+                onclick="toggleSidebar()"
+                aria-label="Open menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="title">
+
+                <h1>Admin Dashboard</h1>
+
+                <p>
+                    Sai Fitness Bidupur control center
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <a
+                href="../index.html"
+                target="_blank"
+                class="btn"
+                title="Open user app"
+            >
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Open App</span>
+            </a>
+
+            <button
+                class="btn btn-primary"
+                onclick="refreshDashboard()"
+            >
+                <i class="fa-solid fa-rotate"></i>
+                <span>Refresh</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Admin Control Center
+            </div>
+
+            <h2 id="welcomeTitle">
+                Welcome back, Admin 👋
+            </h2>
+
+            <p>
+                Manage your fitness app, members, workouts,
+                content, SEO, design and system settings from one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STATS
+    ====================================================== -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <div class="stat-label">
+                        TOTAL MEMBERS
+                    </div>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-number"
+                id="memberCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <div class="stat-label">
+                        TOTAL WORKOUTS
+                    </div>
+                </div>
+
+                <div class="stat-icon icon-orange">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-number"
+                id="workoutCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <div class="stat-label">
+                        TOTAL CALORIES
+                    </div>
+                </div>
+
+                <div class="stat-icon icon-red">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-number"
+                id="calorieCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <div class="stat-label">
+                        ADMIN ROLE
+                    </div>
+                </div>
+
+                <div class="stat-icon icon-purple">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-number"
+                id="roleName"
+                style="font-size:16px"
+            >
+                Admin
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MANAGEMENT
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                Management
+            </h2>
+
+            <span>
+                Core app management
+            </span>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <a
+                href="members.html"
+                class="admin-card"
+                data-permission="members"
+            >
+
+                <div class="admin-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <strong>Members</strong>
+
+                <span>
+                    Manage users, profiles and member records.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="workouts.html"
+                class="admin-card"
+                data-permission="workouts"
+            >
+
+                <div class="admin-icon icon-orange">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <strong>Workouts</strong>
+
+                <span>
+                    Create and manage workout programs.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="exercises.html"
+                class="admin-card"
+                data-permission="exercises"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-person-running"></i>
+                </div>
+
+                <strong>Exercises</strong>
+
+                <span>
+                    Manage exercise database and guides.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="diet.html"
+                class="admin-card"
+                data-permission="diet"
+            >
+
+                <div class="admin-icon icon-orange">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+
+                <strong>Diet</strong>
+
+                <span>
+                    Manage meals, calories and nutrition.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="goals.html"
+                class="admin-card"
+                data-permission="goals"
+            >
+
+                <div class="admin-icon">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+
+                <strong>Goals</strong>
+
+                <span>
+                    Configure daily and weekly fitness goals.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="achievements.html"
+                class="admin-card"
+                data-permission="achievements"
+            >
+
+                <div class="admin-icon icon-orange">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+
+                <strong>Achievements</strong>
+
+                <span>
+                    Create badges, XP and achievement rules.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="notifications.html"
+                class="admin-card"
+                data-permission="notifications"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <strong>Notifications</strong>
+
+                <span>
+                    Send announcements and app notifications.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CUSTOMIZATION
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                App Customization
+            </h2>
+
+            <span>
+                Design & content control
+            </span>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <a
+                href="theme.html"
+                class="admin-card"
+                data-permission="theme"
+            >
+
+                <div class="admin-icon icon-purple">
+                    <i class="fa-solid fa-palette"></i>
+                </div>
+
+                <strong>Theme Studio</strong>
+
+                <span>
+                    Create custom colors, cards and app themes.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="css-manager.html"
+                class="admin-card"
+                data-permission="css"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <strong>CSS Manager</strong>
+
+                <span>
+                    Upload and manage custom CSS files.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="animation-manager.html"
+                class="admin-card"
+                data-permission="animations"
+            >
+
+                <div class="admin-icon icon-purple">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+
+                <strong>Animations</strong>
+
+                <span>
+                    Manage animation styles and files.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="app-upload.html"
+                class="admin-card"
+                data-permission="app_upload"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+
+                <strong>App Upload</strong>
+
+                <span>
+                    Manage app packages and uploaded versions.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="media.html"
+                class="admin-card"
+                data-permission="media"
+            >
+
+                <div class="admin-icon icon-purple">
+                    <i class="fa-solid fa-images"></i>
+                </div>
+
+                <strong>Media Library</strong>
+
+                <span>
+                    Logos, banners, images and brand assets.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="page-builder.html"
+                class="admin-card"
+                data-permission="page_builder"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+                <strong>Page Builder</strong>
+
+                <span>
+                    Build and manage app page sections.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="content.html"
+                class="admin-card"
+                data-permission="content"
+            >
+
+                <div class="admin-icon">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+
+                <strong>Content Manager</strong>
+
+                <span>
+                    Edit app text, announcements and information.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         GROWTH / SEO
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                Growth & Search
+            </h2>
+
+            <span>
+                Website visibility tools
+            </span>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <a
+                href="seo.html"
+                class="admin-card"
+                data-permission="seo"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                </div>
+
+                <strong>SEO Manager</strong>
+
+                <span>
+                    SEO title, meta, sitemap, robots, Open Graph and structured data.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="analytics.html"
+                class="admin-card"
+                data-permission="analytics"
+            >
+
+                <div class="admin-icon icon-purple">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <strong>Analytics</strong>
+
+                <span>
+                    View app usage and performance information.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SYSTEM
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                System
+            </h2>
+
+            <span>
+                Backup, security & deployment
+            </span>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <a
+                href="backup.html"
+                class="admin-card"
+                data-permission="backup"
+            >
+
+                <div class="admin-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+
+                <strong>Backup & Restore</strong>
+
+                <span>
+                    Export and restore important application data.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="pwa.html"
+                class="admin-card"
+                data-permission="pwa"
+            >
+
+                <div class="admin-icon icon-blue">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+
+                <strong>PWA Manager</strong>
+
+                <span>
+                    Manage manifest, service worker and PWA settings.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="version.html"
+                class="admin-card"
+                data-permission="version"
+            >
+
+                <div class="admin-icon icon-purple">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+
+                <strong>Version Manager</strong>
+
+                <span>
+                    Track app versions and release information.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="maintenance.html"
+                class="admin-card"
+                data-permission="maintenance"
+            >
+
+                <div class="admin-icon icon-orange">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+
+                <strong>Maintenance</strong>
+
+                <span>
+                    Control maintenance mode and system status.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="security.html"
+                class="admin-card"
+                data-permission="security"
+            >
+
+                <div class="admin-icon icon-red">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <strong>Security Center</strong>
+
+                <span>
+                    Admin users, roles, PIN, sessions and activity.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="admin-card"
+                data-permission="settings"
+            >
+
+                <div class="admin-icon">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+
+                <strong>Admin Settings</strong>
+
+                <span>
+                    Configure general admin panel settings.
+                </span>
+
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTIVITY + QUICK ACTIONS
+    ====================================================== -->
+
+    <section class="two-col">
+
+        <div class="activity">
+
+            <div class="section-head">
+
+                <h2>
+                    Recent Admin Activity
+                </h2>
+
+                <span>
+                    Latest logs
+                </span>
+
+            </div>
+
+
+            <div
+                class="activity-list"
+                id="activityList"
+            >
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Admin dashboard opened
+                        </strong>
+
+                        <span>
+                            Just now
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick">
+
+            <div class="section-head">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+            </div>
+
+
+            <div class="quick-list">
+
+                <button
+                    class="quick-btn"
+                    onclick="openUserApp()"
+                >
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    Open User App
+                </button>
+
+
+                <button
+                    class="quick-btn"
+                    onclick="location.href='seo.html'"
+                >
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    Configure SEO
+                </button>
+
+
+                <button
+                    class="quick-btn"
+                    onclick="location.href='media.html'"
+                >
+                    <i class="fa-solid fa-image"></i>
+                    Manage Media
+                </button>
+
+
+                <button
+                    class="quick-btn"
+                    onclick="location.href='backup.html'"
+                >
+                    <i class="fa-solid fa-database"></i>
+                    Backup Data
+                </button>
+
+
+                <button
+                    class="quick-btn"
+                    onclick="location.href='security.html'"
+                >
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Security Center
+                </button>
+
+
+                <button
+                    class="quick-btn"
+                    onclick="logoutAdmin()"
+                >
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <span>
+            © 2026 Sai Fitness Bidupur
+        </span>
+
+        <span id="footerVersion">
+            Admin Panel • v1.0.0
+        </span>
+
+    </footer>
+
+</main>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+    return document.getElementById(id);
+}
+
+
+function loadJSON(key, fallback){
+
+    try{
+
+        const data =
+            localStorage.getItem(key);
+
+        return data
+            ? JSON.parse(data)
+            : fallback;
+
+    }catch(error){
+
+        return fallback;
+
+    }
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    const sidebar =
+        $("sidebar");
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+/* Close mobile sidebar after navigation */
+
+document.querySelectorAll(".sidebar a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        if(window.innerWidth <= 760){
+
+            $("sidebar").classList.remove("open");
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   USER APP
+========================================================= */
+
+function openUserApp(){
+
+    window.open(
+        "../index.html",
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   DASHBOARD DATA
+========================================================= */
+
+function updateStats(){
+
+    const members =
+        loadJSON(
+            "saiFitnessMembers",
+            []
+        );
+
+    const workouts =
+        loadJSON(
+            "saiAdminWorkouts",
+            []
+        );
+
+
+    const memberCount =
+        Array.isArray(members)
+        ? members.length
+        : 0;
+
+
+    const workoutCount =
+        Array.isArray(workouts)
+        ? workouts.length
+        : 0;
+
+
+    let calories = 0;
+
+
+    if(Array.isArray(workouts)){
+
+        workouts.forEach(workout => {
+
+            const value =
+                Number(
+                    workout.calories
+                    || workout.calorie
+                    || 0
+                );
+
+            if(!isNaN(value)){
+
+                calories += value;
+
+            }
+
+        });
+
+    }
+
+
+    $("memberCount").textContent =
+        memberCount.toLocaleString();
+
+
+    $("workoutCount").textContent =
+        workoutCount.toLocaleString();
+
+
+    $("calorieCount").textContent =
+        calories.toLocaleString();
+
+
+    loadAdminRole();
+
+}
+
+
+/* =========================================================
+   ADMIN ROLE
+========================================================= */
+
+function loadAdminRole(){
+
+    let user = null;
+
+
+    try{
+
+        if(
+            window.Security &&
+            typeof Security.getCurrentUser === "function"
+        ){
+
+            user =
+                Security.getCurrentUser();
+
+        }
+
+    }catch(error){
+
+        console.warn(error);
+
+    }
+
+
+    if(!user){
+
+        const saved =
+            localStorage.getItem(
+                "saiAdminSession"
+            );
+
+        if(saved){
+
+            try{
+
+                const session =
+                    JSON.parse(saved);
+
+                user =
+                    session.user ||
+                    session;
+
+            }catch(error){}
+
+        }
+
+    }
+
+
+    if(user){
+
+        let role =
+            user.role ||
+            user.username ||
+            "Admin";
+
+
+        try{
+
+            if(
+                window.Security &&
+                typeof Security.getRoleName === "function"
+            ){
+
+                role =
+                    Security.getRoleName(
+                        user.role
+                    );
+
+            }
+
+        }catch(error){}
+
+
+        $("roleName").textContent =
+            role;
+
+
+        $("welcomeTitle").textContent =
+            "Welcome back, " +
+            (user.name ||
+             user.username ||
+             "Admin") +
+            " 👋";
+
+    }
+
+}
+
+
+/* =========================================================
+   PERMISSION SYSTEM
+========================================================= */
+
+function applyPermissions(){
+
+    const cards =
+        document.querySelectorAll(
+            "[data-permission]"
+        );
+
+
+    cards.forEach(card => {
+
+        const permission =
+            card.dataset.permission;
+
+
+        let allowed = true;
+
+
+        try{
+
+            if(
+                window.Security &&
+                typeof Security.hasPermission === "function"
+            ){
+
+                allowed =
+                    Security.hasPermission(
+                        permission
+                    );
+
+            }
+
+        }catch(error){
+
+            allowed = true;
+
+        }
+
+
+        if(!allowed){
+
+            card.style.display =
+                "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   ACTIVITY LOGS
+========================================================= */
+
+function loadActivity(){
+
+    const container =
+        $("activityList");
+
+
+    let logs = [];
+
+
+    try{
+
+        if(
+            window.Security &&
+            typeof Security.getLogs === "function"
+        ){
+
+            logs =
+                Security.getLogs() || [];
+
+        }
+
+    }catch(error){
+
+        logs = [];
+
+    }
+
+
+    if(!Array.isArray(logs)){
+
+        logs = [];
+
+    }
+
+
+    if(logs.length === 0){
+
+        container.innerHTML = `
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div class="activity-text">
+
+                    <strong>
+                        Admin dashboard opened
+                    </strong>
+
+                    <span>
+                        Just now
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const recent =
+        logs.slice(-6).reverse();
+
+
+    container.innerHTML =
+        recent.map(log => {
+
+            const action =
+                log.action ||
+                log.event ||
+                "Admin activity";
+
+
+            const time =
+                log.time ||
+                log.timestamp ||
+                "Recently";
+
+
+            return `
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            ${escapeHTML(action)}
+                        </strong>
+
+                        <span>
+                            ${escapeHTML(String(time))}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+function refreshDashboard(){
+
+    updateStats();
+
+    loadAdminRole();
+
+    loadActivity();
+
+    applyPermissions();
+
+    showToast(
+        "Dashboard refreshed"
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutAdmin(){
+
+    if(
+        !confirm(
+            "Kya aap admin panel se logout karna chahte hain?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        if(
+            window.Security &&
+            typeof Security.logout === "function"
+        ){
+
+            Security.logout();
+
+            return;
+
+        }
+
+    }catch(error){
+
+        console.warn(error);
+
+    }
+
+
+    localStorage.removeItem(
+        "saiAdminSession"
+    );
+
+    location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        $("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },2500);
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function checkAuth(){
+
+    try{
+
+        if(
+            window.Security &&
+            typeof Security.requireAuth === "function"
+        ){
+
+            Security.requireAuth(
+                "dashboard"
+            );
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Security module error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        checkAuth();
+
+        updateStats();
+
+        loadAdminRole();
+
+        loadActivity();
+
+        applyPermissions();
+
+    }
+);
+
+
+/* Refresh when page becomes visible */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            updateStats();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
