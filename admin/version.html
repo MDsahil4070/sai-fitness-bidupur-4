@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Version Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+:root{
+  --bg:#070b09;
+  --panel:#0d1411;
+  --card:#101a15;
+  --card2:#132019;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f5f7f6;
+  --muted:#91a39a;
+  --border:rgba(255,255,255,.08);
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#3b82f6;
+  --purple:#8b5cf6;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  background:#09100d;
+  border-right:1px solid var(--border);
+  padding:20px 14px;
+  overflow-y:auto;
+  z-index:100;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 8px 22px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:16px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--green),#064e24);
+  font-weight:800;
+  box-shadow:0 10px 30px rgba(22,163,74,.22);
+}
+
+.brand strong{
+  display:block;
+  font-size:14px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.nav-title{
+  color:#63736b;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  padding:12px 10px 7px;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  color:#a9b7b0;
+  text-decoration:none;
+  padding:11px 12px;
+  margin:3px 0;
+  border-radius:12px;
+  font-size:13px;
+  transition:.2s;
+}
+
+.nav a i{
+  width:18px;
+  text-align:center;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#fff;
+  background:rgba(22,163,74,.13);
+}
+
+.nav a.active{
+  box-shadow:inset 3px 0 0 var(--green);
+}
+
+/* MAIN */
+.main{
+  width:calc(100% - 260px);
+  margin-left:260px;
+  padding:26px;
+}
+
+.mobile-top{
+  display:none;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.eyebrow{
+  color:var(--green2);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+h1{
+  margin:5px 0;
+  font-size:30px;
+  line-height:1.15;
+}
+
+.subtitle{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.top-actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+/* BUTTON */
+.btn{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#fff;
+  border-radius:12px;
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:var(--green);
+  border-color:var(--green);
+}
+
+.btn-danger{
+  background:rgba(239,68,68,.1);
+  border-color:rgba(239,68,68,.3);
+  color:#ff9999;
+}
+
+.btn-warning{
+  background:rgba(245,158,11,.1);
+  border-color:rgba(245,158,11,.3);
+  color:#ffc45c;
+}
+
+.btn-blue{
+  background:rgba(59,130,246,.1);
+  border-color:rgba(59,130,246,.3);
+  color:#83b5ff;
+}
+
+.btn-purple{
+  background:rgba(139,92,246,.1);
+  border-color:rgba(139,92,246,.3);
+  color:#b69aff;
+}
+
+/* HERO */
+.hero{
+  background:
+    radial-gradient(circle at 85% 20%,rgba(22,163,74,.2),transparent 35%),
+    linear-gradient(135deg,#102018,#0b120f);
+  border:1px solid rgba(34,197,94,.16);
+  border-radius:24px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.hero-icon{
+  width:55px;
+  height:55px;
+  border-radius:16px;
+  background:rgba(22,163,74,.14);
+  color:var(--green2);
+  display:grid;
+  place-items:center;
+  font-size:23px;
+  margin-bottom:15px;
+}
+
+.hero h2{
+  margin:0 0 8px;
+  font-size:21px;
+}
+
+.hero p{
+  margin:0;
+  max-width:780px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:17px;
+}
+
+.stat-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:rgba(22,163,74,.11);
+  color:var(--green2);
+  display:grid;
+  place-items:center;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:13px;
+}
+
+.stat-value{
+  font-size:22px;
+  font-weight:800;
+  margin-top:3px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:17px;
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.card-desc{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+  margin-top:4px;
+}
+
+/* FORM */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  color:#aebbb5;
+  font-size:10px;
+  font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid var(--border);
+  outline:none;
+  background:#0a110e;
+  color:#fff;
+  border-radius:11px;
+  padding:11px 12px;
+  font-size:12px;
+}
+
+.field textarea{
+  min-height:105px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:rgba(34,197,94,.45);
+}
+
+/* VERSION */
+.version-box{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:18px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+}
+
+.version-icon{
+  width:55px;
+  height:55px;
+  flex:none;
+  border-radius:16px;
+  background:rgba(22,163,74,.12);
+  color:var(--green2);
+  display:grid;
+  place-items:center;
+  font-size:22px;
+}
+
+.version-number{
+  font-size:25px;
+  font-weight:800;
+}
+
+.version-label{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+/* STATUS */
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 9px;
+  border-radius:9px;
+  background:rgba(22,163,74,.1);
+  color:#72e39a;
+  font-size:9px;
+  font-weight:700;
+}
+
+.status.off{
+  color:#ff9c9c;
+  background:rgba(239,68,68,.1);
+}
+
+.status-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:currentColor;
+}
+
+/* RELEASE */
+.release-list{
+  display:grid;
+  gap:10px;
+}
+
+.release{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:14px;
+}
+
+.release-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.release-title{
+  font-size:12px;
+  font-weight:800;
+}
+
+.release-date{
+  color:var(--muted);
+  font-size:9px;
+}
+
+.release-version{
+  display:inline-block;
+  margin-top:7px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:rgba(22,163,74,.1);
+  color:#72e39a;
+  font-size:9px;
+  font-weight:700;
+}
+
+.release-notes{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin-top:9px;
+  white-space:pre-wrap;
+}
+
+.release-actions{
+  display:flex;
+  gap:7px;
+  margin-top:11px;
+  flex-wrap:wrap;
+}
+
+.small-btn{
+  border:1px solid var(--border);
+  background:#0b120f;
+  color:#b9c5bf;
+  border-radius:9px;
+  padding:7px 9px;
+  font-size:9px;
+  font-weight:700;
+}
+
+/* CHECK */
+.check-list{
+  display:grid;
+  gap:9px;
+}
+
+.check-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+.check-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.check-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#17221c;
+  display:grid;
+  place-items:center;
+  color:var(--green2);
+}
+
+.check-text strong{
+  display:block;
+  font-size:11px;
+}
+
+.check-text span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* ACTION */
+.action-box{
+  padding:15px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  margin-top:11px;
+}
+
+.action-box h3{
+  margin:0 0 5px;
+  font-size:12px;
+}
+
+.action-box p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin:0 0 11px;
+}
+
+.action-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+/* INFO */
+.info{
+  display:flex;
+  gap:10px;
+  padding:13px;
+  background:rgba(59,130,246,.06);
+  border:1px solid rgba(59,130,246,.16);
+  border-radius:14px;
+  color:#9fc3ff;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.info i{
+  margin-top:2px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  background:#17221c;
+  border:1px solid rgba(34,197,94,.25);
+  color:#fff;
+  padding:12px 16px;
+  border-radius:12px;
+  font-size:11px;
+  z-index:999;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:760px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+    padding:15px;
+  }
+
+  .mobile-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+
+  .mobile-brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+  }
+
+  .mobile-logo{
+    width:36px;
+    height:36px;
+    border-radius:11px;
+    background:var(--green);
+    display:grid;
+    place-items:center;
+    font-weight:800;
+  }
+
+  .topbar{
+    display:block;
+  }
+
+  h1{
+    font-size:24px;
+  }
+
+  .top-actions{
+    margin-top:14px;
+  }
+
+  .top-actions .btn{
+    flex:1;
+  }
+
+  .hero{
+    padding:19px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .version-box{
+    padding:14px;
+  }
+
+  .version-number{
+    font-size:21px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="logo">S</div>
+    <div>
+      <strong>Sai Fitness</strong>
+      <span>Admin Control Center</span>
+    </div>
+  </div>
+
+  <div class="nav-title">Main</div>
+
+  <nav class="nav">
+    <a href="index.html">
+      <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+
+    <a href="members.html">
+      <i class="fa-solid fa-users"></i> Members
+    </a>
+
+    <a href="workouts.html">
+      <i class="fa-solid fa-dumbbell"></i> Workouts
+    </a>
+
+    <a href="exercises.html">
+      <i class="fa-solid fa-person-running"></i> Exercises
+    </a>
+
+    <a href="diet.html">
+      <i class="fa-solid fa-utensils"></i> Diet
+    </a>
+
+    <a href="goals.html">
+      <i class="fa-solid fa-bullseye"></i> Goals
+    </a>
+
+    <a href="achievements.html">
+      <i class="fa-solid fa-trophy"></i> Achievements
+    </a>
+
+    <a href="notifications.html">
+      <i class="fa-solid fa-bell"></i> Notifications
+    </a>
+  </nav>
+
+  <div class="nav-title">Customization</div>
+
+  <nav class="nav">
+    <a href="theme.html">
+      <i class="fa-solid fa-palette"></i> Theme Studio
+    </a>
+
+    <a href="css-manager.html">
+      <i class="fa-brands fa-css3-alt"></i> CSS Manager
+    </a>
+
+    <a href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i> Animations
+    </a>
+
+    <a href="media.html">
+      <i class="fa-solid fa-photo-film"></i> Media
+    </a>
+
+    <a href="page-builder.html">
+      <i class="fa-solid fa-layer-group"></i> Page Builder
+    </a>
+
+    <a href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i> Content
+    </a>
+
+    <a href="home.html">
+      <i class="fa-solid fa-house"></i> Home Builder
+    </a>
+  </nav>
+
+  <div class="nav-title">Growth</div>
+
+  <nav class="nav">
+    <a href="seo.html">
+      <i class="fa-solid fa-magnifying-glass-chart"></i> SEO Manager
+    </a>
+
+    <a href="analytics.html">
+      <i class="fa-solid fa-chart-line"></i> Analytics
+    </a>
+  </nav>
+
+  <div class="nav-title">System</div>
+
+  <nav class="nav">
+
+    <a href="backup.html">
+      <i class="fa-solid fa-database"></i> Backup & Restore
+    </a>
+
+    <a href="pwa.html">
+      <i class="fa-solid fa-mobile-screen-button"></i> PWA Manager
+    </a>
+
+    <a href="app-upload.html">
+      <i class="fa-solid fa-cloud-arrow-up"></i> App Upload
+    </a>
+
+    <a href="version.html" class="active">
+      <i class="fa-solid fa-code-branch"></i> Version
+    </a>
+
+    <a href="maintenance.html">
+      <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance
+    </a>
+
+    <a href="security.html">
+      <i class="fa-solid fa-shield-halved"></i> Security
+    </a>
+
+    <a href="settings.html">
+      <i class="fa-solid fa-gear"></i> Settings
+    </a>
+
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="mobile-top">
+
+    <div class="mobile-brand">
+      <div class="mobile-logo">S</div>
+
+      <div>
+        <strong>Sai Fitness</strong>
+        <div style="font-size:9px;color:var(--muted)">
+          Version Manager
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="goDashboard()">
+      <i class="fa-solid fa-house"></i>
+    </button>
+
+  </div>
+
+  <div class="topbar">
+
+    <div>
+      <div class="eyebrow">System Center</div>
+      <h1>Version Manager</h1>
+      <div class="subtitle">
+        Manage app versions, releases, update notes and rollback information.
+      </div>
+    </div>
+
+    <div class="top-actions">
+
+      <button class="btn btn-primary" onclick="saveVersion()">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Version
+      </button>
+
+      <button class="btn" onclick="exportVersionData()">
+        <i class="fa-solid fa-file-export"></i>
+        Export
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-icon">
+      <i class="fa-solid fa-code-branch"></i>
+    </div>
+
+    <h2>App Update & Version Center</h2>
+
+    <p>
+      Keep your Sai Fitness app version organized. Save release information,
+      maintain update history, prepare rollback notes and keep your app
+      package information ready for future updates.
+    </p>
+
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">
+        <i class="fa-solid fa-code-branch"></i>
+      </div>
+      <div class="stat-label">Current Version</div>
+      <div class="stat-value" id="currentVersionStat">
+        1.0.0
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">
+        <i class="fa-solid fa-box-open"></i>
+      </div>
+      <div class="stat-label">Saved Releases</div>
+      <div class="stat-value" id="releaseCount">
+        0
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="stat-label">Last Release</div>
+      <div class="stat-value" id="lastRelease">
+        Never
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">
+        <i class="fa-solid fa-shield-check"></i>
+      </div>
+      <div class="stat-label">Update Status</div>
+      <div class="stat-value" id="updateStatus">
+        Ready
+      </div>
+    </div>
+
+  </section>
+
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div>
+
+      <!-- CURRENT VERSION -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Current App Version
+            </div>
+
+            <div class="card-desc">
+              Main version information used by the admin system.
+            </div>
+          </div>
+
+          <span class="status">
+            <span class="status-dot"></span>
+            Active
+          </span>
+
+        </div>
+
+        <div class="version-box">
+
+          <div class="version-icon">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+
+          <div style="flex:1">
+
+            <div class="version-number" id="versionDisplay">
+              v1.0.0
+            </div>
+
+            <div class="version-label" id="versionDate">
+              No release date
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- VERSION SETTINGS -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Version Settings
+            </div>
+
+            <div class="card-desc">
+              Update the app's release information.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Version Number</label>
+
+            <input
+              id="versionInput"
+              type="text"
+              placeholder="1.0.0"
+            >
+          </div>
+
+          <div class="field">
+            <label>Release Type</label>
+
+            <select id="releaseType">
+              <option value="major">Major Release</option>
+              <option value="minor">Minor Release</option>
+              <option value="patch">Patch / Bug Fix</option>
+              <option value="hotfix">Hotfix</option>
+              <option value="beta">Beta</option>
+              <option value="alpha">Alpha</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Release Title</label>
+
+            <input
+              id="releaseTitle"
+              type="text"
+              placeholder="Performance Update"
+            >
+          </div>
+
+          <div class="field">
+            <label>Release Date</label>
+
+            <input
+              id="releaseDate"
+              type="date"
+            >
+          </div>
+
+          <div class="field">
+            <label>Minimum Supported Version</label>
+
+            <input
+              id="minimumVersion"
+              type="text"
+              placeholder="1.0.0"
+            >
+          </div>
+
+          <div class="field">
+            <label>Update Channel</label>
+
+            <select id="channel">
+              <option value="stable">Stable</option>
+              <option value="beta">Beta</option>
+              <option value="testing">Testing</option>
+              <option value="development">Development</option>
+            </select>
+          </div>
+
+          <div class="field full">
+
+            <label>Release Notes</label>
+
+            <textarea
+              id="releaseNotes"
+              placeholder="Write what changed in this version..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+        <div class="action-row" style="margin-top:15px">
+
+          <button class="btn btn-primary" onclick="saveVersion()">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Changes
+          </button>
+
+          <button class="btn" onclick="resetVersionForm()">
+            <i class="fa-solid fa-rotate-left"></i>
+            Reset
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- RELEASE HISTORY -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Release History
+            </div>
+
+            <div class="card-desc">
+              Previously saved version releases.
+            </div>
+          </div>
+
+          <button class="btn btn-danger" onclick="clearReleaseHistory()">
+            <i class="fa-solid fa-trash"></i>
+            Clear
+          </button>
+
+        </div>
+
+        <div class="release-list" id="releaseList"></div>
+
+      </section>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+
+      <!-- UPDATE CHECK -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Update Checker
+            </div>
+
+            <div class="card-desc">
+              Local version comparison tool.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="action-box">
+
+          <h3>
+            <i class="fa-solid fa-arrows-rotate"></i>
+            Check New Version
+          </h3>
+
+          <p>
+            Compare the current app version with a version number you enter.
+          </p>
+
+          <div class="field">
+            <label>Available Version</label>
+
+            <input
+              id="availableVersion"
+              type="text"
+              placeholder="1.1.0"
+            >
+          </div>
+
+          <div class="action-row" style="margin-top:10px">
+
+            <button class="btn btn-primary" onclick="checkVersion()">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Check
+            </button>
+
+          </div>
+
+          <div
+            id="versionCheckResult"
+            style="margin-top:12px"
+          ></div>
+
+        </div>
+
+      </section>
+
+      <!-- RELEASE CHECKLIST -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Release Checklist
+            </div>
+
+            <div class="card-desc">
+              Basic pre-release checks.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="check-list">
+
+          <div class="check-row">
+
+            <div class="check-left">
+
+              <div class="check-icon">
+                <i class="fa-solid fa-code"></i>
+              </div>
+
+              <div class="check-text">
+                <strong>Version number set</strong>
+                <span>Semantic version format recommended.</span>
+              </div>
+
+            </div>
+
+            <span id="checkVersion" class="status">
+              Ready
+            </span>
+
+          </div>
+
+          <div class="check-row">
+
+            <div class="check-left">
+
+              <div class="check-icon">
+                <i class="fa-solid fa-note-sticky"></i>
+              </div>
+
+              <div class="check-text">
+                <strong>Release notes</strong>
+                <span>Explain the changes.</span>
+              </div>
+
+            </div>
+
+            <span id="checkNotes" class="status">
+              Ready
+            </span>
+
+          </div>
+
+          <div class="check-row">
+
+            <div class="check-left">
+
+              <div class="check-icon">
+                <i class="fa-solid fa-box"></i>
+              </div>
+
+              <div class="check-text">
+                <strong>App package</strong>
+                <span>Use App Upload for package records.</span>
+              </div>
+
+            </div>
+
+            <span id="checkPackage" class="status">
+              Check
+            </span>
+
+          </div>
+
+          <div class="check-row">
+
+            <div class="check-left">
+
+              <div class="check-icon">
+                <i class="fa-solid fa-database"></i>
+              </div>
+
+              <div class="check-text">
+                <strong>Backup created</strong>
+                <span>Backup before a major update.</span>
+              </div>
+
+            </div>
+
+            <span id="checkBackup" class="status">
+              Check
+            </span>
+
+          </div>
+
+          <div class="check-row">
+
+            <div class="check-left">
+
+              <div class="check-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+
+              <div class="check-text">
+                <strong>Security review</strong>
+                <span>Review permissions before publishing.</span>
+              </div>
+
+            </div>
+
+            <span id="checkSecurity" class="status">
+              Check
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ROLLBACK -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Rollback Information
+            </div>
+
+            <div class="card-desc">
+              Keep a safe previous-version record.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="action-box">
+
+          <h3>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Previous Stable Version
+          </h3>
+
+          <p id="previousStable">
+            No previous version recorded.
+          </p>
+
+          <div class="action-row">
+
+            <button class="btn btn-warning" onclick="saveRollbackPoint()">
+              <i class="fa-solid fa-bookmark"></i>
+              Save Rollback Point
+            </button>
+
+            <button class="btn" onclick="openBackup()">
+              <i class="fa-solid fa-database"></i>
+              Open Backup
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- EXPORT -->
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">
+              Version Data
+            </div>
+
+            <div class="card-desc">
+              Export or import version configuration.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="action-row">
+
+          <button class="btn btn-blue" onclick="exportVersionData()">
+            <i class="fa-solid fa-file-export"></i>
+            Export JSON
+          </button>
+
+          <button
+            class="btn"
+            onclick="document.getElementById('versionImport').click()"
+          >
+            <i class="fa-solid fa-file-import"></i>
+            Import JSON
+          </button>
+
+        </div>
+
+        <input
+          type="file"
+          id="versionImport"
+          accept=".json,application/json"
+          style="display:none"
+          onchange="importVersionData(event)"
+        >
+
+      </section>
+
+      <!-- INFO -->
+      <section class="card">
+
+        <div class="info">
+
+          <i class="fa-solid fa-circle-info"></i>
+
+          <div>
+            Version Manager stores version metadata in browser storage.
+            It does not automatically upload or replace the actual app files.
+            Real production updates should be deployed through your server,
+            hosting system or app distribution process.
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS BIDUPUR
+   VERSION MANAGER
+========================================================= */
+
+Security.requireAuth("version");
+
+const VERSION_KEY = "saiVersionManager";
+
+const DEFAULT_VERSION = {
+  currentVersion:"1.0.0",
+  releaseType:"major",
+  releaseTitle:"Initial Release",
+  releaseDate:"",
+  minimumVersion:"1.0.0",
+  channel:"stable",
+  releaseNotes:"",
+  releases:[],
+  previousStable:"",
+  updatedAt:null
+};
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  loadVersion();
+
+  setTodayIfEmpty();
+
+  renderReleases();
+
+  updateChecklist();
+
+  loadPackageStatus();
+
+  loadBackupStatus();
+
+});
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function getVersionData(){
+
+  try{
+
+    const raw=localStorage.getItem(VERSION_KEY);
+
+    if(!raw){
+      return {...DEFAULT_VERSION};
+    }
+
+    const parsed=JSON.parse(raw);
+
+    return {
+      ...DEFAULT_VERSION,
+      ...parsed,
+      releases:Array.isArray(parsed.releases)
+        ? parsed.releases
+        : []
+    };
+
+  }catch{
+
+    return {...DEFAULT_VERSION};
+  }
+}
+
+function saveVersionData(data){
+
+  localStorage.setItem(
+    VERSION_KEY,
+    JSON.stringify(data)
+  );
+}
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadVersion(){
+
+  const data=getVersionData();
+
+  document.getElementById("versionInput").value =
+    data.currentVersion || "1.0.0";
+
+  document.getElementById("releaseType").value =
+    data.releaseType || "major";
+
+  document.getElementById("releaseTitle").value =
+    data.releaseTitle || "";
+
+  document.getElementById("releaseDate").value =
+    data.releaseDate || "";
+
+  document.getElementById("minimumVersion").value =
+    data.minimumVersion || "1.0.0";
+
+  document.getElementById("channel").value =
+    data.channel || "stable";
+
+  document.getElementById("releaseNotes").value =
+    data.releaseNotes || "";
+
+  updateVersionUI(data);
+}
+
+/* =========================================================
+   SAVE VERSION
+========================================================= */
+
+function saveVersion(){
+
+  const version=
+    document.getElementById("versionInput")
+      .value.trim();
+
+  if(!isValidVersion(version)){
+
+    showToast(
+      "Use a valid version like 1.0.0"
+    );
+
+    return;
+  }
+
+  const data=getVersionData();
+
+  const oldVersion=data.currentVersion;
+
+  const newRelease={
+    id:Date.now(),
+    version,
+    type:document.getElementById("releaseType").value,
+    title:document.getElementById("releaseTitle").value.trim()
+      || "Version Update",
+    date:document.getElementById("releaseDate").value
+      || new Date().toISOString().slice(0,10),
+    channel:document.getElementById("channel").value,
+    minimumVersion:
+      document.getElementById("minimumVersion").value.trim()
+      || "1.0.0",
+    notes:
+      document.getElementById("releaseNotes").value.trim()
+      || "Version update.",
+    createdAt:new Date().toISOString()
+  };
+
+  /*
+    Keep old releases.
+    Only create a new release record when
+    the version or release details changed.
+  */
+
+  const duplicate=data.releases.some(item=>
+    item.version===newRelease.version &&
+    item.title===newRelease.title &&
+    item.notes===newRelease.notes
+  );
+
+  if(!duplicate){
+
+    data.releases.unshift(newRelease);
+
+    data.releases=data.releases.slice(0,50);
+  }
+
+  if(oldVersion!==version){
+
+    data.previousStable=oldVersion;
+  }
+
+  data.currentVersion=version;
+  data.releaseType=newRelease.type;
+  data.releaseTitle=newRelease.title;
+  data.releaseDate=newRelease.date;
+  data.minimumVersion=newRelease.minimumVersion;
+  data.channel=newRelease.channel;
+  data.releaseNotes=newRelease.notes;
+  data.updatedAt=new Date().toISOString();
+
+  saveVersionData(data);
+
+  updateVersionUI(data);
+
+  renderReleases();
+
+  updateChecklist();
+
+  showToast(
+    duplicate
+      ? "Version settings updated"
+      : "New release saved"
+  );
+}
+
+/* =========================================================
+   UI
+========================================================= */
+
+function updateVersionUI(data){
+
+  const version=data.currentVersion || "1.0.0";
+
+  document.getElementById("versionDisplay")
+    .textContent="v"+version;
+
+  document.getElementById("currentVersionStat")
+    .textContent=version;
+
+  document.getElementById("versionDate")
+    .textContent=data.releaseDate
+      ? "Released "+formatDate(data.releaseDate)
+      : "No release date";
+
+  document.getElementById("releaseCount")
+    .textContent=data.releases.length;
+
+  const last=data.releases[0];
+
+  document.getElementById("lastRelease")
+    .textContent=last
+      ? formatShortDate(last.date)
+      : "Never";
+
+  document.getElementById("updateStatus")
+    .textContent=data.channel==="stable"
+      ? "Stable"
+      : capitalize(data.channel);
+
+  document.getElementById("previousStable")
+    .textContent=data.previousStable
+      ? "Rollback point: v"+data.previousStable
+      : "No previous version recorded.";
+}
+
+/* =========================================================
+   RELEASE HISTORY
+========================================================= */
+
+function renderReleases(){
+
+  const box=document.getElementById("releaseList");
+
+  const data=getVersionData();
+
+  if(!data.releases.length){
+
+    box.innerHTML=`
+      <div style="
+        text-align:center;
+        padding:25px 10px;
+        color:var(--muted);
+        font-size:11px;
+      ">
+        <i
+          class="fa-solid fa-code-branch"
+          style="font-size:25px;margin-bottom:8px"
+        ></i>
+
+        <div>No releases saved yet.</div>
+      </div>
+    `;
+
+    return;
+  }
+
+  box.innerHTML=data.releases.map(item=>`
+
+    <div class="release">
+
+      <div class="release-top">
+
+        <div class="release-title">
+          ${escapeHTML(item.title)}
+        </div>
+
+        <div class="release-date">
+          ${formatDate(item.date)}
+        </div>
+
+      </div>
+
+      <span class="release-version">
+        v${escapeHTML(item.version)}
+      </span>
+
+      <div class="release-notes">
+        ${escapeHTML(item.notes || "No release notes.")}
+      </div>
+
+      <div class="release-actions">
+
+        <button
+          class="small-btn"
+          onclick="loadRelease(${Number(item.id)})"
+        >
+          <i class="fa-solid fa-pen"></i>
+          Load
+        </button>
+
+        <button
+          class="small-btn"
+          onclick="setRollback(${Number(item.id)})"
+        >
+          <i class="fa-solid fa-bookmark"></i>
+          Rollback Point
+        </button>
+
+        <button
+          class="small-btn"
+          onclick="deleteRelease(${Number(item.id)})"
+        >
+          <i class="fa-solid fa-trash"></i>
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+/* =========================================================
+   LOAD RELEASE
+========================================================= */
+
+function loadRelease(id){
+
+  const data=getVersionData();
+
+  const release=data.releases.find(
+    item=>Number(item.id)===Number(id)
+  );
+
+  if(!release) return;
+
+  document.getElementById("versionInput").value=
+    release.version || "";
+
+  document.getElementById("releaseType").value=
+    release.type || "patch";
+
+  document.getElementById("releaseTitle").value=
+    release.title || "";
+
+  document.getElementById("releaseDate").value=
+    release.date || "";
+
+  document.getElementById("minimumVersion").value=
+    release.minimumVersion || "1.0.0";
+
+  document.getElementById("channel").value=
+    release.channel || "stable";
+
+  document.getElementById("releaseNotes").value=
+    release.notes || "";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  showToast("Release loaded into editor");
+}
+
+/* =========================================================
+   DELETE RELEASE
+========================================================= */
+
+function deleteRelease(id){
+
+  if(!confirm(
+    "Delete this release record? The current version will not change."
+  )){
+    return;
+  }
+
+  const data=getVersionData();
+
+  data.releases=data.releases.filter(
+    item=>Number(item.id)!==Number(id)
+  );
+
+  saveVersionData(data);
+
+  renderReleases();
+
+  updateVersionUI(data);
+
+  showToast("Release record deleted");
+}
+
+/* =========================================================
+   CLEAR HISTORY
+========================================================= */
+
+function clearReleaseHistory(){
+
+  if(!confirm(
+    "Clear all release history? Current version will remain."
+  )){
+    return;
+  }
+
+  const data=getVersionData();
+
+  data.releases=[];
+
+  saveVersionData(data);
+
+  renderReleases();
+
+  updateVersionUI(data);
+
+  showToast("Release history cleared");
+}
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetVersionForm(){
+
+  const data=getVersionData();
+
+  document.getElementById("versionInput").value=
+    data.currentVersion || "1.0.0";
+
+  document.getElementById("releaseType").value=
+    data.releaseType || "major";
+
+  document.getElementById("releaseTitle").value=
+    data.releaseTitle || "";
+
+  document.getElementById("releaseDate").value=
+    data.releaseDate || "";
+
+  document.getElementById("minimumVersion").value=
+    data.minimumVersion || "1.0.0";
+
+  document.getElementById("channel").value=
+    data.channel || "stable";
+
+  document.getElementById("releaseNotes").value=
+    data.releaseNotes || "";
+
+  showToast("Form reset");
+}
+
+/* =========================================================
+   VERSION CHECK
+========================================================= */
+
+function checkVersion(){
+
+  const current=getVersionData().currentVersion;
+
+  const available=
+    document.getElementById("availableVersion")
+      .value.trim();
+
+  const result=
+    document.getElementById("versionCheckResult");
+
+  if(!isValidVersion(available)){
+
+    result.innerHTML=`
+      <div class="status off">
+        <span class="status-dot"></span>
+        Invalid version
+      </div>
+    `;
+
+    return;
+  }
+
+  const compare=
+    compareVersions(available,current);
+
+  if(compare>0){
+
+    result.innerHTML=`
+      <div class="info" style="
+        color:#72e39a;
+        border-color:rgba(34,197,94,.2);
+        background:rgba(22,163,74,.06)
+      ">
+        <i class="fa-solid fa-arrow-up"></i>
+
+        <div>
+          A newer version is recorded:
+          <strong>v${escapeHTML(available)}</strong>
+          compared with current
+          <strong>v${escapeHTML(current)}</strong>.
+        </div>
+      </div>
+    `;
+
+    document.getElementById("updateStatus")
+      .textContent="Update Available";
+
+  }else if(compare===0){
+
+    result.innerHTML=`
+      <div class="info">
+        <i class="fa-solid fa-circle-check"></i>
+
+        <div>
+          The versions are the same:
+          <strong>v${escapeHTML(current)}</strong>
+        </div>
+      </div>
+    `;
+
+  }else{
+
+    result.innerHTML=`
+      <div class="info" style="
+        color:#ffc45c;
+        border-color:rgba(245,158,11,.2);
+        background:rgba(245,158,11,.05)
+      ">
+        <i class="fa-solid fa-arrow-down"></i>
+
+        <div>
+          The entered version is older than the current version.
+        </div>
+      </div>
+    `;
+  }
+}
+
+/* =========================================================
+   ROLLBACK
+========================================================= */
+
+function saveRollbackPoint(){
+
+  const data=getVersionData();
+
+  if(!data.currentVersion){
+    showToast("No current version found");
+    return;
+  }
+
+  data.previousStable=data.currentVersion;
+
+  saveVersionData(data);
+
+  updateVersionUI(data);
+
+  showToast(
+    "Rollback point saved: v"+data.currentVersion
+  );
+}
+
+function setRollback(id){
+
+  const data=getVersionData();
+
+  const release=data.releases.find(
+    item=>Number(item.id)===Number(id)
+  );
+
+  if(!release) return;
+
+  data.previousStable=release.version;
+
+  saveVersionData(data);
+
+  updateVersionUI(data);
+
+  showToast(
+    "Rollback point set to v"+release.version
+  );
+}
+
+function openBackup(){
+  location.href="backup.html";
+}
+
+/* =========================================================
+   CHECKLIST
+========================================================= */
+
+function updateChecklist(){
+
+  const data=getVersionData();
+
+  const versionOk=isValidVersion(
+    data.currentVersion
+  );
+
+  setStatus(
+    "checkVersion",
+    versionOk,
+    versionOk ? "Ready" : "Required"
+  );
+
+  const notesOk=
+    String(data.releaseNotes||"").trim().length>=5;
+
+  setStatus(
+    "checkNotes",
+    notesOk,
+    notesOk ? "Ready" : "Add Notes"
+  );
+
+  const packages=
+    readArrayStorage("saiAppPackages");
+
+  setStatus(
+    "checkPackage",
+    packages.length>0,
+    packages.length>0 ? "Available" : "Check"
+  );
+
+  const backup=
+    readArrayStorage("saiBackupHistory");
+
+  setStatus(
+    "checkBackup",
+    backup.length>0,
+    backup.length>0 ? "Available" : "Check"
+  );
+
+  const security=
+    localStorage.getItem("saiAdminSettings");
+
+  setStatus(
+    "checkSecurity",
+    !!security,
+    security ? "Available" : "Check"
+  );
+}
+
+function setStatus(id,ok,text){
+
+  const el=document.getElementById(id);
+
+  if(!el) return;
+
+  el.className=
+    "status"+(ok ? "" : " off");
+
+  el.innerHTML=`
+    <span class="status-dot"></span>
+    ${escapeHTML(text)}
+  `;
+}
+
+function loadPackageStatus(){
+  updateChecklist();
+}
+
+function loadBackupStatus(){
+  updateChecklist();
+}
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportVersionData(){
+
+  const data=getVersionData();
+
+  const payload={
+    app:"Sai Fitness Bidupur",
+    type:"version-manager-export",
+    exportedAt:new Date().toISOString(),
+    data
+  };
+
+  downloadJSON(
+    payload,
+    "sai-fitness-version-data"
+  );
+
+  showToast("Version data exported");
+}
+
+/* =========================================================
+   IMPORT
+========================================================= */
+
+function importVersionData(event){
+
+  const file=event.target.files?.[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+
+    try{
+
+      const payload=JSON.parse(reader.result);
+
+      const imported=
+        payload.data || payload;
+
+      if(!imported.currentVersion){
+        throw new Error("Invalid version data");
+      }
+
+      if(!confirm(
+        "Import this version configuration? Existing version settings will be replaced."
+      )){
+        return;
+      }
+
+      const clean={
+        ...DEFAULT_VERSION,
+        ...imported,
+        releases:Array.isArray(imported.releases)
+          ? imported.releases
+          : []
+      };
+
+      saveVersionData(clean);
+
+      loadVersion();
+
+      renderReleases();
+
+      updateChecklist();
+
+      showToast("Version data imported");
+
+    }catch(error){
+
+      showToast("Invalid version JSON");
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+  event.target.value="";
+}
+
+/* =========================================================
+   VERSION HELPERS
+========================================================= */
+
+function isValidVersion(version){
+
+  return /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/
+    .test(String(version||"").trim());
+}
+
+function compareVersions(a,b){
+
+  const clean=value=>
+    String(value)
+      .split("-")[0]
+      .split("+")[0]
+      .split(".")
+      .map(Number);
+
+  const av=clean(a);
+  const bv=clean(b);
+
+  for(let i=0;i<3;i++){
+
+    const x=av[i]||0;
+    const y=bv[i]||0;
+
+    if(x>y) return 1;
+    if(x<y) return -1;
+  }
+
+  return 0;
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function setTodayIfEmpty(){
+
+  const input=document.getElementById("releaseDate");
+
+  if(!input.value){
+
+    input.value=
+      new Date().toISOString().slice(0,10);
+  }
+}
+
+function formatDate(value){
+
+  if(!value) return "Unknown";
+
+  try{
+
+    return new Date(value+"T00:00:00")
+      .toLocaleDateString(
+        undefined,
+        {
+          day:"2-digit",
+          month:"short",
+          year:"numeric"
+        }
+      );
+
+  }catch{
+
+    return value;
+  }
+}
+
+function formatShortDate(value){
+
+  if(!value) return "Never";
+
+  try{
+
+    return new Date(value+"T00:00:00")
+      .toLocaleDateString(
+        undefined,
+        {
+          day:"2-digit",
+          month:"short"
+        }
+      );
+
+  }catch{
+
+    return value;
+  }
+}
+
+/* =========================================================
+   STORAGE HELPERS
+========================================================= */
+
+function readArrayStorage(key){
+
+  try{
+
+    const raw=localStorage.getItem(key);
+
+    if(!raw) return [];
+
+    const parsed=JSON.parse(raw);
+
+    return Array.isArray(parsed)
+      ? parsed
+      : [];
+
+  }catch{
+
+    return [];
+  }
+}
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+function downloadJSON(data,prefix){
+
+  const json=JSON.stringify(data,null,2);
+
+  const blob=new Blob(
+    [json],
+    {type:"application/json"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  const date=
+    new Date()
+      .toISOString()
+      .slice(0,19)
+      .replace(/[:T]/g,"-");
+
+  a.href=url;
+
+  a.download=
+    `${prefix}-${date}.json`;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+  },1000);
+}
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function capitalize(value){
+
+  if(!value) return "";
+
+  return value.charAt(0).toUpperCase()
+    +value.slice(1);
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },2400);
+}
+
+function goDashboard(){
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>

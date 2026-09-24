@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Achievements Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070b09;
+  --sidebar:#0b110e;
+  --card:#101713;
+  --card2:#131c17;
+  --border:#1e2b24;
+  --primary:#16a34a;
+  --primary2:#22c55e;
+  --text:#f5f7f6;
+  --muted:#8c9b92;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#3b82f6;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+  width:255px;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:100;
+  overflow-y:auto;
+  transition:.25s;
+}
+
+.logo{
+  height:76px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--primary),#064e24);
+  box-shadow:0 8px 25px rgba(22,163,74,.25);
+}
+
+.logo-text strong{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+}
+
+.logo-text span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav{
+  padding:15px 11px;
+}
+
+.nav-label{
+  color:#607066;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  padding:10px 10px 7px;
+  font-weight:700;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#9eaaa4;
+  text-decoration:none;
+  padding:11px 12px;
+  border-radius:11px;
+  margin:3px 0;
+  font-size:13px;
+  transition:.2s;
+}
+
+.nav a i{
+  width:19px;
+  text-align:center;
+}
+
+.nav a:hover{
+  background:#121b16;
+  color:#fff;
+}
+
+.nav a.active{
+  background:rgba(22,163,74,.14);
+  color:#4ade80;
+  box-shadow:inset 3px 0 var(--primary);
+}
+
+.sidebar-bottom{
+  margin:10px 11px 20px;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#0d1511;
+}
+
+.admin-mini{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.admin-avatar{
+  width:37px;
+  height:37px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#163d25;
+  color:#4ade80;
+}
+
+.admin-mini strong{
+  font-size:12px;
+  display:block;
+}
+
+.admin-mini span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+  width:calc(100% - 255px);
+  margin-left:255px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:76px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,11,9,.9);
+  backdrop-filter:blur(16px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.page-title h1{
+  font-size:21px;
+  font-weight:800;
+}
+
+.page-title p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.top-actions{
+  display:flex;
+  gap:9px;
+  align-items:center;
+}
+
+.icon-btn{
+  width:39px;
+  height:39px;
+  border:1px solid var(--border);
+  background:#0d1410;
+  color:#a9b5ae;
+  border-radius:11px;
+}
+
+.icon-btn:hover{
+  color:#fff;
+  border-color:#31513d;
+}
+
+.menu-btn{
+  display:none;
+}
+
+.content{
+  padding:26px;
+  max-width:1450px;
+  margin:auto;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:18px;
+  box-shadow:0 18px 50px rgba(0,0,0,.22);
+  position:relative;
+  overflow:hidden;
+}
+
+.stat:after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-35px;
+  top:-35px;
+  background:rgba(22,163,74,.08);
+  border-radius:50%;
+}
+
+.stat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.stat-icon{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:rgba(22,163,74,.12);
+  color:#4ade80;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:13px;
+}
+
+.stat-value{
+  font-size:25px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.stat-note{
+  color:#68776e;
+  font-size:10px;
+  margin-top:5px;
+}
+
+/* ================= TOOLBAR ================= */
+
+.toolbar{
+  margin-top:22px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:15px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.search{
+  position:relative;
+  flex:1;
+  min-width:210px;
+}
+
+.search i{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64736a;
+}
+
+.search input{
+  width:100%;
+  height:43px;
+  background:#0b120e;
+  border:1px solid var(--border);
+  color:#fff;
+  border-radius:11px;
+  padding:0 13px 0 39px;
+  outline:none;
+}
+
+.search input:focus{
+  border-color:#267a43;
+}
+
+.filter{
+  height:43px;
+  min-width:140px;
+  background:#0b120e;
+  color:#c7d0ca;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:0 12px;
+  outline:none;
+}
+
+.btn{
+  height:43px;
+  border:0;
+  border-radius:11px;
+  padding:0 15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:700;
+  font-size:12px;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--primary2);
+  transform:translateY(-1px);
+}
+
+.btn-dark{
+  background:#121a15;
+  color:#c9d2cc;
+  border:1px solid var(--border);
+}
+
+/* ================= SECTION ================= */
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:25px 2px 13px;
+}
+
+.section-head h2{
+  font-size:15px;
+}
+
+.section-head span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* ================= ACHIEVEMENTS ================= */
+
+.achievements{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.achievement{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  transition:.22s;
+}
+
+.achievement:hover{
+  transform:translateY(-2px);
+  border-color:#2a4635;
+}
+
+.achievement-head{
+  padding:17px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.achievement-main{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.achievement-icon{
+  width:52px;
+  height:52px;
+  flex-shrink:0;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(
+    135deg,
+    rgba(22,163,74,.22),
+    rgba(22,163,74,.06)
+  );
+  border:1px solid rgba(74,222,128,.12);
+  color:#4ade80;
+  font-size:21px;
+}
+
+.achievement-main h3{
+  font-size:14px;
+}
+
+.achievement-main p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.badge{
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:700;
+  height:max-content;
+}
+
+.badge-published{
+  color:#4ade80;
+  background:rgba(22,163,74,.12);
+}
+
+.badge-draft{
+  color:#fbbf24;
+  background:rgba(245,158,11,.1);
+}
+
+.achievement-body{
+  padding:16px;
+}
+
+.condition{
+  background:#0b120e;
+  border:1px solid #17231c;
+  border-radius:11px;
+  padding:12px;
+}
+
+.condition-label{
+  color:#65736b;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.condition-value{
+  color:#dce5df;
+  font-size:12px;
+  font-weight:700;
+  margin-top:5px;
+}
+
+.achievement-info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.info{
+  padding:9px;
+  background:#0b120e;
+  border:1px solid #17231c;
+  border-radius:10px;
+}
+
+.info span{
+  display:block;
+  color:#66746c;
+  font-size:8px;
+}
+
+.info strong{
+  display:block;
+  color:#cdd6d0;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.achievement-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#78857e;
+  font-size:9px;
+  margin-top:12px;
+  padding-top:11px;
+  border-top:1px solid #17211c;
+}
+
+.achievement-foot{
+  padding:12px 16px;
+  border-top:1px solid var(--border);
+  display:flex;
+  gap:7px;
+}
+
+.small-btn{
+  flex:1;
+  height:34px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:#0c130f;
+  color:#aeb9b2;
+  font-size:10px;
+  font-weight:700;
+}
+
+.small-btn:hover{
+  color:#fff;
+  border-color:#31513d;
+}
+
+.empty{
+  padding:55px 20px;
+  text-align:center;
+  color:#68766e;
+  background:var(--card);
+  border:1px dashed var(--border);
+  border-radius:17px;
+  grid-column:1/-1;
+}
+
+.empty i{
+  font-size:30px;
+  margin-bottom:12px;
+}
+
+.empty h3{
+  color:#cbd3ce;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.empty p{
+  font-size:11px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(7px);
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:700px;
+  max-height:92vh;
+  overflow:auto;
+  background:#0e1511;
+  border:1px solid #26372d;
+  border-radius:20px;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+
+.modal-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  background:#0e1511;
+  z-index:2;
+}
+
+.modal-head h2{
+  font-size:16px;
+}
+
+.close{
+  width:35px;
+  height:35px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#121a15;
+  color:#9ba69f;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+  font-size:10px;
+  color:#8c9991;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  background:#090f0c;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  padding:11px 12px;
+}
+
+.field textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:#267a43;
+}
+
+.icon-picker{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:7px;
+}
+
+.icon-option{
+  height:39px;
+  border:1px solid var(--border);
+  background:#0b120e;
+  color:#87958d;
+  border-radius:9px;
+}
+
+.icon-option:hover,
+.icon-option.selected{
+  color:#4ade80;
+  border-color:#2b7043;
+  background:rgba(22,163,74,.1);
+}
+
+.check-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.check-row label{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#aeb9b1;
+  font-size:11px;
+}
+
+.check-row input{
+  accent-color:var(--primary);
+}
+
+.modal-foot{
+  padding:15px 20px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111a15;
+  border:1px solid #2a3b31;
+  color:#dce4df;
+  padding:12px 15px;
+  border-radius:11px;
+  font-size:11px;
+  box-shadow:0 18px 50px rgba(0,0,0,.28);
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:999;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1050px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .achievements{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .page-title h1{
+    font-size:17px;
+  }
+
+  .page-title p{
+    display:none;
+  }
+
+  .toolbar{
+    padding:11px;
+  }
+
+  .search{
+    min-width:100%;
+  }
+
+  .filter{
+    flex:1;
+    min-width:120px;
+  }
+
+  .toolbar .btn{
+    flex:1;
+  }
+
+  .achievements{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .icon-picker{
+    grid-template-columns:repeat(6,1fr);
+  }
+
+  .modal-body{
+    padding:15px;
+  }
+
+  .modal-foot{
+    padding:12px 15px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      <i class="fa-solid fa-dumbbell"></i>
+    </div>
+
+    <div class="logo-text">
+      <strong>Sai Fitness</strong>
+      <span>ADMIN CONTROL PANEL</span>
+    </div>
+
+  </div>
+
+  <nav class="nav">
+
+    <div class="nav-label">Main</div>
+
+    <a href="index.html">
+      <i class="fa-solid fa-chart-pie"></i>
+      Dashboard
+    </a>
+
+    <div class="nav-label">Management</div>
+
+    <a href="members.html">
+      <i class="fa-solid fa-users"></i>
+      Members
+    </a>
+
+    <a href="workouts.html">
+      <i class="fa-solid fa-dumbbell"></i>
+      Workouts
+    </a>
+
+    <a href="exercises.html">
+      <i class="fa-solid fa-person-running"></i>
+      Exercises
+    </a>
+
+    <a href="diet.html">
+      <i class="fa-solid fa-utensils"></i>
+      Diet Plans
+    </a>
+
+    <a href="goals.html">
+      <i class="fa-solid fa-bullseye"></i>
+      Goals
+    </a>
+
+    <a href="achievements.html" class="active">
+      <i class="fa-solid fa-trophy"></i>
+      Achievements
+    </a>
+
+    <a href="notifications.html">
+      <i class="fa-solid fa-bell"></i>
+      Notifications
+    </a>
+
+    <div class="nav-label">Customization</div>
+
+    <a href="theme.html">
+      <i class="fa-solid fa-palette"></i>
+      Theme Studio
+    </a>
+
+    <a href="css-manager.html">
+      <i class="fa-solid fa-code"></i>
+      CSS Manager
+    </a>
+
+    <a href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Animations
+    </a>
+
+    <a href="media.html">
+      <i class="fa-solid fa-photo-film"></i>
+      Media Library
+    </a>
+
+    <a href="page-builder.html">
+      <i class="fa-solid fa-layer-group"></i>
+      Page Builder
+    </a>
+
+    <a href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i>
+      Content
+    </a>
+
+    <div class="nav-label">System</div>
+
+    <a href="analytics.html">
+      <i class="fa-solid fa-chart-line"></i>
+      Analytics
+    </a>
+
+    <a href="backup.html">
+      <i class="fa-solid fa-database"></i>
+      Backup
+    </a>
+
+    <a href="security.html">
+      <i class="fa-solid fa-shield-halved"></i>
+      Security
+    </a>
+
+    <a href="settings.html">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+
+    <div class="admin-mini">
+
+      <div class="admin-avatar">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+        <strong id="sideAdmin">Administrator</strong>
+        <span id="sideRole">Owner</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;gap:11px">
+
+    <button class="icon-btn menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="page-title">
+      <h1>Achievements Manager</h1>
+      <p>Create badges, rewards and milestone achievements</p>
+    </div>
+
+  </div>
+
+  <div class="top-actions">
+
+    <button
+      class="icon-btn"
+      title="Open User App"
+      onclick="location.href='../index.html'">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </button>
+
+    <button
+      class="icon-btn"
+      title="Refresh"
+      onclick="render()">
+      <i class="fa-solid fa-rotate"></i>
+    </button>
+
+  </div>
+
+</header>
+
+<div class="content">
+
+<!-- STATS -->
+<section class="stats">
+
+  <div class="stat">
+
+    <div class="stat-top">
+      <div class="stat-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+    </div>
+
+    <div class="stat-label">Total Achievements</div>
+    <div class="stat-value" id="totalAchievements">0</div>
+    <div class="stat-note">All configured badges</div>
+
+  </div>
+
+  <div class="stat">
+
+    <div class="stat-top">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+    </div>
+
+    <div class="stat-label">Published</div>
+    <div class="stat-value" id="publishedAchievements">0</div>
+    <div class="stat-note">Visible in user app</div>
+
+  </div>
+
+  <div class="stat">
+
+    <div class="stat-top">
+      <div class="stat-icon">
+        <i class="fa-solid fa-star"></i>
+      </div>
+    </div>
+
+    <div class="stat-label">Featured</div>
+    <div class="stat-value" id="featuredAchievements">0</div>
+    <div class="stat-note">Highlighted achievements</div>
+
+  </div>
+
+  <div class="stat">
+
+    <div class="stat-top">
+      <div class="stat-icon">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+    </div>
+
+    <div class="stat-label">Total XP</div>
+    <div class="stat-value" id="totalXP">0</div>
+    <div class="stat-note">Reward points configured</div>
+
+  </div>
+
+</section>
+
+<!-- TOOLBAR -->
+<section class="toolbar">
+
+  <div class="search">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search achievements..."
+      oninput="renderAchievements()">
+
+  </div>
+
+  <select
+    id="typeFilter"
+    class="filter"
+    onchange="renderAchievements()">
+
+    <option value="all">All Types</option>
+    <option value="workout">Workout</option>
+    <option value="streak">Streak</option>
+    <option value="calories">Calories</option>
+    <option value="weight">Weight</option>
+    <option value="distance">Distance</option>
+    <option value="custom">Custom</option>
+
+  </select>
+
+  <select
+    id="statusFilter"
+    class="filter"
+    onchange="renderAchievements()">
+
+    <option value="all">All Status</option>
+    <option value="published">Published</option>
+    <option value="draft">Draft</option>
+
+  </select>
+
+  <button class="btn btn-dark" onclick="exportAchievements()">
+    <i class="fa-solid fa-download"></i>
+    Export
+  </button>
+
+  <button class="btn btn-primary" onclick="openAdd()">
+    <i class="fa-solid fa-plus"></i>
+    Add Achievement
+  </button>
+
+</section>
+
+<div class="section-head">
+
+  <h2>Achievement Badges</h2>
+
+  <span id="resultCount">
+    0 achievements
+  </span>
+
+</div>
+
+<section
+  class="achievements"
+  id="achievementsGrid">
+</section>
+
+</div>
+</main>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="achievementModal">
+
+<div class="modal-box">
+
+  <div class="modal-head">
+
+    <h2 id="modalTitle">
+      Add Achievement
+    </h2>
+
+    <button class="close" onclick="closeModal()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+  </div>
+
+  <div class="modal-body">
+
+    <form id="achievementForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>Achievement Name *</label>
+
+          <input
+            id="achievementName"
+            required
+            placeholder="e.g. 7 Day Warrior">
+
+        </div>
+
+        <div class="field">
+
+          <label>Achievement Type</label>
+
+          <select id="achievementType">
+
+            <option value="workout">Workout</option>
+            <option value="streak">Streak</option>
+            <option value="calories">Calories</option>
+            <option value="weight">Weight</option>
+            <option value="distance">Distance</option>
+            <option value="custom">Custom</option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>Condition Value</label>
+
+          <input
+            id="conditionValue"
+            type="number"
+            min="0"
+            placeholder="7">
+
+        </div>
+
+        <div class="field">
+
+          <label>Condition Unit</label>
+
+          <input
+            id="conditionUnit"
+            placeholder="days / workouts / kcal">
+
+        </div>
+
+        <div class="field">
+
+          <label>XP Reward</label>
+
+          <input
+            id="xpReward"
+            type="number"
+            min="0"
+            placeholder="100">
+
+        </div>
+
+        <div class="field">
+
+          <label>Status</label>
+
+          <select id="achievementStatus">
+
+            <option value="published">
+              Published
+            </option>
+
+            <option value="draft">
+              Draft
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="field full">
+
+          <label>Badge Icon</label>
+
+          <div
+            class="icon-picker"
+            id="iconPicker">
+
+          </div>
+
+          <input
+            type="hidden"
+            id="achievementIcon"
+            value="fa-trophy">
+
+        </div>
+
+        <div class="field full">
+
+          <label>Description</label>
+
+          <textarea
+            id="achievementDescription"
+            placeholder="Explain how the member can unlock this achievement..."></textarea>
+
+        </div>
+
+        <div class="field full">
+
+          <div class="check-row">
+
+            <label>
+              <input
+                type="checkbox"
+                id="featuredAchievement">
+              Featured
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                id="showUser"
+                checked>
+              Show in User App
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                id="autoUnlock"
+                checked>
+              Auto Unlock
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="modal-foot">
+
+    <button
+      class="btn btn-dark"
+      onclick="closeModal()">
+      Cancel
+    </button>
+
+    <button
+      class="btn btn-primary"
+      onclick="saveAchievement()">
+
+      <i class="fa-solid fa-floppy-disk"></i>
+      Save Achievement
+
+    </button>
+
+  </div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS — ACHIEVEMENTS MANAGER
+========================================================= */
+
+if(window.Security){
+
+  Security.requireAuth("achievements");
+
+  const user =
+    Security.getCurrentUser();
+
+  if(user){
+
+    document.getElementById("sideAdmin").textContent =
+      user.username || "Administrator";
+
+    document.getElementById("sideRole").textContent =
+      Security.getRoleName(user.role);
+
+  }
+
+}
+
+const STORAGE_KEY =
+  "saiAdminAchievements";
+
+let achievements = [];
+let editingId = null;
+
+const iconList = [
+
+  "fa-trophy",
+  "fa-medal",
+  "fa-star",
+  "fa-fire",
+  "fa-bolt",
+  "fa-dumbbell",
+  "fa-person-running",
+  "fa-heart-pulse",
+  "fa-shield-halved",
+  "fa-crown",
+  "fa-gem",
+  "fa-bullseye",
+  "fa-rocket",
+  "fa-award",
+  "fa-ranking-star",
+  "fa-medal"
+
+];
+
+/* DEFAULT DATA */
+const defaultAchievements = [
+
+  {
+    id:"achievement_001",
+    name:"First Workout",
+    type:"workout",
+    conditionValue:1,
+    conditionUnit:"workout",
+    xp:50,
+    icon:"fa-dumbbell",
+    status:"published",
+    featured:true,
+    showUser:true,
+    autoUnlock:true,
+    description:"Complete your first workout."
+  },
+
+  {
+    id:"achievement_002",
+    name:"7 Day Warrior",
+    type:"streak",
+    conditionValue:7,
+    conditionUnit:"days",
+    xp:150,
+    icon:"fa-fire",
+    status:"published",
+    featured:true,
+    showUser:true,
+    autoUnlock:true,
+    description:"Maintain a seven-day workout streak."
+  },
+
+  {
+    id:"achievement_003",
+    name:"Workout Machine",
+    type:"workout",
+    conditionValue:25,
+    conditionUnit:"workouts",
+    xp:300,
+    icon:"fa-trophy",
+    status:"published",
+    featured:false,
+    showUser:true,
+    autoUnlock:true,
+    description:"Complete 25 workouts."
+  },
+
+  {
+    id:"achievement_004",
+    name:"Calorie Crusher",
+    type:"calories",
+    conditionValue:10000,
+    conditionUnit:"kcal",
+    xp:500,
+    icon:"fa-bolt",
+    status:"draft",
+    featured:false,
+    showUser:true,
+    autoUnlock:true,
+    description:"Burn a total of 10,000 calories."
+  }
+
+];
+
+/* STORAGE */
+function loadAchievements(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "null"
+      );
+
+    if(Array.isArray(saved)){
+
+      achievements = saved;
+
+    }else{
+
+      achievements =
+        defaultAchievements;
+
+      saveAchievements();
+
+    }
+
+  }catch(e){
+
+    achievements =
+      defaultAchievements;
+
+    saveAchievements();
+
+  }
+
+}
+
+function saveAchievements(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(achievements)
+  );
+
+}
+
+/* ICON PICKER */
+function renderIconPicker(selected){
+
+  const picker =
+    document.getElementById("iconPicker");
+
+  picker.innerHTML =
+    iconList.map(icon=>`
+
+      <button
+        type="button"
+        class="icon-option ${icon===selected ? "selected" : ""}"
+        onclick="selectIcon('${icon}',this)">
+
+        <i class="fa-solid ${icon}"></i>
+
+      </button>
+
+    `).join("");
+
+}
+
+function selectIcon(icon,button){
+
+  document.getElementById("achievementIcon").value =
+    icon;
+
+  document
+    .querySelectorAll(".icon-option")
+    .forEach(x=>x.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+}
+
+/* INIT */
+function init(){
+
+  loadAchievements();
+
+  renderIconPicker("fa-trophy");
+
+  render();
+
+}
+
+function render(){
+
+  renderStats();
+  renderAchievements();
+
+}
+
+/* STATS */
+function renderStats(){
+
+  const total =
+    achievements.length;
+
+  const published =
+    achievements.filter(
+      x=>x.status==="published"
+    ).length;
+
+  const featured =
+    achievements.filter(
+      x=>x.featured
+    ).length;
+
+  const xp =
+    achievements.reduce(
+      (sum,x)=>
+        sum + Number(x.xp || 0),
+      0
+    );
+
+  document.getElementById(
+    "totalAchievements"
+  ).textContent = total;
+
+  document.getElementById(
+    "publishedAchievements"
+  ).textContent = published;
+
+  document.getElementById(
+    "featuredAchievements"
+  ).textContent = featured;
+
+  document.getElementById(
+    "totalXP"
+  ).textContent = xp;
+
+}
+
+/* RENDER */
+function renderAchievements(){
+
+  const grid =
+    document.getElementById(
+      "achievementsGrid"
+    );
+
+  const search =
+    document.getElementById(
+      "searchInput"
+    ).value.toLowerCase().trim();
+
+  const type =
+    document.getElementById(
+      "typeFilter"
+    ).value;
+
+  const status =
+    document.getElementById(
+      "statusFilter"
+    ).value;
+
+  const filtered =
+    achievements.filter(item=>{
+
+      const searchMatch =
+        !search ||
+        item.name
+          .toLowerCase()
+          .includes(search) ||
+        (item.description || "")
+          .toLowerCase()
+          .includes(search);
+
+      const typeMatch =
+        type==="all" ||
+        item.type===type;
+
+      const statusMatch =
+        status==="all" ||
+        item.status===status;
+
+      return (
+        searchMatch &&
+        typeMatch &&
+        statusMatch
+      );
+
+    });
+
+  document.getElementById(
+    "resultCount"
+  ).textContent =
+    filtered.length +
+    (
+      filtered.length===1
+      ? " achievement"
+      : " achievements"
+    );
+
+  if(!filtered.length){
+
+    grid.innerHTML = `
+
+      <div class="empty">
+
+        <i class="fa-solid fa-trophy"></i>
+
+        <h3>No Achievements Found</h3>
+
+        <p>
+          Create a new achievement or change your filters.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+    filtered
+      .map(achievementCard)
+      .join("");
+
+}
+
+/* CARD */
+function achievementCard(item){
+
+  const typeNames = {
+
+    workout:"Workout",
+    streak:"Streak",
+    calories:"Calories",
+    weight:"Weight",
+    distance:"Distance",
+    custom:"Custom"
+
+  };
+
+  return `
+
+    <article class="achievement">
+
+      <div class="achievement-head">
+
+        <div class="achievement-main">
+
+          <div class="achievement-icon">
+
+            <i class="fa-solid ${
+              item.icon || "fa-trophy"
+            }"></i>
+
+          </div>
+
+          <div>
+
+            <h3>
+              ${escapeHTML(item.name)}
+            </h3>
+
+            <p>
+              ${
+                typeNames[item.type] ||
+                "Custom"
+              }
+            </p>
+
+          </div>
+
+        </div>
+
+        <span class="badge ${
+          item.status==="published"
+          ? "badge-published"
+          : "badge-draft"
+        }">
+
+          ${
+            item.status==="published"
+            ? "PUBLISHED"
+            : "DRAFT"
+          }
+
+        </span>
+
+      </div>
+
+      <div class="achievement-body">
+
+        <div class="condition">
+
+          <div class="condition-label">
+            Unlock Condition
+          </div>
+
+          <div class="condition-value">
+
+            ${Number(item.conditionValue || 0)}
+            ${escapeHTML(item.conditionUnit || "")}
+
+          </div>
+
+        </div>
+
+        <div class="achievement-info">
+
+          <div class="info">
+
+            <span>XP REWARD</span>
+
+            <strong>
+              +${Number(item.xp || 0)} XP
+            </strong>
+
+          </div>
+
+          <div class="info">
+
+            <span>AUTO UNLOCK</span>
+
+            <strong>
+              ${item.autoUnlock ? "ON" : "OFF"}
+            </strong>
+
+          </div>
+
+        </div>
+
+        <div class="achievement-meta">
+
+          <span>
+            <i class="fa-solid fa-star"></i>
+            ${
+              item.featured
+              ? "Featured"
+              : "Standard"
+            }
+          </span>
+
+          <span>
+            ${
+              item.showUser
+              ? "User App"
+              : "Hidden"
+            }
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="achievement-foot">
+
+        <button
+          class="small-btn"
+          onclick="viewAchievement('${item.id}')">
+
+          <i class="fa-solid fa-eye"></i>
+          View
+
+        </button>
+
+        <button
+          class="small-btn"
+          onclick="editAchievement('${item.id}')">
+
+          <i class="fa-solid fa-pen"></i>
+          Edit
+
+        </button>
+
+        <button
+          class="small-btn"
+          onclick="toggleStatus('${item.id}')">
+
+          <i class="fa-solid fa-toggle-on"></i>
+
+          ${
+            item.status==="published"
+            ? "Draft"
+            : "Publish"
+          }
+
+        </button>
+
+        <button
+          class="small-btn"
+          onclick="deleteAchievement('${item.id}')"
+          style="color:#f87171">
+
+          <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+/* ADD */
+function openAdd(){
+
+  editingId = null;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    "Add Achievement";
+
+  document.getElementById(
+    "achievementForm"
+  ).reset();
+
+  document.getElementById(
+    "achievementStatus"
+  ).value =
+    "published";
+
+  document.getElementById(
+    "showUser"
+  ).checked = true;
+
+  document.getElementById(
+    "autoUnlock"
+  ).checked = true;
+
+  document.getElementById(
+    "achievementIcon"
+  ).value =
+    "fa-trophy";
+
+  renderIconPicker("fa-trophy");
+
+  document.getElementById(
+    "achievementModal"
+  ).classList.add("show");
+
+}
+
+/* EDIT */
+function editAchievement(id){
+
+  const item =
+    achievements.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  editingId = id;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    "Edit Achievement";
+
+  document.getElementById(
+    "achievementName"
+  ).value =
+    item.name || "";
+
+  document.getElementById(
+    "achievementType"
+  ).value =
+    item.type || "custom";
+
+  document.getElementById(
+    "conditionValue"
+  ).value =
+    item.conditionValue ?? "";
+
+  document.getElementById(
+    "conditionUnit"
+  ).value =
+    item.conditionUnit || "";
+
+  document.getElementById(
+    "xpReward"
+  ).value =
+    item.xp ?? "";
+
+  document.getElementById(
+    "achievementStatus"
+  ).value =
+    item.status || "draft";
+
+  document.getElementById(
+    "achievementDescription"
+  ).value =
+    item.description || "";
+
+  document.getElementById(
+    "featuredAchievement"
+  ).checked =
+    !!item.featured;
+
+  document.getElementById(
+    "showUser"
+  ).checked =
+    item.showUser !== false;
+
+  document.getElementById(
+    "autoUnlock"
+  ).checked =
+    item.autoUnlock !== false;
+
+  document.getElementById(
+    "achievementIcon"
+  ).value =
+    item.icon || "fa-trophy";
+
+  renderIconPicker(
+    item.icon || "fa-trophy"
+  );
+
+  document.getElementById(
+    "achievementModal"
+  ).classList.add("show");
+
+}
+
+/* SAVE */
+function saveAchievement(){
+
+  const name =
+    document.getElementById(
+      "achievementName"
+    ).value.trim();
+
+  if(!name){
+
+    showToast(
+      "Achievement name is required"
+    );
+
+    return;
+
+  }
+
+  const data = {
+
+    name,
+
+    type:
+      document.getElementById(
+        "achievementType"
+      ).value,
+
+    conditionValue:
+      Number(
+        document.getElementById(
+          "conditionValue"
+        ).value || 0
+      ),
+
+    conditionUnit:
+      document.getElementById(
+        "conditionUnit"
+      ).value.trim(),
+
+    xp:
+      Number(
+        document.getElementById(
+          "xpReward"
+        ).value || 0
+      ),
+
+    icon:
+      document.getElementById(
+        "achievementIcon"
+      ).value || "fa-trophy",
+
+    status:
+      document.getElementById(
+        "achievementStatus"
+      ).value,
+
+    description:
+      document.getElementById(
+        "achievementDescription"
+      ).value.trim(),
+
+    featured:
+      document.getElementById(
+        "featuredAchievement"
+      ).checked,
+
+    showUser:
+      document.getElementById(
+        "showUser"
+      ).checked,
+
+    autoUnlock:
+      document.getElementById(
+        "autoUnlock"
+      ).checked
+
+  };
+
+  if(editingId){
+
+    const index =
+      achievements.findIndex(
+        x=>x.id===editingId
+      );
+
+    if(index!==-1){
+
+      achievements[index] = {
+
+        ...achievements[index],
+        ...data,
+        updatedAt:
+          new Date().toISOString()
+
+      };
+
+    }
+
+    showToast(
+      "Achievement updated"
+    );
+
+  }else{
+
+    achievements.unshift({
+
+      id:
+        "achievement_" +
+        Date.now(),
+
+      ...data,
+
+      createdAt:
+        new Date().toISOString(),
+
+      updatedAt:
+        new Date().toISOString()
+
+    });
+
+    showToast(
+      "Achievement created"
+    );
+
+  }
+
+  saveAchievements();
+
+  closeModal();
+
+  render();
+
+}
+
+/* VIEW */
+function viewAchievement(id){
+
+  const item =
+    achievements.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  alert(
+
+`Achievement: ${item.name}
+
+Type: ${item.type}
+
+Unlock:
+${item.conditionValue || 0} ${item.conditionUnit || ""}
+
+XP Reward:
++${item.xp || 0} XP
+
+Auto Unlock:
+${item.autoUnlock ? "Enabled" : "Disabled"}
+
+Description:
+${item.description || "No description"}`
+
+  );
+
+}
+
+/* STATUS */
+function toggleStatus(id){
+
+  const item =
+    achievements.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  item.status =
+    item.status==="published"
+      ? "draft"
+      : "published";
+
+  item.updatedAt =
+    new Date().toISOString();
+
+  saveAchievements();
+
+  render();
+
+  showToast(
+    item.status==="published"
+      ? "Achievement published"
+      : "Achievement moved to draft"
+  );
+
+}
+
+/* DELETE */
+function deleteAchievement(id){
+
+  const item =
+    achievements.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  if(!confirm(
+    `Delete "${item.name}"?\n\nThis action cannot be undone.`
+  )) return;
+
+  achievements =
+    achievements.filter(
+      x=>x.id!==id
+    );
+
+  saveAchievements();
+
+  render();
+
+  showToast(
+    "Achievement deleted"
+  );
+
+}
+
+/* EXPORT */
+function exportAchievements(){
+
+  const data = {
+
+    app:"Sai Fitness Bidupur",
+
+    type:"achievements",
+
+    exportedAt:
+      new Date().toISOString(),
+
+    achievements
+
+  };
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "sai-fitness-achievements.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast(
+    "Achievements exported"
+  );
+
+}
+
+/* MODAL */
+function closeModal(){
+
+  document.getElementById(
+    "achievementModal"
+  ).classList.remove("show");
+
+  editingId = null;
+
+}
+
+document
+.getElementById("achievementModal")
+.addEventListener(
+  "click",
+  function(e){
+
+    if(e.target===this){
+      closeModal();
+    }
+
+  }
+);
+
+/* MOBILE */
+document
+.getElementById("menuBtn")
+.addEventListener(
+  "click",
+  function(){
+
+    document
+      .getElementById("sidebar")
+      .classList.toggle("open");
+
+  }
+);
+
+/* TOAST */
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer =
+    setTimeout(
+      ()=>{
+        toast.classList.remove(
+          "show"
+        );
+      },
+      2500
+    );
+
+}
+
+/* ESCAPE */
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* START */
+init();
+
+</script>
+
+</body>
+</html>

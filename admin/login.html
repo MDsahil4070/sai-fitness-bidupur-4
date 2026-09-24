@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>Admin Login • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+:root{
+  --bg:#050806;
+  --panel:#0b110e;
+  --card:#101914;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f5f7f6;
+  --muted:#8fa098;
+  --border:rgba(255,255,255,.08);
+  --danger:#ef4444;
+  --blue:#3b82f6;
+  --radius:20px;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* BACKGROUND */
+.bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.glow{
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.14;
+}
+
+.glow.one{
+  background:#16a34a;
+  top:-180px;
+  left:-130px;
+}
+
+.glow.two{
+  background:#22c55e;
+  right:-180px;
+  bottom:-180px;
+}
+
+.grid-bg{
+  position:absolute;
+  inset:0;
+  opacity:.08;
+  background-image:
+    linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+/* CARD */
+.login-wrap{
+  width:100%;
+  max-width:430px;
+  position:relative;
+  z-index:2;
+}
+
+.login-card{
+  background:rgba(13,20,16,.94);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    0 0 0 1px rgba(22,163,74,.02);
+  backdrop-filter:blur(18px);
+}
+
+/* BRAND */
+.brand{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.logo{
+  width:70px;
+  height:70px;
+  margin:0 auto 15px;
+  border-radius:21px;
+  background:linear-gradient(135deg,#22c55e,#08752f);
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  font-weight:800;
+  box-shadow:
+    0 15px 40px rgba(22,163,74,.24);
+}
+
+.brand h1{
+  margin:0;
+  font-size:21px;
+  font-weight:800;
+}
+
+.brand p{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* SECURITY BADGE */
+.security-badge{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  color:#75e59b;
+  background:rgba(22,163,74,.08);
+  border:1px solid rgba(34,197,94,.16);
+  border-radius:11px;
+  padding:8px 10px;
+  font-size:9px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.security-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 10px #22c55e;
+}
+
+/* TABS */
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  background:#080e0b;
+  padding:5px;
+  border-radius:13px;
+  margin-bottom:20px;
+}
+
+.tab{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  border-radius:9px;
+  padding:10px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.tab.active{
+  background:#16231b;
+  color:#fff;
+}
+
+/* FORM */
+.form{
+  display:none;
+}
+
+.form.active{
+  display:block;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#aebbb4;
+  font-size:10px;
+  font-weight:700;
+}
+
+.input-wrap{
+  position:relative;
+}
+
+.input-wrap input{
+  width:100%;
+  height:46px;
+  border:1px solid var(--border);
+  outline:none;
+  border-radius:12px;
+  background:#080f0b;
+  color:#fff;
+  padding:0 44px 0 13px;
+  font-size:12px;
+}
+
+.input-wrap input:focus{
+  border-color:rgba(34,197,94,.45);
+  box-shadow:0 0 0 3px rgba(34,197,94,.05);
+}
+
+.input-icon{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#68776f;
+  border:0;
+  background:none;
+  padding:4px;
+}
+
+.input-left{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#68776f;
+  pointer-events:none;
+}
+
+.has-left{
+  padding-left:40px !important;
+}
+
+/* OPTIONS */
+.options{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:4px 0 16px;
+}
+
+.remember{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.remember input{
+  accent-color:var(--green);
+}
+
+/* BUTTON */
+.login-btn{
+  width:100%;
+  border:0;
+  min-height:47px;
+  border-radius:13px;
+  color:#fff;
+  background:linear-gradient(135deg,#16a34a,#12823b);
+  font-size:12px;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  box-shadow:0 12px 30px rgba(22,163,74,.16);
+  transition:.2s;
+}
+
+.login-btn:hover{
+  transform:translateY(-1px);
+}
+
+.login-btn:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* PIN */
+.pin-input{
+  letter-spacing:.4em;
+  text-align:center;
+  font-size:18px !important;
+  font-weight:800;
+  padding-left:14px !important;
+}
+
+.pin-info{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(59,130,246,.06);
+  border:1px solid rgba(59,130,246,.14);
+  color:#a4c5ff;
+  font-size:9px;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+/* ERROR */
+.message{
+  display:none;
+  padding:11px 12px;
+  border-radius:11px;
+  margin-bottom:13px;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.error{
+  color:#ff9c9c;
+  background:rgba(239,68,68,.08);
+  border:1px solid rgba(239,68,68,.18);
+}
+
+.message.success{
+  color:#7be69f;
+  background:rgba(22,163,74,.08);
+  border:1px solid rgba(34,197,94,.18);
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:18px;
+  color:#637069;
+  font-size:9px;
+  line-height:1.6;
+}
+
+.footer strong{
+  color:#82938a;
+}
+
+/* DEMO */
+.demo{
+  margin-top:15px;
+  border-top:1px solid var(--border);
+  padding-top:15px;
+}
+
+.demo-title{
+  color:#66756e;
+  font-size:8px;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-bottom:8px;
+}
+
+.demo-box{
+  background:#080e0b;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:9px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  text-align:center;
+}
+
+.demo-box div{
+  color:#899991;
+  font-size:8px;
+}
+
+.demo-box strong{
+  display:block;
+  color:#cbd6d1;
+  margin-top:3px;
+  font-size:9px;
+}
+
+/* LOCK */
+.locked{
+  text-align:center;
+  display:none;
+}
+
+.locked-icon{
+  width:64px;
+  height:64px;
+  margin:0 auto 15px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:rgba(239,68,68,.08);
+  color:#ff7777;
+  font-size:25px;
+}
+
+.locked h2{
+  margin:0 0 7px;
+  font-size:18px;
+}
+
+.locked p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+}
+
+/* MOBILE */
+@media(max-width:480px){
+
+  .login-page{
+    padding:12px;
+  }
+
+  .login-card{
+    padding:22px 18px;
+    border-radius:22px;
+  }
+
+  .logo{
+    width:62px;
+    height:62px;
+    font-size:27px;
+  }
+
+  .brand h1{
+    font-size:19px;
+  }
+}
+
+/* ANIMATION */
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-7px);
+  }
+}
+
+.logo{
+  animation:float 4s ease-in-out infinite;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="grid-bg"></div>
+</div>
+
+<main class="login-page">
+
+  <div class="login-wrap">
+
+    <section class="login-card">
+
+      <!-- BRAND -->
+      <div class="brand">
+
+        <div class="logo">
+          S
+        </div>
+
+        <h1>Sai Fitness Bidupur</h1>
+
+        <p>
+          Admin Control Center
+        </p>
+
+      </div>
+
+      <div class="security-badge">
+        <span class="security-dot"></span>
+        Protected Administrator Access
+      </div>
+
+      <!-- LOCKED SCREEN -->
+      <div class="locked" id="lockedScreen">
+
+        <div class="locked-icon">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+
+        <h2>Login Temporarily Locked</h2>
+
+        <p id="lockedText">
+          Too many failed login attempts.
+          Please wait before trying again.
+        </p>
+
+        <button
+          class="login-btn"
+          style="margin-top:15px"
+          onclick="location.reload()"
+        >
+          <i class="fa-solid fa-rotate-right"></i>
+          Check Again
+        </button>
+
+      </div>
+
+      <!-- NORMAL LOGIN -->
+      <div id="normalLogin">
+
+        <!-- TABS -->
+        <div class="tabs">
+
+          <button
+            class="tab active"
+            id="passwordTab"
+            onclick="switchMode('password')"
+          >
+            <i class="fa-solid fa-key"></i>
+            Password
+          </button>
+
+          <button
+            class="tab"
+            id="pinTab"
+            onclick="switchMode('pin')"
+          >
+            <i class="fa-solid fa-lock"></i>
+            Admin PIN
+          </button>
+
+        </div>
+
+        <!-- MESSAGE -->
+        <div
+          class="message"
+          id="message"
+        ></div>
+
+        <!-- PASSWORD LOGIN -->
+        <form
+          class="form active"
+          id="passwordForm"
+          onsubmit="loginPassword(event)"
+        >
+
+          <div class="field">
+
+            <label>
+              Username
+            </label>
+
+            <div class="input-wrap">
+
+              <i class="fa-solid fa-user input-left"></i>
+
+              <input
+                id="username"
+                class="has-left"
+                type="text"
+                autocomplete="username"
+                placeholder="Enter admin username"
+                required
+              >
+
+            </div>
+
+          </div>
+
+          <div class="field">
+
+            <label>
+              Password
+            </label>
+
+            <div class="input-wrap">
+
+              <i class="fa-solid fa-key input-left"></i>
+
+              <input
+                id="password"
+                class="has-left"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter admin password"
+                required
+              >
+
+              <button
+                class="input-icon"
+                type="button"
+                onclick="togglePassword()"
+                aria-label="Show password"
+              >
+                <i
+                  class="fa-solid fa-eye"
+                  id="passwordEye"
+                ></i>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="options">
+
+            <label class="remember">
+
+              <input
+                type="checkbox"
+                id="remember"
+              >
+
+              Remember this device
+
+            </label>
+
+            <button
+              type="button"
+              style="
+                border:0;
+                background:none;
+                color:#65d98d;
+                font-size:9px;
+              "
+              onclick="showDemo()"
+            >
+              Demo credentials
+            </button>
+
+          </div>
+
+          <button
+            class="login-btn"
+            id="passwordBtn"
+            type="submit"
+          >
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login to Admin
+          </button>
+
+        </form>
+
+        <!-- PIN LOGIN -->
+        <form
+          class="form"
+          id="pinForm"
+          onsubmit="loginPIN(event)"
+        >
+
+          <div class="pin-info">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            Use your administrator PIN for quick access.
+            PIN login is available for the owner administrator
+            when enabled in the security system.
+
+          </div>
+
+          <div class="field">
+
+            <label>
+              Admin PIN
+            </label>
+
+            <div class="input-wrap">
+
+              <input
+                id="pin"
+                class="pin-input"
+                type="password"
+                inputmode="numeric"
+                maxlength="12"
+                autocomplete="one-time-code"
+                placeholder="••••"
+                required
+              >
+
+              <button
+                class="input-icon"
+                type="button"
+                onclick="togglePIN()"
+              >
+                <i
+                  class="fa-solid fa-eye"
+                  id="pinEye"
+                ></i>
+              </button>
+
+            </div>
+
+          </div>
+
+          <button
+            class="login-btn"
+            id="pinBtn"
+            type="submit"
+          >
+            <i class="fa-solid fa-unlock-keyhole"></i>
+            Unlock Admin
+          </button>
+
+        </form>
+
+        <!-- DEMO -->
+        <div
+          class="demo"
+          id="demoBox"
+          style="display:none"
+        >
+
+          <div class="demo-title">
+            Default Demo Credentials
+          </div>
+
+          <div class="demo-box">
+
+            <div>
+              Username
+              <strong>admin</strong>
+            </div>
+
+            <div>
+              Password
+              <strong>sai@1234</strong>
+            </div>
+
+            <div>
+              Admin PIN
+              <strong>1234</strong>
+            </div>
+
+            <div>
+              Role
+              <strong>Owner</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="footer">
+
+          <strong>Sai Fitness Bidupur</strong><br>
+
+          Local admin security is provided by
+          <strong>admin-security.js</strong>.
+
+          <br><br>
+
+          For real production security use
+          server-side authentication + HTTPS.
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script>
+/* =========================================================
+   SAI FITNESS BIDUPUR
+   ADMIN LOGIN
+   Connected with admin-security.js
+========================================================= */
+
+const LOGIN_STATE_KEY="saiLoginProtection";
+
+const MAX_ATTEMPTS=5;
+
+const LOCK_MINUTES=2;
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  /*
+    If already authenticated, don't force
+    the admin to login again.
+  */
+
+  try{
+
+    if(
+      window.Security &&
+      typeof Security.isAuthenticated==="function" &&
+      Security.isAuthenticated()
+    ){
+
+      location.replace("index.html");
+      return;
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Existing session check failed",
+      error
+    );
+
+  }
+
+  checkLoginLock();
+
+  document
+    .getElementById("username")
+    .focus();
+
+});
+
+/* =========================================================
+   MODE
+========================================================= */
+
+function switchMode(mode){
+
+  const passwordTab=
+    document.getElementById("passwordTab");
+
+  const pinTab=
+    document.getElementById("pinTab");
+
+  const passwordForm=
+    document.getElementById("passwordForm");
+
+  const pinForm=
+    document.getElementById("pinForm");
+
+  clearMessage();
+
+  if(mode==="pin"){
+
+    passwordTab.classList.remove("active");
+    pinTab.classList.add("active");
+
+    passwordForm.classList.remove("active");
+    pinForm.classList.add("active");
+
+    setTimeout(()=>{
+      document.getElementById("pin").focus();
+    },100);
+
+  }else{
+
+    pinTab.classList.remove("active");
+    passwordTab.classList.add("active");
+
+    pinForm.classList.remove("active");
+    passwordForm.classList.add("active");
+
+    setTimeout(()=>{
+      document.getElementById("username").focus();
+    },100);
+  }
+}
+
+/* =========================================================
+   PASSWORD VISIBILITY
+========================================================= */
+
+function togglePassword(){
+
+  const input=
+    document.getElementById("password");
+
+  const eye=
+    document.getElementById("passwordEye");
+
+  if(input.type==="password"){
+
+    input.type="text";
+
+    eye.className=
+      "fa-solid fa-eye-slash";
+
+  }else{
+
+    input.type="password";
+
+    eye.className=
+      "fa-solid fa-eye";
+  }
+}
+
+function togglePIN(){
+
+  const input=
+    document.getElementById("pin");
+
+  const eye=
+    document.getElementById("pinEye");
+
+  if(input.type==="password"){
+
+    input.type="text";
+
+    eye.className=
+      "fa-solid fa-eye-slash";
+
+  }else{
+
+    input.type="password";
+
+    eye.className=
+      "fa-solid fa-eye";
+  }
+}
+
+/* =========================================================
+   PASSWORD LOGIN
+========================================================= */
+
+function loginPassword(event){
+
+  event.preventDefault();
+
+  if(isLocked()){
+    showLocked();
+    return;
+  }
+
+  const username=
+    document.getElementById("username")
+      .value.trim();
+
+  const password=
+    document.getElementById("password")
+      .value;
+
+  const remember=
+    document.getElementById("remember")
+      .checked;
+
+  if(!username || !password){
+
+    showMessage(
+      "Username and password are required.",
+      "error"
+    );
+
+    return;
+  }
+
+  setButtonLoading(
+    "passwordBtn",
+    true,
+    "Checking..."
+  );
+
+  setTimeout(()=>{
+
+    try{
+
+      if(
+        !window.Security ||
+        typeof Security.login!=="function"
+      ){
+
+        throw new Error(
+          "Security engine not loaded."
+        );
+      }
+
+      const result=
+        Security.login(
+          username,
+          password,
+          remember
+        );
+
+      if(result && result.success){
+
+        clearAttempts();
+
+        showMessage(
+          "Login successful. Opening admin panel...",
+          "success"
+        );
+
+        setButtonLoading(
+          "passwordBtn",
+          true,
+          "Opening..."
+        );
+
+        setTimeout(()=>{
+          location.replace("index.html");
+        },450);
+
+        return;
+      }
+
+      registerFailedAttempt();
+
+      showMessage(
+        result && result.message
+          ? result.message
+          : "Invalid username or password.",
+        "error"
+      );
+
+      setButtonLoading(
+        "passwordBtn",
+        false,
+        "Login to Admin"
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      registerFailedAttempt();
+
+      showMessage(
+        "Security engine error. Check admin-security.js.",
+        "error"
+      );
+
+      setButtonLoading(
+        "passwordBtn",
+        false,
+        "Login to Admin"
+      );
+    }
+
+  },220);
+}
+
+/* =========================================================
+   PIN LOGIN
+========================================================= */
+
+function loginPIN(event){
+
+  event.preventDefault();
+
+  if(isLocked()){
+    showLocked();
+    return;
+  }
+
+  const pin=
+    document.getElementById("pin")
+      .value.trim();
+
+  if(!pin){
+
+    showMessage(
+      "Enter your admin PIN.",
+      "error"
+    );
+
+    return;
+  }
+
+  setButtonLoading(
+    "pinBtn",
+    true,
+    "Verifying..."
+  );
+
+  setTimeout(()=>{
+
+    try{
+
+      if(
+        !window.Security ||
+        typeof Security.loginWithPIN!=="function"
+      ){
+
+        throw new Error(
+          "PIN security method not available."
+        );
+      }
+
+      const result=
+        Security.loginWithPIN(pin);
+
+      if(result && result.success){
+
+        clearAttempts();
+
+        showMessage(
+          "PIN verified. Opening admin panel...",
+          "success"
+        );
+
+        setButtonLoading(
+          "pinBtn",
+          true,
+          "Opening..."
+        );
+
+        setTimeout(()=>{
+          location.replace("index.html");
+        },450);
+
+        return;
+      }
+
+      registerFailedAttempt();
+
+      showMessage(
+        result && result.message
+          ? result.message
+          : "Invalid admin PIN.",
+        "error"
+      );
+
+      setButtonLoading(
+        "pinBtn",
+        false,
+        "Unlock Admin"
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      registerFailedAttempt();
+
+      showMessage(
+        "PIN login is not available in the security engine.",
+        "error"
+      );
+
+      setButtonLoading(
+        "pinBtn",
+        false,
+        "Unlock Admin"
+      );
+    }
+
+  },220);
+}
+
+/* =========================================================
+   ATTEMPT PROTECTION
+========================================================= */
+
+function getProtection(){
+
+  try{
+
+    const raw=
+      localStorage.getItem(
+        LOGIN_STATE_KEY
+      );
+
+    if(!raw){
+
+      return {
+        attempts:0,
+        lockedUntil:0
+      };
+    }
+
+    return {
+      attempts:0,
+      lockedUntil:0,
+      ...JSON.parse(raw)
+    };
+
+  }catch{
+
+    return {
+      attempts:0,
+      lockedUntil:0
+    };
+  }
+}
+
+function saveProtection(data){
+
+  localStorage.setItem(
+    LOGIN_STATE_KEY,
+    JSON.stringify(data)
+  );
+}
+
+function registerFailedAttempt(){
+
+  const data=getProtection();
+
+  data.attempts=
+    Number(data.attempts||0)+1;
+
+  if(data.attempts>=MAX_ATTEMPTS){
+
+    data.lockedUntil=
+      Date.now()+
+      LOCK_MINUTES*60*1000;
+
+    saveProtection(data);
+
+    showLocked();
+
+    return;
+  }
+
+  saveProtection(data);
+
+  const remaining=
+    MAX_ATTEMPTS-data.attempts;
+
+  showMessage(
+    `Login failed. ${remaining} attempt${
+      remaining===1?"":"s"
+    } remaining.`,
+    "error"
+  );
+}
+
+function clearAttempts(){
+
+  localStorage.removeItem(
+    LOGIN_STATE_KEY
+  );
+}
+
+function isLocked(){
+
+  const data=getProtection();
+
+  if(
+    data.lockedUntil &&
+    Date.now()<Number(data.lockedUntil)
+  ){
+    return true;
+  }
+
+  if(
+    data.lockedUntil &&
+    Date.now()>=Number(data.lockedUntil)
+  ){
+
+    clearAttempts();
+  }
+
+  return false;
+}
+
+function checkLoginLock(){
+
+  if(isLocked()){
+    showLocked();
+  }
+}
+
+function showLocked(){
+
+  const normal=
+    document.getElementById("normalLogin");
+
+  const locked=
+    document.getElementById("lockedScreen");
+
+  const text=
+    document.getElementById("lockedText");
+
+  normal.style.display="none";
+
+  locked.style.display="block";
+
+  const data=getProtection();
+
+  const remaining=
+    Math.max(
+      0,
+      Number(data.lockedUntil||0)-Date.now()
+    );
+
+  const seconds=
+    Math.ceil(remaining/1000);
+
+  text.textContent=
+    `Too many failed attempts. Please wait approximately ${seconds} seconds before trying again.`;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(text,type){
+
+  const box=
+    document.getElementById("message");
+
+  box.textContent=text;
+
+  box.className=
+    "message show "+type;
+}
+
+function clearMessage(){
+
+  const box=
+    document.getElementById("message");
+
+  box.className="message";
+
+  box.textContent="";
+}
+
+/* =========================================================
+   BUTTON LOADING
+========================================================= */
+
+function setButtonLoading(
+  id,
+  loading,
+  text
+){
+
+  const button=
+    document.getElementById(id);
+
+  if(!button) return;
+
+  button.disabled=loading;
+
+  button.innerHTML=loading
+    ? `
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      ${text}
+    `
+    : `
+      <i class="fa-solid ${
+        id==="pinBtn"
+          ? "fa-unlock-keyhole"
+          : "fa-right-to-bracket"
+      }"></i>
+      ${text}
+    `;
+}
+
+/* =========================================================
+   DEMO
+========================================================= */
+
+function showDemo(){
+
+  const box=
+    document.getElementById("demoBox");
+
+  box.style.display=
+    box.style.display==="none"
+      ? "block"
+      : "none";
+}
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document.addEventListener("keydown",event=>{
+
+  if(event.key==="Escape"){
+    clearMessage();
+  }
+
+});
+
+/* =========================================================
+   SESSION STORAGE / TAB SUPPORT
+========================================================= */
+
+window.addEventListener("storage",event=>{
+
+  if(
+    event.key==="saiAdminSession" &&
+    !event.newValue
+  ){
+
+    showMessage(
+      "Your admin session was logged out.",
+      "error"
+    );
+  }
+
+});
+
+/* =========================================================
+   SECURITY ENGINE FALLBACK NOTICE
+========================================================= */
+
+window.addEventListener("load",()=>{
+
+  if(!window.Security){
+
+    showMessage(
+      "admin-security.js could not be loaded. Keep it inside the admin folder.",
+      "error"
+    );
+
+    document
+      .querySelectorAll("button")
+      .forEach(button=>{
+        if(
+          button.id==="passwordBtn" ||
+          button.id==="pinBtn"
+        ){
+          button.disabled=true;
+        }
+      });
+  }
+
+});
+</script>
+
+</body>
+</html>

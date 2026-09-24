@@ -1,0 +1,2682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Members • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#070b09;
+    --panel:#0b110d;
+    --card:#101913;
+    --card2:#121d16;
+    --border:#1d2b22;
+    --green:#16a34a;
+    --green2:#22c55e;
+    --text:#f4f7f5;
+    --muted:#89958d;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+    --purple:#8b5cf6;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#0a100c;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 10px 22px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:15px;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#16a34a,#064e24);
+    display:grid;
+    place-items:center;
+    font-size:20px;
+    box-shadow:0 8px 25px #16a34a25;
+}
+
+.logo strong{
+    display:block;
+    font-size:15px;
+}
+
+.logo span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.nav-title{
+    color:#56635a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:17px 10px 7px;
+    text-transform:uppercase;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 11px;
+    border-radius:11px;
+    color:#9da8a1;
+    font-size:13px;
+    margin-bottom:3px;
+    transition:.2s;
+}
+
+.nav-item i{
+    width:18px;
+    text-align:center;
+}
+
+.nav-item:hover{
+    background:#121c16;
+    color:white;
+}
+
+.nav-item.active{
+    background:#12321d;
+    color:#4ade80;
+    box-shadow:inset 3px 0 #22c55e;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:250px;
+    padding:25px;
+    max-width:1500px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:24px;
+}
+
+.page-title h1{
+    font-size:25px;
+    font-weight:800;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:5px;
+}
+
+.top-actions{
+    display:flex;
+    gap:9px;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:#111a14;
+    color:#dce5df;
+    padding:10px 14px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-weight:600;
+    font-size:12px;
+}
+
+.btn:hover{
+    background:#18241c;
+}
+
+.btn-primary{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:var(--green2);
+}
+
+.btn-danger{
+    color:#fca5a5;
+}
+
+.btn-blue{
+    color:#93c5fd;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.stat-icon{
+    width:43px;
+    height:43px;
+    min-width:43px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:#16321f;
+    color:#4ade80;
+}
+
+.stat:nth-child(2) .stat-icon{
+    background:#132b42;
+    color:#60a5fa;
+}
+
+.stat:nth-child(3) .stat-icon{
+    background:#30260f;
+    color:#fbbf24;
+}
+
+.stat:nth-child(4) .stat-icon{
+    background:#321616;
+    color:#f87171;
+}
+
+.stat:nth-child(5) .stat-icon{
+    background:#281c3a;
+    color:#c4b5fd;
+}
+
+.stat-value{
+    font-size:21px;
+    font-weight:800;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+/* ================= TOOLBAR ================= */
+
+.toolbar{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:15px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-bottom:17px;
+}
+
+.search{
+    position:relative;
+    flex:1;
+    min-width:220px;
+}
+
+.search i{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#65736a;
+}
+
+.search input{
+    width:100%;
+    background:#0b120e;
+    border:1px solid var(--border);
+    color:white;
+    padding:10px 12px 10px 35px;
+    border-radius:10px;
+    outline:none;
+}
+
+select{
+    background:#0b120e;
+    border:1px solid var(--border);
+    color:#dfe8e2;
+    padding:10px 12px;
+    border-radius:10px;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#218f48;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrap{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.table-scroll{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:900px;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#0c140f;
+}
+
+th{
+    text-align:left;
+    padding:13px 15px;
+    color:#718077;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    white-space:nowrap;
+}
+
+td{
+    padding:14px 15px;
+    border-top:1px solid #17231b;
+    font-size:12px;
+    vertical-align:middle;
+}
+
+tbody tr{
+    transition:.2s;
+}
+
+tbody tr:hover{
+    background:#121c16;
+}
+
+.member{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    min-width:40px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#164b29,#102217);
+    display:grid;
+    place-items:center;
+    color:#86efac;
+    font-weight:800;
+    overflow:hidden;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.member-name{
+    font-weight:700;
+    color:#edf3ef;
+}
+
+.member-email{
+    color:#6f7c73;
+    font-size:10px;
+    margin-top:3px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.badge.green{
+    background:#12321d;
+    color:#86efac;
+}
+
+.badge.red{
+    background:#321616;
+    color:#fca5a5;
+}
+
+.badge.yellow{
+    background:#30260f;
+    color:#fcd34d;
+}
+
+.badge.blue{
+    background:#13253a;
+    color:#93c5fd;
+}
+
+.badge.purple{
+    background:#251b39;
+    color:#c4b5fd;
+}
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.icon-btn{
+    width:33px;
+    height:33px;
+    border:1px solid var(--border);
+    background:#101811;
+    color:#9ba79f;
+    border-radius:8px;
+}
+
+.icon-btn:hover{
+    color:white;
+    background:#18231b;
+}
+
+.icon-btn.delete:hover{
+    color:#f87171;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+}
+
+.empty i{
+    font-size:42px;
+    opacity:.4;
+    margin-bottom:14px;
+}
+
+.empty h3{
+    color:#dce6df;
+    margin-bottom:6px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000b;
+    backdrop-filter:blur(6px);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(720px,100%);
+    max-height:92vh;
+    overflow:auto;
+    background:#0d1510;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:0 30px 100px #000;
+}
+
+.modal-head{
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-head h2{
+    font-size:17px;
+}
+
+.close{
+    border:0;
+    background:none;
+    color:#89958d;
+    font-size:20px;
+}
+
+.form{
+    padding:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#9eaaa2;
+    font-size:11px;
+    font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    background:#080e0a;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:11px 12px;
+    border-radius:10px;
+    outline:none;
+}
+
+.field textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:9px;
+    padding:15px 20px;
+    border-top:1px solid var(--border);
+}
+
+/* ================= VIEW MODAL ================= */
+
+.profile-head{
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.big-avatar{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#16a34a,#064e24);
+    display:grid;
+    place-items:center;
+    font-size:23px;
+    font-weight:800;
+}
+
+.profile-head h3{
+    font-size:18px;
+}
+
+.profile-head p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.detail-grid{
+    padding:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.detail{
+    background:#0a110d;
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:11px;
+}
+
+.detail label{
+    display:block;
+    color:#66746b;
+    font-size:9px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.detail strong{
+    font-size:12px;
+    color:#dce6df;
+    word-break:break-word;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:5000;
+    background:#122018;
+    border:1px solid #294b34;
+    color:#dff7e6;
+    padding:12px 15px;
+    border-radius:11px;
+    font-size:12px;
+    display:none;
+    box-shadow:0 15px 40px #0008;
+}
+
+.toast.show{
+    display:block;
+    animation:toastIn .25s ease;
+}
+
+@keyframes toastIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+    border:1px solid var(--border);
+    background:#101812;
+    color:white;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+}
+
+.overlay{
+    display:none;
+}
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .overlay.show{
+        display:block;
+        position:fixed;
+        inset:0;
+        background:#0009;
+        z-index:900;
+    }
+
+    .main{
+        margin-left:0;
+        padding:17px;
+    }
+
+    .mobile-menu{
+        display:grid;
+        place-items:center;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .page-title{
+        flex:1;
+    }
+
+    .page-title h1{
+        font-size:20px;
+    }
+}
+
+@media(max-width:650px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .toolbar{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search{
+        grid-column:1/-1;
+        min-width:0;
+    }
+
+    .toolbar .btn{
+        justify-content:center;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:430px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .toolbar{
+        grid-template-columns:1fr;
+    }
+
+    .search{
+        grid-column:auto;
+    }
+
+    .top-actions .btn span{
+        display:none;
+    }
+
+    .top-actions .btn{
+        width:40px;
+        height:40px;
+        padding:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-dumbbell"></i>
+        </div>
+
+        <div>
+            <strong>Sai Fitness</strong>
+            <span>Admin Control Center</span>
+        </div>
+
+    </div>
+
+    <div class="nav-title">Main</div>
+
+    <a class="nav-item" href="index.html">
+        <i class="fa-solid fa-chart-pie"></i>
+        Dashboard
+    </a>
+
+    <a class="nav-item active" href="members.html">
+        <i class="fa-solid fa-users"></i>
+        Members
+    </a>
+
+    <a class="nav-item" href="workouts.html">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workouts
+    </a>
+
+    <a class="nav-item" href="exercises.html">
+        <i class="fa-solid fa-person-running"></i>
+        Exercises
+    </a>
+
+    <a class="nav-item" href="diet.html">
+        <i class="fa-solid fa-utensils"></i>
+        Diet
+    </a>
+
+    <a class="nav-item" href="goals.html">
+        <i class="fa-solid fa-bullseye"></i>
+        Goals
+    </a>
+
+    <a class="nav-item" href="achievements.html">
+        <i class="fa-solid fa-trophy"></i>
+        Achievements
+    </a>
+
+    <a class="nav-item" href="notifications.html">
+        <i class="fa-solid fa-bell"></i>
+        Notifications
+    </a>
+
+    <div class="nav-title">Customization</div>
+
+    <a class="nav-item" href="theme.html">
+        <i class="fa-solid fa-palette"></i>
+        Theme Studio
+    </a>
+
+    <a class="nav-item" href="css-manager.html">
+        <i class="fa-solid fa-code"></i>
+        CSS Manager
+    </a>
+
+    <a class="nav-item" href="animation-manager.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Animations
+    </a>
+
+    <a class="nav-item" href="app-upload.html">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        App Upload
+    </a>
+
+    <a class="nav-item" href="media.html">
+        <i class="fa-solid fa-photo-film"></i>
+        Media
+    </a>
+
+    <a class="nav-item" href="page-builder.html">
+        <i class="fa-solid fa-layer-group"></i>
+        Page Builder
+    </a>
+
+    <a class="nav-item" href="content.html">
+        <i class="fa-solid fa-file-pen"></i>
+        Content
+    </a>
+
+    <div class="nav-title">System</div>
+
+    <a class="nav-item" href="analytics.html">
+        <i class="fa-solid fa-chart-line"></i>
+        Analytics
+    </a>
+
+    <a class="nav-item" href="pwa.html">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        PWA Manager
+    </a>
+
+    <a class="nav-item" href="backup.html">
+        <i class="fa-solid fa-database"></i>
+        Backup
+    </a>
+
+    <a class="nav-item" href="version.html">
+        <i class="fa-solid fa-code-branch"></i>
+        Version
+    </a>
+
+    <a class="nav-item" href="maintenance.html">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        Maintenance
+    </a>
+
+    <a class="nav-item" href="security.html">
+        <i class="fa-solid fa-shield-halved"></i>
+        Security
+    </a>
+
+    <a class="nav-item" href="settings.html">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+    </a>
+
+</aside>
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div style="display:flex;align-items:center;gap:10px;">
+
+        <button class="mobile-menu" id="mobileMenu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="page-title">
+            <h1>Members</h1>
+            <p>Manage Sai Fitness users, membership and activity.</p>
+        </div>
+
+    </div>
+
+    <div class="top-actions">
+
+        <a
+            href="../profile.html"
+            target="_blank"
+            class="btn btn-blue"
+        >
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span>User App</span>
+        </a>
+
+        <button
+            class="btn btn-primary"
+            onclick="openAdd()"
+        >
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Add Member</span>
+        </button>
+
+    </div>
+
+</header>
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat">
+        <div class="stat-icon">
+            <i class="fa-solid fa-users"></i>
+        </div>
+        <div>
+            <div class="stat-value" id="totalMembers">0</div>
+            <div class="stat-label">Total Members</div>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">
+            <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div>
+            <div class="stat-value" id="activeMembers">0</div>
+            <div class="stat-label">Active</div>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <div>
+            <div class="stat-value" id="premiumMembers">0</div>
+            <div class="stat-label">Premium</div>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">
+            <i class="fa-solid fa-user-clock"></i>
+        </div>
+        <div>
+            <div class="stat-value" id="inactiveMembers">0</div>
+            <div class="stat-label">Inactive</div>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <div>
+            <div class="stat-value" id="newMembers">0</div>
+            <div class="stat-label">New Members</div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ================= TOOLBAR ================= -->
+
+<section class="toolbar">
+
+    <div class="search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search name, email, phone..."
+            oninput="render()"
+        >
+
+    </div>
+
+    <select id="statusFilter" onchange="render()">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="blocked">Blocked</option>
+    </select>
+
+    <select id="planFilter" onchange="render()">
+        <option value="all">All Plans</option>
+        <option value="free">Free</option>
+        <option value="basic">Basic</option>
+        <option value="premium">Premium</option>
+        <option value="pro">Pro</option>
+    </select>
+
+    <select id="genderFilter" onchange="render()">
+        <option value="all">All Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+
+    <button class="btn" onclick="exportMembers()">
+        <i class="fa-solid fa-download"></i>
+        Export
+    </button>
+
+</section>
+
+<!-- ================= TABLE ================= -->
+
+<section class="table-wrap">
+
+<div class="table-scroll">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Member</th>
+<th>Phone</th>
+<th>Plan</th>
+<th>Status</th>
+<th>Joined</th>
+<th>Workouts</th>
+<th>Last Active</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="membersBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- ================= ADD / EDIT MODAL ================= -->
+
+<div class="modal" id="memberModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2 id="modalTitle">Add Member</h2>
+
+<button class="close" onclick="closeModal()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+</div>
+
+<form class="form" id="memberForm">
+
+<input type="hidden" id="editId">
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Full Name</label>
+
+<input
+id="name"
+required
+maxlength="80"
+placeholder="Member name"
+>
+
+</div>
+
+<div class="field">
+
+<label>Email</label>
+
+<input
+id="email"
+type="email"
+placeholder="member@email.com"
+>
+
+</div>
+
+<div class="field">
+
+<label>Phone</label>
+
+<input
+id="phone"
+type="tel"
+maxlength="15"
+placeholder="9876543210"
+>
+
+</div>
+
+<div class="field">
+
+<label>Gender</label>
+
+<select id="gender">
+
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Age</label>
+
+<input
+id="age"
+type="number"
+min="10"
+max="100"
+placeholder="25"
+>
+
+</div>
+
+<div class="field">
+
+<label>Membership Plan</label>
+
+<select id="plan">
+
+<option value="free">Free</option>
+<option value="basic">Basic</option>
+<option value="premium">Premium</option>
+<option value="pro">Pro</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Status</label>
+
+<select id="status">
+
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+<option value="blocked">Blocked</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Join Date</label>
+
+<input
+id="joinDate"
+type="date"
+>
+
+</div>
+
+<div class="field">
+
+<label>Membership Expiry</label>
+
+<input
+id="expiryDate"
+type="date"
+>
+
+</div>
+
+<div class="field">
+
+<label>Profile Image URL</label>
+
+<input
+id="avatar"
+placeholder="https://..."
+>
+
+</div>
+
+<div class="field">
+
+<label>Weight (kg)</label>
+
+<input
+id="weight"
+type="number"
+step="0.1"
+placeholder="65"
+>
+
+</div>
+
+<div class="field">
+
+<label>Height (cm)</label>
+
+<input
+id="height"
+type="number"
+step="0.1"
+placeholder="170"
+>
+
+</div>
+
+<div class="field full">
+
+<label>Address</label>
+
+<textarea
+id="address"
+placeholder="Member address..."
+></textarea>
+
+</div>
+
+<div class="field full">
+
+<label>Notes</label>
+
+<textarea
+id="notes"
+placeholder="Admin notes..."
+></textarea>
+
+</div>
+
+</div>
+
+</form>
+
+<div class="modal-footer">
+
+<button
+class="btn"
+onclick="closeModal()"
+>
+Cancel
+</button>
+
+<button
+class="btn btn-primary"
+onclick="saveMember()"
+>
+<i class="fa-solid fa-check"></i>
+Save Member
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= VIEW MODAL ================= -->
+
+<div class="modal" id="viewModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>Member Details</h2>
+
+<button class="close" onclick="closeView()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+</div>
+
+<div id="memberDetails"></div>
+
+<div class="modal-footer">
+
+<button
+class="btn"
+onclick="closeView()"
+>
+Close
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin-security.js"></script>
+
+<script>
+/* =========================================================
+   SECURITY
+========================================================= */
+
+if(
+    window.Security &&
+    typeof Security.requireAuth === "function"
+){
+    Security.requireAuth("members");
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const STORAGE_KEY = "saiFitnessMembers";
+
+let members = loadMembers();
+
+function loadMembers(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+        if(saved){
+
+            const data =
+                JSON.parse(saved);
+
+            if(
+                Array.isArray(data) &&
+                data.length
+            ){
+                return data;
+            }
+
+        }
+
+    }catch(e){}
+
+    const today =
+        new Date().toISOString().slice(0,10);
+
+    const defaults = [
+
+        {
+            id:makeId(),
+            name:"Demo Member",
+            email:"member@saifitness.in",
+            phone:"9876543210",
+            gender:"male",
+            age:22,
+            plan:"premium",
+            status:"active",
+            joinDate:today,
+            expiryDate:"",
+            avatar:"",
+            weight:65,
+            height:170,
+            address:"Bidupur, Bihar",
+            notes:"",
+            workouts:12,
+            lastActive:today,
+            createdAt:new Date().toISOString()
+        },
+
+        {
+            id:makeId(),
+            name:"Fitness User",
+            email:"user@saifitness.in",
+            phone:"9123456780",
+            gender:"male",
+            age:25,
+            plan:"basic",
+            status:"active",
+            joinDate:today,
+            expiryDate:"",
+            avatar:"",
+            weight:70,
+            height:175,
+            address:"Bidupur, Bihar",
+            notes:"",
+            workouts:7,
+            lastActive:today,
+            createdAt:new Date().toISOString()
+        }
+
+    ];
+
+    saveMembers(defaults);
+
+    return defaults;
+}
+
+function saveMembers(
+    data = members
+){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+/* =========================================================
+   ID
+========================================================= */
+
+function makeId(){
+
+    if(
+        window.crypto &&
+        crypto.randomUUID
+    ){
+        return crypto.randomUUID();
+    }
+
+    return "member_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2,8);
+
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    const total =
+        members.length;
+
+    const active =
+        members.filter(
+            m => m.status === "active"
+        ).length;
+
+    const premium =
+        members.filter(
+            m =>
+                m.plan === "premium" ||
+                m.plan === "pro"
+        ).length;
+
+    const inactive =
+        members.filter(
+            m =>
+                m.status === "inactive" ||
+                m.status === "blocked"
+        ).length;
+
+    const currentMonth =
+        new Date()
+            .toISOString()
+            .slice(0,7);
+
+    const newer =
+        members.filter(
+            m =>
+                String(m.joinDate || "")
+                    .startsWith(currentMonth)
+        ).length;
+
+    document.getElementById(
+        "totalMembers"
+    ).textContent = total;
+
+    document.getElementById(
+        "activeMembers"
+    ).textContent = active;
+
+    document.getElementById(
+        "premiumMembers"
+    ).textContent = premium;
+
+    document.getElementById(
+        "inactiveMembers"
+    ).textContent = inactive;
+
+    document.getElementById(
+        "newMembers"
+    ).textContent = newer;
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    updateStats();
+
+    const body =
+        document.getElementById(
+            "membersBody"
+        );
+
+    const search =
+        document.getElementById(
+            "search"
+        ).value
+        .toLowerCase()
+        .trim();
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+    const plan =
+        document.getElementById(
+            "planFilter"
+        ).value;
+
+    const gender =
+        document.getElementById(
+            "genderFilter"
+        ).value;
+
+    const filtered =
+        members.filter(m => {
+
+            const text = (
+
+                m.name +
+                " " +
+                m.email +
+                " " +
+                m.phone +
+                " " +
+                m.address
+
+            ).toLowerCase();
+
+            if(
+                search &&
+                !text.includes(search)
+            ){
+                return false;
+            }
+
+            if(
+                status !== "all" &&
+                m.status !== status
+            ){
+                return false;
+            }
+
+            if(
+                plan !== "all" &&
+                m.plan !== plan
+            ){
+                return false;
+            }
+
+            if(
+                gender !== "all" &&
+                m.gender !== gender
+            ){
+                return false;
+            }
+
+            return true;
+
+        });
+
+    if(!filtered.length){
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    <div class="empty">
+
+                        <i class="fa-solid fa-users-slash"></i>
+
+                        <h3>No members found</h3>
+
+                        <p>
+                            Add a member or change your filters.
+                        </p>
+
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    body.innerHTML =
+        filtered
+        .map(memberRow)
+        .join("");
+
+}
+
+/* =========================================================
+   MEMBER ROW
+========================================================= */
+
+function memberRow(m){
+
+    const initials =
+        getInitials(m.name);
+
+    const planClass =
+        m.plan === "pro"
+        ? "purple"
+        : m.plan === "premium"
+        ? "yellow"
+        : m.plan === "basic"
+        ? "blue"
+        : "";
+
+    const statusClass =
+        m.status === "active"
+        ? "green"
+        : m.status === "blocked"
+        ? "red"
+        : "yellow";
+
+    const avatar =
+        m.avatar
+        ? `
+            <img
+                src="${escapeHTML(m.avatar)}"
+                alt=""
+            >
+        `
+        : initials;
+
+    return `
+
+        <tr>
+
+            <td>
+
+                <div class="member">
+
+                    <div class="avatar">
+                        ${avatar}
+                    </div>
+
+                    <div>
+
+                        <div class="member-name">
+                            ${escapeHTML(m.name)}
+                        </div>
+
+                        <div class="member-email">
+                            ${escapeHTML(
+                                m.email || "No email"
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    m.phone || "—"
+                )}
+            </td>
+
+            <td>
+
+                <span class="badge ${planClass}">
+
+                    <i class="fa-solid fa-crown"></i>
+
+                    ${capitalize(m.plan)}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <span class="badge ${statusClass}">
+
+                    <i class="fa-solid ${
+                        m.status === "active"
+                        ? "fa-circle-check"
+                        : m.status === "blocked"
+                        ? "fa-ban"
+                        : "fa-clock"
+                    }"></i>
+
+                    ${capitalize(m.status)}
+
+                </span>
+
+            </td>
+
+            <td>
+                ${formatDate(m.joinDate)}
+            </td>
+
+            <td>
+                <strong>
+                    ${Number(m.workouts || 0)}
+                </strong>
+            </td>
+
+            <td>
+                ${formatDate(m.lastActive)}
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    <button
+                        class="icon-btn"
+                        title="View"
+                        onclick="viewMember('${m.id}')"
+                    >
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        title="Edit"
+                        onclick="editMember('${m.id}')"
+                    >
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        title="Toggle Status"
+                        onclick="toggleStatus('${m.id}')"
+                    >
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn delete"
+                        title="Delete"
+                        onclick="deleteMember('${m.id}')"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+}
+
+/* =========================================================
+   ADD MEMBER
+========================================================= */
+
+function openAdd(){
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent = "Add Member";
+
+    document.getElementById(
+        "editId"
+    ).value = "";
+
+    document.getElementById(
+        "name"
+    ).value = "";
+
+    document.getElementById(
+        "email"
+    ).value = "";
+
+    document.getElementById(
+        "phone"
+    ).value = "";
+
+    document.getElementById(
+        "gender"
+    ).value = "male";
+
+    document.getElementById(
+        "age"
+    ).value = "";
+
+    document.getElementById(
+        "plan"
+    ).value = "free";
+
+    document.getElementById(
+        "status"
+    ).value = "active";
+
+    document.getElementById(
+        "joinDate"
+    ).value =
+        new Date()
+            .toISOString()
+            .slice(0,10);
+
+    document.getElementById(
+        "expiryDate"
+    ).value = "";
+
+    document.getElementById(
+        "avatar"
+    ).value = "";
+
+    document.getElementById(
+        "weight"
+    ).value = "";
+
+    document.getElementById(
+        "height"
+    ).value = "";
+
+    document.getElementById(
+        "address"
+    ).value = "";
+
+    document.getElementById(
+        "notes"
+    ).value = "";
+
+    document.getElementById(
+        "memberModal"
+    ).classList.add("show");
+
+}
+
+/* =========================================================
+   EDIT MEMBER
+========================================================= */
+
+function editMember(id){
+
+    const m =
+        members.find(
+            item => item.id === id
+        );
+
+    if(!m) return;
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent = "Edit Member";
+
+    document.getElementById(
+        "editId"
+    ).value = m.id;
+
+    document.getElementById(
+        "name"
+    ).value = m.name || "";
+
+    document.getElementById(
+        "email"
+    ).value = m.email || "";
+
+    document.getElementById(
+        "phone"
+    ).value = m.phone || "";
+
+    document.getElementById(
+        "gender"
+    ).value = m.gender || "male";
+
+    document.getElementById(
+        "age"
+    ).value = m.age || "";
+
+    document.getElementById(
+        "plan"
+    ).value = m.plan || "free";
+
+    document.getElementById(
+        "status"
+    ).value = m.status || "active";
+
+    document.getElementById(
+        "joinDate"
+    ).value = m.joinDate || "";
+
+    document.getElementById(
+        "expiryDate"
+    ).value = m.expiryDate || "";
+
+    document.getElementById(
+        "avatar"
+    ).value = m.avatar || "";
+
+    document.getElementById(
+        "weight"
+    ).value = m.weight || "";
+
+    document.getElementById(
+        "height"
+    ).value = m.height || "";
+
+    document.getElementById(
+        "address"
+    ).value = m.address || "";
+
+    document.getElementById(
+        "notes"
+    ).value = m.notes || "";
+
+    document.getElementById(
+        "memberModal"
+    ).classList.add("show");
+
+}
+
+/* =========================================================
+   SAVE MEMBER
+========================================================= */
+
+function saveMember(){
+
+    const name =
+        document.getElementById(
+            "name"
+        ).value.trim();
+
+    if(!name){
+
+        toast("Member name required hai.");
+
+        return;
+    }
+
+    const editId =
+        document.getElementById(
+            "editId"
+        ).value;
+
+    const existing =
+        members.find(
+            m => m.id === editId
+        );
+
+    const data = {
+
+        name,
+
+        email:
+            document.getElementById(
+                "email"
+            ).value.trim(),
+
+        phone:
+            document.getElementById(
+                "phone"
+            ).value.trim(),
+
+        gender:
+            document.getElementById(
+                "gender"
+            ).value,
+
+        age:
+            Number(
+                document.getElementById(
+                    "age"
+                ).value
+            ) || 0,
+
+        plan:
+            document.getElementById(
+                "plan"
+            ).value,
+
+        status:
+            document.getElementById(
+                "status"
+            ).value,
+
+        joinDate:
+            document.getElementById(
+                "joinDate"
+            ).value,
+
+        expiryDate:
+            document.getElementById(
+                "expiryDate"
+            ).value,
+
+        avatar:
+            document.getElementById(
+                "avatar"
+            ).value.trim(),
+
+        weight:
+            Number(
+                document.getElementById(
+                    "weight"
+                ).value
+            ) || 0,
+
+        height:
+            Number(
+                document.getElementById(
+                    "height"
+                ).value
+            ) || 0,
+
+        address:
+            document.getElementById(
+                "address"
+            ).value.trim(),
+
+        notes:
+            document.getElementById(
+                "notes"
+            ).value.trim()
+
+    };
+
+    if(editId){
+
+        const index =
+            members.findIndex(
+                m => m.id === editId
+            );
+
+        if(index !== -1){
+
+            members[index] = {
+
+                ...members[index],
+
+                ...data,
+
+                updatedAt:
+                    new Date().toISOString()
+
+            };
+
+        }
+
+        toast("Member updated successfully.");
+
+    }else{
+
+        members.unshift({
+
+            id:makeId(),
+
+            ...data,
+
+            workouts:0,
+
+            lastActive:
+                data.joinDate ||
+                new Date()
+                    .toISOString()
+                    .slice(0,10),
+
+            createdAt:
+                new Date().toISOString()
+
+        });
+
+        toast("Member added successfully.");
+
+    }
+
+    saveMembers();
+
+    syncProfileIfNeeded();
+
+    closeModal();
+
+    render();
+
+}
+
+/* =========================================================
+   TOGGLE STATUS
+========================================================= */
+
+function toggleStatus(id){
+
+    const m =
+        members.find(
+            item => item.id === id
+        );
+
+    if(!m) return;
+
+    if(m.status === "active"){
+
+        m.status = "inactive";
+
+        toast("Member set to inactive.");
+
+    }else{
+
+        m.status = "active";
+
+        toast("Member activated.");
+
+    }
+
+    saveMembers();
+
+    render();
+
+}
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteMember(id){
+
+    const m =
+        members.find(
+            item => item.id === id
+        );
+
+    if(!m) return;
+
+    if(
+        !confirm(
+            `Delete "${m.name}" member?`
+        )
+    ){
+        return;
+    }
+
+    members =
+        members.filter(
+            item => item.id !== id
+        );
+
+    saveMembers();
+
+    render();
+
+    toast("Member deleted.");
+
+}
+
+/* =========================================================
+   VIEW MEMBER
+========================================================= */
+
+function viewMember(id){
+
+    const m =
+        members.find(
+            item => item.id === id
+        );
+
+    if(!m) return;
+
+    const initials =
+        getInitials(m.name);
+
+    const avatar =
+        m.avatar
+        ? `
+            <img
+                src="${escapeHTML(m.avatar)}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                    border-radius:18px;
+                "
+            >
+        `
+        : initials;
+
+    document.getElementById(
+        "memberDetails"
+    ).innerHTML = `
+
+        <div class="profile-head">
+
+            <div class="big-avatar">
+                ${avatar}
+            </div>
+
+            <div>
+
+                <h3>
+                    ${escapeHTML(m.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(
+                        m.email || "No email"
+                    )}
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="detail-grid">
+
+            ${detail(
+                "Phone",
+                m.phone || "Not provided"
+            )}
+
+            ${detail(
+                "Gender",
+                capitalize(m.gender)
+            )}
+
+            ${detail(
+                "Age",
+                m.age ? m.age + " years" : "—"
+            )}
+
+            ${detail(
+                "Membership",
+                capitalize(m.plan)
+            )}
+
+            ${detail(
+                "Status",
+                capitalize(m.status)
+            )}
+
+            ${detail(
+                "Join Date",
+                formatDate(m.joinDate)
+            )}
+
+            ${detail(
+                "Expiry",
+                formatDate(m.expiryDate)
+            )}
+
+            ${detail(
+                "Workouts",
+                Number(m.workouts || 0)
+            )}
+
+            ${detail(
+                "Weight",
+                m.weight ? m.weight + " kg" : "—"
+            )}
+
+            ${detail(
+                "Height",
+                m.height ? m.height + " cm" : "—"
+            )}
+
+            ${detail(
+                "Last Active",
+                formatDate(m.lastActive)
+            )}
+
+            ${detail(
+                "Address",
+                m.address || "Not provided"
+            )}
+
+            ${detail(
+                "Notes",
+                m.notes || "No notes"
+            )}
+
+        </div>
+
+    `;
+
+    document.getElementById(
+        "viewModal"
+    ).classList.add("show");
+
+}
+
+function detail(label,value){
+
+    return `
+
+        <div class="detail">
+
+            <label>
+                ${escapeHTML(label)}
+            </label>
+
+            <strong>
+                ${escapeHTML(String(value))}
+            </strong>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportMembers(){
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    members,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:"application/json"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        "sai-fitness-members.json";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+    toast("Members exported successfully.");
+
+}
+
+/* =========================================================
+   USER PROFILE SYNC
+========================================================= */
+
+function syncProfileIfNeeded(){
+
+    /*
+      If the admin is managing the same browser/device,
+      keep the first active member available to the
+      existing user-side profile storage.
+    */
+
+    try{
+
+        const active =
+            members.find(
+                m => m.status === "active"
+            );
+
+        if(!active) return;
+
+        const profile = {
+
+            name:active.name || "",
+
+            email:active.email || "",
+
+            phone:active.phone || "",
+
+            gender:active.gender || "",
+
+            age:active.age || "",
+
+            weight:active.weight || "",
+
+            height:active.height || "",
+
+            avatar:active.avatar || "",
+
+            address:active.address || ""
+
+        };
+
+        /*
+          Do not force overwrite if a user profile
+          already exists.
+        */
+
+        if(
+            !localStorage.getItem(
+                "saiProfileData"
+            )
+        ){
+
+            localStorage.setItem(
+                "saiProfileData",
+                JSON.stringify(profile)
+            );
+
+        }
+
+    }catch(e){}
+
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function closeModal(){
+
+    document.getElementById(
+        "memberModal"
+    ).classList.remove("show");
+
+}
+
+function closeView(){
+
+    document.getElementById(
+        "viewModal"
+    ).classList.remove("show");
+
+}
+
+document.getElementById(
+    "memberModal"
+).addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === this){
+            closeModal();
+        }
+
+    }
+);
+
+document.getElementById(
+    "viewModal"
+).addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === this){
+            closeView();
+        }
+
+    }
+);
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+const sidebar =
+    document.getElementById(
+        "sidebar"
+    );
+
+const overlay =
+    document.getElementById(
+        "overlay"
+    );
+
+document.getElementById(
+    "mobileMenu"
+).addEventListener(
+    "click",
+    function(){
+
+        sidebar.classList.add("open");
+
+        overlay.classList.add("show");
+
+    }
+);
+
+overlay.addEventListener(
+    "click",
+    function(){
+
+        sidebar.classList.remove("open");
+
+        overlay.classList.remove("show");
+
+    }
+);
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function capitalize(value){
+
+    if(!value) return "";
+
+    return String(value)
+        .charAt(0)
+        .toUpperCase() +
+        String(value).slice(1);
+
+}
+
+function getInitials(name){
+
+    return String(name || "U")
+        .trim()
+        .split(/\s+/)
+        .slice(0,2)
+        .map(
+            word =>
+                word.charAt(0)
+        )
+        .join("")
+        .toUpperCase();
+
+}
+
+function formatDate(date){
+
+    if(!date) return "—";
+
+    const d =
+        new Date(date);
+
+    if(
+        Number.isNaN(
+            d.getTime()
+        )
+    ){
+        return escapeHTML(date);
+    }
+
+    return d.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+function toast(message){
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+    window.toastTimer =
+        setTimeout(
+            () =>
+                el.classList.remove("show"),
+            2500
+        );
+
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
+render();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>Maintenance • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070b09;
+  --panel:#0d1310;
+  --card:#111914;
+  --card2:#151e18;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f5f7f6;
+  --muted:#91a097;
+  --border:rgba(255,255,255,.08);
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#38bdf8;
+  --radius:18px;
+}
+
+html,
+body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  width:270px;
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:100;
+  padding:20px 14px;
+  background:#09100c;
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:4px 8px 24px;
+}
+
+.logo-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--green),#0b6b32);
+  box-shadow:0 10px 30px rgba(22,163,74,.22);
+}
+
+.logo-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.logo-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.nav-title{
+  color:#5f6d65;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  padding:13px 10px 8px;
+}
+
+.nav{
+  display:grid;
+  gap:5px;
+}
+
+.nav a{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 12px;
+  border-radius:12px;
+  color:#aab6af;
+  font-size:13px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.nav a i{
+  width:19px;
+  text-align:center;
+}
+
+.nav a:hover{
+  background:rgba(255,255,255,.05);
+  color:#fff;
+}
+
+.nav a.active{
+  color:#fff;
+  background:linear-gradient(
+    90deg,
+    rgba(22,163,74,.20),
+    rgba(22,163,74,.05)
+  );
+  border:1px solid rgba(34,197,94,.16);
+}
+
+.nav a.active i{
+  color:var(--green2);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  width:calc(100% - 270px);
+  margin-left:270px;
+  padding:28px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:24px;
+}
+
+.heading h1{
+  font-size:27px;
+  font-weight:800;
+}
+
+.heading p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px;
+}
+
+.top-actions{
+  display:flex;
+  gap:9px;
+}
+
+.mobile-menu{
+  display:none;
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:#fff;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  min-height:42px;
+  padding:0 14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+}
+
+.btn:hover{
+  background:var(--card2);
+}
+
+.btn-primary{
+  background:var(--green);
+  border-color:var(--green);
+}
+
+.btn-primary:hover{
+  background:#15803d;
+}
+
+.btn-danger{
+  color:#fecaca;
+  border-color:rgba(239,68,68,.25);
+}
+
+.btn-warning{
+  color:#fde68a;
+  border-color:rgba(245,158,11,.25);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  padding:24px;
+  margin-bottom:18px;
+  border:1px solid rgba(245,158,11,.16);
+  border-radius:22px;
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(245,158,11,.13),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      #19150d,
+      #0d110e
+    );
+}
+
+.hero-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.hero-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.hero-icon{
+  width:58px;
+  height:58px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  background:rgba(245,158,11,.10);
+  border:1px solid rgba(245,158,11,.18);
+  color:var(--warning);
+  font-size:24px;
+}
+
+.hero h2{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+.hero p{
+  max-width:700px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 11px;
+  border-radius:30px;
+  color:#86efac;
+  background:rgba(34,197,94,.10);
+  border:1px solid rgba(34,197,94,.18);
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.status.maintenance{
+  color:#fde68a;
+  background:rgba(245,158,11,.10);
+  border-color:rgba(245,158,11,.18);
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 10px #22c55e;
+}
+
+.status.maintenance .dot{
+  background:#f59e0b;
+  box-shadow:0 0 10px #f59e0b;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.card{
+  padding:18px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+
+.stat{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.stat small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.stat strong{
+  font-size:20px;
+}
+
+.stat-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(22,163,74,.10);
+  color:var(--green2);
+}
+
+.stat-icon.warning{
+  color:var(--warning);
+  background:rgba(245,158,11,.10);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section-title{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.section-title i{
+  color:var(--green2);
+  margin-right:7px;
+}
+
+.section-sub{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+  margin-bottom:17px;
+}
+
+/* =========================
+   TOGGLE
+========================= */
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.toggle-row:last-child{
+  border-bottom:0;
+}
+
+.toggle-info strong{
+  display:block;
+  font-size:12px;
+}
+
+.toggle-info span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:4px;
+}
+
+.switch{
+  position:relative;
+  width:45px;
+  height:25px;
+  flex:none;
+}
+
+.switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  background:#26312b;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.08);
+  transition:.2s;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  width:19px;
+  height:19px;
+  left:2px;
+  top:2px;
+  background:#fff;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.switch input:checked + .slider{
+  background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(19px);
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.field{
+  display:grid;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  color:#b7c2bc;
+  font-size:11px;
+  font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:#090e0b;
+  color:#fff;
+  padding:11px 12px;
+  font-size:12px;
+}
+
+.field textarea{
+  min-height:105px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:rgba(34,197,94,.55);
+  box-shadow:0 0 0 3px rgba(34,197,94,.07);
+}
+
+/* =========================
+   NOTICE PREVIEW
+========================= */
+
+.preview{
+  border-radius:17px;
+  border:1px solid rgba(245,158,11,.18);
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(245,158,11,.12),
+      transparent 35%
+    ),
+    #0b100d;
+  padding:24px;
+  text-align:center;
+}
+
+.preview-icon{
+  width:58px;
+  height:58px;
+  margin:0 auto 12px;
+  display:grid;
+  place-items:center;
+  border-radius:18px;
+  background:rgba(245,158,11,.10);
+  color:var(--warning);
+  font-size:24px;
+}
+
+.preview h3{
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.preview p{
+  max-width:520px;
+  margin:auto;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
+
+.preview-time{
+  margin-top:12px;
+  color:#fde68a;
+  font-size:10px;
+}
+
+/* =========================
+   SCHEDULE
+========================= */
+
+.schedule-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.date-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+/* =========================
+   WARNING
+========================= */
+
+.warning{
+  padding:13px 14px;
+  border-radius:12px;
+  border:1px solid rgba(245,158,11,.18);
+  background:rgba(245,158,11,.06);
+  color:#d8c99f;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.warning i{
+  color:var(--warning);
+  margin-right:6px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:999;
+  min-width:220px;
+  max-width:calc(100vw - 40px);
+  padding:13px 15px;
+  border-radius:13px;
+  background:#121b16;
+  border:1px solid rgba(34,197,94,.2);
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
+  font-size:12px;
+  display:none;
+}
+
+.toast.show{
+  display:block;
+  animation:toast .25s ease;
+}
+
+@keyframes toast{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1050px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    transform:translateX(-105%);
+    transition:.25s;
+    box-shadow:20px 0 50px rgba(0,0,0,.4);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+    padding:18px 14px 30px;
+  }
+
+  .mobile-menu{
+    display:grid;
+    place-items:center;
+  }
+
+  .topbar{
+    align-items:flex-start;
+  }
+
+  .heading h1{
+    font-size:21px;
+  }
+
+  .top-actions .btn span{
+    display:none;
+  }
+
+  .hero-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .schedule-box{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:560px){
+
+  .stats,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding:18px;
+  }
+
+  .hero-left{
+    align-items:flex-start;
+  }
+
+  .hero-icon{
+    width:48px;
+    height:48px;
+    font-size:20px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .date-row{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      <i class="fa-solid fa-dumbbell"></i>
+    </div>
+
+    <div>
+      <div class="logo-title">
+        Sai Fitness Bidupur
+      </div>
+
+      <div class="logo-sub">
+        Master Admin Panel
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-title">Dashboard</div>
+
+  <nav class="nav">
+
+    <a href="index.html">
+      <i class="fa-solid fa-gauge-high"></i>
+      Dashboard
+    </a>
+
+  </nav>
+
+  <div class="nav-title">Management</div>
+
+  <nav class="nav">
+
+    <a href="members.html">
+      <i class="fa-solid fa-users"></i>
+      Members
+    </a>
+
+    <a href="workouts.html">
+      <i class="fa-solid fa-fire"></i>
+      Workouts
+    </a>
+
+    <a href="exercises.html">
+      <i class="fa-solid fa-person-running"></i>
+      Exercises
+    </a>
+
+    <a href="diet.html">
+      <i class="fa-solid fa-utensils"></i>
+      Diet
+    </a>
+
+    <a href="goals.html">
+      <i class="fa-solid fa-bullseye"></i>
+      Goals
+    </a>
+
+    <a href="achievements.html">
+      <i class="fa-solid fa-trophy"></i>
+      Achievements
+    </a>
+
+    <a href="notifications.html">
+      <i class="fa-solid fa-bell"></i>
+      Notifications
+    </a>
+
+  </nav>
+
+  <div class="nav-title">Customization</div>
+
+  <nav class="nav">
+
+    <a href="theme.html">
+      <i class="fa-solid fa-palette"></i>
+      Theme Studio
+    </a>
+
+    <a href="css-manager.html">
+      <i class="fa-brands fa-css3-alt"></i>
+      CSS Manager
+    </a>
+
+    <a href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Animations
+    </a>
+
+    <a href="media.html">
+      <i class="fa-solid fa-photo-film"></i>
+      Media Library
+    </a>
+
+    <a href="page-builder.html">
+      <i class="fa-solid fa-layer-group"></i>
+      Page Builder
+    </a>
+
+    <a href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i>
+      Content
+    </a>
+
+    <a href="home.html">
+      <i class="fa-solid fa-house"></i>
+      Home Builder
+    </a>
+
+  </nav>
+
+  <div class="nav-title">Growth</div>
+
+  <nav class="nav">
+
+    <a href="seo.html">
+      <i class="fa-solid fa-magnifying-glass-chart"></i>
+      SEO Manager
+    </a>
+
+    <a href="analytics.html">
+      <i class="fa-solid fa-chart-line"></i>
+      Analytics
+    </a>
+
+  </nav>
+
+  <div class="nav-title">System</div>
+
+  <nav class="nav">
+
+    <a href="pwa.html">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      PWA Manager
+    </a>
+
+    <a href="version.html">
+      <i class="fa-solid fa-code-branch"></i>
+      Version Manager
+    </a>
+
+    <a href="backup.html">
+      <i class="fa-solid fa-database"></i>
+      Backup & Restore
+    </a>
+
+    <a href="maintenance.html" class="active">
+      <i class="fa-solid fa-screwdriver-wrench"></i>
+      Maintenance
+    </a>
+
+    <a href="security.html">
+      <i class="fa-solid fa-shield-halved"></i>
+      Security
+    </a>
+
+    <a href="settings.html">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+
+  </nav>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+  <div class="topbar">
+
+    <div style="display:flex;align-items:center;gap:10px;">
+
+      <button class="mobile-menu" id="menuBtn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="heading">
+
+        <h1>Maintenance</h1>
+
+        <p>
+          App maintenance mode और temporary lock screen manage करें.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="top-actions">
+
+      <button class="btn" onclick="openApp()">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Open App</span>
+      </button>
+
+      <button class="btn btn-primary" onclick="saveSettings()">
+        <i class="fa-solid fa-floppy-disk"></i>
+        <span>Save</span>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-row">
+
+      <div class="hero-left">
+
+        <div class="hero-icon">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
+
+        <div>
+
+          <h2>Maintenance Control Center</h2>
+
+          <p>
+            App को temporary maintenance screen पर ले जाने,
+            custom message दिखाने और scheduled maintenance
+            configure करने के लिए controls.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="status" id="statusBadge">
+
+        <span class="dot"></span>
+
+        <span id="statusText">
+          App Online
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+          <small>Maintenance</small>
+          <strong id="maintenanceStat">OFF</strong>
+        </div>
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-power-off"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+          <small>Mode</small>
+          <strong id="modeStat">Manual</strong>
+        </div>
+
+        <div class="stat-icon warning">
+          <i class="fa-solid fa-sliders"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+          <small>Admin Bypass</small>
+          <strong id="bypassStat">OFF</strong>
+        </div>
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+          <small>Notice</small>
+          <strong id="noticeStat">Enabled</strong>
+        </div>
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-message"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MAIN SWITCH -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-power-off"></i>
+      Maintenance Mode
+    </div>
+
+    <div class="section-sub">
+      इसे ON करने पर actual user app को maintenance screen
+      दिखाने के लिए app pages को इस setting को read करना होगा.
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Enable Maintenance Mode
+        </strong>
+
+        <span>
+          Temporary maintenance mode activate करें.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="maintenanceEnabled"
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Show Maintenance Notice
+        </strong>
+
+        <span>
+          User को maintenance information दिखाने की अनुमति.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="noticeEnabled"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Allow Admin Bypass
+        </strong>
+
+        <span>
+          Admin session वाले user को maintenance screen bypass
+          करने का option.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="adminBypass"
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Block User Actions
+        </strong>
+
+        <span>
+          Maintenance के दौरान normal user actions रोकने का flag.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="blockActions"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+  </section>
+
+
+  <!-- MODE -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-sliders"></i>
+      Maintenance Mode Type
+    </div>
+
+    <div class="section-sub">
+      Manual या scheduled maintenance behaviour चुनें.
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>Mode</label>
+
+        <select id="maintenanceMode">
+
+          <option value="manual">
+            Manual
+          </option>
+
+          <option value="scheduled">
+            Scheduled
+          </option>
+
+          <option value="both">
+            Manual + Scheduled
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="field">
+
+        <label>Expected Duration</label>
+
+        <select id="duration">
+
+          <option value="unknown">
+            Unknown
+          </option>
+
+          <option value="15">
+            15 Minutes
+          </option>
+
+          <option value="30">
+            30 Minutes
+          </option>
+
+          <option value="60">
+            1 Hour
+          </option>
+
+          <option value="120">
+            2 Hours
+          </option>
+
+          <option value="custom">
+            Custom
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SCHEDULE -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-calendar-days"></i>
+      Scheduled Maintenance
+    </div>
+
+    <div class="section-sub">
+      Future maintenance window की date और time save करें.
+    </div>
+
+    <div class="schedule-box">
+
+      <div class="field">
+
+        <label>Start</label>
+
+        <input
+          type="datetime-local"
+          id="scheduleStart"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>End</label>
+
+        <input
+          type="datetime-local"
+          id="scheduleEnd"
+        >
+
+      </div>
+
+    </div>
+
+    <div style="margin-top:14px;">
+
+      <div class="toggle-row">
+
+        <div class="toggle-info">
+
+          <strong>
+            Enable Scheduled Window
+          </strong>
+
+          <span>
+            ऊपर दिए गए start/end समय को active schedule की तरह use करें.
+          </span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            id="scheduleEnabled"
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MESSAGE -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-message"></i>
+      Maintenance Message
+    </div>
+
+    <div class="section-sub">
+      User को maintenance के दौरान दिखाई देने वाली information.
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field full">
+
+        <label>Title</label>
+
+        <input
+          id="maintenanceTitle"
+          value="We're working on something better"
+          placeholder="Maintenance title"
+        >
+
+      </div>
+
+      <div class="field full">
+
+        <label>Message</label>
+
+        <textarea
+          id="maintenanceMessage"
+          placeholder="Our fitness app is temporarily unavailable..."
+        >Sai Fitness Bidupur अभी maintenance में है. थोड़ी देर बाद फिर कोशिश करें.</textarea>
+
+      </div>
+
+      <div class="field">
+
+        <label>Support Text</label>
+
+        <input
+          id="supportText"
+          value="Thank you for your patience."
+          placeholder="Support message"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Contact / Help</label>
+
+        <input
+          id="contactText"
+          placeholder="Contact admin if needed"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PREVIEW -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-eye"></i>
+      Maintenance Screen Preview
+    </div>
+
+    <div class="section-sub">
+      User-facing maintenance screen का live preview.
+    </div>
+
+    <div class="preview">
+
+      <div class="preview-icon">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+      </div>
+
+      <h3 id="previewTitle">
+        We're working on something better
+      </h3>
+
+      <p id="previewMessage">
+        Sai Fitness Bidupur अभी maintenance में है.
+        थोड़ी देर बाद फिर कोशिश करें.
+      </p>
+
+      <div class="preview-time" id="previewTime">
+        Thank you for your patience.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ADVANCED -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="section-title">
+      <i class="fa-solid fa-gears"></i>
+      Advanced Behaviour
+    </div>
+
+    <div class="section-sub">
+      Maintenance page के additional behaviour controls.
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Show Countdown
+        </strong>
+
+        <span>
+          Scheduled maintenance के लिए countdown दिखाने का flag.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="countdownEnabled"
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Allow Retry Button
+        </strong>
+
+        <span>
+          User maintenance screen से app retry कर सके.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="retryButton"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+    <div class="toggle-row">
+
+      <div class="toggle-info">
+
+        <strong>
+          Keep Offline Access
+        </strong>
+
+        <span>
+          PWA cache में उपलब्ध offline pages को maintain रखें.
+        </span>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="offlineAccess"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+  </section>
+
+
+  <!-- WARNING -->
+
+  <section class="card" style="margin-bottom:18px;">
+
+    <div class="warning">
+
+      <i class="fa-solid fa-triangle-exclamation"></i>
+
+      यह manager settings browser के localStorage में save करता है.
+      केवल इस HTML file में setting ON करने से पूरी website अपने-आप
+      बंद नहीं होगी। Actual user pages जैसे <b>index.html</b> को
+      <b>saiMaintenanceSettings</b> पढ़कर maintenance screen लागू करनी होगी।
+      Production-level maintenance control के लिए server-side PHP/MySQL
+      implementation जरूरी है।
+
+    </div>
+
+  </section>
+
+
+  <!-- DATA -->
+
+  <section class="card">
+
+    <div class="section-title">
+      <i class="fa-solid fa-database"></i>
+      Maintenance Data
+    </div>
+
+    <div class="section-sub">
+      Settings export, reset और emergency controls.
+    </div>
+
+    <div style="display:flex;gap:9px;flex-wrap:wrap;">
+
+      <button
+        class="btn btn-primary"
+        onclick="saveSettings()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Settings
+      </button>
+
+      <button
+        class="btn"
+        onclick="exportSettings()"
+      >
+        <i class="fa-solid fa-file-export"></i>
+        Export JSON
+      </button>
+
+      <button
+        class="btn btn-warning"
+        onclick="testMaintenance()"
+      >
+        <i class="fa-solid fa-eye"></i>
+        Test Screen
+      </button>
+
+      <button
+        class="btn btn-danger"
+        onclick="disableMaintenance()"
+      >
+        <i class="fa-solid fa-power-off"></i>
+        Emergency OFF
+      </button>
+
+      <button
+        class="btn"
+        onclick="resetSettings()"
+      >
+        <i class="fa-solid fa-rotate-left"></i>
+        Reset
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <div style="
+    color:#66746c;
+    text-align:center;
+    font-size:10px;
+    padding:25px 0 10px;
+  ">
+    Sai Fitness Bidupur • Maintenance Manager • Local Admin System
+  </div>
+
+</main>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="admin-security.js"></script>
+
+<script>
+/* =========================================
+   SECURITY
+========================================= */
+
+if(
+  window.Security &&
+  typeof Security.requireAuth === "function"
+){
+  Security.requireAuth("maintenance");
+}
+
+
+/* =========================================
+   STORAGE
+========================================= */
+
+const STORAGE_KEY =
+  "saiMaintenanceSettings";
+
+
+const defaults = {
+
+  maintenanceEnabled:false,
+
+  noticeEnabled:true,
+
+  adminBypass:false,
+
+  blockActions:true,
+
+  maintenanceMode:"manual",
+
+  duration:"unknown",
+
+  scheduleEnabled:false,
+
+  scheduleStart:"",
+
+  scheduleEnd:"",
+
+  maintenanceTitle:
+    "We're working on something better",
+
+  maintenanceMessage:
+    "Sai Fitness Bidupur अभी maintenance में है. थोड़ी देर बाद फिर कोशिश करें.",
+
+  supportText:
+    "Thank you for your patience.",
+
+  contactText:"",
+
+  countdownEnabled:false,
+
+  retryButton:true,
+
+  offlineAccess:true
+
+};
+
+
+let settings =
+  loadSettings();
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+function loadSettings(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY) ||
+        "null"
+      );
+
+    return {
+      ...defaults,
+      ...(saved || {})
+    };
+
+  }catch(e){
+
+    return {
+      ...defaults
+    };
+
+  }
+
+}
+
+
+function saveLocal(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(settings)
+  );
+
+}
+
+
+function toast(message){
+
+  const el =
+    $("toast");
+
+  el.textContent =
+    message;
+
+  el.classList.add("show");
+
+  clearTimeout(
+    window.__toastTimer
+  );
+
+  window.__toastTimer =
+    setTimeout(
+      ()=>{
+        el.classList.remove("show");
+      },
+      2300
+    );
+
+}
+
+
+/* =========================================
+   FILL FORM
+========================================= */
+
+function fillForm(){
+
+  $("maintenanceEnabled").checked =
+    !!settings.maintenanceEnabled;
+
+  $("noticeEnabled").checked =
+    !!settings.noticeEnabled;
+
+  $("adminBypass").checked =
+    !!settings.adminBypass;
+
+  $("blockActions").checked =
+    !!settings.blockActions;
+
+  $("maintenanceMode").value =
+    settings.maintenanceMode;
+
+  $("duration").value =
+    settings.duration;
+
+  $("scheduleEnabled").checked =
+    !!settings.scheduleEnabled;
+
+  $("scheduleStart").value =
+    settings.scheduleStart;
+
+  $("scheduleEnd").value =
+    settings.scheduleEnd;
+
+  $("maintenanceTitle").value =
+    settings.maintenanceTitle;
+
+  $("maintenanceMessage").value =
+    settings.maintenanceMessage;
+
+  $("supportText").value =
+    settings.supportText;
+
+  $("contactText").value =
+    settings.contactText;
+
+  $("countdownEnabled").checked =
+    !!settings.countdownEnabled;
+
+  $("retryButton").checked =
+    !!settings.retryButton;
+
+  $("offlineAccess").checked =
+    !!settings.offlineAccess;
+
+}
+
+
+/* =========================================
+   READ FORM
+========================================= */
+
+function readForm(){
+
+  settings = {
+
+    maintenanceEnabled:
+      $("maintenanceEnabled").checked,
+
+    noticeEnabled:
+      $("noticeEnabled").checked,
+
+    adminBypass:
+      $("adminBypass").checked,
+
+    blockActions:
+      $("blockActions").checked,
+
+    maintenanceMode:
+      $("maintenanceMode").value,
+
+    duration:
+      $("duration").value,
+
+    scheduleEnabled:
+      $("scheduleEnabled").checked,
+
+    scheduleStart:
+      $("scheduleStart").value,
+
+    scheduleEnd:
+      $("scheduleEnd").value,
+
+    maintenanceTitle:
+      $("maintenanceTitle").value.trim() ||
+      defaults.maintenanceTitle,
+
+    maintenanceMessage:
+      $("maintenanceMessage").value.trim() ||
+      defaults.maintenanceMessage,
+
+    supportText:
+      $("supportText").value.trim() ||
+      defaults.supportText,
+
+    contactText:
+      $("contactText").value.trim(),
+
+    countdownEnabled:
+      $("countdownEnabled").checked,
+
+    retryButton:
+      $("retryButton").checked,
+
+    offlineAccess:
+      $("offlineAccess").checked
+
+  };
+
+}
+
+
+/* =========================================
+   SAVE
+========================================= */
+
+function saveSettings(){
+
+  readForm();
+
+  saveLocal();
+
+  renderAll();
+
+  toast(
+    "Maintenance settings saved"
+  );
+
+}
+
+
+/* =========================================
+   RENDER STATUS
+========================================= */
+
+function renderStatus(){
+
+  const active =
+    !!settings.maintenanceEnabled;
+
+  $("maintenanceStat").textContent =
+    active ? "ON" : "OFF";
+
+  $("modeStat").textContent =
+    settings.maintenanceMode === "manual"
+      ? "Manual"
+      : settings.maintenanceMode === "scheduled"
+        ? "Scheduled"
+        : "Both";
+
+  $("bypassStat").textContent =
+    settings.adminBypass
+      ? "ON"
+      : "OFF";
+
+  $("noticeStat").textContent =
+    settings.noticeEnabled
+      ? "Enabled"
+      : "Hidden";
+
+
+  const badge =
+    $("statusBadge");
+
+  const text =
+    $("statusText");
+
+  if(active){
+
+    badge.classList.add(
+      "maintenance"
+    );
+
+    text.textContent =
+      "Maintenance Active";
+
+  }else{
+
+    badge.classList.remove(
+      "maintenance"
+    );
+
+    text.textContent =
+      "App Online";
+
+  }
+
+}
+
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+function renderPreview(){
+
+  $("previewTitle").textContent =
+    settings.maintenanceTitle;
+
+  $("previewMessage").textContent =
+    settings.maintenanceMessage;
+
+  $("previewTime").textContent =
+    settings.supportText;
+
+}
+
+
+/* =========================================
+   ALL
+========================================= */
+
+function renderAll(){
+
+  renderStatus();
+
+  renderPreview();
+
+}
+
+
+/* =========================================
+   DISABLE
+========================================= */
+
+function disableMaintenance(){
+
+  if(
+    !confirm(
+      "Maintenance Mode तुरंत OFF करें?"
+    )
+  ){
+    return;
+  }
+
+  settings.maintenanceEnabled =
+    false;
+
+  $("maintenanceEnabled").checked =
+    false;
+
+  saveLocal();
+
+  renderAll();
+
+  toast(
+    "Maintenance Mode OFF"
+  );
+
+}
+
+
+/* =========================================
+   TEST SCREEN
+========================================= */
+
+function testMaintenance(){
+
+  readForm();
+
+  const title =
+    encodeURIComponent(
+      settings.maintenanceTitle
+    );
+
+  const message =
+    encodeURIComponent(
+      settings.maintenanceMessage
+    );
+
+  const support =
+    encodeURIComponent(
+      settings.supportText
+    );
+
+  const url =
+    "maintenance-preview.html" +
+    "?title=" + title +
+    "&message=" + message +
+    "&support=" + support;
+
+  /*
+    If maintenance-preview.html exists,
+    open it.
+  */
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+  toast(
+    "Preview screen opened"
+  );
+
+}
+
+
+/* =========================================
+   EXPORT
+========================================= */
+
+function exportSettings(){
+
+  readForm();
+
+  const payload = {
+
+    type:
+      "Sai Fitness Bidupur Maintenance Settings",
+
+    exportedAt:
+      new Date().toISOString(),
+
+    settings
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          payload,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const a =
+    document.createElement("a");
+
+  a.href =
+    url;
+
+  a.download =
+    "sai-fitness-maintenance-settings.json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(
+    url
+  );
+
+
+  toast(
+    "Maintenance data exported"
+  );
+
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+function resetSettings(){
+
+  if(
+    !confirm(
+      "Maintenance settings reset करें?"
+    )
+  ){
+    return;
+  }
+
+  settings = {
+    ...defaults
+  };
+
+  saveLocal();
+
+  fillForm();
+
+  renderAll();
+
+  toast(
+    "Maintenance settings reset"
+  );
+
+}
+
+
+/* =========================================
+   LIVE PREVIEW
+========================================= */
+
+[
+  "maintenanceTitle",
+  "maintenanceMessage",
+  "supportText",
+  "contactText"
+].forEach(id => {
+
+  const el =
+    $(id);
+
+  if(!el) return;
+
+  el.addEventListener(
+    "input",
+    () => {
+
+      readForm();
+
+      renderPreview();
+
+    }
+  );
+
+});
+
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+[
+  "maintenanceEnabled",
+  "noticeEnabled",
+  "adminBypass",
+  "blockActions",
+  "maintenanceMode",
+  "duration",
+  "scheduleEnabled",
+  "scheduleStart",
+  "scheduleEnd",
+  "countdownEnabled",
+  "retryButton",
+  "offlineAccess"
+].forEach(id => {
+
+  const el =
+    $(id);
+
+  if(!el) return;
+
+  el.addEventListener(
+    "change",
+    () => {
+
+      readForm();
+
+      renderAll();
+
+    }
+  );
+
+});
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+$("menuBtn").addEventListener(
+  "click",
+  () => {
+
+    $("sidebar").classList.toggle(
+      "open"
+    );
+
+  }
+);
+
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if(
+      window.innerWidth <= 800 &&
+      $("sidebar").classList.contains("open") &&
+      !$("sidebar").contains(event.target) &&
+      !$("menuBtn").contains(event.target)
+    ){
+
+      $("sidebar").classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   INIT
+========================================= */
+
+fillForm();
+
+renderAll();
+
+</script>
+
+</body>
+</html>

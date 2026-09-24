@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Goals Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="admin-security.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --bg:#070b09;--sidebar:#0b110e;--card:#101713;--card2:#131c17;
+ --border:#1e2b24;--primary:#16a34a;--primary2:#22c55e;
+ --text:#f5f7f6;--muted:#8c9b92;--danger:#ef4444;
+ --warning:#f59e0b;--blue:#3b82f6;
+}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+ width:255px;background:var(--sidebar);border-right:1px solid var(--border);
+ position:fixed;inset:0 auto 0 0;z-index:100;overflow-y:auto;transition:.25s
+}
+.logo{
+ height:76px;padding:18px;display:flex;align-items:center;gap:12px;
+ border-bottom:1px solid var(--border)
+}
+.logo-icon{
+ width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--primary),#064e24);
+ box-shadow:0 8px 25px rgba(22,163,74,.25)
+}
+.logo-text strong{display:block;font-size:14px;font-weight:800}
+.logo-text span{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.nav{padding:15px 11px}
+.nav-label{
+ color:#607066;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;
+ padding:10px 10px 7px;font-weight:700
+}
+.nav a{
+ display:flex;align-items:center;gap:12px;color:#9eaaa4;text-decoration:none;
+ padding:11px 12px;border-radius:11px;margin:3px 0;font-size:13px;transition:.2s
+}
+.nav a i{width:19px;text-align:center}
+.nav a:hover{background:#121b16;color:#fff}
+.nav a.active{
+ background:rgba(22,163,74,.14);color:#4ade80;
+ box-shadow:inset 3px 0 var(--primary)
+}
+.sidebar-bottom{
+ margin:10px 11px 20px;padding:13px;border:1px solid var(--border);
+ border-radius:14px;background:#0d1511
+}
+.admin-mini{display:flex;gap:10px;align-items:center}
+.admin-avatar{
+ width:37px;height:37px;border-radius:50%;display:grid;place-items:center;
+ background:#163d25;color:#4ade80
+}
+.admin-mini strong{font-size:12px;display:block}
+.admin-mini span{color:var(--muted);font-size:10px}
+
+/* MAIN */
+.main{width:calc(100% - 255px);margin-left:255px;min-height:100vh}
+.topbar{
+ height:76px;border-bottom:1px solid var(--border);
+ background:rgba(7,11,9,.9);backdrop-filter:blur(16px);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:0 28px;position:sticky;top:0;z-index:50
+}
+.page-title h1{font-size:21px;font-weight:800}
+.page-title p{color:var(--muted);font-size:11px;margin-top:4px}
+.top-actions{display:flex;gap:9px;align-items:center}
+.icon-btn{
+ width:39px;height:39px;border:1px solid var(--border);
+ background:#0d1410;color:#a9b5ae;border-radius:11px
+}
+.icon-btn:hover{color:#fff;border-color:#31513d}
+.menu-btn{display:none}
+.content{padding:26px;max-width:1450px;margin:auto}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{
+ background:var(--card);border:1px solid var(--border);border-radius:17px;
+ padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.22);position:relative;overflow:hidden
+}
+.stat:after{
+ content:"";position:absolute;width:90px;height:90px;right:-35px;top:-35px;
+ background:rgba(22,163,74,.08);border-radius:50%
+}
+.stat-top{display:flex;align-items:center;justify-content:space-between}
+.stat-icon{
+ width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+ background:rgba(22,163,74,.12);color:#4ade80
+}
+.stat-label{color:var(--muted);font-size:11px;margin-top:13px}
+.stat-value{font-size:25px;font-weight:800;margin-top:5px}
+.stat-note{color:#68776e;font-size:10px;margin-top:5px}
+
+/* TOOLBAR */
+.toolbar{
+ margin-top:22px;background:var(--card);border:1px solid var(--border);
+ border-radius:17px;padding:15px;display:flex;gap:10px;flex-wrap:wrap;align-items:center
+}
+.search{position:relative;flex:1;min-width:210px}
+.search i{
+ position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#64736a
+}
+.search input{
+ width:100%;height:43px;background:#0b120e;border:1px solid var(--border);
+ color:#fff;border-radius:11px;padding:0 13px 0 39px;outline:none
+}
+.search input:focus{border-color:#267a43}
+.filter{
+ height:43px;min-width:140px;background:#0b120e;color:#c7d0ca;
+ border:1px solid var(--border);border-radius:11px;padding:0 12px;outline:none
+}
+.btn{
+ height:43px;border:0;border-radius:11px;padding:0 15px;
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ font-weight:700;font-size:12px;transition:.2s
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary2);transform:translateY(-1px)}
+.btn-dark{background:#121a15;color:#c9d2cc;border:1px solid var(--border)}
+.btn-danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.18)}
+.btn-warning{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.18)}
+
+/* SECTION */
+.section-head{
+ display:flex;align-items:center;justify-content:space-between;margin:25px 2px 13px
+}
+.section-head h2{font-size:15px}
+.section-head span{color:var(--muted);font-size:11px}
+
+/* GOAL CARDS */
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.goal{
+ background:var(--card);border:1px solid var(--border);border-radius:18px;
+ overflow:hidden;transition:.22s
+}
+.goal:hover{transform:translateY(-2px);border-color:#2a4635}
+.goal-head{
+ padding:17px;border-bottom:1px solid var(--border);
+ display:flex;justify-content:space-between;gap:12px
+}
+.goal-title{display:flex;gap:11px;align-items:center}
+.goal-icon{
+ width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+ background:rgba(22,163,74,.13);color:#4ade80;font-size:18px
+}
+.goal-title h3{font-size:14px}
+.goal-title p{color:var(--muted);font-size:10px;margin-top:4px}
+.badge{
+ padding:5px 8px;border-radius:20px;font-size:9px;font-weight:700;height:max-content
+}
+.badge-published{color:#4ade80;background:rgba(22,163,74,.12)}
+.badge-draft{color:#fbbf24;background:rgba(245,158,11,.1)}
+.goal-body{padding:16px}
+.target-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.target{
+ background:#0b120e;border:1px solid #17231c;border-radius:11px;padding:10px
+}
+.target-label{font-size:9px;color:#69776f}
+.target-value{font-size:14px;font-weight:800;margin-top:4px}
+.progress{
+ height:6px;background:#17231c;border-radius:20px;margin-top:13px;overflow:hidden
+}
+.progress span{
+ display:block;height:100%;background:linear-gradient(90deg,var(--primary),#4ade80);
+ border-radius:20px
+}
+.progress-text{
+ display:flex;justify-content:space-between;color:#718078;font-size:9px;margin-top:6px
+}
+.goal-meta{
+ margin-top:13px;padding-top:11px;border-top:1px solid #17211c;
+ display:flex;justify-content:space-between;color:#78857e;font-size:9px
+}
+.goal-foot{
+ padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:7px
+}
+.small-btn{
+ flex:1;height:34px;border-radius:9px;border:1px solid var(--border);
+ background:#0c130f;color:#aeb9b2;font-size:10px;font-weight:700
+}
+.small-btn:hover{color:#fff;border-color:#31513d}
+.empty{
+ padding:55px 20px;text-align:center;color:#68766e;background:var(--card);
+ border:1px dashed var(--border);border-radius:17px;grid-column:1/-1
+}
+.empty i{font-size:30px;margin-bottom:12px}
+.empty h3{color:#cbd3ce;font-size:14px;margin-bottom:5px}
+.empty p{font-size:11px}
+
+/* MODAL */
+.modal{
+ position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(7px);
+ z-index:500;display:none;align-items:center;justify-content:center;padding:15px
+}
+.modal.show{display:flex}
+.modal-box{
+ width:100%;max-width:700px;max-height:92vh;overflow:auto;
+ background:#0e1511;border:1px solid #26372d;border-radius:20px;
+ box-shadow:0 25px 80px rgba(0,0,0,.5)
+}
+.modal-head{
+ padding:18px 20px;border-bottom:1px solid var(--border);
+ display:flex;justify-content:space-between;align-items:center;
+ position:sticky;top:0;background:#0e1511;z-index:2
+}
+.modal-head h2{font-size:16px}
+.close{
+ width:35px;height:35px;border:1px solid var(--border);
+ border-radius:10px;background:#121a15;color:#9ba69f
+}
+.modal-body{padding:20px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-size:10px;color:#8c9991;margin-bottom:6px}
+.field input,.field select,.field textarea{
+ width:100%;background:#090f0c;color:#fff;border:1px solid var(--border);
+ border-radius:10px;outline:none;padding:11px 12px
+}
+.field textarea{min-height:80px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#267a43}
+.hint{font-size:9px;color:#647169;margin-top:5px}
+.modal-foot{
+ padding:15px 20px;border-top:1px solid var(--border);
+ display:flex;justify-content:flex-end;gap:8px
+}
+
+/* TOAST */
+.toast{
+ position:fixed;right:20px;bottom:20px;background:#111a15;
+ border:1px solid #2a3b31;color:#dce4df;padding:12px 15px;border-radius:11px;
+ font-size:11px;box-shadow:0 18px 50px rgba(0,0,0,.28);
+ transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s;z-index:999
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* MOBILE */
+@media(max-width:1050px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .goals{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:800px){
+ .sidebar{transform:translateX(-100%)}
+ .sidebar.open{transform:translateX(0)}
+ .main{width:100%;margin-left:0}
+ .menu-btn{display:block}
+ .topbar{padding:0 15px}
+ .content{padding:16px}
+ .page-title h1{font-size:17px}
+ .page-title p{display:none}
+ .toolbar{padding:11px}
+ .search{min-width:100%}
+ .filter{flex:1;min-width:120px}
+ .toolbar .btn{flex:1}
+ .goals{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .stats{grid-template-columns:1fr 1fr}
+ .form-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .modal-body{padding:15px}
+ .modal-foot{padding:12px 15px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
+    <div class="logo-text">
+      <strong>Sai Fitness</strong>
+      <span>ADMIN CONTROL PANEL</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+
+    <div class="nav-label">Main</div>
+
+    <a href="index.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+
+    <div class="nav-label">Management</div>
+
+    <a href="members.html"><i class="fa-solid fa-users"></i> Members</a>
+    <a href="workouts.html"><i class="fa-solid fa-dumbbell"></i> Workouts</a>
+    <a href="exercises.html"><i class="fa-solid fa-person-running"></i> Exercises</a>
+    <a href="diet.html"><i class="fa-solid fa-utensils"></i> Diet Plans</a>
+    <a href="goals.html" class="active"><i class="fa-solid fa-bullseye"></i> Goals</a>
+    <a href="achievements.html"><i class="fa-solid fa-trophy"></i> Achievements</a>
+    <a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a>
+
+    <div class="nav-label">Customization</div>
+
+    <a href="theme.html"><i class="fa-solid fa-palette"></i> Theme Studio</a>
+    <a href="css-manager.html"><i class="fa-solid fa-code"></i> CSS Manager</a>
+    <a href="animation-manager.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Animations</a>
+    <a href="media.html"><i class="fa-solid fa-photo-film"></i> Media Library</a>
+    <a href="page-builder.html"><i class="fa-solid fa-layer-group"></i> Page Builder</a>
+    <a href="content.html"><i class="fa-solid fa-pen-to-square"></i> Content</a>
+
+    <div class="nav-label">System</div>
+
+    <a href="analytics.html"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+    <a href="backup.html"><i class="fa-solid fa-database"></i> Backup</a>
+    <a href="security.html"><i class="fa-solid fa-shield-halved"></i> Security</a>
+    <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="admin-mini">
+      <div class="admin-avatar"><i class="fa-solid fa-user-shield"></i></div>
+      <div>
+        <strong id="sideAdmin">Administrator</strong>
+        <span id="sideRole">Owner</span>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;gap:11px">
+
+    <button class="icon-btn menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="page-title">
+      <h1>Goals Manager</h1>
+      <p>Create fitness targets and assign them to members</p>
+    </div>
+
+  </div>
+
+  <div class="top-actions">
+
+    <button class="icon-btn"
+      title="Open User App"
+      onclick="location.href='../index.html'">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </button>
+
+    <button class="icon-btn"
+      title="Refresh"
+      onclick="render()">
+      <i class="fa-solid fa-rotate"></i>
+    </button>
+
+  </div>
+
+</header>
+
+<div class="content">
+
+  <!-- STATS -->
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-top">
+        <div class="stat-icon"><i class="fa-solid fa-bullseye"></i></div>
+      </div>
+      <div class="stat-label">Total Goals</div>
+      <div class="stat-value" id="totalGoals">0</div>
+      <div class="stat-note">All configured targets</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+      </div>
+      <div class="stat-label">Published</div>
+      <div class="stat-value" id="publishedGoals">0</div>
+      <div class="stat-note">Visible to users</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+      </div>
+      <div class="stat-label">Assigned</div>
+      <div class="stat-value" id="assignedGoals">0</div>
+      <div class="stat-note">Member-specific goals</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+      </div>
+      <div class="stat-label">Weekly Target</div>
+      <div class="stat-value" id="weeklyTarget">0</div>
+      <div class="stat-note">Average workouts / week</div>
+    </div>
+
+  </section>
+
+  <!-- TOOLBAR -->
+  <section class="toolbar">
+
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search goals..."
+        oninput="renderGoals()">
+    </div>
+
+    <select id="typeFilter" class="filter" onchange="renderGoals()">
+      <option value="all">All Types</option>
+      <option value="workout">Workout</option>
+      <option value="weight">Weight</option>
+      <option value="calories">Calories</option>
+      <option value="water">Water</option>
+      <option value="steps">Steps</option>
+      <option value="custom">Custom</option>
+    </select>
+
+    <select id="statusFilter" class="filter" onchange="renderGoals()">
+      <option value="all">All Status</option>
+      <option value="published">Published</option>
+      <option value="draft">Draft</option>
+    </select>
+
+    <button class="btn btn-dark" onclick="exportGoals()">
+      <i class="fa-solid fa-download"></i> Export
+    </button>
+
+    <button class="btn btn-primary" onclick="openAdd()">
+      <i class="fa-solid fa-plus"></i> Add Goal
+    </button>
+
+  </section>
+
+  <div class="section-head">
+    <h2>Fitness Goals</h2>
+    <span id="resultCount">0 goals</span>
+  </div>
+
+  <section class="goals" id="goalsGrid"></section>
+
+</div>
+</main>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="goalModal">
+
+<div class="modal-box">
+
+  <div class="modal-head">
+    <h2 id="modalTitle">Add Goal</h2>
+
+    <button class="close" onclick="closeModal()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <form id="goalForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Goal Name *</label>
+          <input id="goalName" required placeholder="e.g. Weekly Workout Target">
+        </div>
+
+        <div class="field">
+          <label>Goal Type *</label>
+          <select id="goalType">
+            <option value="workout">Workout</option>
+            <option value="weight">Weight</option>
+            <option value="calories">Calories</option>
+            <option value="water">Water</option>
+            <option value="steps">Steps</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Target Value</label>
+          <input id="targetValue" type="number" min="0" placeholder="5">
+        </div>
+
+        <div class="field">
+          <label>Unit</label>
+          <input id="targetUnit" placeholder="workouts / kg / kcal">
+        </div>
+
+        <div class="field">
+          <label>Period</label>
+          <select id="goalPeriod">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Current Progress</label>
+          <input id="currentProgress" type="number" min="0" placeholder="0">
+        </div>
+
+        <div class="field">
+          <label>Start Date</label>
+          <input id="startDate" type="date">
+        </div>
+
+        <div class="field">
+          <label>End Date</label>
+          <input id="endDate" type="date">
+        </div>
+
+        <div class="field">
+          <label>Status</label>
+          <select id="goalStatus">
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Assign Member</label>
+          <select id="goalMember">
+            <option value="">All Members / General Goal</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Description</label>
+          <textarea id="goalDescription"
+            placeholder="Explain what the member needs to achieve..."></textarea>
+        </div>
+
+        <div class="field full">
+
+          <div style="display:flex;gap:15px;flex-wrap:wrap">
+
+            <label style="display:flex;align-items:center;gap:7px;font-size:11px;color:#aeb9b1">
+              <input type="checkbox" id="featuredGoal">
+              Featured Goal
+            </label>
+
+            <label style="display:flex;align-items:center;gap:7px;font-size:11px;color:#aeb9b1">
+              <input type="checkbox" id="showUser" checked>
+              Show in User App
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hint">
+        Tip: Member-specific goals are stored separately and can later be connected with the user progress system.
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="modal-foot">
+
+    <button class="btn btn-dark" onclick="closeModal()">Cancel</button>
+
+    <button class="btn btn-primary" onclick="saveGoal()">
+      <i class="fa-solid fa-floppy-disk"></i>
+      Save Goal
+    </button>
+
+  </div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS — GOALS MANAGER
+========================================================= */
+
+if(window.Security){
+
+  Security.requireAuth("goals");
+
+  const user = Security.getCurrentUser();
+
+  if(user){
+
+    document.getElementById("sideAdmin").textContent =
+      user.username || "Administrator";
+
+    document.getElementById("sideRole").textContent =
+      Security.getRoleName(user.role);
+
+  }
+
+}
+
+const STORAGE_KEY = "saiAdminGoals";
+
+let goals = [];
+let editingId = null;
+
+/* DEFAULT GOALS */
+const defaultGoals = [
+
+  {
+    id:"goal_001",
+    name:"Weekly Workout Target",
+    type:"workout",
+    target:5,
+    unit:"workouts",
+    period:"weekly",
+    progress:3,
+    start:"",
+    end:"",
+    status:"published",
+    member:"",
+    featured:true,
+    showUser:true,
+    description:"Complete at least five workouts every week."
+  },
+
+  {
+    id:"goal_002",
+    name:"Daily Water Target",
+    type:"water",
+    target:3,
+    unit:"liters",
+    period:"daily",
+    progress:2,
+    start:"",
+    end:"",
+    status:"published",
+    member:"",
+    featured:false,
+    showUser:true,
+    description:"Maintain daily hydration by drinking enough water."
+  },
+
+  {
+    id:"goal_003",
+    name:"Daily Step Goal",
+    type:"steps",
+    target:10000,
+    unit:"steps",
+    period:"daily",
+    progress:6500,
+    start:"",
+    end:"",
+    status:"draft",
+    member:"",
+    featured:false,
+    showUser:true,
+    description:"Reach ten thousand steps every day."
+  }
+
+];
+
+/* STORAGE */
+function loadGoals(){
+
+  try{
+
+    const saved =
+      JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+
+    if(Array.isArray(saved)){
+
+      goals = saved;
+
+    }else{
+
+      goals = defaultGoals;
+      saveGoals();
+
+    }
+
+  }catch(e){
+
+    goals = defaultGoals;
+    saveGoals();
+
+  }
+
+}
+
+function saveGoals(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(goals)
+  );
+
+}
+
+/* MEMBERS */
+function loadMembers(){
+
+  const select =
+    document.getElementById("goalMember");
+
+  select.innerHTML =
+    `<option value="">All Members / General Goal</option>`;
+
+  let members = [];
+
+  try{
+
+    members =
+      JSON.parse(
+        localStorage.getItem("saiFitnessMembers") || "[]"
+      );
+
+  }catch(e){}
+
+  if(!Array.isArray(members)) return;
+
+  members.forEach(member=>{
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      member.id ||
+      member.username ||
+      member.name ||
+      "";
+
+    option.textContent =
+      member.name ||
+      member.username ||
+      member.phone ||
+      "Member";
+
+    select.appendChild(option);
+
+  });
+
+}
+
+/* INIT */
+function init(){
+
+  loadGoals();
+  loadMembers();
+  render();
+
+}
+
+function render(){
+
+  renderStats();
+  renderGoals();
+
+}
+
+/* STATS */
+function renderStats(){
+
+  const total = goals.length;
+
+  const published =
+    goals.filter(g=>g.status==="published").length;
+
+  const assigned =
+    goals.filter(g=>g.member).length;
+
+  const weekly =
+    goals
+      .filter(g=>g.period==="weekly")
+      .map(g=>Number(g.target)||0);
+
+  const avgWeekly =
+    weekly.length
+      ? Math.round(
+          weekly.reduce((a,b)=>a+b,0) / weekly.length
+        )
+      : 0;
+
+  document.getElementById("totalGoals").textContent = total;
+  document.getElementById("publishedGoals").textContent = published;
+  document.getElementById("assignedGoals").textContent = assigned;
+  document.getElementById("weeklyTarget").textContent = avgWeekly;
+
+}
+
+/* RENDER */
+function renderGoals(){
+
+  const grid =
+    document.getElementById("goalsGrid");
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const type =
+    document.getElementById("typeFilter").value;
+
+  const status =
+    document.getElementById("statusFilter").value;
+
+  const filtered =
+    goals.filter(goal=>{
+
+      const matchSearch =
+        !search ||
+        goal.name.toLowerCase().includes(search) ||
+        (goal.description || "")
+          .toLowerCase()
+          .includes(search);
+
+      const matchType =
+        type==="all" || goal.type===type;
+
+      const matchStatus =
+        status==="all" || goal.status===status;
+
+      return matchSearch &&
+             matchType &&
+             matchStatus;
+
+    });
+
+  document.getElementById("resultCount").textContent =
+    filtered.length +
+    (filtered.length===1 ? " goal" : " goals");
+
+  if(!filtered.length){
+
+    grid.innerHTML = `
+      <div class="empty">
+        <i class="fa-solid fa-bullseye"></i>
+        <h3>No Goals Found</h3>
+        <p>Create a new goal or change your filters.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+    filtered.map(goalCard).join("");
+
+}
+
+/* CARD */
+function goalCard(goal){
+
+  const icons = {
+
+    workout:"fa-dumbbell",
+    weight:"fa-weight-scale",
+    calories:"fa-fire",
+    water:"fa-droplet",
+    steps:"fa-shoe-prints",
+    custom:"fa-bullseye"
+
+  };
+
+  const names = {
+
+    workout:"Workout",
+    weight:"Weight",
+    calories:"Calories",
+    water:"Water",
+    steps:"Steps",
+    custom:"Custom"
+
+  };
+
+  const target =
+    Number(goal.target) || 0;
+
+  const progress =
+    Number(goal.progress) || 0;
+
+  let percent =
+    target > 0
+      ? Math.round((progress / target) * 100)
+      : 0;
+
+  percent =
+    Math.max(0,Math.min(100,percent));
+
+  return `
+
+    <article class="goal">
+
+      <div class="goal-head">
+
+        <div class="goal-title">
+
+          <div class="goal-icon">
+            <i class="fa-solid ${icons[goal.type] || icons.custom}"></i>
+          </div>
+
+          <div>
+            <h3>${escapeHTML(goal.name)}</h3>
+            <p>
+              ${names[goal.type] || "Custom"}
+              • ${escapeHTML(goal.period || "daily")}
+            </p>
+          </div>
+
+        </div>
+
+        <span class="badge ${
+          goal.status==="published"
+          ? "badge-published"
+          : "badge-draft"
+        }">
+          ${
+            goal.status==="published"
+            ? "PUBLISHED"
+            : "DRAFT"
+          }
+        </span>
+
+      </div>
+
+      <div class="goal-body">
+
+        <div class="target-grid">
+
+          <div class="target">
+            <div class="target-label">TARGET</div>
+            <div class="target-value">
+              ${target} ${escapeHTML(goal.unit || "")}
+            </div>
+          </div>
+
+          <div class="target">
+            <div class="target-label">CURRENT</div>
+            <div class="target-value">
+              ${progress} ${escapeHTML(goal.unit || "")}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="progress">
+          <span style="width:${percent}%"></span>
+        </div>
+
+        <div class="progress-text">
+          <span>Progress</span>
+          <strong>${percent}%</strong>
+        </div>
+
+        <div class="goal-meta">
+          <span>
+            <i class="fa-solid fa-calendar"></i>
+            ${escapeHTML(goal.period || "Daily")}
+          </span>
+
+          <span>
+            ${
+              goal.member
+              ? "Member Assigned"
+              : "General Goal"
+            }
+          </span>
+        </div>
+
+      </div>
+
+      <div class="goal-foot">
+
+        <button class="small-btn"
+          onclick="viewGoal('${goal.id}')">
+          <i class="fa-solid fa-eye"></i> View
+        </button>
+
+        <button class="small-btn"
+          onclick="editGoal('${goal.id}')">
+          <i class="fa-solid fa-pen"></i> Edit
+        </button>
+
+        <button class="small-btn"
+          onclick="toggleStatus('${goal.id}')">
+          <i class="fa-solid fa-toggle-on"></i>
+          ${goal.status==="published" ? "Draft" : "Publish"}
+        </button>
+
+        <button class="small-btn"
+          onclick="deleteGoal('${goal.id}')"
+          style="color:#f87171">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+/* ADD */
+function openAdd(){
+
+  editingId = null;
+
+  document.getElementById("modalTitle").textContent =
+    "Add Goal";
+
+  document.getElementById("goalForm").reset();
+
+  document.getElementById("goalStatus").value =
+    "published";
+
+  document.getElementById("showUser").checked =
+    true;
+
+  loadMembers();
+
+  document.getElementById("goalModal")
+    .classList.add("show");
+
+}
+
+/* EDIT */
+function editGoal(id){
+
+  const goal =
+    goals.find(g=>g.id===id);
+
+  if(!goal) return;
+
+  editingId = id;
+
+  document.getElementById("modalTitle").textContent =
+    "Edit Goal";
+
+  document.getElementById("goalName").value =
+    goal.name || "";
+
+  document.getElementById("goalType").value =
+    goal.type || "custom";
+
+  document.getElementById("targetValue").value =
+    goal.target ?? "";
+
+  document.getElementById("targetUnit").value =
+    goal.unit || "";
+
+  document.getElementById("goalPeriod").value =
+    goal.period || "daily";
+
+  document.getElementById("currentProgress").value =
+    goal.progress ?? "";
+
+  document.getElementById("startDate").value =
+    goal.start || "";
+
+  document.getElementById("endDate").value =
+    goal.end || "";
+
+  document.getElementById("goalStatus").value =
+    goal.status || "draft";
+
+  loadMembers();
+
+  document.getElementById("goalMember").value =
+    goal.member || "";
+
+  document.getElementById("goalDescription").value =
+    goal.description || "";
+
+  document.getElementById("featuredGoal").checked =
+    !!goal.featured;
+
+  document.getElementById("showUser").checked =
+    goal.showUser !== false;
+
+  document.getElementById("goalModal")
+    .classList.add("show");
+
+}
+
+/* SAVE */
+function saveGoal(){
+
+  const name =
+    document.getElementById("goalName")
+      .value.trim();
+
+  if(!name){
+
+    showToast("Goal name is required");
+    return;
+
+  }
+
+  const data = {
+
+    name:name,
+
+    type:
+      document.getElementById("goalType").value,
+
+    target:Number(
+      document.getElementById("targetValue").value || 0
+    ),
+
+    unit:
+      document.getElementById("targetUnit")
+        .value.trim(),
+
+    period:
+      document.getElementById("goalPeriod").value,
+
+    progress:Number(
+      document.getElementById("currentProgress").value || 0
+    ),
+
+    start:
+      document.getElementById("startDate").value,
+
+    end:
+      document.getElementById("endDate").value,
+
+    status:
+      document.getElementById("goalStatus").value,
+
+    member:
+      document.getElementById("goalMember").value,
+
+    description:
+      document.getElementById("goalDescription")
+        .value.trim(),
+
+    featured:
+      document.getElementById("featuredGoal").checked,
+
+    showUser:
+      document.getElementById("showUser").checked
+
+  };
+
+  if(editingId){
+
+    const index =
+      goals.findIndex(g=>g.id===editingId);
+
+    if(index!==-1){
+
+      goals[index] = {
+
+        ...goals[index],
+        ...data,
+        updatedAt:new Date().toISOString()
+
+      };
+
+    }
+
+    showToast("Goal updated");
+
+  }else{
+
+    goals.unshift({
+
+      id:"goal_" + Date.now(),
+
+      ...data,
+
+      createdAt:new Date().toISOString(),
+
+      updatedAt:new Date().toISOString()
+
+    });
+
+    showToast("Goal created");
+
+  }
+
+  saveGoals();
+
+  closeModal();
+
+  render();
+
+}
+
+/* VIEW */
+function viewGoal(id){
+
+  const goal =
+    goals.find(g=>g.id===id);
+
+  if(!goal) return;
+
+  const percent =
+    goal.target
+      ? Math.round(
+          Math.min(
+            100,
+            (Number(goal.progress||0) /
+             Number(goal.target)) * 100
+          )
+        )
+      : 0;
+
+  alert(
+`Goal: ${goal.name}
+
+Type: ${goal.type}
+Target: ${goal.target} ${goal.unit || ""}
+Current: ${goal.progress || 0} ${goal.unit || ""}
+Period: ${goal.period}
+Progress: ${percent}%
+
+${goal.description || "No description"}`
+  );
+
+}
+
+/* STATUS */
+function toggleStatus(id){
+
+  const goal =
+    goals.find(g=>g.id===id);
+
+  if(!goal) return;
+
+  goal.status =
+    goal.status==="published"
+      ? "draft"
+      : "published";
+
+  goal.updatedAt =
+    new Date().toISOString();
+
+  saveGoals();
+  render();
+
+  showToast(
+    goal.status==="published"
+      ? "Goal published"
+      : "Goal moved to draft"
+  );
+
+}
+
+/* DELETE */
+function deleteGoal(id){
+
+  const goal =
+    goals.find(g=>g.id===id);
+
+  if(!goal) return;
+
+  if(!confirm(
+    `Delete "${goal.name}"?\n\nThis action cannot be undone.`
+  )) return;
+
+  goals =
+    goals.filter(g=>g.id!==id);
+
+  saveGoals();
+  render();
+
+  showToast("Goal deleted");
+
+}
+
+/* EXPORT */
+function exportGoals(){
+
+  const data = {
+
+    app:"Sai Fitness Bidupur",
+
+    type:"goals",
+
+    exportedAt:
+      new Date().toISOString(),
+
+    goals:goals
+
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+  a.download = "sai-fitness-goals.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("Goals exported");
+
+}
+
+/* MODAL */
+function closeModal(){
+
+  document.getElementById("goalModal")
+    .classList.remove("show");
+
+  editingId = null;
+
+}
+
+document
+.getElementById("goalModal")
+.addEventListener("click",function(e){
+
+  if(e.target===this){
+    closeModal();
+  }
+
+});
+
+/* MOBILE MENU */
+document
+.getElementById("menuBtn")
+.addEventListener("click",function(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+});
+
+/* TOAST */
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(
+      ()=>toast.classList.remove("show"),
+      2500
+    );
+
+}
+
+/* ESCAPE */
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* START */
+init();
+
+</script>
+
+</body>
+</html>

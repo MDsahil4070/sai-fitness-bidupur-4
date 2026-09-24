@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Exercises • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#070b09;
+  --panel:#0d1410;
+  --card:#111a15;
+  --card2:#172119;
+  --border:#203027;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f4f7f5;
+  --muted:#89978f;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#3b82f6;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 80% 0%,rgba(22,163,74,.13),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+.sidebar{
+  width:250px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:50;
+  overflow-y:auto;
+  padding:22px 14px;
+  background:rgba(9,15,11,.97);
+  border-right:1px solid var(--border);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:4px 10px 23px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:15px;
+}
+
+.brand-logo{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--green),#064e25);
+}
+
+.brand h2{font-size:15px;font-weight:800}
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav-title{
+  color:#637269;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  padding:12px 12px 7px;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#9ba79f;
+  text-decoration:none;
+  padding:11px 12px;
+  border-radius:11px;
+  margin:3px 0;
+  font-size:13px;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#fff;
+  background:rgba(22,163,74,.14);
+}
+
+.nav a i{
+  width:18px;
+  text-align:center;
+}
+
+.main{
+  margin-left:250px;
+  padding:25px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.top-left{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.title h1{
+  font-size:25px;
+  font-weight:800;
+}
+
+.title p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+.mobile-menu{
+  display:none;
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#fff;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.btn:hover{background:var(--card2)}
+
+.btn.primary{
+  background:var(--green);
+  border-color:var(--green);
+}
+
+.btn.primary:hover{background:var(--green2)}
+.btn.small{padding:7px 9px;font-size:11px}
+.btn.danger{color:#ff8585}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:linear-gradient(145deg,#111a15,#0d1410);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:17px;
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:600;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:800;
+  margin-top:10px;
+}
+
+.stat-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:rgba(22,163,74,.12);
+  color:var(--green2);
+}
+
+/* PANEL */
+
+.panel{
+  background:rgba(13,20,16,.92);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:16px;
+  border-bottom:1px solid var(--border);
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+  position:relative;
+}
+
+.search i{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#68776d;
+}
+
+.search input{
+  width:100%;
+  padding:11px 12px 11px 37px;
+  border-radius:11px;
+  background:#09100c;
+  border:1px solid var(--border);
+  color:#fff;
+  outline:none;
+  font-size:12px;
+}
+
+.search input:focus{
+  border-color:rgba(34,197,94,.55);
+}
+
+select{
+  min-width:135px;
+  padding:10px 12px;
+  border-radius:11px;
+  background:#09100c;
+  border:1px solid var(--border);
+  color:#ddd;
+  outline:none;
+  font-size:12px;
+}
+
+/* GRID */
+
+.grid{
+  padding:17px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.exercise-card{
+  background:linear-gradient(145deg,#111a15,#0b120e);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:15px;
+  transition:.2s;
+}
+
+.exercise-card:hover{
+  transform:translateY(-2px);
+  border-color:#2d4638;
+}
+
+.exercise-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.exercise-icon{
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(22,163,74,.12);
+  color:#4ade80;
+  font-size:20px;
+}
+
+.exercise-title{
+  flex:1;
+}
+
+.exercise-title h3{
+  font-size:14px;
+  font-weight:800;
+  margin-top:2px;
+}
+
+.exercise-title p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  border-radius:30px;
+  font-size:9px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.badge.active{
+  color:#4ade80;
+  background:rgba(34,197,94,.1);
+}
+
+.badge.hidden{
+  color:#fbbf24;
+  background:rgba(245,158,11,.1);
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:14px;
+}
+
+.tag{
+  padding:5px 7px;
+  border-radius:7px;
+  background:#09100c;
+  border:1px solid var(--border);
+  color:#9baa9f;
+  font-size:9px;
+}
+
+.stats-line{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:14px;
+}
+
+.mini{
+  padding:9px 6px;
+  background:#09100c;
+  border:1px solid var(--border);
+  border-radius:9px;
+  text-align:center;
+}
+
+.mini strong{
+  display:block;
+  font-size:12px;
+}
+
+.mini span{
+  color:#68766e;
+  font-size:8px;
+}
+
+.card-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+}
+
+.equipment{
+  color:#75847b;
+  font-size:9px;
+}
+
+.actions{
+  display:flex;
+  gap:5px;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+}
+
+.empty i{
+  font-size:40px;
+  opacity:.35;
+  margin-bottom:12px;
+}
+
+.empty h3{
+  color:#ddd;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.74);
+  backdrop-filter:blur(8px);
+  z-index:100;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+  width:100%;
+  max-width:760px;
+  max-height:92vh;
+  overflow:auto;
+  background:#0d1510;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 25px 80px rgba(0,0,0,.55);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-head h2{font-size:16px}
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#111a15;
+  color:#aaa;
+}
+
+.form{
+  padding:18px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.full{grid-column:1/-1}
+
+.field label{
+  display:block;
+  color:#87958d;
+  font-size:10px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  background:#080e0a;
+  border:1px solid var(--border);
+  color:#fff;
+  outline:none;
+  border-radius:10px;
+  padding:11px;
+  font-size:12px;
+}
+
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:rgba(34,197,94,.55);
+}
+
+.checks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#b6c0ba;
+  font-size:11px;
+  padding:10px;
+  background:#09100c;
+  border:1px solid var(--border);
+  border-radius:9px;
+}
+
+.check input{
+  accent-color:var(--green);
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  padding:15px 18px;
+  border-top:1px solid var(--border);
+}
+
+/* DETAIL */
+
+.detail{
+  padding:20px;
+}
+
+.detail-head{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--border);
+}
+
+.detail-icon{
+  width:68px;
+  height:68px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#166534,#0b2918);
+  color:#8af0a8;
+  font-size:27px;
+}
+
+.detail h2{font-size:18px}
+.detail small{color:var(--muted)}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+  margin-top:18px;
+}
+
+.info{
+  padding:13px;
+  background:#09100c;
+  border:1px solid var(--border);
+  border-radius:11px;
+}
+
+.info label{
+  display:block;
+  color:#65736b;
+  font-size:9px;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.info span{
+  font-size:12px;
+}
+
+.instructions{
+  margin-top:13px;
+  padding:14px;
+  background:#09100c;
+  border:1px solid var(--border);
+  border-radius:11px;
+}
+
+.instructions strong{
+  font-size:11px;
+}
+
+.instructions p{
+  color:#aab6ae;
+  font-size:11px;
+  line-height:1.65;
+  margin-top:8px;
+}
+
+.video-link{
+  display:inline-flex;
+  margin-top:12px;
+  color:#4ade80;
+  text-decoration:none;
+  font-size:11px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111a15;
+  border:1px solid var(--border);
+  padding:12px 15px;
+  border-radius:11px;
+  font-size:12px;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  transform:translateY(100px);
+  opacity:0;
+  transition:.3s;
+  z-index:300;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.toast.success{border-color:rgba(34,197,94,.35)}
+.toast.error{border-color:rgba(239,68,68,.35)}
+
+@media(max-width:1050px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:700px){
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    padding:15px;
+  }
+
+  .mobile-menu{
+    display:grid;
+    place-items:center;
+  }
+
+  .title h1{font-size:20px}
+
+  .top-actions .btn span{
+    display:none;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+    padding:12px;
+  }
+
+  .stats{gap:9px}
+
+  .stat{padding:13px}
+
+  .stat-number{font-size:21px}
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .checks{
+    grid-template-columns:1fr;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+    <div class="brand-logo">
+      <i class="fa-solid fa-dumbbell"></i>
+    </div>
+    <div>
+      <h2>Sai Fitness</h2>
+      <span>Admin Panel</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+
+    <div class="nav-title">MAIN</div>
+
+    <a href="index.html">
+      <i class="fa-solid fa-chart-pie"></i> Dashboard
+    </a>
+
+    <a href="members.html">
+      <i class="fa-solid fa-users"></i> Members
+    </a>
+
+    <a href="workouts.html">
+      <i class="fa-solid fa-dumbbell"></i> Workouts
+    </a>
+
+    <a href="exercises.html" class="active">
+      <i class="fa-solid fa-person-running"></i> Exercises
+    </a>
+
+    <a href="diet.html">
+      <i class="fa-solid fa-utensils"></i> Diet Plans
+    </a>
+
+    <a href="goals.html">
+      <i class="fa-solid fa-bullseye"></i> Goals
+    </a>
+
+    <a href="achievements.html">
+      <i class="fa-solid fa-trophy"></i> Achievements
+    </a>
+
+    <a href="notifications.html">
+      <i class="fa-solid fa-bell"></i> Notifications
+    </a>
+
+    <div class="nav-title">CUSTOMIZE</div>
+
+    <a href="theme.html">
+      <i class="fa-solid fa-palette"></i> Theme Studio
+    </a>
+
+    <a href="css-manager.html">
+      <i class="fa-solid fa-code"></i> CSS Manager
+    </a>
+
+    <a href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i> Animations
+    </a>
+
+    <a href="media.html">
+      <i class="fa-solid fa-photo-film"></i> Media Library
+    </a>
+
+    <a href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i> Content
+    </a>
+
+    <div class="nav-title">SYSTEM</div>
+
+    <a href="backup.html">
+      <i class="fa-solid fa-database"></i> Backup
+    </a>
+
+    <a href="security.html">
+      <i class="fa-solid fa-shield-halved"></i> Security
+    </a>
+
+    <a href="settings.html">
+      <i class="fa-solid fa-gear"></i> Settings
+    </a>
+
+    <a href="#" onclick="logout();return false;">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+
+  </nav>
+</aside>
+
+
+<main class="main">
+
+  <div class="topbar">
+
+    <div class="top-left">
+
+      <button class="mobile-menu" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="title">
+        <h1>Exercise Database</h1>
+        <p>Manage exercises, muscle groups, equipment and instructions.</p>
+      </div>
+
+    </div>
+
+    <div class="top-actions">
+
+      <button class="btn" onclick="exportExercises()">
+        <i class="fa-solid fa-download"></i>
+        <span>Export</span>
+      </button>
+
+      <button class="btn primary" onclick="openAdd()">
+        <i class="fa-solid fa-plus"></i>
+        <span>Add Exercise</span>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- STATS -->
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-top">
+        <div>
+          <div class="stat-label">TOTAL EXERCISES</div>
+          <div class="stat-number" id="totalCount">0</div>
+        </div>
+        <div class="stat-icon">
+          <i class="fa-solid fa-person-running"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div>
+          <div class="stat-label">ACTIVE</div>
+          <div class="stat-number" id="activeCount">0</div>
+        </div>
+        <div class="stat-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div>
+          <div class="stat-label">MUSCLE GROUPS</div>
+          <div class="stat-number" id="muscleCount">0</div>
+        </div>
+        <div class="stat-icon">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <div>
+          <div class="stat-label">VIDEO GUIDES</div>
+          <div class="stat-number" id="videoCount">0</div>
+        </div>
+        <div class="stat-icon">
+          <i class="fa-solid fa-video"></i>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="panel">
+
+    <div class="toolbar">
+
+      <div class="search">
+        <i class="fa-solid fa-search"></i>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search exercise, muscle or equipment..."
+          oninput="renderExercises()">
+      </div>
+
+      <select id="muscleFilter" onchange="renderExercises()">
+        <option value="all">All Muscles</option>
+        <option>Chest</option>
+        <option>Back</option>
+        <option>Shoulders</option>
+        <option>Biceps</option>
+        <option>Triceps</option>
+        <option>Legs</option>
+        <option>Glutes</option>
+        <option>Core</option>
+        <option>Full Body</option>
+      </select>
+
+      <select id="levelFilter" onchange="renderExercises()">
+        <option value="all">All Levels</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+
+      <select id="statusFilter" onchange="renderExercises()">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="hidden">Hidden</option>
+      </select>
+
+    </div>
+
+    <div class="grid" id="exerciseGrid"></div>
+
+    <div class="empty" id="emptyState" style="display:none">
+      <i class="fa-solid fa-person-circle-question"></i>
+      <h3>No exercises found</h3>
+      <p>Try another filter or add a new exercise.</p>
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- ADD / EDIT -->
+
+<div class="modal" id="exerciseModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2 id="modalTitle">Add Exercise</h2>
+
+      <button class="close" onclick="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+    </div>
+
+    <form class="form" onsubmit="saveExercise(event)">
+
+      <input type="hidden" id="exerciseId">
+
+      <div class="form-grid">
+
+        <div class="field full">
+          <label>EXERCISE NAME *</label>
+          <input
+            id="name"
+            required
+            placeholder="Example: Barbell Bench Press">
+        </div>
+
+        <div class="field">
+          <label>MUSCLE GROUP</label>
+          <select id="muscle">
+            <option>Chest</option>
+            <option>Back</option>
+            <option>Shoulders</option>
+            <option>Biceps</option>
+            <option>Triceps</option>
+            <option>Legs</option>
+            <option>Glutes</option>
+            <option>Core</option>
+            <option>Full Body</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>SECONDARY MUSCLE</label>
+          <input
+            id="secondary"
+            placeholder="Example: Triceps">
+        </div>
+
+        <div class="field">
+          <label>EQUIPMENT</label>
+          <select id="equipment">
+            <option>Bodyweight</option>
+            <option>Dumbbell</option>
+            <option>Barbell</option>
+            <option>Machine</option>
+            <option>Cable</option>
+            <option>Resistance Band</option>
+            <option>Bench</option>
+            <option>Kettlebell</option>
+            <option>None</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>DIFFICULTY</label>
+          <select id="level">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>SETS</label>
+          <input
+            id="sets"
+            type="number"
+            min="1"
+            value="3">
+        </div>
+
+        <div class="field">
+          <label>REPS</label>
+          <input
+            id="reps"
+            placeholder="10-12">
+        </div>
+
+        <div class="field">
+          <label>REST (SECONDS)</label>
+          <input
+            id="rest"
+            type="number"
+            min="0"
+            value="60">
+        </div>
+
+        <div class="field">
+          <label>STATUS</label>
+          <select id="status">
+            <option value="active">Active</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>ICON</label>
+          <select id="icon">
+            <option value="fa-dumbbell">Dumbbell</option>
+            <option value="fa-person-running">Running</option>
+            <option value="fa-person-walking">Walking</option>
+            <option value="fa-heart-pulse">Cardio</option>
+            <option value="fa-child-reaching">Stretch</option>
+            <option value="fa-fire">HIIT</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>IMAGE URL</label>
+          <input
+            id="image"
+            type="url"
+            placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>VIDEO URL</label>
+          <input
+            id="video"
+            type="url"
+            placeholder="YouTube / video URL">
+        </div>
+
+        <div class="field full">
+          <label>INSTRUCTIONS</label>
+          <textarea
+            id="instructions"
+            placeholder="Explain the correct exercise technique step by step..."></textarea>
+        </div>
+
+        <div class="field full">
+
+          <label>OPTIONS</label>
+
+          <div class="checks">
+
+            <label class="check">
+              <input type="checkbox" id="featured">
+              Featured Exercise
+            </label>
+
+            <label class="check">
+              <input type="checkbox" id="homeVisible" checked>
+              Show in User App
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="btn"
+          onclick="closeModal()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn primary">
+          <i class="fa-solid fa-save"></i>
+          Save Exercise
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- DETAIL -->
+
+<div class="modal" id="detailModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Exercise Details</h2>
+
+      <button class="close" onclick="closeDetail()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+    </div>
+
+    <div class="detail" id="detailContent"></div>
+
+    <div class="modal-footer">
+
+      <button class="btn" onclick="closeDetail()">
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   SECURITY
+========================================= */
+
+try{
+
+  if(window.Security &&
+     typeof Security.requireAuth==="function"){
+
+    Security.requireAuth("exercises");
+
+  }
+
+}catch(error){
+
+  console.warn("Security:",error);
+
+}
+
+
+/* =========================================
+   STORAGE
+========================================= */
+
+const STORAGE_KEY="saiAdminExercises";
+
+let exercises=[];
+
+
+/* =========================================
+   DEFAULT DATABASE
+========================================= */
+
+const defaultExercises=[
+
+  {
+    id:"ex-1",
+    name:"Push Ups",
+    muscle:"Chest",
+    secondary:"Triceps",
+    equipment:"Bodyweight",
+    level:"Beginner",
+    sets:3,
+    reps:"10-15",
+    rest:60,
+    status:"active",
+    icon:"fa-person-running",
+    image:"",
+    video:"",
+    featured:true,
+    homeVisible:true,
+    instructions:"Keep your body straight. Lower your chest toward the floor while keeping your elbows controlled. Push back to the starting position.",
+    createdAt:new Date().toISOString()
+  },
+
+  {
+    id:"ex-2",
+    name:"Barbell Bench Press",
+    muscle:"Chest",
+    secondary:"Triceps",
+    equipment:"Barbell",
+    level:"Intermediate",
+    sets:4,
+    reps:"8-12",
+    rest:90,
+    status:"active",
+    icon:"fa-dumbbell",
+    image:"",
+    video:"",
+    featured:true,
+    homeVisible:true,
+    instructions:"Lie on the bench, grip the bar slightly wider than shoulder width, lower it toward your chest and press upward under control.",
+    createdAt:new Date().toISOString()
+  },
+
+  {
+    id:"ex-3",
+    name:"Bodyweight Squat",
+    muscle:"Legs",
+    secondary:"Glutes",
+    equipment:"Bodyweight",
+    level:"Beginner",
+    sets:3,
+    reps:"12-15",
+    rest:60,
+    status:"active",
+    icon:"fa-child-reaching",
+    image:"",
+    video:"",
+    featured:false,
+    homeVisible:true,
+    instructions:"Stand with feet around shoulder width. Push your hips back, bend your knees and lower your body. Drive through your feet to stand.",
+    createdAt:new Date().toISOString()
+  },
+
+  {
+    id:"ex-4",
+    name:"Lat Pulldown",
+    muscle:"Back",
+    secondary:"Biceps",
+    equipment:"Machine",
+    level:"Intermediate",
+    sets:3,
+    reps:"10-12",
+    rest:75,
+    status:"active",
+    icon:"fa-dumbbell",
+    image:"",
+    video:"",
+    featured:false,
+    homeVisible:true,
+    instructions:"Pull the bar toward the upper chest while keeping your torso controlled. Slowly return the bar to the starting position.",
+    createdAt:new Date().toISOString()
+  }
+
+];
+
+
+/* =========================================
+   LOAD
+========================================= */
+
+function loadExercises(){
+
+  try{
+
+    const saved=
+      localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+
+      exercises=JSON.parse(saved);
+
+    }else{
+
+      exercises=defaultExercises;
+
+      saveExercises();
+
+    }
+
+  }catch(error){
+
+    exercises=[];
+
+  }
+
+}
+
+
+function saveExercises(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(exercises)
+  );
+
+}
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function generateId(){
+
+  return "ex-"+Date.now()+"-"+
+    Math.random().toString(36).substring(2,7);
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+  const active=
+    exercises.filter(
+      x=>x.status==="active"
+    ).length;
+
+  const muscles=
+    new Set(
+      exercises
+      .map(x=>x.muscle)
+      .filter(Boolean)
+    ).size;
+
+  const videos=
+    exercises.filter(
+      x=>x.video
+    ).length;
+
+  document.getElementById("totalCount")
+    .textContent=exercises.length;
+
+  document.getElementById("activeCount")
+    .textContent=active;
+
+  document.getElementById("muscleCount")
+    .textContent=muscles;
+
+  document.getElementById("videoCount")
+    .textContent=videos;
+
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderExercises(){
+
+  const search=
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const muscle=
+    document.getElementById("muscleFilter").value;
+
+  const level=
+    document.getElementById("levelFilter").value;
+
+  const status=
+    document.getElementById("statusFilter").value;
+
+  const grid=
+    document.getElementById("exerciseGrid");
+
+  const empty=
+    document.getElementById("emptyState");
+
+
+  const filtered=
+    exercises.filter(exercise=>{
+
+      const searchable=(
+        exercise.name+" "+
+        exercise.muscle+" "+
+        exercise.secondary+" "+
+        exercise.equipment
+      ).toLowerCase();
+
+      return (
+
+        (!search ||
+         searchable.includes(search)) &&
+
+        (muscle==="all" ||
+         exercise.muscle===muscle) &&
+
+        (level==="all" ||
+         exercise.level===level) &&
+
+        (status==="all" ||
+         exercise.status===status)
+
+      );
+
+    });
+
+
+  grid.innerHTML="";
+
+
+  if(!filtered.length){
+
+    empty.style.display="block";
+
+    updateStats();
+
+    return;
+
+  }
+
+
+  empty.style.display="none";
+
+
+  filtered.forEach(exercise=>{
+
+    const card=
+      document.createElement("article");
+
+    card.className="exercise-card";
+
+
+    const badge=
+      exercise.status==="active"
+
+      ? `<span class="badge active">
+           <i class="fa-solid fa-circle-check"></i>
+           Active
+         </span>`
+
+      : `<span class="badge hidden">
+           <i class="fa-solid fa-eye-slash"></i>
+           Hidden
+         </span>`;
+
+
+    card.innerHTML=`
+
+      <div class="exercise-head">
+
+        <div class="exercise-icon">
+
+          <i class="fa-solid ${
+            escapeHTML(
+              exercise.icon ||
+              "fa-dumbbell"
+            )
+          }"></i>
+
+        </div>
+
+        <div class="exercise-title">
+
+          <h3>
+            ${escapeHTML(exercise.name)}
+          </h3>
+
+          <p>
+            ${escapeHTML(exercise.muscle)}
+            ${
+              exercise.secondary
+              ? " • "+escapeHTML(exercise.secondary)
+              : ""
+            }
+          </p>
+
+        </div>
+
+        ${badge}
+
+      </div>
+
+
+      <div class="tags">
+
+        <span class="tag">
+          ${escapeHTML(exercise.level)}
+        </span>
+
+        <span class="tag">
+          ${escapeHTML(exercise.equipment)}
+        </span>
+
+        ${
+          exercise.featured
+          ? `<span class="tag">
+              <i class="fa-solid fa-star"></i>
+              Featured
+             </span>`
+          : ""
+        }
+
+      </div>
+
+
+      <div class="stats-line">
+
+        <div class="mini">
+          <strong>
+            ${Number(exercise.sets)||0}
+          </strong>
+          <span>SETS</span>
+        </div>
+
+        <div class="mini">
+          <strong>
+            ${escapeHTML(exercise.reps || "-")}
+          </strong>
+          <span>REPS</span>
+        </div>
+
+        <div class="mini">
+          <strong>
+            ${Number(exercise.rest)||0}s
+          </strong>
+          <span>REST</span>
+        </div>
+
+      </div>
+
+
+      <div class="card-bottom">
+
+        <div class="equipment">
+
+          ${
+            exercise.video
+            ? '<i class="fa-solid fa-video"></i> Video'
+            : '<i class="fa-solid fa-circle-info"></i> No video'
+          }
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="btn small"
+            title="View"
+            onclick="viewExercise('${exercise.id}')">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+
+          <button
+            class="btn small"
+            title="Edit"
+            onclick="editExercise('${exercise.id}')">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+
+          <button
+            class="btn small"
+            title="Show / Hide"
+            onclick="toggleStatus('${exercise.id}')">
+            <i class="fa-solid fa-toggle-on"></i>
+          </button>
+
+          <button
+            class="btn small danger"
+            title="Delete"
+            onclick="deleteExercise('${exercise.id}')">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    grid.appendChild(card);
+
+  });
+
+
+  updateStats();
+
+}
+
+
+/* =========================================
+   ADD
+========================================= */
+
+function openAdd(){
+
+  document.querySelector(
+    "#exerciseModal form"
+  ).reset();
+
+  document.getElementById("exerciseId")
+    .value="";
+
+  document.getElementById("modalTitle")
+    .textContent="Add Exercise";
+
+  document.getElementById("sets").value=3;
+  document.getElementById("reps").value="10-12";
+  document.getElementById("rest").value=60;
+  document.getElementById("homeVisible").checked=true;
+
+  document.getElementById("exerciseModal")
+    .classList.add("show");
+
+}
+
+
+/* =========================================
+   EDIT
+========================================= */
+
+function editExercise(id){
+
+  const exercise=
+    exercises.find(x=>x.id===id);
+
+  if(!exercise)return;
+
+
+  document.getElementById("modalTitle")
+    .textContent="Edit Exercise";
+
+  document.getElementById("exerciseId")
+    .value=exercise.id;
+
+  document.getElementById("name")
+    .value=exercise.name || "";
+
+  document.getElementById("muscle")
+    .value=exercise.muscle || "Chest";
+
+  document.getElementById("secondary")
+    .value=exercise.secondary || "";
+
+  document.getElementById("equipment")
+    .value=exercise.equipment || "Bodyweight";
+
+  document.getElementById("level")
+    .value=exercise.level || "Beginner";
+
+  document.getElementById("sets")
+    .value=exercise.sets || 3;
+
+  document.getElementById("reps")
+    .value=exercise.reps || "10-12";
+
+  document.getElementById("rest")
+    .value=exercise.rest || 60;
+
+  document.getElementById("status")
+    .value=exercise.status || "active";
+
+  document.getElementById("icon")
+    .value=exercise.icon || "fa-dumbbell";
+
+  document.getElementById("image")
+    .value=exercise.image || "";
+
+  document.getElementById("video")
+    .value=exercise.video || "";
+
+  document.getElementById("instructions")
+    .value=exercise.instructions || "";
+
+  document.getElementById("featured")
+    .checked=!!exercise.featured;
+
+  document.getElementById("homeVisible")
+    .checked=exercise.homeVisible!==false;
+
+
+  document.getElementById("exerciseModal")
+    .classList.add("show");
+
+}
+
+
+/* =========================================
+   SAVE
+========================================= */
+
+function saveExercise(event){
+
+  event.preventDefault();
+
+
+  const id=
+    document.getElementById("exerciseId")
+    .value;
+
+
+  const data={
+
+    name:
+      document.getElementById("name")
+      .value.trim(),
+
+    muscle:
+      document.getElementById("muscle")
+      .value,
+
+    secondary:
+      document.getElementById("secondary")
+      .value.trim(),
+
+    equipment:
+      document.getElementById("equipment")
+      .value,
+
+    level:
+      document.getElementById("level")
+      .value,
+
+    sets:
+      Number(
+        document.getElementById("sets").value
+      ) || 0,
+
+    reps:
+      document.getElementById("reps")
+      .value.trim(),
+
+    rest:
+      Number(
+        document.getElementById("rest").value
+      ) || 0,
+
+    status:
+      document.getElementById("status")
+      .value,
+
+    icon:
+      document.getElementById("icon")
+      .value,
+
+    image:
+      document.getElementById("image")
+      .value.trim(),
+
+    video:
+      document.getElementById("video")
+      .value.trim(),
+
+    instructions:
+      document.getElementById("instructions")
+      .value.trim(),
+
+    featured:
+      document.getElementById("featured")
+      .checked,
+
+    homeVisible:
+      document.getElementById("homeVisible")
+      .checked
+
+  };
+
+
+  if(!data.name){
+
+    showToast(
+      "Exercise name is required",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(id){
+
+    const index=
+      exercises.findIndex(
+        x=>x.id===id
+      );
+
+    if(index!==-1){
+
+      exercises[index]={
+        ...exercises[index],
+        ...data,
+        updatedAt:new Date().toISOString()
+      };
+
+    }
+
+    showToast(
+      "Exercise updated successfully",
+      "success"
+    );
+
+  }else{
+
+    exercises.unshift({
+
+      id:generateId(),
+      ...data,
+      createdAt:new Date().toISOString()
+
+    });
+
+    showToast(
+      "Exercise added successfully",
+      "success"
+    );
+
+  }
+
+
+  saveExercises();
+
+  closeModal();
+
+  renderExercises();
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+function toggleStatus(id){
+
+  const exercise=
+    exercises.find(x=>x.id===id);
+
+  if(!exercise)return;
+
+
+  exercise.status=
+    exercise.status==="active"
+    ? "hidden"
+    : "active";
+
+
+  saveExercises();
+
+  renderExercises();
+
+
+  showToast(
+    exercise.status==="active"
+    ? "Exercise activated"
+    : "Exercise hidden",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+function deleteExercise(id){
+
+  const exercise=
+    exercises.find(x=>x.id===id);
+
+  if(!exercise)return;
+
+
+  const ok=confirm(
+    `Delete "${exercise.name}"?\n\nThis action cannot be undone.`
+  );
+
+
+  if(!ok)return;
+
+
+  exercises=
+    exercises.filter(
+      x=>x.id!==id
+    );
+
+
+  saveExercises();
+
+  renderExercises();
+
+
+  showToast(
+    "Exercise deleted",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   VIEW
+========================================= */
+
+function viewExercise(id){
+
+  const exercise=
+    exercises.find(x=>x.id===id);
+
+  if(!exercise)return;
+
+
+  const status=
+    exercise.status==="active"
+
+    ? `<span class="badge active">
+        <i class="fa-solid fa-circle-check"></i>
+        Active
+       </span>`
+
+    : `<span class="badge hidden">
+        <i class="fa-solid fa-eye-slash"></i>
+        Hidden
+       </span>`;
+
+
+  document.getElementById("detailContent")
+    .innerHTML=`
+
+      <div class="detail-head">
+
+        <div class="detail-icon">
+
+          <i class="fa-solid ${
+            escapeHTML(
+              exercise.icon ||
+              "fa-dumbbell"
+            )
+          }"></i>
+
+        </div>
+
+        <div>
+
+          <h2>
+            ${escapeHTML(exercise.name)}
+          </h2>
+
+          <small>
+            ${escapeHTML(exercise.muscle)}
+            ${
+              exercise.secondary
+              ? " • "+escapeHTML(
+                  exercise.secondary
+                )
+              : ""
+            }
+          </small>
+
+          <div style="margin-top:8px">
+            ${status}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="detail-grid">
+
+        <div class="info">
+          <label>Equipment</label>
+          <span>
+            ${escapeHTML(
+              exercise.equipment || "-"
+            )}
+          </span>
+        </div>
+
+        <div class="info">
+          <label>Difficulty</label>
+          <span>
+            ${escapeHTML(
+              exercise.level || "-"
+            )}
+          </span>
+        </div>
+
+        <div class="info">
+          <label>Sets</label>
+          <span>
+            ${Number(exercise.sets)||0}
+          </span>
+        </div>
+
+        <div class="info">
+          <label>Reps</label>
+          <span>
+            ${escapeHTML(
+              exercise.reps || "-"
+            )}
+          </span>
+        </div>
+
+        <div class="info">
+          <label>Rest</label>
+          <span>
+            ${Number(exercise.rest)||0} seconds
+          </span>
+        </div>
+
+        <div class="info">
+          <label>Featured</label>
+          <span>
+            ${exercise.featured ? "Yes" : "No"}
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="instructions">
+
+        <strong>
+          Instructions
+        </strong>
+
+        <p>
+          ${escapeHTML(
+            exercise.instructions ||
+            "No instructions added."
+          )}
+        </p>
+
+
+        ${
+          exercise.video
+
+          ? `<a
+              class="video-link"
+              href="${escapeHTML(exercise.video)}"
+              target="_blank"
+              rel="noopener">
+              <i class="fa-solid fa-play"></i>
+              &nbsp; Open Video Guide
+             </a>`
+
+          : ""
+        }
+
+      </div>
+
+    `;
+
+
+  document.getElementById("detailModal")
+    .classList.add("show");
+
+}
+
+
+/* =========================================
+   MODALS
+========================================= */
+
+function closeModal(){
+
+  document.getElementById("exerciseModal")
+    .classList.remove("show");
+
+}
+
+
+function closeDetail(){
+
+  document.getElementById("detailModal")
+    .classList.remove("show");
+
+}
+
+
+document.getElementById("exerciseModal")
+.addEventListener("click",function(e){
+
+  if(e.target===this){
+    closeModal();
+  }
+
+});
+
+
+document.getElementById("detailModal")
+.addEventListener("click",function(e){
+
+  if(e.target===this){
+    closeDetail();
+  }
+
+});
+
+
+/* =========================================
+   EXPORT
+========================================= */
+
+function exportExercises(){
+
+  if(!exercises.length){
+
+    showToast(
+      "No exercises to export",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const blob=new Blob(
+    [JSON.stringify(exercises,null,2)],
+    {type:"application/json"}
+  );
+
+
+  const url=
+    URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+
+  a.download=
+    "sai-fitness-exercises-"+
+    new Date().toISOString()
+    .slice(0,10)+
+    ".json";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  showToast(
+    "Exercises exported",
+    "success"
+  );
+
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+function toggleSidebar(){
+
+  document.getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout(){
+
+  try{
+
+    if(window.Security &&
+       typeof Security.logout==="function"){
+
+      Security.logout();
+      return;
+
+    }
+
+  }catch(error){
+
+    console.warn(error);
+
+  }
+
+  location.href="login.html";
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+let toastTimer;
+
+function showToast(
+  message,
+  type="success"
+){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.className=
+    "toast "+type+" show";
+
+
+  clearTimeout(toastTimer);
+
+
+  toastTimer=setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2500);
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadExercises();
+
+renderExercises();
+
+</script>
+
+</body>
+</html>

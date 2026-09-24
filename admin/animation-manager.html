@@ -1,0 +1,3184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Animation Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070b09;
+  --panel:#0d1410;
+  --panel2:#101a14;
+  --border:#1b2b21;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f4f7f5;
+  --muted:#91a098;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#38bdf8;
+  --radius:18px;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  position:fixed;
+  inset:0 auto 0 0;
+  background:#09100c;
+  border-right:1px solid var(--border);
+  padding:20px 14px;
+  overflow-y:auto;
+  z-index:1000;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:4px 8px 22px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:15px;
+}
+
+.logo{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#16a34a,#064e3b);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  font-weight:800;
+  box-shadow:0 10px 30px rgba(22,163,74,.22);
+}
+
+.brand h2{
+  font-size:15px;
+  font-weight:800;
+}
+
+.brand p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.nav-title{
+  color:#64756c;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.1px;
+  padding:14px 10px 7px;
+}
+
+.nav a{
+  color:#a9b6b0;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px 11px;
+  border-radius:11px;
+  margin:2px 0;
+  font-size:13px;
+  transition:.2s;
+}
+
+.nav a:hover,
+.nav a.active{
+  background:#102018;
+  color:#fff;
+}
+
+.nav a.active{
+  box-shadow:inset 3px 0 var(--green);
+}
+
+.nav i{
+  width:18px;
+  text-align:center;
+}
+
+.sidebar-bottom{
+  margin-top:20px;
+  border-top:1px solid var(--border);
+  padding-top:15px;
+}
+
+.user-mini{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:10px;
+}
+
+.user-avatar{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#123b25;
+  display:grid;
+  place-items:center;
+  color:#4ade80;
+}
+
+.user-mini strong{
+  display:block;
+  font-size:12px;
+}
+
+.user-mini span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+
+/* MAIN */
+.main{
+  margin-left:260px;
+  width:calc(100% - 260px);
+  min-width:0;
+}
+
+.topbar{
+  height:70px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,11,9,.92);
+  backdrop-filter:blur(15px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:900;
+}
+
+.top-title h1{
+  font-size:18px;
+  font-weight:800;
+}
+
+.top-title p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:38px;
+  height:38px;
+  border:1px solid var(--border);
+  background:#0d1510;
+  color:#b9c6bf;
+  border-radius:11px;
+}
+
+.icon-btn:hover{
+  color:#fff;
+  border-color:#285438;
+}
+
+.content{
+  padding:25px;
+  max-width:1400px;
+  margin:auto;
+}
+
+/* HERO */
+.hero{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(34,197,94,.15),transparent 35%),
+    linear-gradient(135deg,#0d1911,#0a100d);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:#102719;
+  border:1px solid #1d4d2c;
+  color:#4ade80;
+  padding:7px 11px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.hero h2{
+  font-size:25px;
+  margin-top:13px;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  max-width:720px;
+  margin-top:8px;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:17px;
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat-icon{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:#10251a;
+  color:#4ade80;
+}
+
+.stat strong{
+  display:block;
+  font-size:22px;
+  margin-top:14px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr);
+  gap:18px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.card-head{
+  padding:17px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.card-head h3{
+  font-size:14px;
+}
+
+.card-head p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.card-body{
+  padding:18px;
+}
+
+/* TOOLBAR */
+.toolbar{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.search{
+  flex:1;
+  min-width:180px;
+  position:relative;
+}
+
+.search i{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64756c;
+  font-size:12px;
+}
+
+.input,
+.select,
+.textarea{
+  width:100%;
+  background:#09100c;
+  border:1px solid var(--border);
+  color:#fff;
+  outline:none;
+  border-radius:11px;
+  padding:11px 12px;
+  font-size:12px;
+}
+
+.search .input{
+  padding-left:35px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+  border-color:#28713e;
+}
+
+.textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 13px;
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-green{
+  background:linear-gradient(135deg,#16a34a,#15803d);
+}
+
+.btn-dark{
+  background:#101913;
+  border:1px solid var(--border);
+}
+
+.btn-red{
+  background:#351317;
+  color:#fca5a5;
+  border:1px solid #5b2028;
+}
+
+.btn-blue{
+  background:#0c2633;
+  color:#7dd3fc;
+  border:1px solid #16465c;
+}
+
+.btn-small{
+  padding:8px 10px;
+  font-size:10px;
+}
+
+/* ANIMATION LIST */
+.animation-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.animation-item{
+  border:1px solid var(--border);
+  background:#0b120e;
+  border-radius:14px;
+  padding:13px;
+}
+
+.animation-main{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.drag{
+  color:#52635a;
+  padding-top:3px;
+  cursor:grab;
+}
+
+.animation-icon{
+  width:39px;
+  height:39px;
+  flex:none;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:#11271a;
+  color:#4ade80;
+}
+
+.animation-info{
+  flex:1;
+  min-width:0;
+}
+
+.animation-info strong{
+  font-size:12px;
+}
+
+.animation-info p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:8px;
+}
+
+.tag{
+  border:1px solid var(--border);
+  color:#8fa097;
+  border-radius:20px;
+  padding:4px 7px;
+  font-size:9px;
+}
+
+.tag.active{
+  color:#4ade80;
+  background:#0e2516;
+  border-color:#1c4d2c;
+}
+
+.animation-actions{
+  display:flex;
+  gap:5px;
+  margin-top:12px;
+  padding-left:51px;
+}
+
+/* SWITCH */
+.switch-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #142019;
+}
+
+.switch-row:last-child{
+  border-bottom:0;
+}
+
+.switch-text strong{
+  font-size:12px;
+}
+
+.switch-text p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+  line-height:1.5;
+}
+
+.switch{
+  width:43px;
+  height:24px;
+  background:#17231c;
+  border:1px solid #28372f;
+  border-radius:30px;
+  padding:3px;
+  flex:none;
+}
+
+.switch span{
+  width:16px;
+  height:16px;
+  display:block;
+  border-radius:50%;
+  background:#718078;
+  transition:.2s;
+}
+
+.switch.on{
+  background:#145b2c;
+  border-color:#1f7a3c;
+}
+
+.switch.on span{
+  transform:translateX(18px);
+  background:#4ade80;
+}
+
+/* FORM */
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.field{
+  margin-bottom:13px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+  color:#b5c0ba;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.help{
+  color:#64756c;
+  font-size:9px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.preview-box{
+  min-height:190px;
+  border:1px dashed #2b4534;
+  background:#09110c;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  text-align:center;
+  overflow:hidden;
+}
+
+.preview-target{
+  padding:22px 28px;
+  border-radius:15px;
+  background:#112419;
+  border:1px solid #245b35;
+  color:#d9fbe4;
+}
+
+.preview-target i{
+  font-size:28px;
+  margin-bottom:9px;
+  color:#4ade80;
+}
+
+.preview-target strong{
+  display:block;
+  font-size:13px;
+}
+
+.preview-target span{
+  display:block;
+  color:#83948b;
+  font-size:10px;
+  margin-top:5px;
+}
+
+/* CODE */
+.code-box{
+  background:#050806;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px;
+  color:#9ee7b4;
+  font-family:monospace;
+  font-size:10px;
+  line-height:1.7;
+  white-space:pre-wrap;
+  word-break:break-word;
+  max-height:300px;
+  overflow:auto;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:35px 15px;
+  color:#64756c;
+}
+
+.empty i{
+  font-size:25px;
+  margin-bottom:10px;
+}
+
+.empty p{
+  font-size:11px;
+}
+
+/* FOOTER */
+.footer-note{
+  margin-top:18px;
+  padding:14px;
+  border:1px solid #29351f;
+  background:#11170e;
+  color:#aeb69e;
+  border-radius:13px;
+  font-size:10px;
+  line-height:1.7;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(7px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:3000;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(680px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#0b120e;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+}
+
+.modal-head{
+  padding:17px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.modal-head h3{
+  font-size:14px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border:1px solid var(--border);
+  background:#101913;
+  color:#9baaa2;
+  border-radius:10px;
+}
+
+.modal-body{
+  padding:18px;
+}
+
+.modal-foot{
+  padding:15px 18px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  max-width:340px;
+  background:#101913;
+  border:1px solid #274332;
+  color:#fff;
+  border-radius:13px;
+  padding:12px 14px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:5000;
+  font-size:11px;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.toast.success{
+  border-color:#1d6734;
+}
+
+.toast.error{
+  border-color:#6d2730;
+}
+
+/* MOBILE */
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:1000px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:760px){
+  .sidebar{
+    transform:translateX(-105%);
+    transition:.25s;
+    box-shadow:20px 0 60px rgba(0,0,0,.45);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .content{
+    padding:15px;
+  }
+
+  .hero{
+    padding:19px;
+  }
+
+  .hero h2{
+    font-size:21px;
+  }
+
+  .stats{
+    gap:9px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat strong{
+    font-size:19px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .animation-actions{
+    padding-left:0;
+  }
+}
+
+@media(max-width:430px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .top-title p{
+    display:none;
+  }
+
+  .top-actions .icon-btn:not(.mobile-menu){
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <h2>Sai Fitness</h2>
+        <p>Admin Control Center</p>
+      </div>
+    </div>
+
+    <div class="nav">
+
+      <div class="nav-title">Dashboard</div>
+
+      <a href="index.html">
+        <i class="fa-solid fa-gauge-high"></i>
+        Dashboard
+      </a>
+
+      <div class="nav-title">Fitness</div>
+
+      <a href="members.html">
+        <i class="fa-solid fa-users"></i>
+        Members
+      </a>
+
+      <a href="workouts.html">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workouts
+      </a>
+
+      <a href="exercises.html">
+        <i class="fa-solid fa-person-running"></i>
+        Exercises
+      </a>
+
+      <a href="diet.html">
+        <i class="fa-solid fa-utensils"></i>
+        Diet
+      </a>
+
+      <a href="goals.html">
+        <i class="fa-solid fa-bullseye"></i>
+        Goals
+      </a>
+
+      <a href="achievements.html">
+        <i class="fa-solid fa-trophy"></i>
+        Achievements
+      </a>
+
+      <a href="notifications.html">
+        <i class="fa-solid fa-bell"></i>
+        Notifications
+      </a>
+
+      <div class="nav-title">Customization</div>
+
+      <a href="theme.html">
+        <i class="fa-solid fa-palette"></i>
+        Theme Studio
+      </a>
+
+      <a href="css-manager.html">
+        <i class="fa-solid fa-code"></i>
+        CSS Manager
+      </a>
+
+      <a class="active" href="animation-manager.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Animations
+      </a>
+
+      <a href="media.html">
+        <i class="fa-solid fa-photo-film"></i>
+        Media
+      </a>
+
+      <a href="page-builder.html">
+        <i class="fa-solid fa-layer-group"></i>
+        Page Builder
+      </a>
+
+      <a href="content.html">
+        <i class="fa-solid fa-pen-to-square"></i>
+        Content
+      </a>
+
+      <div class="nav-title">Growth</div>
+
+      <a href="seo.html">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+        SEO Manager
+      </a>
+
+      <a href="analytics.html">
+        <i class="fa-solid fa-chart-line"></i>
+        Analytics
+      </a>
+
+      <div class="nav-title">System</div>
+
+      <a href="backup.html">
+        <i class="fa-solid fa-database"></i>
+        Backup
+      </a>
+
+      <a href="pwa.html">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        PWA Manager
+      </a>
+
+      <a href="version.html">
+        <i class="fa-solid fa-code-branch"></i>
+        Version
+      </a>
+
+      <a href="maintenance.html">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        Maintenance
+      </a>
+
+      <a href="security.html">
+        <i class="fa-solid fa-shield-halved"></i>
+        Security
+      </a>
+
+      <a href="settings.html">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+      </a>
+
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="user-mini">
+        <div class="user-avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div>
+          <strong id="adminName">Administrator</strong>
+          <span id="adminRole">Owner</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-title">
+        <h1>Animation Manager</h1>
+        <p>Control animations across Sai Fitness Bidupur</p>
+      </div>
+
+      <div class="top-actions">
+
+        <button class="icon-btn mobile-menu" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <button class="icon-btn" onclick="location.href='index.html'">
+          <i class="fa-solid fa-house"></i>
+        </button>
+
+        <button class="icon-btn" onclick="logoutAdmin()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+
+      </div>
+
+    </header>
+
+    <section class="content">
+
+      <!-- HERO -->
+      <div class="hero">
+
+        <span class="badge">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          Animation Control
+        </span>
+
+        <h2>Make the app feel alive.</h2>
+
+        <p>
+          Create, manage and apply lightweight CSS animations to your
+          fitness app. Existing animations are preserved. You can add
+          new animations without removing your current setup.
+        </p>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="stats">
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Animations</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+          </div>
+          <strong id="totalAnimations">0</strong>
+          <span>Total saved animations</span>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Enabled</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+          <strong id="enabledAnimations">0</strong>
+          <span>Currently active</span>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Global</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+          </div>
+          <strong id="globalAnimations">0</strong>
+          <span>Global animations</span>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Custom CSS</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-code"></i>
+            </div>
+          </div>
+          <strong id="cssSize">0 KB</strong>
+          <span>Generated animation CSS</span>
+        </div>
+
+      </div>
+
+      <div class="grid">
+
+        <!-- LEFT -->
+        <div>
+
+          <div class="card">
+
+            <div class="card-head">
+
+              <div>
+                <h3>Animation Library</h3>
+                <p>Manage your existing and custom animation presets.</p>
+              </div>
+
+              <button class="btn btn-green" onclick="openAnimationModal()">
+                <i class="fa-solid fa-plus"></i>
+                Add Animation
+              </button>
+
+            </div>
+
+            <div class="card-body">
+
+              <div class="toolbar">
+
+                <div class="search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input
+                    id="search"
+                    class="input"
+                    placeholder="Search animations..."
+                    oninput="renderAnimations()"
+                  >
+                </div>
+
+                <select
+                  id="filterStatus"
+                  class="select"
+                  style="width:130px"
+                  onchange="renderAnimations()"
+                >
+                  <option value="all">All Status</option>
+                  <option value="enabled">Enabled</option>
+                  <option value="disabled">Disabled</option>
+                </select>
+
+                <select
+                  id="filterTarget"
+                  class="select"
+                  style="width:145px"
+                  onchange="renderAnimations()"
+                >
+                  <option value="all">All Targets</option>
+                  <option value="global">Global</option>
+                  <option value="index.html">Home</option>
+                  <option value="workout.html">Workout</option>
+                  <option value="diet.html">Diet</option>
+                  <option value="progress.html">Progress</option>
+                  <option value="profile.html">Profile</option>
+                </select>
+
+              </div>
+
+              <div class="animation-list" id="animationList"></div>
+
+            </div>
+
+          </div>
+
+          <div class="card" style="margin-top:18px">
+
+            <div class="card-head">
+
+              <div>
+                <h3>Animation CSS Preview</h3>
+                <p>Generated CSS from enabled animations.</p>
+              </div>
+
+              <button class="btn btn-dark btn-small" onclick="copyCSS()">
+                <i class="fa-solid fa-copy"></i>
+                Copy CSS
+              </button>
+
+            </div>
+
+            <div class="card-body">
+
+              <div class="code-box" id="cssPreview">
+/* No animations enabled */
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+
+          <div class="card">
+
+            <div class="card-head">
+              <div>
+                <h3>Global Animation Settings</h3>
+                <p>Control how animations behave.</p>
+              </div>
+            </div>
+
+            <div class="card-body">
+
+              <div class="switch-row">
+
+                <div class="switch-text">
+                  <strong>Animation Engine</strong>
+                  <p>Enable the custom animation system.</p>
+                </div>
+
+                <button
+                  class="switch on"
+                  id="engineSwitch"
+                  onclick="toggleEngine()"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+              <div class="switch-row">
+
+                <div class="switch-text">
+                  <strong>Auto Apply</strong>
+                  <p>Apply saved animations automatically.</p>
+                </div>
+
+                <button
+                  class="switch on"
+                  id="autoSwitch"
+                  onclick="toggleAuto()"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+              <div class="switch-row">
+
+                <div class="switch-text">
+                  <strong>Respect Reduced Motion</strong>
+                  <p>Disable animations for users who request reduced motion.</p>
+                </div>
+
+                <button
+                  class="switch on"
+                  id="reducedSwitch"
+                  onclick="toggleReduced()"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+              <div class="switch-row">
+
+                <div class="switch-text">
+                  <strong>Performance Mode</strong>
+                  <p>Prefer lightweight transform and opacity animations.</p>
+                </div>
+
+                <button
+                  class="switch"
+                  id="performanceSwitch"
+                  onclick="togglePerformance()"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card" style="margin-top:18px">
+
+            <div class="card-head">
+              <div>
+                <h3>Live Preview</h3>
+                <p>Test the currently selected animation.</p>
+              </div>
+            </div>
+
+            <div class="card-body">
+
+              <div class="preview-box">
+
+                <div class="preview-target" id="previewTarget">
+                  <i class="fa-solid fa-dumbbell"></i>
+                  <strong id="previewTitle">Animation Preview</strong>
+                  <span id="previewText">
+                    Select an animation to preview it.
+                  </span>
+                </div>
+
+              </div>
+
+              <div style="display:flex;gap:8px;margin-top:12px">
+
+                <button
+                  class="btn btn-green"
+                  style="flex:1"
+                  onclick="playPreview()"
+                >
+                  <i class="fa-solid fa-play"></i>
+                  Play
+                </button>
+
+                <button
+                  class="btn btn-dark"
+                  style="flex:1"
+                  onclick="stopPreview()"
+                >
+                  <i class="fa-solid fa-stop"></i>
+                  Stop
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card" style="margin-top:18px">
+
+            <div class="card-head">
+              <div>
+                <h3>Quick Actions</h3>
+                <p>Backup and manage animation data.</p>
+              </div>
+            </div>
+
+            <div class="card-body">
+
+              <div style="display:grid;gap:8px">
+
+                <button class="btn btn-dark" onclick="exportAnimations()">
+                  <i class="fa-solid fa-download"></i>
+                  Export Animation JSON
+                </button>
+
+                <button class="btn btn-dark" onclick="document.getElementById('importFile').click()">
+                  <i class="fa-solid fa-upload"></i>
+                  Import Animation JSON
+                </button>
+
+                <button class="btn btn-blue" onclick="loadDefaults()">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  Add Default Animations
+                </button>
+
+                <button class="btn btn-red" onclick="clearAnimations()">
+                  <i class="fa-solid fa-trash"></i>
+                  Clear Custom Animations
+                </button>
+
+              </div>
+
+              <input
+                type="file"
+                id="importFile"
+                accept=".json,application/json"
+                hidden
+                onchange="importAnimations(event)"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="footer-note">
+        <i class="fa-solid fa-circle-info"></i>
+        <strong>Important:</strong>
+        This manager stores animation rules in browser LocalStorage under
+        <b>saiAnimationManager</b>. It does not physically rewrite your
+        <b>animations.css</b> file. The global app engine can read and apply
+        enabled rules dynamically. For permanent production deployment,
+        copy/export the generated CSS into your actual project.
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="animationModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3 id="modalTitle">Add Animation</h3>
+
+      <button class="close" onclick="closeAnimationModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <input type="hidden" id="editId">
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>Animation Name</label>
+
+          <input
+            id="animName"
+            class="input"
+            placeholder="Example: Smooth Fade Up"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Target Selector</label>
+
+          <input
+            id="animSelector"
+            class="input"
+            placeholder=".hero, .card, button"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Target Page</label>
+
+          <select id="animTarget" class="select">
+
+            <option value="global">Global</option>
+            <option value="index.html">Home</option>
+            <option value="workout.html">Workout</option>
+            <option value="diet.html">Diet</option>
+            <option value="progress.html">Progress</option>
+            <option value="profile.html">Profile</option>
+            <option value="exercises.html">Exercises</option>
+            <option value="goals.html">Goals</option>
+            <option value="notifications.html">Notifications</option>
+            <option value="body.html">Body</option>
+            <option value="achievements.html">Achievements</option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>Animation Type</label>
+
+          <select id="animType" class="select">
+
+            <option value="fadeUp">Fade Up</option>
+            <option value="fadeDown">Fade Down</option>
+            <option value="fadeLeft">Fade Left</option>
+            <option value="fadeRight">Fade Right</option>
+            <option value="scale">Scale</option>
+            <option value="pulse">Pulse</option>
+            <option value="float">Float</option>
+            <option value="shake">Shake</option>
+            <option value="bounce">Bounce</option>
+            <option value="rotate">Rotate</option>
+            <option value="custom">Custom CSS</option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>Duration</label>
+
+          <input
+            id="animDuration"
+            class="input"
+            value="0.6s"
+            placeholder="0.6s"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Delay</label>
+
+          <input
+            id="animDelay"
+            class="input"
+            value="0s"
+            placeholder="0s"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Iteration</label>
+
+          <select id="animIteration" class="select">
+
+            <option value="1">1 time</option>
+            <option value="2">2 times</option>
+            <option value="3">3 times</option>
+            <option value="infinite">Infinite</option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>Timing</label>
+
+          <select id="animTiming" class="select">
+
+            <option value="ease">Ease</option>
+            <option value="ease-in">Ease In</option>
+            <option value="ease-out">Ease Out</option>
+            <option value="ease-in-out">Ease In Out</option>
+            <option value="linear">Linear</option>
+
+          </select>
+
+        </div>
+
+        <div class="field full">
+
+          <label>Custom CSS Keyframes</label>
+
+          <textarea
+            id="animCustom"
+            class="textarea"
+            placeholder="@keyframes myAnimation {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}"
+          ></textarea>
+
+          <div class="help">
+            Only needed when Animation Type is Custom. Do not add
+            &lt;style&gt; tags.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-foot">
+
+      <button class="btn btn-dark" onclick="closeAnimationModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-green" onclick="saveAnimation()">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Animation
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS BIDUPUR
+   ANIMATION MANAGER
+========================================================= */
+
+const STORAGE_KEY = "saiAnimationManager";
+
+let animations = [];
+
+let settings = {
+  engineEnabled: true,
+  autoApply: true,
+  respectReducedMotion: true,
+  performanceMode: false
+};
+
+let selectedAnimation = null;
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+(function(){
+
+  try{
+
+    if(window.Security){
+
+      Security.requireAuth("animation-manager");
+
+      const user = Security.getCurrentUser();
+
+      if(user){
+
+        document.getElementById("adminName").textContent =
+          user.name || user.username || "Administrator";
+
+        document.getElementById("adminRole").textContent =
+          Security.getRoleName(user.role);
+
+      }
+
+    }else{
+
+      console.warn("admin-security.js not available");
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+})();
+
+
+/* =========================================================
+   DEFAULT ANIMATIONS
+========================================================= */
+
+const DEFAULT_ANIMATIONS = [
+
+  {
+    id:"fade-up-default",
+    name:"Smooth Fade Up",
+    selector:".card",
+    target:"global",
+    type:"fadeUp",
+    duration:"0.6s",
+    delay:"0s",
+    iteration:"1",
+    timing:"ease",
+    custom:"",
+    enabled:true
+  },
+
+  {
+    id:"button-pulse-default",
+    name:"Button Pulse",
+    selector:".btn",
+    target:"global",
+    type:"pulse",
+    duration:"1.6s",
+    delay:"0s",
+    iteration:"infinite",
+    timing:"ease-in-out",
+    custom:"",
+    enabled:true
+  },
+
+  {
+    id:"hero-float-default",
+    name:"Hero Floating",
+    selector:".hero",
+    target:"index.html",
+    type:"float",
+    duration:"3s",
+    delay:"0s",
+    iteration:"infinite",
+    timing:"ease-in-out",
+    custom:"",
+    enabled:true
+  }
+
+];
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadData(){
+
+  try{
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if(raw){
+
+      const data = JSON.parse(raw);
+
+      if(Array.isArray(data.animations)){
+        animations = data.animations;
+      }
+
+      if(data.settings){
+        settings = {
+          ...settings,
+          ...data.settings
+        };
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  updateSwitches();
+  renderAnimations();
+  updateStats();
+  updateCSSPreview();
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveData(){
+
+  localStorage.setItem(
+
+    STORAGE_KEY,
+
+    JSON.stringify({
+
+      version:"1.0",
+
+      updatedAt:new Date().toISOString(),
+
+      animations,
+
+      settings
+
+    })
+
+  );
+
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+function makeId(){
+
+  return "anim_" +
+    Date.now().toString(36) +
+    "_" +
+    Math.random().toString(36).slice(2,8);
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderAnimations(){
+
+  const list = document.getElementById("animationList");
+
+  const search =
+    document.getElementById("search").value
+    .toLowerCase()
+    .trim();
+
+  const status =
+    document.getElementById("filterStatus").value;
+
+  const target =
+    document.getElementById("filterTarget").value;
+
+
+  const filtered = animations.filter(a=>{
+
+    const matchesSearch =
+      !search ||
+      String(a.name || "").toLowerCase().includes(search) ||
+      String(a.selector || "").toLowerCase().includes(search) ||
+      String(a.type || "").toLowerCase().includes(search);
+
+    const matchesStatus =
+      status === "all" ||
+      (status === "enabled" && a.enabled) ||
+      (status === "disabled" && !a.enabled);
+
+    const matchesTarget =
+      target === "all" ||
+      a.target === target;
+
+    return matchesSearch &&
+           matchesStatus &&
+           matchesTarget;
+
+  });
+
+
+  if(!filtered.length){
+
+    list.innerHTML = `
+      <div class="empty">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <p>No animations found.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML = filtered.map(a=>`
+
+    <div class="animation-item">
+
+      <div class="animation-main">
+
+        <div class="drag">
+          <i class="fa-solid fa-grip-vertical"></i>
+        </div>
+
+        <div class="animation-icon">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+
+        <div class="animation-info">
+
+          <strong>${escapeHTML(a.name)}</strong>
+
+          <p>
+            ${escapeHTML(a.selector || "No selector")}
+          </p>
+
+          <div class="tags">
+
+            <span class="tag ${a.enabled ? "active":""}">
+              ${a.enabled ? "Enabled":"Disabled"}
+            </span>
+
+            <span class="tag">
+              ${escapeHTML(a.type)}
+            </span>
+
+            <span class="tag">
+              ${escapeHTML(a.target)}
+            </span>
+
+            <span class="tag">
+              ${escapeHTML(a.duration)}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="animation-actions">
+
+        <button
+          class="btn btn-blue btn-small"
+          onclick="selectAnimation('${a.id}')"
+        >
+          <i class="fa-solid fa-eye"></i>
+          Preview
+        </button>
+
+        <button
+          class="btn btn-dark btn-small"
+          onclick="editAnimation('${a.id}')"
+        >
+          <i class="fa-solid fa-pen"></i>
+          Edit
+        </button>
+
+        <button
+          class="btn btn-dark btn-small"
+          onclick="toggleAnimation('${a.id}')"
+        >
+          <i class="fa-solid ${a.enabled ? "fa-toggle-off":"fa-toggle-on"}"></i>
+          ${a.enabled ? "Disable":"Enable"}
+        </button>
+
+        <button
+          class="btn btn-red btn-small"
+          onclick="deleteAnimation('${a.id}')"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openAnimationModal(id=null){
+
+  document.getElementById("animationModal")
+    .classList.add("show");
+
+  if(id){
+
+    const item = animations.find(a=>a.id===id);
+
+    if(!item) return;
+
+    document.getElementById("modalTitle").textContent =
+      "Edit Animation";
+
+    document.getElementById("editId").value =
+      item.id;
+
+    document.getElementById("animName").value =
+      item.name || "";
+
+    document.getElementById("animSelector").value =
+      item.selector || "";
+
+    document.getElementById("animTarget").value =
+      item.target || "global";
+
+    document.getElementById("animType").value =
+      item.type || "fadeUp";
+
+    document.getElementById("animDuration").value =
+      item.duration || "0.6s";
+
+    document.getElementById("animDelay").value =
+      item.delay || "0s";
+
+    document.getElementById("animIteration").value =
+      item.iteration || "1";
+
+    document.getElementById("animTiming").value =
+      item.timing || "ease";
+
+    document.getElementById("animCustom").value =
+      item.custom || "";
+
+  }else{
+
+    resetModal();
+
+    document.getElementById("modalTitle").textContent =
+      "Add Animation";
+
+  }
+
+}
+
+
+function resetModal(){
+
+  document.getElementById("editId").value = "";
+
+  document.getElementById("animName").value = "";
+
+  document.getElementById("animSelector").value = "";
+
+  document.getElementById("animTarget").value = "global";
+
+  document.getElementById("animType").value = "fadeUp";
+
+  document.getElementById("animDuration").value = "0.6s";
+
+  document.getElementById("animDelay").value = "0s";
+
+  document.getElementById("animIteration").value = "1";
+
+  document.getElementById("animTiming").value = "ease";
+
+  document.getElementById("animCustom").value = "";
+
+}
+
+
+function closeAnimationModal(){
+
+  document.getElementById("animationModal")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   SAVE ANIMATION
+========================================================= */
+
+function saveAnimation(){
+
+  const name =
+    document.getElementById("animName").value.trim();
+
+  const selector =
+    document.getElementById("animSelector").value.trim();
+
+  const target =
+    document.getElementById("animTarget").value;
+
+  const type =
+    document.getElementById("animType").value;
+
+  const duration =
+    document.getElementById("animDuration").value.trim() || "0.6s";
+
+  const delay =
+    document.getElementById("animDelay").value.trim() || "0s";
+
+  const iteration =
+    document.getElementById("animIteration").value;
+
+  const timing =
+    document.getElementById("animTiming").value;
+
+  const custom =
+    document.getElementById("animCustom").value.trim();
+
+  const editId =
+    document.getElementById("editId").value;
+
+
+  if(!name){
+
+    toast("Animation name required.","error");
+
+    return;
+
+  }
+
+
+  if(!selector){
+
+    toast("Target selector required.","error");
+
+    return;
+
+  }
+
+
+  if(type==="custom" && !custom){
+
+    toast("Custom keyframes CSS required.","error");
+
+    return;
+
+  }
+
+
+  const item = {
+
+    id:editId || makeId(),
+
+    name,
+
+    selector,
+
+    target,
+
+    type,
+
+    duration,
+
+    delay,
+
+    iteration,
+
+    timing,
+
+    custom,
+
+    enabled:true
+
+  };
+
+
+  if(editId){
+
+    const index =
+      animations.findIndex(a=>a.id===editId);
+
+    if(index!==-1){
+
+      item.enabled =
+        animations[index].enabled;
+
+      animations[index] = item;
+
+    }
+
+  }else{
+
+    animations.unshift(item);
+
+  }
+
+
+  saveData();
+
+  closeAnimationModal();
+
+  renderAnimations();
+
+  updateStats();
+
+  updateCSSPreview();
+
+  toast(
+    editId
+    ? "Animation updated."
+    : "Animation added.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+function editAnimation(id){
+
+  openAnimationModal(id);
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteAnimation(id){
+
+  const item =
+    animations.find(a=>a.id===id);
+
+  if(!item) return;
+
+
+  if(!confirm(
+    "Delete this animation?\n\nExisting app files will not be deleted."
+  )) return;
+
+
+  animations =
+    animations.filter(a=>a.id!==id);
+
+  saveData();
+
+  renderAnimations();
+
+  updateStats();
+
+  updateCSSPreview();
+
+  toast("Animation deleted.","success");
+
+}
+
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+function toggleAnimation(id){
+
+  const item =
+    animations.find(a=>a.id===id);
+
+  if(!item) return;
+
+  item.enabled = !item.enabled;
+
+  saveData();
+
+  renderAnimations();
+
+  updateStats();
+
+  updateCSSPreview();
+
+  toast(
+    item.enabled
+      ? "Animation enabled."
+      : "Animation disabled.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   SELECT / PREVIEW
+========================================================= */
+
+function selectAnimation(id){
+
+  const item =
+    animations.find(a=>a.id===id);
+
+  if(!item) return;
+
+  selectedAnimation = item;
+
+  document.getElementById("previewTitle").textContent =
+    item.name;
+
+  document.getElementById("previewText").textContent =
+    item.type + " • " +
+    item.duration + " • " +
+    item.target;
+
+  playPreview();
+
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+function getAnimationName(type){
+
+  const map = {
+
+    fadeUp:"saiFadeUp",
+
+    fadeDown:"saiFadeDown",
+
+    fadeLeft:"saiFadeLeft",
+
+    fadeRight:"saiFadeRight",
+
+    scale:"saiScale",
+
+    pulse:"saiPulse",
+
+    float:"saiFloat",
+
+    shake:"saiShake",
+
+    bounce:"saiBounce",
+
+    rotate:"saiRotate"
+
+  };
+
+  return map[type] || "";
+
+}
+
+
+function playPreview(){
+
+  const target =
+    document.getElementById("previewTarget");
+
+  if(!selectedAnimation){
+
+    if(animations.length){
+
+      selectedAnimation =
+        animations[0];
+
+    }else{
+
+      toast("Add an animation first.","error");
+
+      return;
+
+    }
+
+  }
+
+
+  const a = selectedAnimation;
+
+  const animationName =
+    getAnimationName(a.type);
+
+
+  target.style.animation = "none";
+
+  void target.offsetWidth;
+
+
+  if(a.type==="custom"){
+
+    const css =
+      document.createElement("style");
+
+    css.id = "previewCustomAnimation";
+
+    css.textContent =
+      a.custom || "";
+
+    const old =
+      document.getElementById("previewCustomAnimation");
+
+    if(old) old.remove();
+
+    document.head.appendChild(css);
+
+    target.style.animation =
+      `${extractCustomName(a.custom) || "saiCustomPreview"} ${a.duration} ${a.timing} ${a.delay} ${a.iteration}`;
+
+  }else{
+
+    injectPreviewKeyframes();
+
+    target.style.animation =
+      `${animationName} ${a.duration} ${a.timing} ${a.delay} ${a.iteration}`;
+
+  }
+
+}
+
+
+function stopPreview(){
+
+  const target =
+    document.getElementById("previewTarget");
+
+  target.style.animation = "none";
+
+}
+
+
+function extractCustomName(css){
+
+  const match =
+    css.match(/@keyframes\s+([a-zA-Z0-9_-]+)/);
+
+  return match ? match[1] : "";
+
+}
+
+
+/* =========================================================
+   PREVIEW KEYFRAMES
+========================================================= */
+
+function injectPreviewKeyframes(){
+
+  if(document.getElementById("saiPreviewKeyframes"))
+    return;
+
+  const style =
+    document.createElement("style");
+
+  style.id = "saiPreviewKeyframes";
+
+  style.textContent = `
+
+    @keyframes saiFadeUp{
+      from{opacity:0;transform:translateY(22px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes saiFadeDown{
+      from{opacity:0;transform:translateY(-22px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes saiFadeLeft{
+      from{opacity:0;transform:translateX(-22px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+
+    @keyframes saiFadeRight{
+      from{opacity:0;transform:translateX(22px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+
+    @keyframes saiScale{
+      from{opacity:0;transform:scale(.85)}
+      to{opacity:1;transform:scale(1)}
+    }
+
+    @keyframes saiPulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+
+    @keyframes saiFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+
+    @keyframes saiShake{
+      0%,100%{transform:translateX(0)}
+      25%{transform:translateX(-6px)}
+      75%{transform:translateX(6px)}
+    }
+
+    @keyframes saiBounce{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-14px)}
+    }
+
+    @keyframes saiRotate{
+      from{transform:rotate(0)}
+      to{transform:rotate(360deg)}
+    }
+
+  `;
+
+  document.head.appendChild(style);
+
+}
+
+
+/* =========================================================
+   CSS GENERATOR
+========================================================= */
+
+function getKeyframes(type){
+
+  const map = {
+
+    fadeUp:`
+@keyframes saiFadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}`,
+
+    fadeDown:`
+@keyframes saiFadeDown{
+  from{opacity:0;transform:translateY(-22px)}
+  to{opacity:1;transform:translateY(0)}
+}`,
+
+    fadeLeft:`
+@keyframes saiFadeLeft{
+  from{opacity:0;transform:translateX(-22px)}
+  to{opacity:1;transform:translateX(0)}
+}`,
+
+    fadeRight:`
+@keyframes saiFadeRight{
+  from{opacity:0;transform:translateX(22px)}
+  to{opacity:1;transform:translateX(0)}
+}`,
+
+    scale:`
+@keyframes saiScale{
+  from{opacity:0;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
+}`,
+
+    pulse:`
+@keyframes saiPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}`,
+
+    float:`
+@keyframes saiFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}`,
+
+    shake:`
+@keyframes saiShake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}`,
+
+    bounce:`
+@keyframes saiBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}`,
+
+    rotate:`
+@keyframes saiRotate{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}`
+
+  };
+
+  return map[type] || "";
+
+}
+
+
+function buildCSS(){
+
+  if(!settings.engineEnabled)
+    return "/* Animation engine disabled */";
+
+
+  const enabled =
+    animations.filter(a=>a.enabled);
+
+
+  if(!enabled.length)
+    return "/* No animations enabled */";
+
+
+  let output = `/* Sai Fitness Animation Manager */\n`;
+  output += `/* Generated: ${new Date().toISOString()} */\n\n`;
+
+
+  const keyframeTypes =
+    [...new Set(
+      enabled
+        .filter(a=>a.type!=="custom")
+        .map(a=>a.type)
+    )];
+
+
+  keyframeTypes.forEach(type=>{
+
+    output += getKeyframes(type);
+
+    output += "\n\n";
+
+  });
+
+
+  enabled
+    .filter(a=>a.type==="custom" && a.custom)
+    .forEach(a=>{
+
+      output += a.custom;
+
+      output += "\n\n";
+
+    });
+
+
+  enabled.forEach(a=>{
+
+    let animationName =
+      a.type==="custom"
+        ? extractCustomName(a.custom) || "saiCustom"
+        : getAnimationName(a.type);
+
+
+    let selector =
+      a.selector;
+
+
+    if(a.target!=="global"){
+
+      output += `
+/* Target: ${a.target} */
+`;
+
+    }
+
+
+    output += `
+${selector}{
+  animation:${animationName} ${a.duration} ${a.timing} ${a.delay} ${a.iteration};
+}
+`;
+
+  });
+
+
+  if(settings.respectReducedMotion){
+
+    output += `
+
+@media (prefers-reduced-motion: reduce){
+
+  *,
+  *::before,
+  *::after{
+
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+
+  }
+
+}
+`;
+
+  }
+
+
+  if(settings.performanceMode){
+
+    output += `
+
+/* Performance mode */
+`;
+
+  }
+
+
+  return output.trim();
+
+}
+
+
+function updateCSSPreview(){
+
+  document.getElementById("cssPreview")
+    .textContent = buildCSS();
+
+  const size =
+    new Blob([buildCSS()]).size / 1024;
+
+  document.getElementById("cssSize").textContent =
+    size.toFixed(1) + " KB";
+
+}
+
+
+/* =========================================================
+   COPY CSS
+========================================================= */
+
+async function copyCSS(){
+
+  const css = buildCSS();
+
+  try{
+
+    await navigator.clipboard.writeText(css);
+
+    toast("Animation CSS copied.","success");
+
+  }catch(error){
+
+    toast("Copy failed. Select CSS manually.","error");
+
+  }
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+  const total =
+    animations.length;
+
+  const enabled =
+    animations.filter(a=>a.enabled).length;
+
+  const global =
+    animations.filter(
+      a=>a.enabled && a.target==="global"
+    ).length;
+
+  document.getElementById("totalAnimations")
+    .textContent = total;
+
+  document.getElementById("enabledAnimations")
+    .textContent = enabled;
+
+  document.getElementById("globalAnimations")
+    .textContent = global;
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function updateSwitches(){
+
+  setSwitch(
+    "engineSwitch",
+    settings.engineEnabled
+  );
+
+  setSwitch(
+    "autoSwitch",
+    settings.autoApply
+  );
+
+  setSwitch(
+    "reducedSwitch",
+    settings.respectReducedMotion
+  );
+
+  setSwitch(
+    "performanceSwitch",
+    settings.performanceMode
+  );
+
+}
+
+
+function setSwitch(id,on){
+
+  const el =
+    document.getElementById(id);
+
+  if(!el) return;
+
+  el.classList.toggle("on",!!on);
+
+}
+
+
+function toggleEngine(){
+
+  settings.engineEnabled =
+    !settings.engineEnabled;
+
+  saveData();
+
+  updateSwitches();
+
+  updateCSSPreview();
+
+  toast(
+    settings.engineEnabled
+      ? "Animation engine enabled."
+      : "Animation engine disabled.",
+    "success"
+  );
+
+}
+
+
+function toggleAuto(){
+
+  settings.autoApply =
+    !settings.autoApply;
+
+  saveData();
+
+  updateSwitches();
+
+  toast(
+    settings.autoApply
+      ? "Auto apply enabled."
+      : "Auto apply disabled.",
+    "success"
+  );
+
+}
+
+
+function toggleReduced(){
+
+  settings.respectReducedMotion =
+    !settings.respectReducedMotion;
+
+  saveData();
+
+  updateSwitches();
+
+  updateCSSPreview();
+
+}
+
+
+function togglePerformance(){
+
+  settings.performanceMode =
+    !settings.performanceMode;
+
+  saveData();
+
+  updateSwitches();
+
+  updateCSSPreview();
+
+}
+
+
+/* =========================================================
+   DEFAULTS
+========================================================= */
+
+function loadDefaults(){
+
+  let added = 0;
+
+  DEFAULT_ANIMATIONS.forEach(def=>{
+
+    const exists =
+      animations.some(a=>a.id===def.id);
+
+    if(!exists){
+
+      animations.push({
+        ...def
+      });
+
+      added++;
+
+    }
+
+  });
+
+
+  saveData();
+
+  renderAnimations();
+
+  updateStats();
+
+  updateCSSPreview();
+
+  toast(
+    added
+      ? `${added} default animations added.`
+      : "Default animations already exist.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportAnimations(){
+
+  const data = {
+
+    app:"Sai Fitness Bidupur",
+
+    type:"animation-manager",
+
+    version:"1.0",
+
+    exportedAt:new Date().toISOString(),
+
+    animations,
+
+    settings
+
+  };
+
+
+  const blob =
+    new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "sai-fitness-animations.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast("Animation backup exported.","success");
+
+}
+
+
+/* =========================================================
+   IMPORT
+========================================================= */
+
+function importAnimations(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = function(){
+
+    try{
+
+      const data =
+        JSON.parse(reader.result);
+
+
+      if(!Array.isArray(data.animations)){
+
+        toast(
+          "Invalid animation backup.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      let added = 0;
+
+      data.animations.forEach(item=>{
+
+        if(!item.id)
+          item.id = makeId();
+
+        const exists =
+          animations.some(
+            a=>a.id===item.id
+          );
+
+        if(!exists){
+
+          animations.push(item);
+
+          added++;
+
+        }
+
+      });
+
+
+      if(data.settings){
+
+        settings = {
+          ...settings,
+          ...data.settings
+        };
+
+      }
+
+
+      saveData();
+
+      loadData();
+
+      toast(
+        `${added} animations imported.`,
+        "success"
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+      toast(
+        "Could not import JSON.",
+        "error"
+      );
+
+    }
+
+  };
+
+
+  reader.readAsText(file);
+
+  event.target.value = "";
+
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearAnimations(){
+
+  if(!animations.length){
+
+    toast("No custom animations to clear.","error");
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    "Clear all custom animations?\n\nYour main app files will NOT be deleted."
+  )) return;
+
+
+  animations = [];
+
+  saveData();
+
+  selectedAnimation = null;
+
+  loadData();
+
+  toast(
+    "Custom animation library cleared.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutAdmin(){
+
+  if(!confirm("Logout from admin panel?"))
+    return;
+
+  try{
+
+    if(window.Security){
+
+      Security.logout();
+
+    }else{
+
+      location.href = "login.html";
+
+    }
+
+  }catch(error){
+
+    location.href = "login.html";
+
+  }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function toast(message,type="success"){
+
+  const el =
+    document.getElementById("toast");
+
+  el.textContent = message;
+
+  el.className =
+    "toast show " + type;
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+
+      el.className = "toast";
+
+    },2800);
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  injectPreviewKeyframes();
+
+  loadData();
+
+});
+
+
+/* CLOSE MODAL OUTSIDE */
+document.getElementById("animationModal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+
+      closeAnimationModal();
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>

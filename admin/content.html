@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Content Manager • Sai Fitness</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --green:#16a34a;
+    --bg:#070b09;
+    --card:#101713;
+    --dark:#0a0f0c;
+    --text:#f5f7f6;
+    --muted:#8d9a92;
+    --border:rgba(255,255,255,.08);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:255px;
+    position:fixed;
+    inset:0 auto 0 0;
+    background:#0b100d;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:5px 9px 23px;
+}
+
+.logo{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:var(--green);
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.brand strong{
+    display:block;
+    font-size:15px;
+}
+
+.brand small{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.nav-title{
+    color:#59655e;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:18px 10px 8px;
+    text-transform:uppercase;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 11px;
+    border-radius:11px;
+    color:#aab5ae;
+    text-decoration:none;
+    font-size:12px;
+    margin-bottom:3px;
+}
+
+.nav a i{
+    width:18px;
+    text-align:center;
+}
+
+.nav a:hover{
+    background:rgba(255,255,255,.05);
+    color:#fff;
+}
+
+.nav a.active{
+    background:rgba(22,163,74,.14);
+    color:#fff;
+    border:1px solid rgba(22,163,74,.18);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:255px;
+    width:calc(100% - 255px);
+    padding:27px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.topbar h1{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.topbar p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.mobile-menu{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:var(--card);
+    color:#fff;
+    border:1px solid var(--border);
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    border-radius:11px;
+    padding:11px 15px;
+    color:#fff;
+    font-weight:700;
+    font-size:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-primary{
+    background:var(--green);
+}
+
+.btn-dark{
+    background:#18201b;
+    border:1px solid var(--border);
+}
+
+.btn-danger{
+    background:#7f1d1d;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:18px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:19px;
+    margin-bottom:18px;
+}
+
+.card:last-child{
+    margin-bottom:0;
+}
+
+.title{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.sub{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:17px;
+}
+
+/* FORM */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#aab5ae;
+    font-size:10px;
+    font-weight:700;
+}
+
+.field input,
+.field textarea{
+    width:100%;
+    background:#080d0a;
+    color:#fff;
+    border:1px solid var(--border);
+    border-radius:11px;
+    padding:11px 12px;
+    outline:none;
+    font-size:11px;
+}
+
+.field textarea{
+    min-height:100px;
+    resize:vertical;
+    line-height:1.6;
+}
+
+.field input:focus,
+.field textarea:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(22,163,74,.07);
+}
+
+.counter{
+    color:#65736a;
+    font-size:9px;
+    text-align:right;
+}
+
+/* SWITCH */
+
+.switch-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px;
+    background:var(--dark);
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.switch-label strong{
+    display:block;
+    font-size:11px;
+}
+
+.switch-label span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.switch{
+    width:44px;
+    height:23px;
+    position:relative;
+    flex:none;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#29332d;
+    border-radius:30px;
+    transition:.2s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:17px;
+    height:17px;
+    left:3px;
+    top:3px;
+    background:#fff;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(21px);
+}
+
+/* PREVIEW */
+
+.preview{
+    background:#080d0a;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+}
+
+.preview-brand{
+    color:#4ade80;
+    font-size:10px;
+    font-weight:800;
+    margin-bottom:13px;
+}
+
+.preview h2{
+    font-size:23px;
+    line-height:1.2;
+    margin-bottom:9px;
+}
+
+.preview p{
+    color:#8d9a92;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.preview-motivation{
+    margin-top:16px;
+    padding:12px;
+    border-left:3px solid var(--green);
+    background:rgba(22,163,74,.06);
+    color:#c7d1cb;
+    font-size:10px;
+    line-height:1.6;
+}
+
+.preview-announcement{
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(22,163,74,.11);
+    color:#a7e7bb;
+    font-size:10px;
+}
+
+/* INFO */
+
+.info-box{
+    background:var(--dark);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.info-box:last-child{
+    margin-bottom:0;
+}
+
+.info-box h3{
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.info-box p,
+.info-box li{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.7;
+}
+
+.info-box ul{
+    padding-left:17px;
+}
+
+.warning{
+    padding:13px 15px;
+    border-radius:13px;
+    border:1px solid rgba(245,158,11,.18);
+    background:rgba(245,158,11,.06);
+    color:#d8bd80;
+    font-size:10px;
+    line-height:1.7;
+}
+
+.save-bar{
+    display:flex;
+    gap:8px;
+    margin-top:3px;
+}
+
+.save-bar .btn{
+    flex:1;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    background:#151c17;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:12px 17px;
+    border-radius:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:99999;
+    font-size:12px;
+    font-weight:700;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:17px;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar h1{
+        font-size:21px;
+    }
+
+    .actions{
+        width:100%;
+    }
+
+    .actions .btn{
+        flex:1;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .preview h2{
+        font-size:20px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="logo">SF</div>
+        <div>
+            <strong>Sai Fitness</strong>
+            <small>Admin Panel</small>
+        </div>
+    </div>
+
+    <nav class="nav">
+
+        <div class="nav-title">Dashboard</div>
+
+        <a href="index.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+        </a>
+
+        <div class="nav-title">Management</div>
+
+        <a href="members.html">
+            <i class="fa-solid fa-users"></i>
+            Members
+        </a>
+
+        <a href="workouts.html">
+            <i class="fa-solid fa-dumbbell"></i>
+            Workouts
+        </a>
+
+        <a href="exercises.html">
+            <i class="fa-solid fa-person-running"></i>
+            Exercises
+        </a>
+
+        <a href="diet.html">
+            <i class="fa-solid fa-apple-whole"></i>
+            Diet
+        </a>
+
+        <a href="goals.html">
+            <i class="fa-solid fa-bullseye"></i>
+            Goals
+        </a>
+
+        <a href="achievements.html">
+            <i class="fa-solid fa-trophy"></i>
+            Achievements
+        </a>
+
+        <a href="notifications.html">
+            <i class="fa-solid fa-bell"></i>
+            Notifications
+        </a>
+
+        <div class="nav-title">Customization</div>
+
+        <a href="theme.html">
+            <i class="fa-solid fa-palette"></i>
+            Theme Studio
+        </a>
+
+        <a href="css-manager.html">
+            <i class="fa-solid fa-code"></i>
+            CSS Manager
+        </a>
+
+        <a href="animation-manager.html">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Animations
+        </a>
+
+        <a href="media.html">
+            <i class="fa-solid fa-photo-film"></i>
+            Media
+        </a>
+
+        <a class="active" href="content.html">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Content
+        </a>
+
+        <a href="page-builder.html">
+            <i class="fa-solid fa-layer-group"></i>
+            Page Builder
+        </a>
+
+        <div class="nav-title">Growth</div>
+
+        <a href="seo.html">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            SEO Manager
+        </a>
+
+        <a href="analytics.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            Analytics
+        </a>
+
+        <div class="nav-title">System</div>
+
+        <a href="app-upload.html">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            App Upload
+        </a>
+
+        <a href="backup.html">
+            <i class="fa-solid fa-database"></i>
+            Backup
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+
+        <a href="security.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Security
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div style="display:flex;gap:10px;align-items:flex-start">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+                <h1>Content Manager</h1>
+                <p>
+                    Edit the text and information shown across Sai Fitness.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="btn btn-dark"
+                id="resetBtn">
+                <i class="fa-solid fa-rotate-left"></i>
+                Reset
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="saveBtn">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+        <!-- LEFT -->
+
+        <section>
+
+            <!-- BRAND -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-signature"></i>
+                    App Branding
+                </div>
+
+                <div class="sub">
+                    Change your app identity and main branding text.
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label>
+                            App Name
+                        </label>
+
+                        <input
+                            id="appName"
+                            maxlength="60"
+                            placeholder="Sai Fitness Bidupur">
+
+                        <div
+                            class="counter"
+                            id="appNameCount">
+                            0 / 60
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Tagline
+                        </label>
+
+                        <input
+                            id="tagline"
+                            maxlength="80"
+                            placeholder="Train Hard • Stay Strong">
+
+                        <div
+                            class="counter"
+                            id="taglineCount">
+                            0 / 80
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HOME HERO -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-house"></i>
+                    Home Hero Section
+                </div>
+
+                <div class="sub">
+                    Main text shown on the home/dashboard screen.
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field full">
+
+                        <label>
+                            Hero Title
+                        </label>
+
+                        <input
+                            id="heroTitle"
+                            maxlength="100"
+                            placeholder="Let's Build Your Best Body">
+
+                        <div
+                            class="counter"
+                            id="heroTitleCount">
+                            0 / 100
+                        </div>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            Hero Subtitle
+                        </label>
+
+                        <textarea
+                            id="heroSubtitle"
+                            maxlength="220"
+                            placeholder="Track your workouts, nutrition and progress every day."></textarea>
+
+                        <div
+                            class="counter"
+                            id="heroSubtitleCount">
+                            0 / 220
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MOTIVATION -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-fire"></i>
+                    Motivation
+                </div>
+
+                <div class="sub">
+                    Set the motivational message displayed in the app.
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Motivation Message
+                    </label>
+
+                    <textarea
+                        id="motivation"
+                        maxlength="300"
+                        placeholder="Small progress every day becomes big results."></textarea>
+
+                    <div
+                        class="counter"
+                        id="motivationCount">
+                        0 / 300
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANNOUNCEMENT -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    Announcement
+                </div>
+
+                <div class="sub">
+                    Display a special announcement on the app.
+                </div>
+
+                <div class="field" style="margin-bottom:12px">
+
+                    <label>
+                        Announcement Text
+                    </label>
+
+                    <input
+                        id="announcement"
+                        maxlength="180"
+                        placeholder="New workout plan available!">
+
+                    <div
+                        class="counter"
+                        id="announcementCount">
+                        0 / 180
+                    </div>
+
+                </div>
+
+
+                <div class="switch-row">
+
+                    <div class="switch-label">
+
+                        <strong>
+                            Show Announcement
+                        </strong>
+
+                        <span>
+                            Display this message in the app.
+                        </span>
+
+                    </div>
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="showAnnouncement">
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- ABOUT -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-circle-info"></i>
+                    About App
+                </div>
+
+                <div class="sub">
+                    Information shown on the About section.
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        About Description
+                    </label>
+
+                    <textarea
+                        id="about"
+                        maxlength="800"
+                        placeholder="About Sai Fitness Bidupur..."></textarea>
+
+                    <div
+                        class="counter"
+                        id="aboutCount">
+                        0 / 800
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-address-card"></i>
+                    Contact & Business Information
+                </div>
+
+                <div class="sub">
+                    These details can be displayed in profile/about pages.
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label>
+                            Owner / Brand
+                        </label>
+
+                        <input
+                            id="owner"
+                            maxlength="100"
+                            placeholder="Sai Fitness Bidupur">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Phone
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="tel"
+                            maxlength="20"
+                            placeholder="+91">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            maxlength="120"
+                            placeholder="hello@example.com">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Address
+                        </label>
+
+                        <input
+                            id="address"
+                            maxlength="180"
+                            placeholder="Bidupur, Bihar">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="card">
+
+                <div class="title">
+                    <i class="fa-solid fa-window-maximize"></i>
+                    Footer & Version
+                </div>
+
+                <div class="sub">
+                    Manage footer copyright and app version text.
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label>
+                            Footer Text
+                        </label>
+
+                        <input
+                            id="footerText"
+                            maxlength="200"
+                            placeholder="© 2026 Sai Fitness Bidupur">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            App Version
+                        </label>
+
+                        <input
+                            id="version"
+                            maxlength="30"
+                            placeholder="1.0.0">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="save-bar">
+
+                <button
+                    class="btn btn-dark"
+                    id="exportBtn">
+
+                    <i class="fa-solid fa-file-export"></i>
+                    Export Content
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="saveBottomBtn">
+
+                    <i class="fa-solid fa-check"></i>
+                    Save Content
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+
+        <aside>
+
+            <div class="card">
+
+                <div class="title">
+                    Live Preview
+                </div>
+
+                <div class="sub">
+                    Preview the main content before saving.
+                </div>
+
+                <div class="preview">
+
+                    <div
+                        class="preview-brand"
+                        id="previewBrand">
+                        SAI FITNESS BIDUPUR
+                    </div>
+
+                    <h2 id="previewTitle">
+                        Let's Build Your Best Body
+                    </h2>
+
+                    <p id="previewSubtitle">
+                        Track your workouts, nutrition and progress every day.
+                    </p>
+
+                    <div
+                        class="preview-motivation"
+                        id="previewMotivation">
+                        Small progress every day becomes big results.
+                    </div>
+
+                    <div
+                        class="preview-announcement"
+                        id="previewAnnouncement">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        New workout plan available!
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="title">
+                    Content System
+                </div>
+
+                <div class="info-box">
+
+                    <h3>
+                        Global Content
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            Changes are stored in browser LocalStorage.
+                        </li>
+
+                        <li>
+                            Main app pages can read these values.
+                        </li>
+
+                        <li>
+                            Existing pages should use the global content engine.
+                        </li>
+
+                        <li>
+                            Save after making changes.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>
+                        Supported Content
+                    </h3>
+
+                    <p>
+                        App name, tagline, hero, motivation,
+                        announcement, About, owner, contact,
+                        address, footer and version.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                Content changes are stored locally in this browser.
+                For a real multi-device admin system, connect this
+                manager to a server/database.
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script src="admin-security.js"></script>
+
+<script>
+"use strict";
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+if(
+    window.Security &&
+    typeof Security.requireAuth === "function"
+){
+    Security.requireAuth("content");
+}
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const CONTENT_KEY =
+    "saiAppContent";
+
+
+/* =========================================================
+   DEFAULT CONTENT
+   ========================================================= */
+
+const DEFAULT_CONTENT = {
+
+    appName:
+        "Sai Fitness Bidupur",
+
+    tagline:
+        "Train Hard • Stay Strong",
+
+    heroTitle:
+        "Let's Build Your Best Body",
+
+    heroSubtitle:
+        "Track your workouts, nutrition and progress every day.",
+
+    motivation:
+        "Small progress every day becomes big results.",
+
+    announcement:
+        "New workout plan available!",
+
+    showAnnouncement:
+        true,
+
+    about:
+        "Sai Fitness Bidupur is your personal fitness companion. Track workouts, nutrition, body measurements, goals and progress in one simple app.",
+
+    owner:
+        "Sai Fitness Bidupur",
+
+    phone:
+        "",
+
+    email:
+        "",
+
+    address:
+        "Bidupur, Bihar",
+
+    footerText:
+        "© 2026 Sai Fitness Bidupur. All rights reserved.",
+
+    version:
+        "1.0.0"
+
+};
+
+
+/* =========================================================
+   ELEMENT MAP
+   ========================================================= */
+
+const fields = {
+
+    appName:
+        document.getElementById("appName"),
+
+    tagline:
+        document.getElementById("tagline"),
+
+    heroTitle:
+        document.getElementById("heroTitle"),
+
+    heroSubtitle:
+        document.getElementById("heroSubtitle"),
+
+    motivation:
+        document.getElementById("motivation"),
+
+    announcement:
+        document.getElementById("announcement"),
+
+    showAnnouncement:
+        document.getElementById("showAnnouncement"),
+
+    about:
+        document.getElementById("about"),
+
+    owner:
+        document.getElementById("owner"),
+
+    phone:
+        document.getElementById("phone"),
+
+    email:
+        document.getElementById("email"),
+
+    address:
+        document.getElementById("address"),
+
+    footerText:
+        document.getElementById("footerText"),
+
+    version:
+        document.getElementById("version")
+
+};
+
+
+/* =========================================================
+   LOAD CONTENT
+   ========================================================= */
+
+function loadContent(){
+
+    let saved = {};
+
+    try{
+
+        saved =
+            JSON.parse(
+                localStorage.getItem(
+                    CONTENT_KEY
+                ) || "{}"
+            );
+
+    }catch(error){
+
+        saved = {};
+
+    }
+
+    const content = {
+
+        ...DEFAULT_CONTENT,
+        ...saved
+
+    };
+
+
+    Object.keys(fields)
+    .forEach(
+        key => {
+
+            if(
+                fields[key].type ===
+                "checkbox"
+            ){
+
+                fields[key].checked =
+                    Boolean(
+                        content[key]
+                    );
+
+            }else{
+
+                fields[key].value =
+                    content[key] ?? "";
+
+            }
+
+        }
+    );
+
+
+    updatePreview();
+    updateCounters();
+
+}
+
+
+/* =========================================================
+   GET CONTENT
+   ========================================================= */
+
+function getContent(){
+
+    return {
+
+        appName:
+            fields.appName.value.trim(),
+
+        tagline:
+            fields.tagline.value.trim(),
+
+        heroTitle:
+            fields.heroTitle.value.trim(),
+
+        heroSubtitle:
+            fields.heroSubtitle.value.trim(),
+
+        motivation:
+            fields.motivation.value.trim(),
+
+        announcement:
+            fields.announcement.value.trim(),
+
+        showAnnouncement:
+            fields.showAnnouncement.checked,
+
+        about:
+            fields.about.value.trim(),
+
+        owner:
+            fields.owner.value.trim(),
+
+        phone:
+            fields.phone.value.trim(),
+
+        email:
+            fields.email.value.trim(),
+
+        address:
+            fields.address.value.trim(),
+
+        footerText:
+            fields.footerText.value.trim(),
+
+        version:
+            fields.version.value.trim()
+
+    };
+
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+function saveContent(){
+
+    const content =
+        getContent();
+
+    localStorage.setItem(
+        CONTENT_KEY,
+        JSON.stringify(
+            content
+        )
+    );
+
+
+    /*
+     * Also keep the shared content
+     * engine in sync when available.
+     */
+
+    try{
+
+        if(
+            window.SaiFitness &&
+            typeof SaiFitness.saveAppContent ===
+            "function"
+        ){
+
+            SaiFitness.saveAppContent(
+                content
+            );
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Global content sync unavailable",
+            error
+        );
+
+    }
+
+
+    updatePreview();
+
+    showToast(
+        "Content saved successfully ✓"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE BUTTONS
+   ========================================================= */
+
+document
+.getElementById("saveBtn")
+.addEventListener(
+    "click",
+    saveContent
+);
+
+document
+.getElementById("saveBottomBtn")
+.addEventListener(
+    "click",
+    saveContent
+);
+
+
+/* =========================================================
+   LIVE PREVIEW
+   ========================================================= */
+
+Object.keys(fields)
+.forEach(
+    key => {
+
+        fields[key].addEventListener(
+            "input",
+            () => {
+
+                updatePreview();
+                updateCounters();
+
+            }
+        );
+
+        fields[key].addEventListener(
+            "change",
+            () => {
+
+                updatePreview();
+                updateCounters();
+
+            }
+        );
+
+    }
+);
+
+
+function updatePreview(){
+
+    document.getElementById(
+        "previewBrand"
+    ).textContent =
+        (
+            fields.appName.value ||
+            DEFAULT_CONTENT.appName
+        ).toUpperCase();
+
+
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
+        fields.heroTitle.value ||
+        DEFAULT_CONTENT.heroTitle;
+
+
+    document.getElementById(
+        "previewSubtitle"
+    ).textContent =
+        fields.heroSubtitle.value ||
+        DEFAULT_CONTENT.heroSubtitle;
+
+
+    document.getElementById(
+        "previewMotivation"
+    ).textContent =
+        fields.motivation.value ||
+        DEFAULT_CONTENT.motivation;
+
+
+    const announcement =
+        document.getElementById(
+            "previewAnnouncement"
+        );
+
+
+    announcement.textContent =
+        fields.announcement.value ||
+        DEFAULT_CONTENT.announcement;
+
+
+    announcement.style.display =
+        fields.showAnnouncement.checked
+            ? "block"
+            : "none";
+
+}
+
+
+/* =========================================================
+   COUNTERS
+   ========================================================= */
+
+const counterMap = {
+
+    appName:
+        "appNameCount",
+
+    tagline:
+        "taglineCount",
+
+    heroTitle:
+        "heroTitleCount",
+
+    heroSubtitle:
+        "heroSubtitleCount",
+
+    motivation:
+        "motivationCount",
+
+    announcement:
+        "announcementCount",
+
+    about:
+        "aboutCount"
+
+};
+
+
+function updateCounters(){
+
+    Object.keys(counterMap)
+    .forEach(
+        key => {
+
+            const input =
+                fields[key];
+
+            const counter =
+                document.getElementById(
+                    counterMap[key]
+                );
+
+            if(
+                input &&
+                counter
+            ){
+
+                counter.textContent =
+                    `${input.value.length} / ${input.maxLength}`;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+document
+.getElementById("resetBtn")
+.addEventListener(
+    "click",
+    () => {
+
+        if(
+            !confirm(
+                "Reset all app content to default?"
+            )
+        ){
+
+            return;
+
+        }
+
+        localStorage.removeItem(
+            CONTENT_KEY
+        );
+
+        loadContent();
+
+        showToast(
+            "Content reset to default"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   EXPORT
+   ========================================================= */
+
+document
+.getElementById("exportBtn")
+.addEventListener(
+    "click",
+    () => {
+
+        const content =
+            getContent();
+
+        const data = {
+
+            app:
+                "Sai Fitness Bidupur",
+
+            exportedAt:
+                new Date().toISOString(),
+
+            content:
+                content
+
+        };
+
+
+        const blob =
+            new Blob(
+                [
+                    JSON.stringify(
+                        data,
+                        null,
+                        2
+                    )
+                ],
+                {
+                    type:
+                        "application/json"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const a =
+            document.createElement(
+                "a"
+            );
+
+        a.href =
+            url;
+
+        a.download =
+            "sai-fitness-content.json";
+
+        a.click();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+
+        showToast(
+            "Content exported ✓"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+document
+.getElementById("mobileMenu")
+.addEventListener(
+    "click",
+    () => {
+
+        document
+        .getElementById("sidebar")
+        .classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(
+    message
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+loadContent();
+
+</script>
+
+</body>
+</html>

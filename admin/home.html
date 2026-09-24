@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Home Manager • Sai Fitness</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+ --green:#16a34a;
+ --bg:#070b09;
+ --card:#101713;
+ --dark:#080d0a;
+ --text:#f5f7f6;
+ --muted:#8d9a92;
+ --border:rgba(255,255,255,.08);
+}
+
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+}
+
+button,input,textarea,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.layout{
+ display:flex;
+ min-height:100vh;
+}
+
+.sidebar{
+ width:255px;
+ position:fixed;
+ inset:0 auto 0 0;
+ background:#0b100d;
+ border-right:1px solid var(--border);
+ padding:20px 14px;
+ overflow-y:auto;
+ z-index:1000;
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:5px 9px 23px;
+}
+
+.logo{
+ width:43px;
+ height:43px;
+ border-radius:13px;
+ background:var(--green);
+ display:grid;
+ place-items:center;
+ font-weight:800;
+}
+
+.brand strong{
+ display:block;
+ font-size:15px;
+}
+
+.brand small{
+ color:var(--muted);
+ font-size:10px;
+}
+
+.nav-title{
+ color:#59655e;
+ font-size:9px;
+ font-weight:800;
+ letter-spacing:1px;
+ margin:18px 10px 8px;
+ text-transform:uppercase;
+}
+
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:10px 11px;
+ border-radius:11px;
+ color:#aab5ae;
+ text-decoration:none;
+ font-size:12px;
+ margin-bottom:3px;
+}
+
+.nav a i{
+ width:18px;
+ text-align:center;
+}
+
+.nav a:hover{
+ background:rgba(255,255,255,.05);
+ color:#fff;
+}
+
+.nav a.active{
+ background:rgba(22,163,74,.14);
+ color:#fff;
+ border:1px solid rgba(22,163,74,.18);
+}
+
+.main{
+ margin-left:255px;
+ width:calc(100% - 255px);
+ padding:27px;
+}
+
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ margin-bottom:22px;
+}
+
+.topbar h1{
+ font-size:25px;
+ margin-bottom:5px;
+}
+
+.topbar p{
+ color:var(--muted);
+ font-size:12px;
+}
+
+.mobile-menu{
+ display:none;
+ width:42px;
+ height:42px;
+ border-radius:12px;
+ background:var(--card);
+ color:#fff;
+ border:1px solid var(--border);
+}
+
+.actions{
+ display:flex;
+ gap:8px;
+}
+
+.btn{
+ border:0;
+ border-radius:11px;
+ padding:11px 15px;
+ color:#fff;
+ font-weight:700;
+ font-size:12px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+}
+
+.btn-primary{
+ background:var(--green);
+}
+
+.btn-dark{
+ background:#18201b;
+ border:1px solid var(--border);
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1.3fr .7fr;
+ gap:18px;
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:17px;
+ padding:19px;
+ margin-bottom:18px;
+}
+
+.card:last-child{
+ margin-bottom:0;
+}
+
+.title{
+ font-size:15px;
+ font-weight:800;
+ margin-bottom:5px;
+}
+
+.sub{
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.6;
+ margin-bottom:17px;
+}
+
+.form-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:13px;
+}
+
+.field{
+ display:flex;
+ flex-direction:column;
+ gap:6px;
+}
+
+.field.full{
+ grid-column:1/-1;
+}
+
+.field label{
+ color:#aab5ae;
+ font-size:10px;
+ font-weight:700;
+}
+
+.field input,
+.field textarea,
+.field select{
+ width:100%;
+ background:var(--dark);
+ color:#fff;
+ border:1px solid var(--border);
+ border-radius:11px;
+ padding:11px 12px;
+ outline:none;
+ font-size:11px;
+}
+
+.field textarea{
+ min-height:95px;
+ resize:vertical;
+ line-height:1.6;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+ border-color:var(--green);
+}
+
+.switch-row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:12px;
+ background:var(--dark);
+ border:1px solid var(--border);
+ border-radius:12px;
+ margin-top:10px;
+}
+
+.switch-label strong{
+ display:block;
+ font-size:11px;
+}
+
+.switch-label span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
+}
+
+.switch{
+ width:44px;
+ height:23px;
+ position:relative;
+ flex:none;
+}
+
+.switch input{
+ display:none;
+}
+
+.slider{
+ position:absolute;
+ inset:0;
+ background:#29332d;
+ border-radius:30px;
+ transition:.2s;
+}
+
+.slider:before{
+ content:"";
+ position:absolute;
+ width:17px;
+ height:17px;
+ left:3px;
+ top:3px;
+ background:#fff;
+ border-radius:50%;
+ transition:.2s;
+}
+
+.switch input:checked + .slider{
+ background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+ transform:translateX(21px);
+}
+
+.quick-list{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px;
+}
+
+.quick-item{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:12px;
+ background:var(--dark);
+ border:1px solid var(--border);
+ border-radius:12px;
+}
+
+.quick-item i{
+ width:35px;
+ height:35px;
+ border-radius:10px;
+ background:rgba(22,163,74,.12);
+ color:#4ade80;
+ display:grid;
+ place-items:center;
+}
+
+.quick-item strong{
+ display:block;
+ font-size:10px;
+}
+
+.quick-item span{
+ display:block;
+ color:var(--muted);
+ font-size:8px;
+ margin-top:3px;
+}
+
+.preview{
+ background:#080d0a;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:18px;
+}
+
+.preview-logo{
+ width:40px;
+ height:40px;
+ border-radius:12px;
+ background:var(--green);
+ display:grid;
+ place-items:center;
+ font-weight:800;
+ margin-bottom:14px;
+}
+
+.preview small{
+ color:#4ade80;
+ font-size:9px;
+ font-weight:800;
+}
+
+.preview h2{
+ font-size:23px;
+ line-height:1.2;
+ margin:7px 0 9px;
+}
+
+.preview p{
+ color:var(--muted);
+ font-size:10px;
+ line-height:1.6;
+}
+
+.preview-box{
+ margin-top:14px;
+ padding:12px;
+ border-radius:11px;
+ background:rgba(22,163,74,.07);
+ border-left:3px solid var(--green);
+}
+
+.preview-box strong{
+ display:block;
+ font-size:10px;
+}
+
+.preview-box span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:4px;
+}
+
+.info{
+ background:var(--dark);
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:14px;
+ margin-bottom:11px;
+}
+
+.info:last-child{
+ margin-bottom:0;
+}
+
+.info h3{
+ font-size:12px;
+ margin-bottom:8px;
+}
+
+.info p,
+.info li{
+ color:var(--muted);
+ font-size:10px;
+ line-height:1.7;
+}
+
+.info ul{
+ padding-left:17px;
+}
+
+.warning{
+ padding:13px 15px;
+ border-radius:13px;
+ border:1px solid rgba(245,158,11,.18);
+ background:rgba(245,158,11,.06);
+ color:#d8bd80;
+ font-size:10px;
+ line-height:1.7;
+}
+
+.save-bar{
+ display:flex;
+ gap:8px;
+}
+
+.save-bar .btn{
+ flex:1;
+}
+
+.toast{
+ position:fixed;
+ left:50%;
+ bottom:25px;
+ transform:translate(-50%,20px);
+ background:#151c17;
+ border:1px solid var(--border);
+ color:#fff;
+ padding:12px 17px;
+ border-radius:12px;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:99999;
+ font-size:12px;
+ font-weight:700;
+}
+
+.toast.show{
+ opacity:1;
+ transform:translate(-50%,0);
+}
+
+@media(max-width:950px){
+
+ .sidebar{
+  transform:translateX(-100%);
+  transition:.25s;
+ }
+
+ .sidebar.open{
+  transform:translateX(0);
+ }
+
+ .main{
+  margin-left:0;
+  width:100%;
+  padding:17px;
+ }
+
+ .mobile-menu{
+  display:block;
+ }
+
+ .grid{
+  grid-template-columns:1fr;
+ }
+
+ .topbar{
+  align-items:flex-start;
+ }
+
+}
+
+@media(max-width:600px){
+
+ .topbar h1{
+  font-size:21px;
+ }
+
+ .actions{
+  width:100%;
+ }
+
+ .actions .btn{
+  flex:1;
+ }
+
+ .form-grid{
+  grid-template-columns:1fr;
+ }
+
+ .field.full{
+  grid-column:auto;
+ }
+
+ .quick-list{
+  grid-template-columns:1fr;
+ }
+
+ .preview h2{
+  font-size:20px;
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+
+ <div class="brand">
+  <div class="logo">SF</div>
+  <div>
+   <strong>Sai Fitness</strong>
+   <small>Admin Panel</small>
+  </div>
+ </div>
+
+ <nav class="nav">
+
+  <div class="nav-title">Dashboard</div>
+
+  <a href="index.html">
+   <i class="fa-solid fa-chart-line"></i>
+   Dashboard
+  </a>
+
+  <div class="nav-title">Management</div>
+
+  <a href="members.html">
+   <i class="fa-solid fa-users"></i>
+   Members
+  </a>
+
+  <a href="workouts.html">
+   <i class="fa-solid fa-dumbbell"></i>
+   Workouts
+  </a>
+
+  <a href="exercises.html">
+   <i class="fa-solid fa-person-running"></i>
+   Exercises
+  </a>
+
+  <a href="diet.html">
+   <i class="fa-solid fa-apple-whole"></i>
+   Diet
+  </a>
+
+  <a href="goals.html">
+   <i class="fa-solid fa-bullseye"></i>
+   Goals
+  </a>
+
+  <a href="achievements.html">
+   <i class="fa-solid fa-trophy"></i>
+   Achievements
+  </a>
+
+  <a href="notifications.html">
+   <i class="fa-solid fa-bell"></i>
+   Notifications
+  </a>
+
+  <div class="nav-title">Customization</div>
+
+  <a href="theme.html">
+   <i class="fa-solid fa-palette"></i>
+   Theme Studio
+  </a>
+
+  <a href="css-manager.html">
+   <i class="fa-solid fa-code"></i>
+   CSS Manager
+  </a>
+
+  <a href="animation-manager.html">
+   <i class="fa-solid fa-wand-magic-sparkles"></i>
+   Animations
+  </a>
+
+  <a href="media.html">
+   <i class="fa-solid fa-photo-film"></i>
+   Media
+  </a>
+
+  <a href="content.html">
+   <i class="fa-solid fa-pen-to-square"></i>
+   Content
+  </a>
+
+  <a href="home.html" class="active">
+   <i class="fa-solid fa-house"></i>
+   Home Manager
+  </a>
+
+  <a href="page-builder.html">
+   <i class="fa-solid fa-layer-group"></i>
+   Page Builder
+  </a>
+
+  <div class="nav-title">Growth</div>
+
+  <a href="seo.html">
+   <i class="fa-solid fa-magnifying-glass-chart"></i>
+   SEO Manager
+  </a>
+
+  <a href="analytics.html">
+   <i class="fa-solid fa-chart-pie"></i>
+   Analytics
+  </a>
+
+  <div class="nav-title">System</div>
+
+  <a href="app-upload.html">
+   <i class="fa-solid fa-cloud-arrow-up"></i>
+   App Upload
+  </a>
+
+  <a href="backup.html">
+   <i class="fa-solid fa-database"></i>
+   Backup
+  </a>
+
+  <a href="settings.html">
+   <i class="fa-solid fa-gear"></i>
+   Settings
+  </a>
+
+  <a href="security.html">
+   <i class="fa-solid fa-shield-halved"></i>
+   Security
+  </a>
+
+ </nav>
+
+</aside>
+
+
+<main class="main">
+
+ <div class="topbar">
+
+  <div style="display:flex;gap:10px;align-items:flex-start">
+
+   <button class="mobile-menu" id="mobileMenu">
+    <i class="fa-solid fa-bars"></i>
+   </button>
+
+   <div>
+    <h1>Home Manager</h1>
+    <p>
+     Control the appearance and sections of your home dashboard.
+    </p>
+   </div>
+
+  </div>
+
+  <div class="actions">
+
+   <button class="btn btn-dark" id="resetBtn">
+    <i class="fa-solid fa-rotate-left"></i>
+    Reset
+   </button>
+
+   <button class="btn btn-primary" id="saveBtn">
+    <i class="fa-solid fa-floppy-disk"></i>
+    Save
+   </button>
+
+  </div>
+
+ </div>
+
+
+ <div class="grid">
+
+  <section>
+
+   <!-- HERO -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-house"></i>
+     Home Hero
+    </div>
+
+    <div class="sub">
+     Configure the main welcome area of the home screen.
+    </div>
+
+    <div class="form-grid">
+
+     <div class="field full">
+
+      <label>Greeting</label>
+
+      <input
+       id="greeting"
+       maxlength="80"
+       placeholder="Welcome back!">
+
+     </div>
+
+     <div class="field full">
+
+      <label>Hero Title</label>
+
+      <input
+       id="heroTitle"
+       maxlength="120"
+       placeholder="Let's Build Your Best Body">
+
+     </div>
+
+     <div class="field full">
+
+      <label>Hero Subtitle</label>
+
+      <textarea
+       id="heroSubtitle"
+       maxlength="250"
+       placeholder="Track your workouts and progress every day."></textarea>
+
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <!-- STATS -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-chart-simple"></i>
+     Home Statistics
+    </div>
+
+    <div class="sub">
+     Choose which progress cards appear on the dashboard.
+    </div>
+
+    <div class="switch-row">
+
+     <div class="switch-label">
+      <strong>Workouts</strong>
+      <span>Show completed workout count.</span>
+     </div>
+
+     <label class="switch">
+      <input type="checkbox" id="showWorkouts">
+      <span class="slider"></span>
+     </label>
+
+    </div>
+
+    <div class="switch-row">
+
+     <div class="switch-label">
+      <strong>Calories</strong>
+      <span>Show calories burned.</span>
+     </div>
+
+     <label class="switch">
+      <input type="checkbox" id="showCalories">
+      <span class="slider"></span>
+     </label>
+
+    </div>
+
+    <div class="switch-row">
+
+     <div class="switch-label">
+      <strong>Minutes</strong>
+      <span>Show total workout minutes.</span>
+     </div>
+
+     <label class="switch">
+      <input type="checkbox" id="showMinutes">
+      <span class="slider"></span>
+     </label>
+
+    </div>
+
+    <div class="switch-row">
+
+     <div class="switch-label">
+      <strong>Streak</strong>
+      <span>Show workout streak.</span>
+     </div>
+
+     <label class="switch">
+      <input type="checkbox" id="showStreak">
+      <span class="slider"></span>
+     </label>
+
+    </div>
+
+   </div>
+
+
+   <!-- SECTIONS -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-layer-group"></i>
+     Home Sections
+    </div>
+
+    <div class="sub">
+     Turn dashboard sections on or off.
+    </div>
+
+    <div class="form-grid">
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Workout Card</strong>
+       <span>Recommended workout.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showWorkoutCard">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Quick Actions</strong>
+       <span>Fast navigation buttons.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showQuickActions">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Water Tracker</strong>
+       <span>Daily hydration section.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showWater">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Diet Summary</strong>
+       <span>Today's nutrition section.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showDiet">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Recent Activity</strong>
+       <span>Latest user activity.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showActivity">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Motivation</strong>
+       <span>Motivational message.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showMotivation">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+     <div class="switch-row">
+      <div class="switch-label">
+       <strong>Announcement</strong>
+       <span>Special announcement box.</span>
+      </div>
+
+      <label class="switch">
+       <input type="checkbox" id="showAnnouncement">
+       <span class="slider"></span>
+      </label>
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <!-- QUICK ACTIONS -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-bolt"></i>
+     Quick Action Labels
+    </div>
+
+    <div class="sub">
+     Customize the names shown in the quick-action area.
+    </div>
+
+    <div class="form-grid">
+
+     <div class="field">
+      <label>Action 1</label>
+      <input id="action1" maxlength="30" placeholder="Workout">
+     </div>
+
+     <div class="field">
+      <label>Action 2</label>
+      <input id="action2" maxlength="30" placeholder="Diet">
+     </div>
+
+     <div class="field">
+      <label>Action 3</label>
+      <input id="action3" maxlength="30" placeholder="Progress">
+     </div>
+
+     <div class="field">
+      <label>Action 4</label>
+      <input id="action4" maxlength="30" placeholder="Exercises">
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <!-- MOTIVATION -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-fire"></i>
+     Home Motivation
+    </div>
+
+    <div class="sub">
+     Custom message shown below the main dashboard sections.
+    </div>
+
+    <div class="field">
+
+     <label>Motivation Message</label>
+
+     <textarea
+      id="motivation"
+      maxlength="300"
+      placeholder="Small progress every day becomes big results."></textarea>
+
+    </div>
+
+   </div>
+
+
+   <!-- ANNOUNCEMENT -->
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-bullhorn"></i>
+     Home Announcement
+    </div>
+
+    <div class="sub">
+     Set the announcement shown to users.
+    </div>
+
+    <div class="field">
+
+     <label>Announcement Text</label>
+
+     <input
+      id="announcement"
+      maxlength="180"
+      placeholder="New workout plan available!">
+
+    </div>
+
+    <div class="switch-row">
+
+     <div class="switch-label">
+      <strong>Enable Announcement</strong>
+      <span>Show announcement on home screen.</span>
+     </div>
+
+     <label class="switch">
+      <input type="checkbox" id="announcementEnabled">
+      <span class="slider"></span>
+     </label>
+
+    </div>
+
+   </div>
+
+
+   <div class="save-bar">
+
+    <button class="btn btn-dark" id="exportBtn">
+     <i class="fa-solid fa-file-export"></i>
+     Export
+    </button>
+
+    <button class="btn btn-primary" id="saveBottomBtn">
+     <i class="fa-solid fa-check"></i>
+     Save Home Settings
+    </button>
+
+   </div>
+
+  </section>
+
+
+  <aside>
+
+   <!-- PREVIEW -->
+
+   <div class="card">
+
+    <div class="title">
+     Live Preview
+    </div>
+
+    <div class="sub">
+     Approximate preview of the home hero.
+    </div>
+
+    <div class="preview">
+
+     <div class="preview-logo">SF</div>
+
+     <small id="previewGreeting">
+      WELCOME BACK!
+     </small>
+
+     <h2 id="previewTitle">
+      Let's Build Your Best Body
+     </h2>
+
+     <p id="previewSubtitle">
+      Track your workouts and progress every day.
+     </p>
+
+     <div class="preview-box">
+      <strong>🔥 Motivation</strong>
+      <span id="previewMotivation">
+       Small progress every day becomes big results.
+      </span>
+     </div>
+
+     <div class="preview-box">
+      <strong>📢 Announcement</strong>
+      <span id="previewAnnouncement">
+       New workout plan available!
+      </span>
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <!-- QUICK PREVIEW -->
+
+   <div class="card">
+
+    <div class="title">
+     Quick Actions
+    </div>
+
+    <div class="sub">
+     Current action labels.
+    </div>
+
+    <div class="quick-list">
+
+     <div class="quick-item">
+      <i class="fa-solid fa-dumbbell"></i>
+      <div>
+       <strong id="previewAction1">Workout</strong>
+       <span>Action 1</span>
+      </div>
+     </div>
+
+     <div class="quick-item">
+      <i class="fa-solid fa-utensils"></i>
+      <div>
+       <strong id="previewAction2">Diet</strong>
+       <span>Action 2</span>
+      </div>
+     </div>
+
+     <div class="quick-item">
+      <i class="fa-solid fa-chart-line"></i>
+      <div>
+       <strong id="previewAction3">Progress</strong>
+       <span>Action 3</span>
+      </div>
+     </div>
+
+     <div class="quick-item">
+      <i class="fa-solid fa-person-running"></i>
+      <div>
+       <strong id="previewAction4">Exercises</strong>
+       <span>Action 4</span>
+      </div>
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <div class="card">
+
+    <div class="title">
+     Home Manager Info
+    </div>
+
+    <div class="info">
+
+     <h3>
+      <i class="fa-solid fa-circle-info"></i>
+      What this controls
+     </h3>
+
+     <ul>
+      <li>Home hero section</li>
+      <li>Dashboard statistics</li>
+      <li>Quick actions</li>
+      <li>Water and diet sections</li>
+      <li>Activity and motivation</li>
+      <li>Announcement visibility</li>
+     </ul>
+
+    </div>
+
+    <div class="info">
+
+     <h3>Storage</h3>
+
+     <p>
+      Settings are saved in
+      <strong>LocalStorage</strong>
+      under <strong>saiHomeSettings</strong>.
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="warning">
+
+    <i class="fa-solid fa-triangle-exclamation"></i>
+
+    Home Manager controls configuration.
+    The actual <strong>index.html</strong> must read these
+    settings for every switch to visibly affect the live app.
+
+   </div>
+
+  </aside>
+
+ </div>
+
+</main>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="admin-security.js"></script>
+
+<script>
+"use strict";
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+if(
+ window.Security &&
+ typeof Security.requireAuth === "function"
+){
+ Security.requireAuth("home");
+}
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const STORAGE_KEY =
+ "saiHomeSettings";
+
+
+/* =========================================================
+   DEFAULTS
+   ========================================================= */
+
+const DEFAULTS = {
+
+ greeting:
+  "Welcome back!",
+
+ heroTitle:
+  "Let's Build Your Best Body",
+
+ heroSubtitle:
+  "Track your workouts, nutrition and progress every day.",
+
+ showWorkouts:
+  true,
+
+ showCalories:
+  true,
+
+ showMinutes:
+  true,
+
+ showStreak:
+  true,
+
+ showWorkoutCard:
+  true,
+
+ showQuickActions:
+  true,
+
+ showWater:
+  true,
+
+ showDiet:
+  true,
+
+ showActivity:
+  true,
+
+ showMotivation:
+  true,
+
+ showAnnouncement:
+  true,
+
+ action1:
+  "Workout",
+
+ action2:
+  "Diet",
+
+ action3:
+  "Progress",
+
+ action4:
+  "Exercises",
+
+ motivation:
+  "Small progress every day becomes big results.",
+
+ announcement:
+  "New workout plan available!",
+
+ announcementEnabled:
+  true
+
+};
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const ids = Object.keys(
+ DEFAULTS
+);
+
+const el = {};
+
+ids.forEach(
+ key => {
+
+  el[key] =
+   document.getElementById(key);
+
+ }
+);
+
+
+/* =========================================================
+   LOAD
+   ========================================================= */
+
+function loadSettings(){
+
+ let saved = {};
+
+ try{
+
+  saved =
+   JSON.parse(
+    localStorage.getItem(
+     STORAGE_KEY
+    ) || "{}"
+   );
+
+ }catch(error){
+
+  saved = {};
+
+ }
+
+ const data = {
+  ...DEFAULTS,
+  ...saved
+ };
+
+ ids.forEach(
+  key => {
+
+   if(!el[key]) return;
+
+   if(
+    el[key].type === "checkbox"
+   ){
+
+    el[key].checked =
+     Boolean(
+      data[key]
+     );
+
+   }else{
+
+    el[key].value =
+     data[key] ?? "";
+
+   }
+
+  }
+ );
+
+ updatePreview();
+
+}
+
+
+/* =========================================================
+   GET
+   ========================================================= */
+
+function getSettings(){
+
+ const data = {};
+
+ ids.forEach(
+  key => {
+
+   if(!el[key]) return;
+
+   if(
+    el[key].type === "checkbox"
+   ){
+
+    data[key] =
+     el[key].checked;
+
+   }else{
+
+    data[key] =
+     el[key].value.trim();
+
+   }
+
+  }
+ );
+
+ return data;
+
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+function saveSettings(){
+
+ const data =
+  getSettings();
+
+ localStorage.setItem(
+  STORAGE_KEY,
+  JSON.stringify(
+   data
+  )
+ );
+
+ updatePreview();
+
+ showToast(
+  "Home settings saved ✓"
+ );
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+document
+.getElementById("saveBtn")
+.addEventListener(
+ "click",
+ saveSettings
+);
+
+document
+.getElementById("saveBottomBtn")
+.addEventListener(
+ "click",
+ saveSettings
+);
+
+
+/* =========================================================
+   LIVE PREVIEW
+   ========================================================= */
+
+ids.forEach(
+ key => {
+
+  if(!el[key]) return;
+
+  el[key].addEventListener(
+   "input",
+   updatePreview
+  );
+
+  el[key].addEventListener(
+   "change",
+   updatePreview
+  );
+
+ }
+);
+
+
+function updatePreview(){
+
+ document.getElementById(
+  "previewGreeting"
+ ).textContent =
+  (
+   el.greeting.value ||
+   DEFAULTS.greeting
+  ).toUpperCase();
+
+
+ document.getElementById(
+  "previewTitle"
+ ).textContent =
+  el.heroTitle.value ||
+  DEFAULTS.heroTitle;
+
+
+ document.getElementById(
+  "previewSubtitle"
+ ).textContent =
+  el.heroSubtitle.value ||
+  DEFAULTS.heroSubtitle;
+
+
+ document.getElementById(
+  "previewMotivation"
+ ).textContent =
+  el.motivation.value ||
+  DEFAULTS.motivation;
+
+
+ document.getElementById(
+  "previewAnnouncement"
+ ).textContent =
+  el.announcement.value ||
+  DEFAULTS.announcement;
+
+
+ document.getElementById(
+  "previewAction1"
+ ).textContent =
+  el.action1.value ||
+  DEFAULTS.action1;
+
+
+ document.getElementById(
+  "previewAction2"
+ ).textContent =
+  el.action2.value ||
+  DEFAULTS.action2;
+
+
+ document.getElementById(
+  "previewAction3"
+ ).textContent =
+  el.action3.value ||
+  DEFAULTS.action3;
+
+
+ document.getElementById(
+  "previewAction4"
+ ).textContent =
+  el.action4.value ||
+  DEFAULTS.action4;
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+document
+.getElementById("resetBtn")
+.addEventListener(
+ "click",
+ () => {
+
+  if(
+   !confirm(
+    "Reset Home Manager settings?"
+   )
+  ){
+
+   return;
+
+  }
+
+  localStorage.removeItem(
+   STORAGE_KEY
+  );
+
+  loadSettings();
+
+  showToast(
+   "Home settings reset"
+  );
+
+ }
+);
+
+
+/* =========================================================
+   EXPORT
+   ========================================================= */
+
+document
+.getElementById("exportBtn")
+.addEventListener(
+ "click",
+ () => {
+
+  const data = {
+
+   app:
+    "Sai Fitness Bidupur",
+
+   exportedAt:
+    new Date().toISOString(),
+
+   homeSettings:
+    getSettings()
+
+  };
+
+
+  const blob =
+   new Blob(
+    [
+     JSON.stringify(
+      data,
+      null,
+      2
+     )
+    ],
+    {
+     type:
+      "application/json"
+    }
+   );
+
+
+  const url =
+   URL.createObjectURL(
+    blob
+   );
+
+
+  const a =
+   document.createElement(
+    "a"
+   );
+
+  a.href =
+   url;
+
+  a.download =
+   "sai-fitness-home-settings.json";
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+   url
+  );
+
+
+  showToast(
+   "Home settings exported ✓"
+  );
+
+ }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+document
+.getElementById("mobileMenu")
+.addEventListener(
+ "click",
+ () => {
+
+  document
+   .getElementById("sidebar")
+   .classList.toggle(
+    "open"
+   );
+
+ }
+);
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(
+ message
+){
+
+ const toast =
+  document.getElementById(
+   "toast"
+  );
+
+ toast.textContent =
+  message;
+
+ toast.classList.add(
+  "show"
+ );
+
+ clearTimeout(
+  toastTimer
+ );
+
+ toastTimer =
+  setTimeout(
+   () => {
+
+    toast.classList.remove(
+     "show"
+    );
+
+   },
+   2200
+  );
+
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+loadSettings();
+
+</script>
+
+</body>
+</html>

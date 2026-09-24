@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+
+<title>Media Library • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+:root{
+ --bg:#070b09;
+ --card:#101713;
+ --card2:#141d18;
+ --border:#223128;
+ --primary:#16a34a;
+ --primary2:#22c55e;
+ --text:#f5f7f6;
+ --muted:#91a097;
+ --danger:#ef4444;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+}
+
+button,
+input,
+select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.layout{
+ display:flex;
+ min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+ width:250px;
+ background:#0b100d;
+ border-right:1px solid var(--border);
+ position:fixed;
+ left:0;
+ top:0;
+ bottom:0;
+ z-index:1000;
+ overflow-y:auto;
+}
+
+.brand{
+ height:76px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:18px;
+ border-bottom:1px solid var(--border);
+}
+
+.brand-logo{
+ width:40px;
+ height:40px;
+ border-radius:12px;
+ background:linear-gradient(135deg,#16a34a,#22c55e);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:white;
+ font-size:20px;
+}
+
+.brand h2{
+ font-size:15px;
+ font-weight:800;
+}
+
+.brand span{
+ display:block;
+ color:var(--muted);
+ font-size:10px;
+ margin-top:3px;
+}
+
+.nav{
+ padding:14px 10px 30px;
+}
+
+.nav-title{
+ color:#65736a;
+ font-size:10px;
+ font-weight:800;
+ text-transform:uppercase;
+ letter-spacing:1px;
+ padding:14px 10px 7px;
+}
+
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ color:#aab6af;
+ text-decoration:none;
+ padding:11px 12px;
+ margin:3px 0;
+ border-radius:10px;
+ font-size:13px;
+ transition:.2s;
+}
+
+.nav a:hover,
+.nav a.active{
+ color:#fff;
+ background:#14221a;
+}
+
+.nav a.active{
+ border-left:3px solid var(--primary2);
+}
+
+.nav i{
+ width:20px;
+ text-align:center;
+}
+
+/* MAIN */
+
+.main{
+ margin-left:250px;
+ width:calc(100% - 250px);
+ min-height:100vh;
+}
+
+.topbar{
+ height:76px;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 28px;
+ background:rgba(7,11,9,.94);
+ position:sticky;
+ top:0;
+ z-index:500;
+ backdrop-filter:blur(15px);
+}
+
+.page-title h1{
+ font-size:20px;
+ font-weight:800;
+}
+
+.page-title p{
+ color:var(--muted);
+ font-size:11px;
+ margin-top:4px;
+}
+
+.top-actions{
+ display:flex;
+ gap:8px;
+}
+
+.btn{
+ border:1px solid var(--border);
+ background:#101713;
+ color:#dce5df;
+ border-radius:10px;
+ padding:10px 14px;
+ font-size:12px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+}
+
+.btn:hover{
+ background:#17221b;
+}
+
+.btn-primary{
+ background:var(--primary);
+ border-color:var(--primary);
+ color:#fff;
+}
+
+.btn-primary:hover{
+ background:#15803d;
+}
+
+.btn-danger{
+ background:#351313;
+ border-color:#642020;
+ color:#ff8c8c;
+}
+
+.container{
+ max-width:1350px;
+ margin:auto;
+ padding:24px;
+}
+
+/* HERO */
+
+.hero{
+ background:
+ radial-gradient(circle at 90% 20%,rgba(34,197,94,.18),transparent 35%),
+ linear-gradient(135deg,#101b14,#0c120f);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:25px;
+ margin-bottom:20px;
+}
+
+.hero h2{
+ font-size:23px;
+ margin-bottom:7px;
+}
+
+.hero p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.6;
+ max-width:750px;
+}
+
+/* STATS */
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px;
+ margin-bottom:20px;
+}
+
+.stat{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:17px;
+}
+
+.stat-icon{
+ width:38px;
+ height:38px;
+ border-radius:11px;
+ background:#15321f;
+ color:#4ade80;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin-bottom:11px;
+}
+
+.stat strong{
+ font-size:21px;
+ display:block;
+}
+
+.stat span{
+ color:var(--muted);
+ font-size:10px;
+ display:block;
+ margin-top:4px;
+}
+
+/* CARD */
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px;
+ margin-bottom:18px;
+}
+
+.card-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:18px;
+}
+
+.card-head h3{
+ font-size:15px;
+}
+
+.card-head p{
+ color:var(--muted);
+ font-size:11px;
+ margin-top:4px;
+}
+
+.icon-title{
+ display:flex;
+ align-items:center;
+ gap:11px;
+}
+
+.icon-box{
+ width:38px;
+ height:38px;
+ border-radius:11px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#15321f;
+ color:#4ade80;
+}
+
+/* UPLOAD GRID */
+
+.upload-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px;
+}
+
+.upload-card{
+ background:#0c120f;
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:16px;
+}
+
+.upload-preview{
+ height:150px;
+ border-radius:11px;
+ background:#070b09;
+ border:1px dashed #304237;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ margin-bottom:13px;
+ position:relative;
+}
+
+.upload-preview img{
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ display:none;
+}
+
+.upload-preview.has-image img{
+ display:block;
+}
+
+.upload-preview.has-image .empty-icon{
+ display:none;
+}
+
+.empty-icon{
+ color:#526159;
+ font-size:32px;
+}
+
+.upload-card h4{
+ font-size:12px;
+}
+
+.upload-card p{
+ color:var(--muted);
+ font-size:9px;
+ line-height:1.5;
+ margin-top:5px;
+ min-height:28px;
+}
+
+.file-input{
+ display:none;
+}
+
+.file-label{
+ width:100%;
+ margin-top:12px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:7px;
+ background:#15321f;
+ border:1px solid #245734;
+ color:#8df0aa;
+ padding:9px;
+ border-radius:9px;
+ font-size:10px;
+ cursor:pointer;
+}
+
+.file-label:hover{
+ background:#1b4027;
+}
+
+.upload-card .remove-btn{
+ width:100%;
+ margin-top:7px;
+ padding:8px;
+ border-radius:9px;
+ border:1px solid #572020;
+ background:#281010;
+ color:#ff8c8c;
+ font-size:10px;
+}
+
+/* LIBRARY */
+
+.toolbar{
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-bottom:17px;
+}
+
+.search{
+ flex:1;
+ min-width:200px;
+ background:#0c120f;
+ border:1px solid var(--border);
+ color:white;
+ border-radius:10px;
+ padding:11px 13px;
+ outline:none;
+ font-size:12px;
+}
+
+.search:focus{
+ border-color:#26723e;
+}
+
+.select{
+ background:#0c120f;
+ border:1px solid var(--border);
+ color:#cdd7d0;
+ border-radius:10px;
+ padding:10px 12px;
+ outline:none;
+ font-size:11px;
+}
+
+.media-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:13px;
+}
+
+.media-card{
+ background:#0c120f;
+ border:1px solid var(--border);
+ border-radius:13px;
+ overflow:hidden;
+ transition:.2s;
+}
+
+.media-card:hover{
+ transform:translateY(-2px);
+ border-color:#31553b;
+}
+
+.media-image{
+ height:150px;
+ background:#070b09;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+}
+
+.media-image img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+}
+
+.media-info{
+ padding:12px;
+}
+
+.media-name{
+ font-size:11px;
+ font-weight:700;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.media-meta{
+ color:var(--muted);
+ font-size:9px;
+ margin-top:4px;
+}
+
+.media-actions{
+ display:flex;
+ gap:6px;
+ margin-top:10px;
+}
+
+.mini-btn{
+ flex:1;
+ padding:8px;
+ border-radius:8px;
+ border:1px solid var(--border);
+ background:#111914;
+ color:#cbd5cf;
+ font-size:10px;
+}
+
+.mini-btn:hover{
+ background:#1a251e;
+}
+
+.mini-btn.delete{
+ color:#f87171;
+ border-color:#512020;
+}
+
+/* SELECTED */
+
+.selected-box{
+ display:none;
+ background:#0d1710;
+ border:1px solid #245734;
+ border-radius:12px;
+ padding:12px;
+ margin-top:15px;
+}
+
+.selected-box.show{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.selected-thumb{
+ width:50px;
+ height:50px;
+ border-radius:9px;
+ object-fit:cover;
+ background:#070b09;
+}
+
+.selected-text{
+ flex:1;
+ min-width:0;
+}
+
+.selected-text strong{
+ font-size:11px;
+ display:block;
+}
+
+.selected-text span{
+ color:var(--muted);
+ font-size:9px;
+ display:block;
+ margin-top:3px;
+}
+
+/* MODAL */
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:2500;
+ background:rgba(0,0,0,.75);
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modal-box{
+ width:min(600px,100%);
+ max-height:90vh;
+ overflow:auto;
+ background:#101713;
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:20px;
+}
+
+.modal-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:15px;
+}
+
+.modal-head h3{
+ font-size:16px;
+}
+
+.close{
+ width:34px;
+ height:34px;
+ border-radius:9px;
+ border:1px solid var(--border);
+ background:#0c120f;
+ color:#ccc;
+}
+
+.detail-image{
+ width:100%;
+ max-height:350px;
+ object-fit:contain;
+ background:#070b09;
+ border-radius:12px;
+ margin-bottom:15px;
+}
+
+/* TOAST */
+
+.toast{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ background:#101713;
+ border:1px solid #2b3a30;
+ color:white;
+ padding:13px 16px;
+ border-radius:12px;
+ font-size:12px;
+ box-shadow:0 15px 40px rgba(0,0,0,.4);
+ transform:translateY(100px);
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:3000;
+}
+
+.toast.show{
+ transform:translateY(0);
+ opacity:1;
+}
+
+/* MOBILE */
+
+.menu-btn{
+ display:none;
+ border:0;
+ background:none;
+ color:white;
+ font-size:20px;
+}
+
+.overlay{
+ display:none;
+}
+
+@media(max-width:1100px){
+
+ .upload-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+ .media-grid{
+  grid-template-columns:repeat(3,1fr);
+ }
+
+ .stats{
+  grid-template-columns:repeat(2,1fr);
+ }
+}
+
+@media(max-width:850px){
+
+ .sidebar{
+  transform:translateX(-100%);
+  transition:.25s;
+ }
+
+ .sidebar.open{
+  transform:translateX(0);
+ }
+
+ .overlay.show{
+  display:block;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:900;
+ }
+
+ .main{
+  margin-left:0;
+  width:100%;
+ }
+
+ .menu-btn{
+  display:block;
+ }
+
+ .topbar{
+  padding:0 15px;
+ }
+
+ .container{
+  padding:15px;
+ }
+
+ .upload-grid{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .media-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+ .top-actions .btn span{
+  display:none;
+ }
+}
+
+@media(max-width:520px){
+
+ .stats{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .upload-grid{
+  grid-template-columns:1fr;
+ }
+
+ .media-grid{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .media-image{
+  height:125px;
+ }
+
+ .hero{
+  padding:20px;
+ }
+
+ .page-title h1{
+  font-size:17px;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+
+<div class="brand-logo">
+<i class="fa-solid fa-dumbbell"></i>
+</div>
+
+<div>
+<h2>Sai Fitness</h2>
+<span>ADMIN PANEL</span>
+</div>
+
+</div>
+
+<nav class="nav">
+
+<div class="nav-title">Dashboard</div>
+
+<a href="index.html">
+<i class="fa-solid fa-gauge-high"></i>
+Dashboard
+</a>
+
+<div class="nav-title">Management</div>
+
+<a href="members.html">
+<i class="fa-solid fa-users"></i>
+Members
+</a>
+
+<a href="workouts.html">
+<i class="fa-solid fa-fire"></i>
+Workouts
+</a>
+
+<a href="exercises.html">
+<i class="fa-solid fa-dumbbell"></i>
+Exercises
+</a>
+
+<a href="diet.html">
+<i class="fa-solid fa-utensils"></i>
+Diet
+</a>
+
+<a href="goals.html">
+<i class="fa-solid fa-bullseye"></i>
+Goals
+</a>
+
+<a href="achievements.html">
+<i class="fa-solid fa-trophy"></i>
+Achievements
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<div class="nav-title">Customization</div>
+
+<a href="theme.html">
+<i class="fa-solid fa-palette"></i>
+Theme Studio
+</a>
+
+<a href="css-manager.html">
+<i class="fa-brands fa-css3-alt"></i>
+CSS Manager
+</a>
+
+<a href="animation-manager.html">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+Animations
+</a>
+
+<a href="media.html" class="active">
+<i class="fa-solid fa-photo-film"></i>
+Media Library
+</a>
+
+<a href="page-builder.html">
+<i class="fa-solid fa-layer-group"></i>
+Page Builder
+</a>
+
+<a href="content.html">
+<i class="fa-solid fa-pen-to-square"></i>
+Content
+</a>
+
+<div class="nav-title">System</div>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-line"></i>
+Analytics
+</a>
+
+<a href="backup.html">
+<i class="fa-solid fa-database"></i>
+Backup
+</a>
+
+<a href="pwa.html">
+<i class="fa-solid fa-mobile-screen-button"></i>
+PWA Manager
+</a>
+
+<a href="version.html">
+<i class="fa-solid fa-code-branch"></i>
+Versions
+</a>
+
+<a href="maintenance.html">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Maintenance
+</a>
+
+<a href="security.html">
+<i class="fa-solid fa-shield-halved"></i>
+Security
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+<div class="nav-title">App</div>
+
+<a href="../index.html">
+<i class="fa-solid fa-arrow-up-right-from-square"></i>
+Open User App
+</a>
+
+</nav>
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div style="display:flex;align-items:center;gap:12px">
+
+<button class="menu-btn" id="menuBtn">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="page-title">
+<h1>Media Library</h1>
+<p>Manage your app images and branding assets</p>
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<button class="btn" onclick="clearAllMedia()">
+<i class="fa-solid fa-trash"></i>
+<span>Clear All</span>
+</button>
+
+<button class="btn btn-primary" onclick="exportMedia()">
+<i class="fa-solid fa-download"></i>
+<span>Export</span>
+</button>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<section class="hero">
+
+<h2>📁 Media Library</h2>
+
+<p>
+Upload and manage your Sai Fitness logo, banner, avatar and other
+images from one place. Selected branding assets can be used by
+the user app.
+</p>
+
+</section>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+<i class="fa-solid fa-images"></i>
+</div>
+
+<strong id="totalMedia">0</strong>
+<span>Total Media</span>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">
+<i class="fa-solid fa-image"></i>
+</div>
+
+<strong id="imageCount">0</strong>
+<span>Images</span>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">
+<i class="fa-solid fa-hard-drive"></i>
+</div>
+
+<strong id="storageSize">0 KB</strong>
+<span>Local Storage Used</span>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-icon">
+<i class="fa-solid fa-check"></i>
+</div>
+
+<strong id="selectedCount">0</strong>
+<span>Brand Assets</span>
+
+</div>
+
+</div>
+
+<!-- BRAND ASSETS -->
+
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-id-card"></i>
+</div>
+
+<div>
+<h3>Brand Assets</h3>
+<p>Upload images used by the main application</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="upload-grid">
+
+<!-- LOGO -->
+
+<div class="upload-card">
+
+<div class="upload-preview" id="logoPreview">
+
+<div class="empty-icon">
+<i class="fa-solid fa-image"></i>
+</div>
+
+<img id="logoImage" alt="Logo">
+
+</div>
+
+<h4>App Logo</h4>
+
+<p>
+Recommended: square PNG or WebP.
+</p>
+
+<label class="file-label" for="logoFile">
+<i class="fa-solid fa-upload"></i>
+Upload Logo
+</label>
+
+<input
+type="file"
+id="logoFile"
+class="file-input"
+accept="image/*">
+
+<button class="remove-btn" onclick="removeBrand('logo')">
+<i class="fa-solid fa-trash"></i>
+Remove Logo
+</button>
+
+</div>
+
+<!-- BANNER -->
+
+<div class="upload-card">
+
+<div class="upload-preview" id="bannerPreview">
+
+<div class="empty-icon">
+<i class="fa-solid fa-panorama"></i>
+</div>
+
+<img id="bannerImage" alt="Banner">
+
+</div>
+
+<h4>Home Banner</h4>
+
+<p>
+Recommended: 1200×500 landscape image.
+</p>
+
+<label class="file-label" for="bannerFile">
+<i class="fa-solid fa-upload"></i>
+Upload Banner
+</label>
+
+<input
+type="file"
+id="bannerFile"
+class="file-input"
+accept="image/*">
+
+<button class="remove-btn" onclick="removeBrand('banner')">
+<i class="fa-solid fa-trash"></i>
+Remove Banner
+</button>
+
+</div>
+
+<!-- AVATAR -->
+
+<div class="upload-card">
+
+<div class="upload-preview" id="avatarPreview">
+
+<div class="empty-icon">
+<i class="fa-solid fa-user"></i>
+</div>
+
+<img id="avatarImage" alt="Avatar">
+
+</div>
+
+<h4>Profile Avatar</h4>
+
+<p>
+Recommended: square profile image.
+</p>
+
+<label class="file-label" for="avatarFile">
+<i class="fa-solid fa-upload"></i>
+Upload Avatar
+</label>
+
+<input
+type="file"
+id="avatarFile"
+class="file-input"
+accept="image/*">
+
+<button class="remove-btn" onclick="removeBrand('avatar')">
+<i class="fa-solid fa-trash"></i>
+Remove Avatar
+</button>
+
+</div>
+
+<!-- GENERAL -->
+
+<div class="upload-card">
+
+<div class="upload-preview" id="generalPreview">
+
+<div class="empty-icon">
+<i class="fa-solid fa-photo-film"></i>
+</div>
+
+<img id="generalImage" alt="Image">
+
+</div>
+
+<h4>Quick Image</h4>
+
+<p>
+Upload any image to the media library.
+</p>
+
+<label class="file-label" for="generalFile">
+<i class="fa-solid fa-upload"></i>
+Upload Image
+</label>
+
+<input
+type="file"
+id="generalFile"
+class="file-input"
+accept="image/*">
+
+<button class="remove-btn" onclick="uploadGeneral()">
+<i class="fa-solid fa-plus"></i>
+Add to Library
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SELECTED BRAND -->
+
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-link"></i>
+</div>
+
+<div>
+<h3>Active Brand Assets</h3>
+<p>These assets are connected with the user app</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="selected-box" id="logoSelected">
+<img class="selected-thumb" id="logoSelectedImg">
+
+<div class="selected-text">
+<strong>App Logo</strong>
+<span>Connected to app branding</span>
+</div>
+
+<i class="fa-solid fa-circle-check"
+style="color:#4ade80"></i>
+</div>
+
+<div class="selected-box" id="bannerSelected">
+<img class="selected-thumb" id="bannerSelectedImg">
+
+<div class="selected-text">
+<strong>Home Banner</strong>
+<span>Connected to dashboard banner</span>
+</div>
+
+<i class="fa-solid fa-circle-check"
+style="color:#4ade80"></i>
+</div>
+
+<div class="selected-box" id="avatarSelected">
+<img class="selected-thumb" id="avatarSelectedImg">
+
+<div class="selected-text">
+<strong>Profile Avatar</strong>
+<span>Connected to profile branding</span>
+</div>
+
+<i class="fa-solid fa-circle-check"
+style="color:#4ade80"></i>
+</div>
+
+</div>
+
+<!-- LIBRARY -->
+
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-photo-film"></i>
+</div>
+
+<div>
+<h3>All Media</h3>
+<p>Browse every uploaded image</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="toolbar">
+
+<input
+class="search"
+id="searchInput"
+placeholder="Search media...">
+
+<select class="select" id="sortSelect">
+
+<option value="newest">
+Newest First
+</option>
+
+<option value="oldest">
+Oldest First
+</option>
+
+<option value="name">
+Name A-Z
+</option>
+
+</select>
+
+</div>
+
+<div class="media-grid" id="mediaGrid"></div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<!-- DETAIL MODAL -->
+
+<div class="modal" id="detailModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h3>Media Details</h3>
+
+<button class="close" onclick="closeModal()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+</div>
+
+<img
+id="detailImage"
+class="detail-image"
+alt="Media preview">
+
+<div style="margin-bottom:12px">
+
+<strong id="detailName"
+style="font-size:13px">
+Image
+</strong>
+
+<div id="detailMeta"
+style="
+color:#91a097;
+font-size:10px;
+margin-top:5px;
+line-height:1.6;
+"></div>
+
+</div>
+
+<div style="
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+">
+
+<button class="btn btn-primary"
+onclick="downloadCurrent()">
+<i class="fa-solid fa-download"></i>
+Download
+</button>
+
+<button class="btn"
+onclick="copyCurrent()">
+<i class="fa-solid fa-copy"></i>
+Copy Data
+</button>
+
+<button class="btn btn-danger"
+onclick="deleteCurrent()">
+<i class="fa-solid fa-trash"></i>
+Delete
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin-security.js"></script>
+
+<script>
+/* =================================
+   SECURITY
+================================= */
+
+if(
+ window.Security &&
+ typeof Security.requireAuth==="function"
+){
+ Security.requireAuth("media");
+}
+
+/* =================================
+   STORAGE
+================================= */
+
+const MEDIA_KEY="saiMediaLibrary";
+
+const BRAND_KEYS={
+ logo:"saiMediaLogo",
+ banner:"saiMediaBanner",
+ avatar:"saiMediaAvatar"
+};
+
+let currentMediaId=null;
+
+/* =================================
+   TOAST
+================================= */
+
+function toast(message){
+
+ const box=document.getElementById("toast");
+
+ box.textContent=message;
+
+ box.classList.add("show");
+
+ setTimeout(()=>{
+  box.classList.remove("show");
+ },2200);
+
+}
+
+/* =================================
+   MEDIA LOAD
+================================= */
+
+function getMedia(){
+
+ try{
+
+  return JSON.parse(
+   localStorage.getItem(MEDIA_KEY)
+  ) || [];
+
+ }catch(e){
+
+  return [];
+
+ }
+
+}
+
+function saveMedia(data){
+
+ localStorage.setItem(
+  MEDIA_KEY,
+  JSON.stringify(data)
+ );
+
+}
+
+/* =================================
+   SIZE
+================================= */
+
+function formatBytes(bytes){
+
+ if(!bytes)return "0 KB";
+
+ const units=[
+  "Bytes",
+  "KB",
+  "MB"
+ ];
+
+ const i=Math.floor(
+  Math.log(bytes)/Math.log(1024)
+ );
+
+ return(
+  Math.round(
+   bytes/Math.pow(1024,i)*100
+  )/100
+  +" "+
+  units[i]
+ );
+
+}
+
+/* =================================
+   IMAGE UPLOAD READER
+================================= */
+
+function readImage(file,callback){
+
+ if(!file)return;
+
+ if(!file.type.startsWith("image/")){
+
+  toast("Please select an image");
+
+  return;
+
+ }
+
+ if(file.size>5*1024*1024){
+
+  toast("Image must be below 5 MB");
+
+  return;
+
+ }
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+
+  callback(e.target.result);
+
+ };
+
+ reader.readAsDataURL(file);
+
+}
+
+/* =================================
+   BRAND UPLOAD
+================================= */
+
+function setupBrandUpload(
+ inputId,
+ type,
+ previewId,
+ imageId
+){
+
+ document.getElementById(inputId)
+ .addEventListener("change",function(){
+
+  const file=this.files[0];
+
+  if(!file)return;
+
+  readImage(file,function(data){
+
+   const info={
+    name:file.name,
+    type:file.type,
+    size:file.size,
+    data:data,
+    updatedAt:Date.now()
+   };
+
+   localStorage.setItem(
+    BRAND_KEYS[type],
+    JSON.stringify(info)
+   );
+
+   showBrandPreview(
+    previewId,
+    imageId,
+    data
+   );
+
+   updateSelectedAssets();
+
+   updateStats();
+
+   toast(
+    type.charAt(0).toUpperCase()+
+    type.slice(1)+
+    " uploaded ✓"
+   );
+
+   this.value="";
+
+  });
+
+ });
+
+}
+
+/* =================================
+   BRAND PREVIEW
+================================= */
+
+function showBrandPreview(
+ previewId,
+ imageId,
+ data
+){
+
+ const preview=
+  document.getElementById(previewId);
+
+ const image=
+  document.getElementById(imageId);
+
+ image.src=data;
+
+ preview.classList.add("has-image");
+
+}
+
+/* =================================
+   LOAD BRAND
+================================= */
+
+function loadBrand(type){
+
+ const raw=
+  localStorage.getItem(BRAND_KEYS[type]);
+
+ if(!raw)return;
+
+ try{
+
+  const data=JSON.parse(raw);
+
+  const previewId=
+   type+"Preview";
+
+  const imageId=
+   type+"Image";
+
+  showBrandPreview(
+   previewId,
+   imageId,
+   data.data
+  );
+
+ }catch(e){}
+
+}
+
+/* =================================
+   REMOVE BRAND
+================================= */
+
+function removeBrand(type){
+
+ localStorage.removeItem(
+  BRAND_KEYS[type]
+ );
+
+ const preview=
+  document.getElementById(
+   type+"Preview"
+  );
+
+ const image=
+  document.getElementById(
+   type+"Image"
+  );
+
+ image.removeAttribute("src");
+
+ preview.classList.remove(
+  "has-image"
+ );
+
+ updateSelectedAssets();
+ updateStats();
+
+ toast(
+  type.charAt(0).toUpperCase()+
+  type.slice(1)+
+  " removed"
+ );
+
+}
+
+/* =================================
+   GENERAL IMAGE UPLOAD
+================================= */
+
+function uploadGeneral(){
+
+ const input=
+  document.getElementById("generalFile");
+
+ const file=input.files[0];
+
+ if(!file){
+
+  toast("Select an image first");
+
+  return;
+
+ }
+
+ readImage(file,function(data){
+
+  const media=getMedia();
+
+  const item={
+
+   id:
+    "media_"+Date.now()+"_"+Math.random()
+    .toString(36)
+    .slice(2,8),
+
+   name:file.name,
+
+   type:file.type,
+
+   size:file.size,
+
+   data:data,
+
+   createdAt:Date.now()
+
+  };
+
+  media.unshift(item);
+
+  try{
+
+   saveMedia(media);
+
+  }catch(error){
+
+   toast(
+    "Storage full. Try a smaller image."
+   );
+
+   return;
+
+  }
+
+  document.getElementById(
+   "generalImage"
+  ).src=data;
+
+  document.getElementById(
+   "generalPreview"
+  ).classList.add("has-image");
+
+  input.value="";
+
+  renderMedia();
+  updateStats();
+
+  toast("Image added to library ✓");
+
+ });
+
+}
+
+/* =================================
+   RENDER MEDIA
+================================= */
+
+function renderMedia(){
+
+ let media=getMedia();
+
+ const search=
+  document.getElementById(
+   "searchInput"
+  ).value
+  .trim()
+  .toLowerCase();
+
+ const sort=
+  document.getElementById(
+   "sortSelect"
+  ).value;
+
+ if(search){
+
+  media=media.filter(item=>
+   item.name.toLowerCase()
+   .includes(search)
+  );
+
+ }
+
+ if(sort==="newest"){
+
+  media.sort(
+   (a,b)=>b.createdAt-a.createdAt
+  );
+
+ }
+
+ if(sort==="oldest"){
+
+  media.sort(
+   (a,b)=>a.createdAt-b.createdAt
+  );
+
+ }
+
+ if(sort==="name"){
+
+  media.sort(
+   (a,b)=>
+   a.name.localeCompare(b.name)
+  );
+
+ }
+
+ const grid=
+  document.getElementById("mediaGrid");
+
+ grid.innerHTML="";
+
+ if(!media.length){
+
+  grid.innerHTML=`
+
+   <div style="
+    grid-column:1/-1;
+    text-align:center;
+    padding:45px 20px;
+    color:#65736a;
+    font-size:11px;
+   ">
+
+    <i class="fa-solid fa-images"
+       style="
+       display:block;
+       font-size:35px;
+       margin-bottom:12px;
+       "></i>
+
+    No media found.
+
+   </div>
+
+  `;
+
+  return;
+
+ }
+
+ media.forEach(item=>{
+
+  const card=
+   document.createElement("div");
+
+  card.className="media-card";
+
+  card.innerHTML=`
+
+   <div class="media-image">
+
+    <img
+     src="${item.data}"
+     alt="${escapeHTML(item.name)}">
+
+   </div>
+
+   <div class="media-info">
+
+    <div class="media-name">
+     ${escapeHTML(item.name)}
+    </div>
+
+    <div class="media-meta">
+     ${formatBytes(item.size)}
+     • ${item.type || "image"}
+    </div>
+
+    <div class="media-actions">
+
+     <button
+      class="mini-btn"
+      onclick="viewMedia('${item.id}')">
+
+      <i class="fa-solid fa-eye"></i>
+      View
+
+     </button>
+
+     <button
+      class="mini-btn"
+      onclick="selectMedia('${item.id}')">
+
+      <i class="fa-solid fa-check"></i>
+      Select
+
+     </button>
+
+     <button
+      class="mini-btn delete"
+      onclick="deleteMedia('${item.id}')">
+
+      <i class="fa-solid fa-trash"></i>
+
+     </button>
+
+    </div>
+
+   </div>
+
+  `;
+
+  grid.appendChild(card);
+
+ });
+
+}
+
+/* =================================
+   ESCAPE HTML
+================================= */
+
+function escapeHTML(text){
+
+ return String(text)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+
+/* =================================
+   VIEW MEDIA
+================================= */
+
+function viewMedia(id){
+
+ const item=
+  getMedia()
+  .find(x=>x.id===id);
+
+ if(!item)return;
+
+ currentMediaId=id;
+
+ document.getElementById(
+  "detailImage"
+ ).src=item.data;
+
+ document.getElementById(
+  "detailName"
+ ).textContent=item.name;
+
+ document.getElementById(
+  "detailMeta"
+ ).innerHTML=`
+
+  Type: ${escapeHTML(item.type)}<br>
+  Size: ${formatBytes(item.size)}<br>
+  Added: ${new Date(item.createdAt).toLocaleString()}
+
+ `;
+
+ document.getElementById(
+  "detailModal"
+ ).classList.add("show");
+
+}
+
+/* =================================
+   CLOSE MODAL
+================================= */
+
+function closeModal(){
+
+ document.getElementById(
+  "detailModal"
+ ).classList.remove("show");
+
+ currentMediaId=null;
+
+}
+
+/* =================================
+   CURRENT MEDIA
+================================= */
+
+function getCurrentMedia(){
+
+ return getMedia()
+  .find(x=>x.id===currentMediaId);
+
+}
+
+/* =================================
+   DOWNLOAD
+================================= */
+
+function downloadCurrent(){
+
+ const item=getCurrentMedia();
+
+ if(!item)return;
+
+ const a=document.createElement("a");
+
+ a.href=item.data;
+ a.download=item.name;
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+ toast("Download started");
+
+}
+
+/* =================================
+   COPY DATA
+================================= */
+
+async function copyCurrent(){
+
+ const item=getCurrentMedia();
+
+ if(!item)return;
+
+ try{
+
+  await navigator.clipboard.writeText(
+   item.data
+  );
+
+  toast("Image data copied");
+
+ }catch(e){
+
+  toast("Copy not supported");
+
+ }
+
+}
+
+/* =================================
+   DELETE CURRENT
+================================= */
+
+function deleteCurrent(){
+
+ if(!currentMediaId)return;
+
+ deleteMedia(currentMediaId);
+
+ closeModal();
+
+}
+
+/* =================================
+   DELETE MEDIA
+================================= */
+
+function deleteMedia(id){
+
+ const media=getMedia();
+
+ const item=media.find(
+  x=>x.id===id
+ );
+
+ if(!item)return;
+
+ if(
+  !confirm(
+   "Delete "+item.name+"?"
+  )
+ )return;
+
+ const updated=
+  media.filter(x=>x.id!==id);
+
+ saveMedia(updated);
+
+ renderMedia();
+ updateStats();
+
+ toast("Media deleted");
+
+}
+
+/* =================================
+   SELECT MEDIA
+================================= */
+
+function selectMedia(id){
+
+ const item=
+  getMedia()
+  .find(x=>x.id===id);
+
+ if(!item)return;
+
+ localStorage.setItem(
+  "saiSelectedMedia",
+  JSON.stringify(item)
+ );
+
+ toast(
+  "Media selected ✓"
+ );
+
+}
+
+/* =================================
+   BRAND STATUS
+================================= */
+
+function updateSelectedAssets(){
+
+ ["logo","banner","avatar"]
+ .forEach(type=>{
+
+  const raw=
+   localStorage.getItem(
+    BRAND_KEYS[type]
+   );
+
+  const box=
+   document.getElementById(
+    type+"Selected"
+   );
+
+  const img=
+   document.getElementById(
+    type+"SelectedImg"
+   );
+
+  if(raw){
+
+   try{
+
+    const data=JSON.parse(raw);
+
+    img.src=data.data;
+
+    box.classList.add("show");
+
+   }catch(e){}
+
+  }else{
+
+   box.classList.remove("show");
+
+  }
+
+ });
+
+}
+
+/* =================================
+   STATS
+================================= */
+
+function updateStats(){
+
+ const media=getMedia();
+
+ document.getElementById(
+  "totalMedia"
+ ).textContent=media.length;
+
+ document.getElementById(
+  "imageCount"
+ ).textContent=media.length;
+
+ let bytes=0;
+
+ media.forEach(item=>{
+  bytes+=Number(item.size)||0;
+ });
+
+ document.getElementById(
+  "storageSize"
+ ).textContent=
+  formatBytes(bytes);
+
+ let selected=0;
+
+ ["logo","banner","avatar"]
+ .forEach(type=>{
+
+  if(
+   localStorage.getItem(
+    BRAND_KEYS[type]
+   )
+  ){
+   selected++;
+  }
+
+ });
+
+ document.getElementById(
+  "selectedCount"
+ ).textContent=selected;
+
+}
+
+/* =================================
+   CLEAR ALL
+================================= */
+
+function clearAllMedia(){
+
+ const media=getMedia();
+
+ if(!media.length){
+
+  toast("Media library is already empty");
+
+  return;
+
+ }
+
+ if(
+  !confirm(
+   "Delete all media library images?"
+  )
+ )return;
+
+ localStorage.removeItem(
+  MEDIA_KEY
+ );
+
+ renderMedia();
+ updateStats();
+
+ toast("All media deleted");
+
+}
+
+/* =================================
+   EXPORT MEDIA INFO
+================================= */
+
+function exportMedia(){
+
+ const data={
+
+  app:"Sai Fitness Bidupur",
+
+  media:getMedia(),
+
+  logo:
+   localStorage.getItem(
+    BRAND_KEYS.logo
+   ),
+
+  banner:
+   localStorage.getItem(
+    BRAND_KEYS.banner
+   ),
+
+  avatar:
+   localStorage.getItem(
+    BRAND_KEYS.avatar
+   ),
+
+  exportedAt:
+   new Date().toISOString()
+
+ };
+
+ const blob=new Blob(
+  [JSON.stringify(data,null,2)],
+  {
+   type:"application/json"
+  }
+ );
+
+ const url=
+  URL.createObjectURL(blob);
+
+ const a=
+  document.createElement("a");
+
+ a.href=url;
+
+ a.download=
+  "sai-fitness-media-backup.json";
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+ URL.revokeObjectURL(url);
+
+ toast("Media backup exported ✓");
+
+}
+
+/* =================================
+   SEARCH / SORT
+================================= */
+
+document.getElementById(
+ "searchInput"
+).addEventListener(
+ "input",
+ renderMedia
+);
+
+document.getElementById(
+ "sortSelect"
+).addEventListener(
+ "change",
+ renderMedia
+);
+
+/* =================================
+   MOBILE SIDEBAR
+================================= */
+
+const menuBtn=
+ document.getElementById("menuBtn");
+
+const sidebar=
+ document.getElementById("sidebar");
+
+const overlay=
+ document.getElementById("overlay");
+
+menuBtn.addEventListener(
+ "click",
+ ()=>{
+
+  sidebar.classList.add("open");
+  overlay.classList.add("show");
+
+ }
+);
+
+overlay.addEventListener(
+ "click",
+ ()=>{
+
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+
+ }
+);
+
+document.querySelectorAll(".nav a")
+.forEach(link=>{
+
+ link.addEventListener(
+  "click",
+  ()=>{
+
+   sidebar.classList.remove("open");
+   overlay.classList.remove("show");
+
+  }
+ );
+
+});
+
+/* =================================
+   INIT
+================================= */
+
+setupBrandUpload(
+ "logoFile",
+ "logo",
+ "logoPreview",
+ "logoImage"
+);
+
+setupBrandUpload(
+ "bannerFile",
+ "banner",
+ "bannerPreview",
+ "bannerImage"
+);
+
+setupBrandUpload(
+ "avatarFile",
+ "avatar",
+ "avatarPreview",
+ "avatarImage"
+);
+
+loadBrand("logo");
+loadBrand("banner");
+loadBrand("avatar");
+
+updateSelectedAssets();
+renderMedia();
+updateStats();
+
+</script>
+
+</body>
+</html>

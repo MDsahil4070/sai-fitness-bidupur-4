@@ -1,0 +1,3586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+
+<title>CSS Manager • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+:root{
+    --bg:#070b09;
+    --panel:#0c130f;
+    --card:#101a14;
+    --card2:#121f17;
+    --primary:#16a34a;
+    --primary2:#22c55e;
+    --text:#f5f7f6;
+    --muted:#8fa097;
+    --border:rgba(255,255,255,.075);
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(22,163,74,.08),
+            transparent 32%
+        ),
+        var(--bg);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app{
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:260px;
+    padding:20px 14px;
+    overflow-y:auto;
+    background:#09100c;
+    border-right:1px solid var(--border);
+    z-index:1000;
+}
+
+.main{
+    margin-left:260px;
+    padding:25px;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:5px 8px 22px;
+    margin-bottom:18px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(
+        135deg,
+        #16a34a,
+        #064e27
+    );
+}
+
+.brand h2{
+    margin:0;
+    font-size:14px;
+    font-weight:800;
+}
+
+.brand p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:9px;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav-title{
+    padding:10px 10px 7px;
+    color:#64736a;
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    width:100%;
+    padding:11px 12px;
+    margin:3px 0;
+    border-radius:12px;
+    color:#91a097;
+    font-size:11px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.nav-item i{
+    width:18px;
+    text-align:center;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    color:#fff;
+    background:rgba(22,163,74,.13);
+}
+
+.nav-item.active{
+    box-shadow:inset 3px 0 0 var(--primary);
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.top-left{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:26px;
+    font-weight:800;
+}
+
+.page-title p{
+    margin:7px 0 0;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:#fff;
+    border-radius:11px;
+    padding:10px 14px;
+    font-size:10px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn.primary{
+    background:var(--primary);
+    border-color:var(--primary);
+}
+
+.btn.danger{
+    color:#f87171;
+    border-color:rgba(239,68,68,.25);
+    background:rgba(239,68,68,.08);
+}
+
+.btn.blue{
+    color:#60a5fa;
+    border-color:rgba(59,130,246,.2);
+    background:rgba(59,130,246,.08);
+}
+
+.mobile-menu{
+    display:none;
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:#fff;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    padding:22px;
+    margin-bottom:16px;
+    border-radius:22px;
+    border:1px solid rgba(34,197,94,.13);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22,163,74,.16),
+            rgba(16,26,20,.95)
+        );
+}
+
+.hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.hero-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.hero-icon{
+    width:58px;
+    height:58px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(22,163,74,.12);
+    color:#4ade80;
+    font-size:23px;
+}
+
+.hero h2{
+    margin:0;
+    font-size:18px;
+}
+
+.hero p{
+    margin:6px 0 0;
+    max-width:650px;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.6;
+}
+
+.status{
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(34,197,94,.1);
+    color:#4ade80;
+    font-size:9px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:16px;
+}
+
+.stat{
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:var(--card);
+}
+
+.stat-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.stat-icon{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(22,163,74,.1);
+    color:#4ade80;
+}
+
+.stat strong{
+    display:block;
+    margin-top:12px;
+    font-size:20px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:9px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);
+    gap:16px;
+}
+
+.card{
+    min-width:0;
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:var(--card);
+}
+
+.card.full{
+    grid-column:1/-1;
+}
+
+.card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.card-icon{
+    width:35px;
+    height:35px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#4ade80;
+    background:rgba(22,163,74,.1);
+}
+
+.card h3{
+    margin:0;
+    font-size:13px;
+}
+
+.card-sub{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:9px;
+}
+
+/* =========================
+   EDITOR
+========================= */
+
+.editor{
+    width:100%;
+    min-height:430px;
+    resize:vertical;
+    padding:15px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    outline:none;
+    background:#080e0a;
+    color:#d9fbe5;
+    font-family:
+        "Courier New",
+        monospace;
+    font-size:12px;
+    line-height:1.6;
+    tab-size:2;
+}
+
+.editor:focus{
+    border-color:rgba(34,197,94,.4);
+    box-shadow:
+        0 0 0 3px
+        rgba(34,197,94,.06);
+}
+
+.editor-tools{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:10px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+    margin-bottom:13px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    color:#aebbb3;
+    font-size:9px;
+    font-weight:700;
+}
+
+.input,
+.select{
+    width:100%;
+    padding:11px 12px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    outline:none;
+    background:#0a120d;
+    color:#fff;
+    font-size:10px;
+}
+
+.input:focus,
+.select:focus{
+    border-color:rgba(34,197,94,.4);
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+/* =========================
+   CSS LIST
+========================= */
+
+.css-list{
+    display:grid;
+    gap:9px;
+    max-height:550px;
+    overflow:auto;
+}
+
+.css-item{
+    padding:12px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.025);
+}
+
+.css-item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.css-name{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.css-name-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(59,130,246,.1);
+    color:#60a5fa;
+}
+
+.css-name strong{
+    display:block;
+    font-size:10px;
+}
+
+.css-name small{
+    display:block;
+    color:var(--muted);
+    margin-top:3px;
+    font-size:8px;
+}
+
+.css-actions{
+    display:flex;
+    gap:5px;
+}
+
+.icon-btn{
+    width:31px;
+    height:31px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#0c140f;
+    color:#aebbb3;
+}
+
+.icon-btn:hover{
+    color:#fff;
+}
+
+.icon-btn.delete:hover{
+    color:#f87171;
+    border-color:rgba(239,68,68,.25);
+}
+
+.css-preview{
+    margin-top:9px;
+    padding:9px;
+    border-radius:9px;
+    background:#080e0a;
+    color:#75857b;
+    font-family:monospace;
+    font-size:8px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    max-height:80px;
+    overflow:hidden;
+}
+
+.enabled{
+    color:#4ade80;
+}
+
+.disabled{
+    color:#f59e0b;
+}
+
+/* =========================
+   TOGGLE
+========================= */
+
+.setting{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.setting:last-child{
+    border-bottom:0;
+}
+
+.setting strong{
+    display:block;
+    font-size:10px;
+}
+
+.setting span{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:8px;
+    line-height:1.4;
+}
+
+.switch{
+    position:relative;
+    width:42px;
+    height:23px;
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    border-radius:99px;
+    background:#253129;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:17px;
+    height:17px;
+    top:3px;
+    left:3px;
+    border-radius:50%;
+    background:#9ca3af;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:var(--primary);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(19px);
+    background:#fff;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    padding:12px;
+    border-radius:12px;
+    background:rgba(59,130,246,.06);
+    border:1px solid rgba(59,130,246,.12);
+    color:#93c5fd;
+    font-size:9px;
+    line-height:1.55;
+}
+
+.warning{
+    padding:12px;
+    margin-top:10px;
+    border-radius:12px;
+    background:rgba(245,158,11,.06);
+    border:1px solid rgba(245,158,11,.15);
+    color:#fbbf24;
+    font-size:9px;
+    line-height:1.55;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(7px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(650px,100%);
+    max-height:90vh;
+    overflow:auto;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:#0d1510;
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.modal-head h3{
+    margin:0;
+    font-size:15px;
+}
+
+.close{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:#fff;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    padding:30px 10px;
+    text-align:center;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.empty i{
+    display:block;
+    margin-bottom:8px;
+    font-size:24px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:5000;
+    max-width:330px;
+    padding:12px 15px;
+    border:1px solid rgba(34,197,94,.25);
+    border-radius:13px;
+    background:#142019;
+    color:#fff;
+    font-size:10px;
+    font-weight:700;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    opacity:0;
+    transform:translateY(25px);
+    pointer-events:none;
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1050px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-105%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        padding:18px 14px 30px;
+    }
+
+    .mobile-menu{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:560px){
+
+    .page-title h1{
+        font-size:21px;
+    }
+
+    .hero-content{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+    }
+
+    .top-actions .btn span{
+        display:none;
+    }
+
+    .top-actions .btn{
+        width:40px;
+        height:40px;
+        padding:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .stats{
+        gap:8px;
+    }
+
+    .stat strong{
+        font-size:17px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="logo">
+            <i class="fa-solid fa-dumbbell"></i>
+        </div>
+
+        <div>
+            <h2>Sai Fitness</h2>
+            <p>Administrator Panel</p>
+        </div>
+
+    </div>
+
+
+    <div class="nav-title">Dashboard</div>
+
+    <a class="nav-item" href="index.html">
+        <i class="fa-solid fa-gauge-high"></i>
+        Dashboard
+    </a>
+
+
+    <div class="nav-title">Management</div>
+
+    <a class="nav-item" href="members.html">
+        <i class="fa-solid fa-users"></i>
+        Members
+    </a>
+
+    <a class="nav-item" href="workouts.html">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workouts
+    </a>
+
+    <a class="nav-item" href="exercises.html">
+        <i class="fa-solid fa-person-running"></i>
+        Exercises
+    </a>
+
+    <a class="nav-item" href="diet.html">
+        <i class="fa-solid fa-utensils"></i>
+        Diet
+    </a>
+
+    <a class="nav-item" href="goals.html">
+        <i class="fa-solid fa-bullseye"></i>
+        Goals
+    </a>
+
+    <a class="nav-item" href="achievements.html">
+        <i class="fa-solid fa-trophy"></i>
+        Achievements
+    </a>
+
+    <a class="nav-item" href="notifications.html">
+        <i class="fa-solid fa-bell"></i>
+        Notifications
+    </a>
+
+
+    <div class="nav-title">Customization</div>
+
+    <a class="nav-item" href="theme.html">
+        <i class="fa-solid fa-palette"></i>
+        Theme Studio
+    </a>
+
+    <a class="nav-item active" href="css-manager.html">
+        <i class="fa-solid fa-code"></i>
+        CSS Manager
+    </a>
+
+    <a class="nav-item" href="animation-manager.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Animations
+    </a>
+
+    <a class="nav-item" href="media.html">
+        <i class="fa-solid fa-images"></i>
+        Media Library
+    </a>
+
+    <a class="nav-item" href="page-builder.html">
+        <i class="fa-solid fa-layer-group"></i>
+        Page Builder
+    </a>
+
+    <a class="nav-item" href="content.html">
+        <i class="fa-solid fa-pen-to-square"></i>
+        Content
+    </a>
+
+
+    <div class="nav-title">System</div>
+
+    <a class="nav-item" href="seo.html">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+        SEO
+    </a>
+
+    <a class="nav-item" href="analytics.html">
+        <i class="fa-solid fa-chart-column"></i>
+        Analytics
+    </a>
+
+    <a class="nav-item" href="backup.html">
+        <i class="fa-solid fa-database"></i>
+        Backup
+    </a>
+
+    <a class="nav-item" href="pwa.html">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        PWA
+    </a>
+
+    <a class="nav-item" href="version.html">
+        <i class="fa-solid fa-code-branch"></i>
+        Version
+    </a>
+
+    <a class="nav-item" href="maintenance.html">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        Maintenance
+    </a>
+
+    <a class="nav-item" href="security.html">
+        <i class="fa-solid fa-shield-halved"></i>
+        Security
+    </a>
+
+    <a class="nav-item" href="settings.html">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+    </a>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+<div class="container">
+
+    <div class="topbar">
+
+        <div class="top-left">
+
+            <button
+                class="mobile-menu"
+                id="menuBtn"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-title">
+
+                <h1>
+                    CSS Manager
+                </h1>
+
+                <p>
+                    Add, manage and apply custom CSS without deleting existing styles.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                class="btn"
+                onclick="exportCSS()"
+                title="Export"
+            >
+                <i class="fa-solid fa-download"></i>
+                <span> Export</span>
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="openAddModal()"
+            >
+                <i class="fa-solid fa-plus"></i>
+                <span> Add CSS</span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-left">
+
+                <div class="hero-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Custom CSS Control
+                    </h2>
+
+                    <p>
+                        Create your own style blocks, enable or disable them,
+                        edit existing custom CSS and keep everything stored
+                        safely in the browser.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="status">
+                <i class="fa-solid fa-circle-check"></i>
+                CSS Manager Ready
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <span>Total Styles</span>
+                    <strong id="totalStyles">0</strong>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <span>Active Styles</span>
+                    <strong id="activeStyles">0</strong>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-toggle-on"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <span>Total Lines</span>
+                    <strong id="totalLines">0</strong>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-list-ol"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div>
+                    <span>Storage</span>
+                    <strong id="storageSize">0 KB</strong>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- =================================================
+             CSS EDITOR
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="card-head">
+
+                <div class="card-title">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-pen"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Quick CSS Editor</h3>
+
+                        <p class="card-sub">
+                            Write CSS and save it as a custom style
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Style Name
+                </label>
+
+                <input
+                    class="input"
+                    id="quickName"
+                    placeholder="Example: Home Custom Design"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Target Page
+                </label>
+
+                <select
+                    class="select"
+                    id="quickPage"
+                >
+
+                    <option value="all">
+                        All Pages
+                    </option>
+
+                    <option value="index.html">
+                        Home
+                    </option>
+
+                    <option value="workout.html">
+                        Workout
+                    </option>
+
+                    <option value="diet.html">
+                        Diet
+                    </option>
+
+                    <option value="progress.html">
+                        Progress
+                    </option>
+
+                    <option value="profile.html">
+                        Profile
+                    </option>
+
+                    <option value="exercises.html">
+                        Exercises
+                    </option>
+
+                    <option value="goals.html">
+                        Goals
+                    </option>
+
+                    <option value="notifications.html">
+                        Notifications
+                    </option>
+
+                    <option value="body.html">
+                        Body
+                    </option>
+
+                    <option value="achievements.html">
+                        Achievements
+                    </option>
+
+                    <option value="settings.html">
+                        Settings
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <textarea
+                class="editor"
+                id="quickCSS"
+                spellcheck="false"
+                placeholder="/* Write your CSS here */
+
+.example{
+    border-radius:20px;
+}
+
+.my-button{
+    transform:translateY(-2px);
+}"
+            ></textarea>
+
+
+            <div class="editor-tools">
+
+                <button
+                    class="btn primary"
+                    onclick="saveQuickCSS()"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save CSS
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="formatCSS()"
+                >
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Format
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="clearEditor()"
+                >
+                    <i class="fa-solid fa-eraser"></i>
+                    Clear
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SETTINGS
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="card-head">
+
+                <div class="card-title">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>CSS Settings</h3>
+
+                        <p class="card-sub">
+                            Global custom style behavior
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div>
+                    <strong>Enable Custom CSS</strong>
+                    <span>
+                        Apply saved custom styles to the app.
+                    </span>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="globalEnabled"
+                        checked
+                        onchange="saveGlobalState()"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div>
+                    <strong>Auto Apply</strong>
+                    <span>
+                        Automatically apply styles when the page loads.
+                    </span>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="autoApply"
+                        checked
+                        onchange="saveGlobalState()"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div>
+                    <strong>Safe Mode</strong>
+                    <span>
+                        Prevent obviously dangerous HTML/script content.
+                    </span>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="safeMode"
+                        checked
+                        onchange="saveGlobalState()"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div style="margin-top:15px;">
+
+                <button
+                    class="btn blue"
+                    onclick="applyNow()"
+                >
+                    <i class="fa-solid fa-bolt"></i>
+                    Apply CSS Now
+                </button>
+
+            </div>
+
+
+            <div class="info" style="margin-top:12px;">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                CSS is stored locally under
+                <strong>saiCSSManager</strong>.
+                Existing application files are not deleted.
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SAVED CSS
+        ================================================== -->
+
+        <section class="card full">
+
+            <div class="card-head">
+
+                <div class="card-title">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Saved CSS Styles</h3>
+
+                        <p class="card-sub">
+                            Manage your custom style collection
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div style="display:flex;gap:7px;">
+
+                    <button
+                        class="btn"
+                        onclick="importCSS()"
+                    >
+                        <i class="fa-solid fa-upload"></i>
+                        Import
+                    </button>
+
+                    <button
+                        class="btn danger"
+                        onclick="clearAllCSS()"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="css-list"
+                id="cssList"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             HELP
+        ================================================== -->
+
+        <section class="card full">
+
+            <div class="card-head">
+
+                <div class="card-title">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>CSS Manager Guide</h3>
+
+                        <p class="card-sub">
+                            How custom styles work
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>Example:</strong>
+
+                <br><br>
+
+                You can create a style like:
+
+                <br><br>
+
+                <code>
+                    .quick-item{
+                        border-radius:25px;
+                        transform:translateY(-2px);
+                    }
+                </code>
+
+                <br><br>
+
+                Save it as a custom CSS block.
+                Enable the block and it can be applied through
+                the global app engine.
+
+            </div>
+
+
+            <div class="warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                This browser-based CSS Manager does not physically modify
+                your original <strong>style.css</strong>.
+                For permanent deployment, export the CSS and add it to
+                your deployed stylesheet or connect it to the app's
+                custom CSS engine.
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="cssModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h3 id="modalTitle">
+                Add Custom CSS
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="editId"
+        >
+
+
+        <div class="form-group">
+
+            <label>
+                CSS Name
+            </label>
+
+            <input
+                class="input"
+                id="styleName"
+                placeholder="Example: Premium Cards"
+            >
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label>
+                    Target Page
+                </label>
+
+                <select
+                    class="select"
+                    id="stylePage"
+                >
+
+                    <option value="all">
+                        All Pages
+                    </option>
+
+                    <option value="index.html">
+                        Home
+                    </option>
+
+                    <option value="workout.html">
+                        Workout
+                    </option>
+
+                    <option value="diet.html">
+                        Diet
+                    </option>
+
+                    <option value="progress.html">
+                        Progress
+                    </option>
+
+                    <option value="profile.html">
+                        Profile
+                    </option>
+
+                    <option value="exercises.html">
+                        Exercises
+                    </option>
+
+                    <option value="goals.html">
+                        Goals
+                    </option>
+
+                    <option value="notifications.html">
+                        Notifications
+                    </option>
+
+                    <option value="body.html">
+                        Body
+                    </option>
+
+                    <option value="achievements.html">
+                        Achievements
+                    </option>
+
+                    <option value="settings.html">
+                        Settings
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select
+                    class="select"
+                    id="styleStatus"
+                >
+
+                    <option value="true">
+                        Enabled
+                    </option>
+
+                    <option value="false">
+                        Disabled
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                CSS Code
+            </label>
+
+            <textarea
+                class="editor"
+                id="styleCSS"
+                style="min-height:300px;"
+                spellcheck="false"
+            ></textarea>
+
+        </div>
+
+
+        <div style="display:flex;gap:8px;">
+
+            <button
+                class="btn primary"
+                onclick="saveStyle()"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Style
+            </button>
+
+            <button
+                class="btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<input
+    type="file"
+    id="importFile"
+    accept=".json"
+    hidden
+>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<!-- =====================================================
+     SECURITY ENGINE
+===================================================== -->
+
+<script src="admin-security.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+(function(){
+
+    if(
+        !window.Security ||
+        typeof Security.requireAuth !== "function"
+    ){
+
+        document.body.innerHTML = `
+            <div style="
+                min-height:100vh;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#070b09;
+                color:#fff;
+                font-family:Inter,sans-serif;
+                text-align:center;
+                padding:20px;
+            ">
+
+                <div>
+
+                    <i
+                        class="fa-solid fa-triangle-exclamation"
+                        style="
+                            font-size:36px;
+                            color:#f59e0b;
+                        "
+                    ></i>
+
+                    <h2>
+                        Security Engine Missing
+                    </h2>
+
+                    <p style="
+                        color:#94a39a;
+                        font-size:11px;
+                    ">
+                        admin-security.js could not be loaded.
+                    </p>
+
+                    <a
+                        href="login.html"
+                        style="
+                            display:inline-block;
+                            margin-top:10px;
+                            padding:11px 16px;
+                            border-radius:10px;
+                            background:#16a34a;
+                            color:#fff;
+                            font-size:11px;
+                            font-weight:700;
+                        "
+                    >
+                        Go to Login
+                    </a>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    try{
+
+        Security.requireAuth(
+            "css-manager"
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Security:",
+            error
+        );
+
+    }
+
+})();
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const CSS_KEY =
+    "saiCSSManager";
+
+
+const DEFAULT_CSS = {
+
+
+    globalEnabled:true,
+
+    autoApply:true,
+
+    safeMode:true,
+
+    styles:[]
+
+};
+
+
+function getData(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    CSS_KEY
+                )
+            );
+
+
+        if(
+            saved &&
+            typeof saved === "object"
+        ){
+
+            if(
+                !Array.isArray(
+                    saved.styles
+                )
+            ){
+
+                saved.styles = [];
+
+            }
+
+
+            if(
+                typeof saved.globalEnabled !==
+                "boolean"
+            ){
+
+                saved.globalEnabled = true;
+
+            }
+
+
+            if(
+                typeof saved.autoApply !==
+                "boolean"
+            ){
+
+                saved.autoApply = true;
+
+            }
+
+
+            if(
+                typeof saved.safeMode !==
+                "boolean"
+            ){
+
+                saved.safeMode = true;
+
+            }
+
+
+            return saved;
+
+        }
+
+    }catch(error){
+
+        console.warn(error);
+
+    }
+
+
+    return {
+        ...DEFAULT_CSS,
+        styles:[]
+    };
+
+}
+
+
+function saveData(data){
+
+    localStorage.setItem(
+        CSS_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+function makeId(){
+
+    return (
+        "css_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2,8)
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const box =
+        document.getElementById(
+            "toast"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.__toastTimer
+    );
+
+
+    window.__toastTimer =
+        setTimeout(
+            function(){
+
+                box.classList.remove(
+                    "show"
+                );
+
+            },
+            2600
+        );
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   LOAD SETTINGS
+========================================================= */
+
+function loadSettings(){
+
+    const data =
+        getData();
+
+
+    document.getElementById(
+        "globalEnabled"
+    ).checked =
+        data.globalEnabled !== false;
+
+
+    document.getElementById(
+        "autoApply"
+    ).checked =
+        data.autoApply !== false;
+
+
+    document.getElementById(
+        "safeMode"
+    ).checked =
+        data.safeMode !== false;
+
+}
+
+
+/* =========================================================
+   SAVE GLOBAL STATE
+========================================================= */
+
+function saveGlobalState(){
+
+    const data =
+        getData();
+
+
+    data.globalEnabled =
+        document.getElementById(
+            "globalEnabled"
+        ).checked;
+
+
+    data.autoApply =
+        document.getElementById(
+            "autoApply"
+        ).checked;
+
+
+    data.safeMode =
+        document.getElementById(
+            "safeMode"
+        ).checked;
+
+
+    saveData(data);
+
+
+    applyCSS();
+
+
+    render();
+
+
+    toast(
+        "CSS settings saved."
+    );
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    const data =
+        getData();
+
+
+    const list =
+        document.getElementById(
+            "cssList"
+        );
+
+
+    const styles =
+        data.styles || [];
+
+
+    document.getElementById(
+        "totalStyles"
+    ).textContent =
+        styles.length;
+
+
+    document.getElementById(
+        "activeStyles"
+    ).textContent =
+        styles.filter(
+            style =>
+                style.enabled !== false
+        ).length;
+
+
+    let totalLines = 0;
+
+
+    styles.forEach(
+        style => {
+
+            totalLines +=
+                String(
+                    style.css || ""
+                )
+                .split("\n")
+                .length;
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalLines"
+    ).textContent =
+        totalLines;
+
+
+    let storageBytes = 0;
+
+
+    try{
+
+        storageBytes =
+            new Blob([
+                JSON.stringify(data)
+            ]).size;
+
+    }catch{
+
+        storageBytes =
+            JSON.stringify(
+                data
+            ).length;
+
+    }
+
+
+    document.getElementById(
+        "storageSize"
+    ).textContent =
+        formatBytes(
+            storageBytes
+        );
+
+
+    if(!styles.length){
+
+        list.innerHTML = `
+            <div class="empty">
+
+                <i class="fa-regular fa-file-code"></i>
+
+                No custom CSS styles yet.
+
+                <br><br>
+
+                Click <strong>Add CSS</strong> to create your first style.
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    styles
+        .slice()
+        .reverse()
+        .forEach(
+            style => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "css-item";
+
+
+                const enabled =
+                    style.enabled !== false;
+
+
+                const css =
+                    String(
+                        style.css || ""
+                    );
+
+
+                item.innerHTML = `
+
+                    <div class="css-item-top">
+
+                        <div class="css-name">
+
+                            <div class="css-name-icon">
+
+                                <i class="fa-solid fa-code"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        style.name ||
+                                        "Untitled CSS"
+                                    )}
+                                </strong>
+
+                                <small>
+                                    ${escapeHTML(
+                                        style.page ||
+                                        "all"
+                                    )}
+                                    •
+                                    <span class="${
+                                        enabled
+                                        ? "enabled"
+                                        : "disabled"
+                                    }">
+                                        ${
+                                            enabled
+                                            ? "Enabled"
+                                            : "Disabled"
+                                        }
+                                    </span>
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="css-actions">
+
+                            <button
+                                class="icon-btn"
+                                title="${
+                                    enabled
+                                    ? "Disable"
+                                    : "Enable"
+                                }"
+                                onclick="toggleStyle('${style.id}')"
+                            >
+                                <i class="fa-solid ${
+                                    enabled
+                                    ? "fa-toggle-on"
+                                    : "fa-toggle-off"
+                                }"></i>
+                            </button>
+
+
+                            <button
+                                class="icon-btn"
+                                title="Edit"
+                                onclick="editStyle('${style.id}')"
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+
+                            <button
+                                class="icon-btn"
+                                title="Duplicate"
+                                onclick="duplicateStyle('${style.id}')"
+                            >
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+
+
+                            <button
+                                class="icon-btn delete"
+                                title="Delete"
+                                onclick="deleteStyle('${style.id}')"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="css-preview">
+                        ${escapeHTML(
+                            css
+                        )}
+                    </div>
+
+                `;
+
+
+                list.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   FORMAT BYTES
+========================================================= */
+
+function formatBytes(bytes){
+
+    if(bytes < 1024){
+
+        return bytes + " B";
+
+    }
+
+
+    if(bytes < 1024 * 1024){
+
+        return (
+            (bytes / 1024)
+                .toFixed(1)
+            + " KB"
+        );
+
+    }
+
+
+    return (
+        (bytes / 1024 / 1024)
+            .toFixed(2)
+        + " MB"
+    );
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openAddModal(){
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Add Custom CSS";
+
+
+    document.getElementById(
+        "editId"
+    ).value = "";
+
+
+    document.getElementById(
+        "styleName"
+    ).value = "";
+
+
+    document.getElementById(
+        "stylePage"
+    ).value = "all";
+
+
+    document.getElementById(
+        "styleStatus"
+    ).value = "true";
+
+
+    document.getElementById(
+        "styleCSS"
+    ).value = "";
+
+
+    document.getElementById(
+        "cssModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+function closeModal(){
+
+    document.getElementById(
+        "cssModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE STYLE
+========================================================= */
+
+function saveStyle(){
+
+    const id =
+        document.getElementById(
+            "editId"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "styleName"
+        ).value.trim();
+
+
+    const page =
+        document.getElementById(
+            "stylePage"
+        ).value;
+
+
+    const enabled =
+        document.getElementById(
+            "styleStatus"
+        ).value === "true";
+
+
+    const css =
+        document.getElementById(
+            "styleCSS"
+        ).value;
+
+
+    if(!name){
+
+        toast(
+            "Enter a CSS style name."
+        );
+
+        return;
+
+    }
+
+
+    if(!css.trim()){
+
+        toast(
+            "Enter some CSS code."
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        getData();
+
+
+    /*
+     * Safe mode:
+     * CSS should not contain HTML/script.
+     */
+
+    if(
+        data.safeMode !== false
+    ){
+
+        const dangerous =
+            /<script|<\/script|javascript:|<iframe|onerror\s*=|onload\s*=/i
+                .test(css);
+
+
+        if(dangerous){
+
+            toast(
+                "Unsafe content detected in CSS."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    if(id){
+
+        const index =
+            data.styles.findIndex(
+                item =>
+                    item.id === id
+            );
+
+
+        if(index !== -1){
+
+            data.styles[index] = {
+
+                ...data.styles[index],
+
+                name:name,
+
+                page:page,
+
+                enabled:enabled,
+
+                css:css,
+
+                updatedAt:
+                    new Date().toISOString()
+
+            };
+
+        }
+
+    }else{
+
+        data.styles.push({
+
+            id:makeId(),
+
+            name:name,
+
+            page:page,
+
+            enabled:enabled,
+
+            css:css,
+
+            createdAt:
+                new Date().toISOString(),
+
+            updatedAt:
+                new Date().toISOString()
+
+        });
+
+    }
+
+
+    saveData(data);
+
+
+    closeModal();
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        id
+        ? "CSS style updated."
+        : "CSS style added."
+    );
+
+}
+
+
+/* =========================================================
+   EDIT STYLE
+========================================================= */
+
+function editStyle(id){
+
+    const data =
+        getData();
+
+
+    const style =
+        data.styles.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!style){
+
+        toast(
+            "CSS style not found."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Edit Custom CSS";
+
+
+    document.getElementById(
+        "editId"
+    ).value =
+        style.id;
+
+
+    document.getElementById(
+        "styleName"
+    ).value =
+        style.name || "";
+
+
+    document.getElementById(
+        "stylePage"
+    ).value =
+        style.page || "all";
+
+
+    document.getElementById(
+        "styleStatus"
+    ).value =
+        style.enabled === false
+        ? "false"
+        : "true";
+
+
+    document.getElementById(
+        "styleCSS"
+    ).value =
+        style.css || "";
+
+
+    document.getElementById(
+        "cssModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+function toggleStyle(id){
+
+    const data =
+        getData();
+
+
+    const style =
+        data.styles.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!style) return;
+
+
+    style.enabled =
+        style.enabled === false;
+
+
+    style.updatedAt =
+        new Date().toISOString();
+
+
+    saveData(data);
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        style.enabled
+        ? "CSS enabled."
+        : "CSS disabled."
+    );
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteStyle(id){
+
+    const data =
+        getData();
+
+
+    const style =
+        data.styles.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!style) return;
+
+
+    if(
+        !confirm(
+            `Delete "${style.name}"?`
+        )
+    ){
+
+        return;
+
+    }
+
+
+    data.styles =
+        data.styles.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    saveData(data);
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        "CSS style deleted."
+    );
+
+}
+
+
+/* =========================================================
+   DUPLICATE
+========================================================= */
+
+function duplicateStyle(id){
+
+    const data =
+        getData();
+
+
+    const original =
+        data.styles.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!original) return;
+
+
+    const copy = {
+
+        ...original,
+
+        id:makeId(),
+
+        name:
+            original.name +
+            " Copy",
+
+        createdAt:
+            new Date().toISOString(),
+
+        updatedAt:
+            new Date().toISOString()
+
+    };
+
+
+    data.styles.push(
+        copy
+    );
+
+
+    saveData(data);
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        "CSS style duplicated."
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR ALL
+========================================================= */
+
+function clearAllCSS(){
+
+    const data =
+        getData();
+
+
+    if(!data.styles.length){
+
+        toast(
+            "There are no custom CSS styles."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Delete all custom CSS styles? Existing app CSS will NOT be deleted."
+        )
+    ){
+
+        return;
+
+    }
+
+
+    data.styles = [];
+
+
+    saveData(data);
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        "Custom CSS styles cleared."
+    );
+
+}
+
+
+/* =========================================================
+   QUICK SAVE
+========================================================= */
+
+function saveQuickCSS(){
+
+    const name =
+        document.getElementById(
+            "quickName"
+        ).value.trim();
+
+
+    const page =
+        document.getElementById(
+            "quickPage"
+        ).value;
+
+
+    const css =
+        document.getElementById(
+            "quickCSS"
+        ).value;
+
+
+    if(!name){
+
+        toast(
+            "Enter a style name."
+        );
+
+        return;
+
+    }
+
+
+    if(!css.trim()){
+
+        toast(
+            "Enter CSS code."
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        getData();
+
+
+    if(
+        data.safeMode !== false &&
+        /<script|<\/script|javascript:|<iframe|onerror\s*=|onload\s*=/i.test(css)
+    ){
+
+        toast(
+            "Unsafe CSS content detected."
+        );
+
+        return;
+
+    }
+
+
+    data.styles.push({
+
+        id:makeId(),
+
+        name:name,
+
+        page:page,
+
+        enabled:true,
+
+        css:css,
+
+        createdAt:
+            new Date().toISOString(),
+
+        updatedAt:
+            new Date().toISOString()
+
+    });
+
+
+    saveData(data);
+
+
+    document.getElementById(
+        "quickName"
+    ).value = "";
+
+
+    document.getElementById(
+        "quickCSS"
+    ).value = "";
+
+
+    render();
+
+
+    applyCSS();
+
+
+    toast(
+        "CSS saved successfully."
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT CSS
+========================================================= */
+
+function formatCSS(){
+
+    const editor =
+        document.getElementById(
+            "quickCSS"
+        );
+
+
+    let css =
+        editor.value;
+
+
+    if(!css.trim()){
+
+        return;
+
+    }
+
+
+    css =
+        css
+            .replace(/\s*{\s*/g," {\n    ")
+            .replace(/;\s*/g,";\n    ")
+            .replace(/\s*}\s*/g,"\n}\n")
+            .replace(/\n\s*\n/g,"\n");
+
+
+    editor.value =
+        css.trim();
+
+
+    toast(
+        "CSS formatted."
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR EDITOR
+========================================================= */
+
+function clearEditor(){
+
+    document.getElementById(
+        "quickName"
+    ).value = "";
+
+
+    document.getElementById(
+        "quickCSS"
+    ).value = "";
+
+}
+
+
+/* =========================================================
+   APPLY CSS
+========================================================= */
+
+function applyCSS(){
+
+    const data =
+        getData();
+
+
+    const old =
+        document.getElementById(
+            "sai-admin-custom-css"
+        );
+
+
+    if(old){
+
+        old.remove();
+
+    }
+
+
+    if(
+        data.globalEnabled === false
+    ){
+
+        return;
+
+    }
+
+
+    const currentPage =
+        location.pathname
+            .split("/")
+            .pop() ||
+        "index.html";
+
+
+    const styles =
+        data.styles || [];
+
+
+    let combined = "";
+
+
+    styles.forEach(
+        style => {
+
+            if(
+                style.enabled === false
+            ){
+
+                return;
+
+            }
+
+
+            const target =
+                style.page ||
+                "all";
+
+
+            if(
+                target !== "all" &&
+                target !== currentPage
+            ){
+
+                return;
+
+            }
+
+
+            combined +=
+                "\n/* " +
+                (
+                    style.name ||
+                    "Custom CSS"
+                ) +
+                " */\n" +
+                (
+                    style.css ||
+                    ""
+                ) +
+                "\n";
+
+        }
+    );
+
+
+    if(!combined.trim()){
+
+        return;
+
+    }
+
+
+    const tag =
+        document.createElement(
+            "style"
+        );
+
+
+    tag.id =
+        "sai-admin-custom-css";
+
+
+    tag.textContent =
+        combined;
+
+
+    document.head.appendChild(
+        tag
+    );
+
+}
+
+
+/* =========================================================
+   APPLY NOW
+========================================================= */
+
+function applyNow(){
+
+    applyCSS();
+
+    toast(
+        "Custom CSS applied to this page."
+    );
+
+}
+
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportCSS(){
+
+    const data =
+        getData();
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href =
+        url;
+
+
+    a.download =
+        "sai-fitness-css-backup.json";
+
+
+    document.body.appendChild(
+        a
+    );
+
+
+    a.click();
+
+
+    a.remove();
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+
+    toast(
+        "CSS backup exported."
+    );
+
+}
+
+
+/* =========================================================
+   IMPORT
+========================================================= */
+
+function importCSS(){
+
+    document.getElementById(
+        "importFile"
+    ).click();
+
+}
+
+
+document
+    .getElementById("importFile")
+    .addEventListener(
+        "change",
+        function(){
+
+            const file =
+                this.files[0];
+
+
+            if(!file){
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(){
+
+                    try{
+
+                        const imported =
+                            JSON.parse(
+                                reader.result
+                            );
+
+
+                        if(
+                            !imported ||
+                            !Array.isArray(
+                                imported.styles
+                            )
+                        ){
+
+                            throw new Error(
+                                "Invalid CSS backup"
+                            );
+
+                        }
+
+
+                        const current =
+                            getData();
+
+
+                        /*
+                         * Merge instead of replacing,
+                         * so existing CSS is preserved.
+                         */
+
+                        const existingIds =
+                            new Set(
+                                current.styles.map(
+                                    item =>
+                                        item.id
+                                )
+                            );
+
+
+                        imported.styles.forEach(
+                            style => {
+
+                                let id =
+                                    style.id ||
+                                    makeId();
+
+
+                                if(
+                                    existingIds.has(id)
+                                ){
+
+                                    id =
+                                        makeId();
+
+                                }
+
+
+                                current.styles.push({
+
+                                    ...style,
+
+                                    id:id
+
+                                });
+
+                            }
+                        );
+
+
+                        saveData(
+                            current
+                        );
+
+
+                        loadSettings();
+
+                        render();
+
+                        applyCSS();
+
+
+                        toast(
+                            imported.styles.length +
+                            " CSS style(s) imported."
+                        );
+
+
+                    }catch(error){
+
+                        console.error(
+                            error
+                        );
+
+
+                        toast(
+                            "Invalid CSS backup file."
+                        );
+
+                    }
+
+
+                    this.value = "";
+
+                }.bind(this);
+
+
+            reader.readAsText(
+                file
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document
+    .getElementById("menuBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            document
+                .getElementById("sidebar")
+                .classList.toggle(
+                    "open"
+                );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(".nav-item")
+    .forEach(
+        function(item){
+
+            item.addEventListener(
+                "click",
+                function(){
+
+                    document
+                        .getElementById("sidebar")
+                        .classList.remove(
+                            "open"
+                        );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadSettings();
+
+        render();
+
+        applyCSS();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

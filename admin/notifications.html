@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Notifications • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#070b09;
+    --panel:#0d1410;
+    --card:#101913;
+    --card2:#121d16;
+    --border:#1d2b22;
+    --green:#16a34a;
+    --green2:#22c55e;
+    --text:#f4f7f5;
+    --muted:#89958d;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --blue:#3b82f6;
+    --purple:#8b5cf6;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#0a100c;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 10px 22px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:15px;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--green),#064e24);
+    display:grid;
+    place-items:center;
+    font-size:20px;
+    box-shadow:0 8px 25px #16a34a25;
+}
+
+.logo strong{
+    display:block;
+    font-size:15px;
+}
+
+.logo span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.nav-title{
+    color:#56635a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:17px 10px 7px;
+    text-transform:uppercase;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 11px;
+    border-radius:11px;
+    color:#9da8a1;
+    font-size:13px;
+    margin-bottom:3px;
+    transition:.2s;
+}
+
+.nav-item i{
+    width:18px;
+    text-align:center;
+}
+
+.nav-item:hover{
+    background:#121c16;
+    color:white;
+}
+
+.nav-item.active{
+    background:#12321d;
+    color:#4ade80;
+    box-shadow:inset 3px 0 #22c55e;
+}
+
+.main{
+    margin-left:250px;
+    padding:25px;
+    max-width:1500px;
+}
+
+/* TOPBAR */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:24px;
+}
+
+.page-title h1{
+    font-size:25px;
+    font-weight:800;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:5px;
+}
+
+.top-actions{
+    display:flex;
+    gap:9px;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:#111a14;
+    color:#dce5df;
+    padding:10px 14px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    font-size:12px;
+}
+
+.btn:hover{
+    background:#18241c;
+}
+
+.btn-primary{
+    background:var(--green);
+    border-color:var(--green);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--green2);
+}
+
+.btn-danger{
+    color:#fca5a5;
+}
+
+.btn-blue{
+    color:#93c5fd;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.stat-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:#16321f;
+    color:#4ade80;
+}
+
+.stat:nth-child(2) .stat-icon{
+    background:#32250e;
+    color:#fbbf24;
+}
+
+.stat:nth-child(3) .stat-icon{
+    background:#132b42;
+    color:#60a5fa;
+}
+
+.stat:nth-child(4) .stat-icon{
+    background:#2b1d3d;
+    color:#c4b5fd;
+}
+
+.stat-value{
+    font-size:22px;
+    font-weight:800;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:15px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-bottom:17px;
+}
+
+.search{
+    position:relative;
+    flex:1;
+    min-width:200px;
+}
+
+.search i{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#65736a;
+}
+
+.search input{
+    width:100%;
+    background:#0b120e;
+    border:1px solid var(--border);
+    color:white;
+    padding:10px 12px 10px 35px;
+    border-radius:10px;
+    outline:none;
+}
+
+.search input:focus,
+select:focus,
+input:focus,
+textarea:focus{
+    border-color:#218f48;
+}
+
+select{
+    background:#0b120e;
+    border:1px solid var(--border);
+    color:#dfe8e2;
+    padding:10px 12px;
+    border-radius:10px;
+    outline:none;
+}
+
+/* LIST */
+
+.list{
+    display:grid;
+    gap:12px;
+}
+
+.notification{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:17px;
+    transition:.2s;
+}
+
+.notification:hover{
+    border-color:#294333;
+    transform:translateY(-1px);
+}
+
+.notif-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.notif-left{
+    display:flex;
+    gap:13px;
+    min-width:0;
+}
+
+.notif-icon{
+    width:45px;
+    height:45px;
+    min-width:45px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    background:#173522;
+    color:#4ade80;
+    font-size:18px;
+}
+
+.notif-content{
+    min-width:0;
+}
+
+.notif-title{
+    font-size:15px;
+    font-weight:750;
+    margin-bottom:6px;
+}
+
+.notif-message{
+    color:#9aa69e;
+    font-size:12px;
+    line-height:1.55;
+}
+
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:11px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:700;
+    background:#17221b;
+    color:#aab6ae;
+}
+
+.badge.green{
+    color:#86efac;
+    background:#12321d;
+}
+
+.badge.yellow{
+    color:#fcd34d;
+    background:#30260f;
+}
+
+.badge.red{
+    color:#fca5a5;
+    background:#321616;
+}
+
+.badge.blue{
+    color:#93c5fd;
+    background:#13253a;
+}
+
+.badge.purple{
+    color:#c4b5fd;
+    background:#251b39;
+}
+
+.notif-actions{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.icon-btn{
+    width:34px;
+    height:34px;
+    border:1px solid var(--border);
+    background:#101811;
+    color:#9ba79f;
+    border-radius:9px;
+}
+
+.icon-btn:hover{
+    color:white;
+    background:#18231b;
+}
+
+.icon-btn.delete:hover{
+    color:#f87171;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+}
+
+.empty i{
+    font-size:40px;
+    margin-bottom:14px;
+    opacity:.5;
+}
+
+.empty h3{
+    color:#d9e2dc;
+    margin-bottom:5px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000b;
+    backdrop-filter:blur(6px);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(680px,100%);
+    max-height:92vh;
+    overflow:auto;
+    background:#0d1510;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:0 30px 100px #000;
+}
+
+.modal-head{
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-head h2{
+    font-size:17px;
+}
+
+.close{
+    border:0;
+    background:none;
+    color:#89958d;
+    font-size:20px;
+}
+
+.form{
+    padding:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#9eaaa2;
+    font-size:11px;
+    font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    background:#080e0a;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:11px 12px;
+    border-radius:10px;
+    outline:none;
+}
+
+.field textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.check-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#aab5ae;
+    font-size:12px;
+}
+
+.check input{
+    accent-color:var(--green);
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:9px;
+    padding:15px 20px;
+    border-top:1px solid var(--border);
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:5000;
+    background:#122018;
+    border:1px solid #294b34;
+    color:#dff7e6;
+    padding:12px 15px;
+    border-radius:11px;
+    font-size:12px;
+    display:none;
+    box-shadow:0 15px 40px #0008;
+}
+
+.toast.show{
+    display:block;
+    animation:toastIn .25s ease;
+}
+
+@keyframes toastIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* MOBILE */
+
+.mobile-menu{
+    display:none;
+    border:1px solid var(--border);
+    background:#101812;
+    color:white;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+}
+
+.overlay{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .overlay.show{
+        display:block;
+        position:fixed;
+        inset:0;
+        background:#0009;
+        z-index:900;
+    }
+
+    .main{
+        margin-left:0;
+        padding:17px;
+    }
+
+    .mobile-menu{
+        display:grid;
+        place-items:center;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .page-title{
+        flex:1;
+    }
+
+    .page-title h1{
+        font-size:20px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .top-actions .btn span{
+        display:none;
+    }
+
+    .top-actions .btn{
+        width:40px;
+        height:40px;
+        padding:0;
+        justify-content:center;
+    }
+
+    .toolbar{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search{
+        grid-column:1/-1;
+        min-width:0;
+    }
+
+    .toolbar .btn{
+        justify-content:center;
+    }
+
+    .notif-top{
+        flex-direction:column;
+    }
+
+    .notif-actions{
+        justify-content:flex-end;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+}
+
+@media(max-width:390px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .toolbar{
+        grid-template-columns:1fr;
+    }
+
+    .search{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fa-solid fa-dumbbell"></i>
+        </div>
+        <div>
+            <strong>Sai Fitness</strong>
+            <span>Admin Control Center</span>
+        </div>
+    </div>
+
+    <div class="nav-title">Main</div>
+
+    <a class="nav-item" href="index.html">
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
+    </a>
+
+    <a class="nav-item" href="members.html">
+        <i class="fa-solid fa-users"></i> Members
+    </a>
+
+    <a class="nav-item" href="workouts.html">
+        <i class="fa-solid fa-dumbbell"></i> Workouts
+    </a>
+
+    <a class="nav-item" href="exercises.html">
+        <i class="fa-solid fa-person-running"></i> Exercises
+    </a>
+
+    <a class="nav-item" href="diet.html">
+        <i class="fa-solid fa-utensils"></i> Diet
+    </a>
+
+    <a class="nav-item" href="goals.html">
+        <i class="fa-solid fa-bullseye"></i> Goals
+    </a>
+
+    <a class="nav-item" href="achievements.html">
+        <i class="fa-solid fa-trophy"></i> Achievements
+    </a>
+
+    <a class="nav-item active" href="notifications.html">
+        <i class="fa-solid fa-bell"></i> Notifications
+    </a>
+
+    <div class="nav-title">Customization</div>
+
+    <a class="nav-item" href="theme.html">
+        <i class="fa-solid fa-palette"></i> Theme Studio
+    </a>
+
+    <a class="nav-item" href="css-manager.html">
+        <i class="fa-solid fa-code"></i> CSS Manager
+    </a>
+
+    <a class="nav-item" href="animation-manager.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Animations
+    </a>
+
+    <a class="nav-item" href="app-upload.html">
+        <i class="fa-solid fa-cloud-arrow-up"></i> App Upload
+    </a>
+
+    <a class="nav-item" href="media.html">
+        <i class="fa-solid fa-photo-film"></i> Media
+    </a>
+
+    <a class="nav-item" href="page-builder.html">
+        <i class="fa-solid fa-layer-group"></i> Page Builder
+    </a>
+
+    <a class="nav-item" href="content.html">
+        <i class="fa-solid fa-file-pen"></i> Content
+    </a>
+
+    <div class="nav-title">System</div>
+
+    <a class="nav-item" href="analytics.html">
+        <i class="fa-solid fa-chart-line"></i> Analytics
+    </a>
+
+    <a class="nav-item" href="pwa.html">
+        <i class="fa-solid fa-mobile-screen-button"></i> PWA Manager
+    </a>
+
+    <a class="nav-item" href="backup.html">
+        <i class="fa-solid fa-database"></i> Backup
+    </a>
+
+    <a class="nav-item" href="version.html">
+        <i class="fa-solid fa-code-branch"></i> Version
+    </a>
+
+    <a class="nav-item" href="maintenance.html">
+        <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance
+    </a>
+
+    <a class="nav-item" href="security.html">
+        <i class="fa-solid fa-shield-halved"></i> Security
+    </a>
+
+    <a class="nav-item" href="settings.html">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+
+        <div style="display:flex;align-items:center;gap:10px;">
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-title">
+                <h1>Notification Manager</h1>
+                <p>Announcements, alerts and user communication control.</p>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <a href="../notifications.html" target="_blank" class="btn btn-blue">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <span>User App</span>
+            </a>
+
+            <button class="btn btn-primary" onclick="openAdd()">
+                <i class="fa-solid fa-plus"></i>
+                <span>New Notification</span>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- STATS -->
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <div>
+                <div class="stat-value" id="totalCount">0</div>
+                <div class="stat-label">Total Notifications</div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">
+                <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <div>
+                <div class="stat-value" id="publishedCount">0</div>
+                <div class="stat-label">Published</div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+            <div>
+                <div class="stat-value" id="scheduledCount">0</div>
+                <div class="stat-label">Scheduled</div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">
+                <i class="fa-solid fa-envelope-open"></i>
+            </div>
+            <div>
+                <div class="stat-value" id="unreadCount">0</div>
+                <div class="stat-label">Unread Target</div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- TOOLBAR -->
+    <section class="toolbar">
+
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+                id="search"
+                type="text"
+                placeholder="Search notification..."
+                oninput="render()"
+            >
+        </div>
+
+        <select id="statusFilter" onchange="render()">
+            <option value="all">All Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="scheduled">Scheduled</option>
+        </select>
+
+        <select id="priorityFilter" onchange="render()">
+            <option value="all">All Priority</option>
+            <option value="normal">Normal</option>
+            <option value="important">Important</option>
+            <option value="urgent">Urgent</option>
+        </select>
+
+        <select id="audienceFilter" onchange="render()">
+            <option value="all">All Audience</option>
+            <option value="all-users">All Users</option>
+            <option value="members">Members</option>
+            <option value="trainers">Trainers</option>
+            <option value="new-users">New Users</option>
+            <option value="inactive">Inactive Users</option>
+        </select>
+
+        <button class="btn" onclick="exportJSON()">
+            <i class="fa-solid fa-download"></i>
+            Export
+        </button>
+
+    </section>
+
+    <!-- LIST -->
+    <section class="list" id="notificationList"></section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+            <h2 id="modalTitle">Create Notification</h2>
+
+            <button class="close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form class="form" id="notificationForm">
+
+            <input type="hidden" id="editId">
+
+            <div class="form-grid">
+
+                <div class="field full">
+                    <label>Notification Title</label>
+                    <input
+                        id="title"
+                        required
+                        maxlength="100"
+                        placeholder="e.g. New Workout Plan Available"
+                    >
+                </div>
+
+                <div class="field full">
+                    <label>Message</label>
+                    <textarea
+                        id="message"
+                        required
+                        maxlength="500"
+                        placeholder="Write notification message..."
+                    ></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Notification Type</label>
+                    <select id="type">
+                        <option value="announcement">Announcement</option>
+                        <option value="workout">Workout</option>
+                        <option value="diet">Diet</option>
+                        <option value="achievement">Achievement</option>
+                        <option value="system">System</option>
+                        <option value="offer">Offer</option>
+                        <option value="reminder">Reminder</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Priority</label>
+                    <select id="priority">
+                        <option value="normal">Normal</option>
+                        <option value="important">Important</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Target Audience</label>
+                    <select id="audience">
+                        <option value="all-users">All Users</option>
+                        <option value="members">Members</option>
+                        <option value="trainers">Trainers</option>
+                        <option value="new-users">New Users</option>
+                        <option value="inactive">Inactive Users</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Status</label>
+                    <select id="status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="scheduled">Scheduled</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Schedule Date</label>
+                    <input id="scheduleDate" type="date">
+                </div>
+
+                <div class="field">
+                    <label>Schedule Time</label>
+                    <input id="scheduleTime" type="time">
+                </div>
+
+                <div class="field">
+                    <label>Icon</label>
+                    <select id="icon">
+                        <option value="fa-bell">Bell</option>
+                        <option value="fa-bullhorn">Announcement</option>
+                        <option value="fa-dumbbell">Workout</option>
+                        <option value="fa-utensils">Diet</option>
+                        <option value="fa-trophy">Achievement</option>
+                        <option value="fa-fire">Fire</option>
+                        <option value="fa-heart">Heart</option>
+                        <option value="fa-star">Star</option>
+                        <option value="fa-circle-info">Info</option>
+                        <option value="fa-triangle-exclamation">Warning</option>
+                        <option value="fa-gift">Offer</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Action URL</label>
+                    <input
+                        id="actionUrl"
+                        placeholder="e.g. workout.html"
+                    >
+                </div>
+
+                <div class="field full">
+
+                    <label>Display Options</label>
+
+                    <div class="check-row">
+
+                        <label class="check">
+                            <input type="checkbox" id="showInApp" checked>
+                            Show in User App
+                        </label>
+
+                        <label class="check">
+                            <input type="checkbox" id="pushStyle">
+                            Push Style
+                        </label>
+
+                        <label class="check">
+                            <input type="checkbox" id="markUnread" checked>
+                            Mark as Unread
+                        </label>
+
+                        <label class="check">
+                            <input type="checkbox" id="featured">
+                            Featured
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="modal-footer">
+
+            <button class="btn" onclick="closeModal()">
+                Cancel
+            </button>
+
+            <button class="btn btn-primary" onclick="saveNotification()">
+                <i class="fa-solid fa-check"></i>
+                Save Notification
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin-security.js"></script>
+
+<script>
+/* =========================================================
+   SECURITY
+========================================================= */
+
+if(window.Security && typeof Security.requireAuth === "function"){
+    Security.requireAuth("notifications");
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const STORAGE_KEY = "saiAdminNotifications";
+
+let notifications = loadNotifications();
+
+function loadNotifications(){
+
+    try{
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if(saved){
+            const data = JSON.parse(saved);
+
+            if(Array.isArray(data) && data.length){
+                return data;
+            }
+        }
+
+    }catch(e){}
+
+    const defaults = [
+        {
+            id:cryptoId(),
+            title:"Welcome to Sai Fitness",
+            message:"Welcome! Start your fitness journey and complete your first workout today.",
+            type:"announcement",
+            priority:"normal",
+            audience:"all-users",
+            status:"published",
+            scheduleDate:"",
+            scheduleTime:"",
+            icon:"fa-bell",
+            actionUrl:"index.html",
+            showInApp:true,
+            pushStyle:false,
+            markUnread:true,
+            featured:true,
+            createdAt:new Date().toISOString(),
+            readCount:0
+        },
+        {
+            id:cryptoId(),
+            title:"New Workout Plan Available",
+            message:"A new workout routine has been added. Open the workout section and start training.",
+            type:"workout",
+            priority:"important",
+            audience:"members",
+            status:"published",
+            scheduleDate:"",
+            scheduleTime:"",
+            icon:"fa-dumbbell",
+            actionUrl:"workout.html",
+            showInApp:true,
+            pushStyle:true,
+            markUnread:true,
+            featured:false,
+            createdAt:new Date().toISOString(),
+            readCount:0
+        },
+        {
+            id:cryptoId(),
+            title:"Keep Your Streak Alive",
+            message:"You are doing great. Complete today's workout to continue your streak.",
+            type:"reminder",
+            priority:"normal",
+            audience:"all-users",
+            status:"draft",
+            scheduleDate:"",
+            scheduleTime:"",
+            icon:"fa-fire",
+            actionUrl:"workout.html",
+            showInApp:true,
+            pushStyle:false,
+            markUnread:true,
+            featured:false,
+            createdAt:new Date().toISOString(),
+            readCount:0
+        }
+    ];
+
+    saveNotifications(defaults);
+
+    return defaults;
+}
+
+function saveNotifications(data = notifications){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+/* =========================================================
+   ID
+========================================================= */
+
+function cryptoId(){
+
+    if(window.crypto && crypto.randomUUID){
+        return crypto.randomUUID();
+    }
+
+    return "notif_" +
+        Date.now() +
+        "_" +
+        Math.random().toString(36).slice(2,8);
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    const total = notifications.length;
+
+    const published = notifications.filter(
+        n => n.status === "published"
+    ).length;
+
+    const scheduled = notifications.filter(
+        n => n.status === "scheduled"
+    ).length;
+
+    const unread = notifications.filter(
+        n => n.markUnread && n.showInApp
+    ).length;
+
+    document.getElementById("totalCount").textContent = total;
+    document.getElementById("publishedCount").textContent = published;
+    document.getElementById("scheduledCount").textContent = scheduled;
+    document.getElementById("unreadCount").textContent = unread;
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    updateStats();
+
+    const container =
+        document.getElementById("notificationList");
+
+    const search =
+        document.getElementById("search").value
+        .toLowerCase()
+        .trim();
+
+    const status =
+        document.getElementById("statusFilter").value;
+
+    const priority =
+        document.getElementById("priorityFilter").value;
+
+    const audience =
+        document.getElementById("audienceFilter").value;
+
+    let data = notifications.filter(n => {
+
+        const text =
+            (
+                n.title +
+                " " +
+                n.message +
+                " " +
+                n.type +
+                " " +
+                n.audience
+            ).toLowerCase();
+
+        if(search && !text.includes(search)){
+            return false;
+        }
+
+        if(status !== "all"){
+
+            if(status === "scheduled"){
+
+                if(n.status !== "scheduled"){
+                    return false;
+                }
+
+            }else if(n.status !== status){
+
+                return false;
+
+            }
+        }
+
+        if(
+            priority !== "all" &&
+            n.priority !== priority
+        ){
+            return false;
+        }
+
+        if(
+            audience !== "all" &&
+            n.audience !== audience
+        ){
+            return false;
+        }
+
+        return true;
+    });
+
+    if(!data.length){
+
+        container.innerHTML = `
+            <div class="notification">
+                <div class="empty">
+                    <i class="fa-regular fa-bell-slash"></i>
+                    <h3>No notifications found</h3>
+                    <p>Create a notification or change your filters.</p>
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = data.map(n => card(n)).join("");
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function card(n){
+
+    const priorityClass =
+        n.priority === "urgent"
+        ? "red"
+        : n.priority === "important"
+        ? "yellow"
+        : "green";
+
+    const statusClass =
+        n.status === "published"
+        ? "green"
+        : n.status === "scheduled"
+        ? "blue"
+        : "yellow";
+
+    const audienceName = {
+        "all-users":"All Users",
+        "members":"Members",
+        "trainers":"Trainers",
+        "new-users":"New Users",
+        "inactive":"Inactive Users"
+    }[n.audience] || n.audience;
+
+    const typeName =
+        n.type.charAt(0).toUpperCase() +
+        n.type.slice(1);
+
+    let schedule = "";
+
+    if(n.status === "scheduled" && n.scheduleDate){
+
+        schedule = `
+            <span class="badge blue">
+                <i class="fa-regular fa-calendar"></i>
+                ${escapeHTML(n.scheduleDate)}
+                ${n.scheduleTime ? " • " + escapeHTML(n.scheduleTime) : ""}
+            </span>
+        `;
+
+    }
+
+    return `
+        <article class="notification">
+
+            <div class="notif-top">
+
+                <div class="notif-left">
+
+                    <div class="notif-icon">
+                        <i class="fa-solid ${escapeHTML(n.icon || "fa-bell")}"></i>
+                    </div>
+
+                    <div class="notif-content">
+
+                        <div class="notif-title">
+                            ${escapeHTML(n.title)}
+                        </div>
+
+                        <div class="notif-message">
+                            ${escapeHTML(n.message)}
+                        </div>
+
+                        <div class="meta">
+
+                            <span class="badge ${statusClass}">
+                                <i class="fa-solid ${
+                                    n.status === "published"
+                                    ? "fa-check"
+                                    : n.status === "scheduled"
+                                    ? "fa-clock"
+                                    : "fa-file"
+                                }"></i>
+                                ${capitalize(n.status)}
+                            </span>
+
+                            <span class="badge ${priorityClass}">
+                                <i class="fa-solid fa-flag"></i>
+                                ${capitalize(n.priority)}
+                            </span>
+
+                            <span class="badge">
+                                <i class="fa-solid fa-users"></i>
+                                ${escapeHTML(audienceName)}
+                            </span>
+
+                            <span class="badge purple">
+                                <i class="fa-solid fa-tag"></i>
+                                ${escapeHTML(typeName)}
+                            </span>
+
+                            ${n.showInApp ? `
+                                <span class="badge green">
+                                    <i class="fa-solid fa-mobile-screen"></i>
+                                    App
+                                </span>
+                            ` : ""}
+
+                            ${n.pushStyle ? `
+                                <span class="badge blue">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    Push
+                                </span>
+                            ` : ""}
+
+                            ${n.featured ? `
+                                <span class="badge yellow">
+                                    <i class="fa-solid fa-star"></i>
+                                    Featured
+                                </span>
+                            ` : ""}
+
+                            ${schedule}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="notif-actions">
+
+                    <button
+                        class="icon-btn"
+                        title="View"
+                        onclick="viewNotification('${n.id}')"
+                    >
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        title="Edit"
+                        onclick="editNotification('${n.id}')"
+                    >
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn"
+                        title="${n.status === "published" ? "Make Draft" : "Publish"}"
+                        onclick="toggleStatus('${n.id}')"
+                    >
+                        <i class="fa-solid ${
+                            n.status === "published"
+                            ? "fa-eye-slash"
+                            : "fa-bullhorn"
+                        }"></i>
+                    </button>
+
+                    <button
+                        class="icon-btn delete"
+                        title="Delete"
+                        onclick="deleteNotification('${n.id}')"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+    `;
+}
+
+/* =========================================================
+   ADD
+========================================================= */
+
+function openAdd(){
+
+    document.getElementById("modalTitle").textContent =
+        "Create Notification";
+
+    document.getElementById("editId").value = "";
+
+    document.getElementById("title").value = "";
+    document.getElementById("message").value = "";
+
+    document.getElementById("type").value =
+        "announcement";
+
+    document.getElementById("priority").value =
+        "normal";
+
+    document.getElementById("audience").value =
+        "all-users";
+
+    document.getElementById("status").value =
+        "draft";
+
+    document.getElementById("scheduleDate").value = "";
+    document.getElementById("scheduleTime").value = "";
+
+    document.getElementById("icon").value =
+        "fa-bell";
+
+    document.getElementById("actionUrl").value = "";
+
+    document.getElementById("showInApp").checked = true;
+    document.getElementById("pushStyle").checked = false;
+    document.getElementById("markUnread").checked = true;
+    document.getElementById("featured").checked = false;
+
+    document.getElementById("modal").classList.add("show");
+}
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+function editNotification(id){
+
+    const n = notifications.find(
+        item => item.id === id
+    );
+
+    if(!n) return;
+
+    document.getElementById("modalTitle").textContent =
+        "Edit Notification";
+
+    document.getElementById("editId").value = n.id;
+
+    document.getElementById("title").value = n.title;
+    document.getElementById("message").value = n.message;
+    document.getElementById("type").value = n.type;
+    document.getElementById("priority").value = n.priority;
+    document.getElementById("audience").value = n.audience;
+    document.getElementById("status").value = n.status;
+    document.getElementById("scheduleDate").value =
+        n.scheduleDate || "";
+    document.getElementById("scheduleTime").value =
+        n.scheduleTime || "";
+    document.getElementById("icon").value =
+        n.icon || "fa-bell";
+    document.getElementById("actionUrl").value =
+        n.actionUrl || "";
+
+    document.getElementById("showInApp").checked =
+        n.showInApp !== false;
+
+    document.getElementById("pushStyle").checked =
+        !!n.pushStyle;
+
+    document.getElementById("markUnread").checked =
+        n.markUnread !== false;
+
+    document.getElementById("featured").checked =
+        !!n.featured;
+
+    document.getElementById("modal").classList.add("show");
+}
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveNotification(){
+
+    const title =
+        document.getElementById("title").value.trim();
+
+    const message =
+        document.getElementById("message").value.trim();
+
+    if(!title || !message){
+
+        toast("Title aur message required hai.");
+
+        return;
+    }
+
+    const editId =
+        document.getElementById("editId").value;
+
+    const data = {
+
+        title,
+        message,
+
+        type:
+            document.getElementById("type").value,
+
+        priority:
+            document.getElementById("priority").value,
+
+        audience:
+            document.getElementById("audience").value,
+
+        status:
+            document.getElementById("status").value,
+
+        scheduleDate:
+            document.getElementById("scheduleDate").value,
+
+        scheduleTime:
+            document.getElementById("scheduleTime").value,
+
+        icon:
+            document.getElementById("icon").value,
+
+        actionUrl:
+            document.getElementById("actionUrl").value.trim(),
+
+        showInApp:
+            document.getElementById("showInApp").checked,
+
+        pushStyle:
+            document.getElementById("pushStyle").checked,
+
+        markUnread:
+            document.getElementById("markUnread").checked,
+
+        featured:
+            document.getElementById("featured").checked
+
+    };
+
+    if(editId){
+
+        const index = notifications.findIndex(
+            n => n.id === editId
+        );
+
+        if(index !== -1){
+
+            notifications[index] = {
+                ...notifications[index],
+                ...data,
+                updatedAt:new Date().toISOString()
+            };
+
+        }
+
+        toast("Notification updated.");
+
+    }else{
+
+        notifications.unshift({
+
+            id:cryptoId(),
+
+            ...data,
+
+            createdAt:new Date().toISOString(),
+
+            readCount:0
+
+        });
+
+        toast("Notification created.");
+
+    }
+
+    saveNotifications();
+
+    closeModal();
+
+    render();
+}
+
+/* =========================================================
+   TOGGLE STATUS
+========================================================= */
+
+function toggleStatus(id){
+
+    const n = notifications.find(
+        item => item.id === id
+    );
+
+    if(!n) return;
+
+    if(n.status === "published"){
+
+        n.status = "draft";
+
+        toast("Notification moved to draft.");
+
+    }else{
+
+        n.status = "published";
+
+        toast("Notification published.");
+
+    }
+
+    saveNotifications();
+
+    render();
+}
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteNotification(id){
+
+    const n = notifications.find(
+        item => item.id === id
+    );
+
+    if(!n) return;
+
+    if(!confirm(
+        `Delete "${n.title}" notification?`
+    )){
+        return;
+    }
+
+    notifications =
+        notifications.filter(
+            item => item.id !== id
+        );
+
+    saveNotifications();
+
+    render();
+
+    toast("Notification deleted.");
+}
+
+/* =========================================================
+   VIEW
+========================================================= */
+
+function viewNotification(id){
+
+    const n = notifications.find(
+        item => item.id === id
+    );
+
+    if(!n) return;
+
+    const audienceName = {
+        "all-users":"All Users",
+        "members":"Members",
+        "trainers":"Trainers",
+        "new-users":"New Users",
+        "inactive":"Inactive Users"
+    }[n.audience] || n.audience;
+
+    alert(
+`NOTIFICATION
+
+Title:
+${n.title}
+
+Message:
+${n.message}
+
+Type:
+${n.type}
+
+Priority:
+${n.priority}
+
+Audience:
+${audienceName}
+
+Status:
+${n.status}
+
+Show in App:
+${n.showInApp ? "Yes" : "No"}
+
+Push Style:
+${n.pushStyle ? "Yes" : "No"}
+
+Featured:
+${n.featured ? "Yes" : "No"}
+
+Schedule:
+${n.scheduleDate || "Not scheduled"} ${n.scheduleTime || ""}`
+    );
+}
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportJSON(){
+
+    const blob = new Blob(
+        [JSON.stringify(notifications,null,2)],
+        {type:"application/json"}
+    );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        "sai-fitness-notifications.json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    toast("Notifications exported.");
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
+}
+
+document
+    .getElementById("modal")
+    .addEventListener("click",function(e){
+
+        if(e.target === this){
+            closeModal();
+        }
+
+    });
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const overlay =
+    document.getElementById("overlay");
+
+document
+    .getElementById("mobileMenu")
+    .addEventListener("click",function(){
+
+        sidebar.classList.add("open");
+        overlay.classList.add("show");
+
+    });
+
+overlay.addEventListener("click",function(){
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+});
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function capitalize(value){
+
+    if(!value) return "";
+
+    return value.charAt(0).toUpperCase() +
+        value.slice(1);
+
+}
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+function toast(message){
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer =
+        setTimeout(
+            () => el.classList.remove("show"),
+            2500
+        );
+}
+
+/* =========================================================
+   USER APP SYNC
+   Copies published app-visible notifications into
+   the existing user notification storage.
+========================================================= */
+
+function syncToUserApp(){
+
+    try{
+
+        const userNotifications =
+            notifications
+            .filter(n =>
+                n.status === "published" &&
+                n.showInApp
+            )
+            .map(n => ({
+
+                id:n.id,
+                title:n.title,
+                message:n.message,
+                type:n.type,
+                priority:n.priority,
+                icon:n.icon,
+                actionUrl:n.actionUrl,
+                featured:n.featured,
+                unread:n.markUnread,
+                createdAt:n.createdAt
+
+            }));
+
+        localStorage.setItem(
+            "saiNotifications",
+            JSON.stringify(userNotifications)
+        );
+
+    }catch(e){}
+
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
+syncToUserApp();
+
+render();
+
+/* Keep user notification storage synchronized */
+setInterval(syncToUserApp,5000);
+
+</script>
+
+</body>
+</html>

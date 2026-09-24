@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>App Upload • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --green:#16a34a;
+    --bg:#070b09;
+    --card:#101713;
+    --card2:#0b110d;
+    --text:#f5f7f6;
+    --muted:#8d9a92;
+    --border:rgba(255,255,255,.08);
+    --danger:#ef4444;
+    --orange:#f59e0b;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:255px;
+    position:fixed;
+    inset:0 auto 0 0;
+    background:#0b100d;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:5px 9px 23px;
+}
+
+.logo{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:var(--green);
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.brand strong{
+    display:block;
+    font-size:15px;
+}
+
+.brand small{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.nav-title{
+    color:#59655e;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:18px 10px 8px;
+    text-transform:uppercase;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 11px;
+    border-radius:11px;
+    color:#aab5ae;
+    text-decoration:none;
+    font-size:12px;
+    margin-bottom:3px;
+}
+
+.nav a i{
+    width:18px;
+    text-align:center;
+}
+
+.nav a:hover{
+    background:rgba(255,255,255,.05);
+    color:#fff;
+}
+
+.nav a.active{
+    background:rgba(22,163,74,.14);
+    color:#fff;
+    border:1px solid rgba(22,163,74,.18);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:255px;
+    width:calc(100% - 255px);
+    padding:27px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.topbar h1{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.topbar p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.mobile-menu{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:var(--card);
+    color:#fff;
+    border:1px solid var(--border);
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    border-radius:11px;
+    padding:11px 15px;
+    color:#fff;
+    font-weight:700;
+    font-size:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-primary{
+    background:var(--green);
+}
+
+.btn-dark{
+    background:#18201b;
+    border:1px solid var(--border);
+}
+
+.btn-danger{
+    background:#7f1d1d;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:19px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:18px;
+}
+
+.title{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.sub{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:17px;
+}
+
+/* UPLOAD AREA */
+
+.upload-box{
+    border:1.5px dashed rgba(22,163,74,.4);
+    background:rgba(22,163,74,.04);
+    border-radius:16px;
+    padding:35px 20px;
+    text-align:center;
+    transition:.2s;
+}
+
+.upload-box.drag{
+    border-color:var(--green);
+    background:rgba(22,163,74,.1);
+}
+
+.upload-icon{
+    width:64px;
+    height:64px;
+    border-radius:18px;
+    background:rgba(22,163,74,.13);
+    color:#4ade80;
+    display:grid;
+    place-items:center;
+    font-size:25px;
+    margin:0 auto 14px;
+}
+
+.upload-box h2{
+    font-size:15px;
+    margin-bottom:7px;
+}
+
+.upload-box p{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+}
+
+.file-btn{
+    display:inline-flex;
+    margin-top:15px;
+    background:var(--green);
+    color:#fff;
+    border-radius:10px;
+    padding:11px 17px;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+#packageFile{
+    display:none;
+}
+
+/* FILE INFO */
+
+.file-info{
+    display:none;
+    margin-top:16px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:14px;
+}
+
+.file-info.show{
+    display:block;
+}
+
+.file-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.file-row:last-child{
+    border-bottom:0;
+}
+
+.file-label{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.file-value{
+    font-size:11px;
+    font-weight:700;
+    text-align:right;
+    max-width:65%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* FORM */
+
+.form{
+    margin-top:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#aab5ae;
+    font-size:10px;
+    font-weight:700;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    background:#080d0a;
+    color:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:11px;
+    outline:none;
+    font-size:11px;
+}
+
+.field textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:var(--green);
+}
+
+.form-actions{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+}
+
+.stat i{
+    color:#4ade80;
+    margin-bottom:9px;
+}
+
+.stat strong{
+    display:block;
+    font-size:18px;
+}
+
+.stat span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:4px;
+}
+
+/* RIGHT INFO */
+
+.info-box{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.info-box:last-child{
+    margin-bottom:0;
+}
+
+.info-box h3{
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.info-box p,
+.info-box li{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.7;
+}
+
+.info-box ul{
+    padding-left:17px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    border-radius:20px;
+    padding:5px 8px;
+    font-size:9px;
+    font-weight:800;
+    background:rgba(22,163,74,.12);
+    color:#4ade80;
+}
+
+/* HISTORY */
+
+.history{
+    margin-top:18px;
+}
+
+.history-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.release{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.release-icon{
+    width:39px;
+    height:39px;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+    background:rgba(22,163,74,.12);
+    color:#4ade80;
+}
+
+.release-info{
+    flex:1;
+    min-width:0;
+}
+
+.release-info strong{
+    display:block;
+    font-size:11px;
+}
+
+.release-info span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.release-actions{
+    display:flex;
+    gap:5px;
+}
+
+.icon-btn{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#151d17;
+    color:#fff;
+}
+
+.icon-btn.danger{
+    color:#f87171;
+}
+
+/* WARNING */
+
+.warning{
+    margin-top:18px;
+    padding:13px 15px;
+    border-radius:13px;
+    border:1px solid rgba(245,158,11,.18);
+    background:rgba(245,158,11,.06);
+    color:#d8bd80;
+    font-size:10px;
+    line-height:1.7;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    background:#151c17;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:12px 17px;
+    border-radius:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:99999;
+    font-size:12px;
+    font-weight:700;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:17px;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar h1{
+        font-size:21px;
+    }
+
+    .actions{
+        width:100%;
+    }
+
+    .actions .btn{
+        flex:1;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .release{
+        align-items:flex-start;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="logo">SF</div>
+        <div>
+            <strong>Sai Fitness</strong>
+            <small>Admin Panel</small>
+        </div>
+    </div>
+
+    <nav class="nav">
+
+        <div class="nav-title">Dashboard</div>
+
+        <a href="index.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+        </a>
+
+        <div class="nav-title">Management</div>
+
+        <a href="members.html">
+            <i class="fa-solid fa-users"></i>
+            Members
+        </a>
+
+        <a href="workouts.html">
+            <i class="fa-solid fa-dumbbell"></i>
+            Workouts
+        </a>
+
+        <a href="exercises.html">
+            <i class="fa-solid fa-person-running"></i>
+            Exercises
+        </a>
+
+        <a href="diet.html">
+            <i class="fa-solid fa-apple-whole"></i>
+            Diet
+        </a>
+
+        <a href="goals.html">
+            <i class="fa-solid fa-bullseye"></i>
+            Goals
+        </a>
+
+        <a href="achievements.html">
+            <i class="fa-solid fa-trophy"></i>
+            Achievements
+        </a>
+
+        <a href="notifications.html">
+            <i class="fa-solid fa-bell"></i>
+            Notifications
+        </a>
+
+        <div class="nav-title">Customization</div>
+
+        <a href="theme.html">
+            <i class="fa-solid fa-palette"></i>
+            Theme Studio
+        </a>
+
+        <a href="css-manager.html">
+            <i class="fa-solid fa-code"></i>
+            CSS Manager
+        </a>
+
+        <a href="animation-manager.html">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Animations
+        </a>
+
+        <a href="media.html">
+            <i class="fa-solid fa-photo-film"></i>
+            Media
+        </a>
+
+        <a href="content.html">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Content
+        </a>
+
+        <a href="page-builder.html">
+            <i class="fa-solid fa-layer-group"></i>
+            Page Builder
+        </a>
+
+        <div class="nav-title">Growth</div>
+
+        <a href="seo.html">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            SEO Manager
+        </a>
+
+        <a href="analytics.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            Analytics
+        </a>
+
+        <div class="nav-title">System</div>
+
+        <a href="app-upload.html" class="active">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            App Upload
+        </a>
+
+        <a href="backup.html">
+            <i class="fa-solid fa-database"></i>
+            Backup
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+
+        <a href="security.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Security
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div style="display:flex;gap:10px;align-items:flex-start">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+                <h1>App Upload</h1>
+                <p>
+                    Manage Sai Fitness app packages and releases.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="btn btn-dark"
+                id="clearBtn">
+                <i class="fa-solid fa-trash-can"></i>
+                Clear
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <i class="fa-solid fa-box"></i>
+            <strong id="packageCount">0</strong>
+            <span>Saved Packages</span>
+        </div>
+
+        <div class="stat">
+            <i class="fa-solid fa-code-branch"></i>
+            <strong id="latestVersion">—</strong>
+            <span>Latest Version</span>
+        </div>
+
+        <div class="stat">
+            <i class="fa-solid fa-hard-drive"></i>
+            <strong id="totalSize">0 KB</strong>
+            <span>Total Stored Size</span>
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+        <!-- LEFT -->
+
+        <section>
+
+            <div class="card">
+
+                <div class="title">
+                    Upload App Package
+                </div>
+
+                <div class="sub">
+                    Select a ZIP package of your Sai Fitness app.
+                </div>
+
+                <div
+                    class="upload-box"
+                    id="uploadBox">
+
+                    <div class="upload-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+
+                    <h2>
+                        Drop app package here
+                    </h2>
+
+                    <p>
+                        Supported: ZIP, HTML package or backup package
+                    </p>
+
+                    <label
+                        class="file-btn"
+                        for="packageFile">
+
+                        <i class="fa-solid fa-folder-open"></i>
+                        Choose Package
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="packageFile"
+                        accept=".zip,.html,.json,.txt">
+
+                </div>
+
+
+                <div
+                    class="file-info"
+                    id="fileInfo">
+
+                    <div class="file-row">
+                        <span class="file-label">
+                            File Name
+                        </span>
+
+                        <span
+                            class="file-value"
+                            id="fileName">
+                        </span>
+                    </div>
+
+                    <div class="file-row">
+                        <span class="file-label">
+                            File Size
+                        </span>
+
+                        <span
+                            class="file-value"
+                            id="fileSize">
+                        </span>
+                    </div>
+
+                    <div class="file-row">
+                        <span class="file-label">
+                            File Type
+                        </span>
+
+                        <span
+                            class="file-value"
+                            id="fileType">
+                        </span>
+                    </div>
+
+                    <div class="file-row">
+                        <span class="file-label">
+                            Modified
+                        </span>
+
+                        <span
+                            class="file-value"
+                            id="fileDate">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <div class="form">
+
+                    <div class="form-grid">
+
+                        <div class="field">
+
+                            <label>
+                                App Version
+                            </label>
+
+                            <input
+                                id="version"
+                                type="text"
+                                placeholder="1.0.0">
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Release Type
+                            </label>
+
+                            <select id="releaseType">
+
+                                <option value="stable">
+                                    Stable
+                                </option>
+
+                                <option value="beta">
+                                    Beta
+                                </option>
+
+                                <option value="testing">
+                                    Testing
+                                </option>
+
+                                <option value="hotfix">
+                                    Hotfix
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Release Title
+                            </label>
+
+                            <input
+                                id="releaseTitle"
+                                type="text"
+                                placeholder="Sai Fitness 1.0.0">
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Release Notes
+                            </label>
+
+                            <textarea
+                                id="releaseNotes"
+                                placeholder="What's new in this version?"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            class="btn btn-primary"
+                            id="savePackage">
+
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            Save Release
+
+                        </button>
+
+                        <button
+                            class="btn btn-dark"
+                            id="exportPackages">
+
+                            <i class="fa-solid fa-file-export"></i>
+                            Export Data
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HISTORY -->
+
+            <div class="card history">
+
+                <div class="title">
+                    Release History
+                </div>
+
+                <div class="sub">
+                    Previously saved app releases.
+                </div>
+
+                <div
+                    class="history-list"
+                    id="historyList">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+
+        <aside>
+
+            <div class="card">
+
+                <div class="title">
+                    Package Manager
+                </div>
+
+                <div class="info-box">
+
+                    <h3>
+                        <i class="fa-solid fa-circle-info"></i>
+                        How it works
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            Choose your app ZIP/package.
+                        </li>
+
+                        <li>
+                            Enter the app version.
+                        </li>
+
+                        <li>
+                            Add release notes.
+                        </li>
+
+                        <li>
+                            Save the release record.
+                        </li>
+
+                        <li>
+                            Export package metadata when needed.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>
+                        Current App
+                    </h3>
+
+                    <p>
+                        Name:
+                        <strong>
+                            Sai Fitness Bidupur
+                        </strong>
+                    </p>
+
+                    <p>
+                        Platform:
+                        <strong>
+                            Mobile Web / PWA
+                        </strong>
+                    </p>
+
+                    <p>
+                        Storage:
+                        <strong>
+                            Local Browser
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>
+                        <span class="badge">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Local Manager
+                        </span>
+                    </h3>
+
+                    <p style="margin-top:8px">
+                        This manager stores package metadata locally.
+                        It does not deploy files to a live server.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <strong>Important:</strong>
+                Browser JavaScript cannot securely deploy an uploaded
+                ZIP directly to your hosting server. For real production
+                deployment, a server-side upload/deployment system is required.
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script src="admin-security.js"></script>
+
+<script>
+"use strict";
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+if(
+    window.Security &&
+    typeof Security.requireAuth === "function"
+){
+    Security.requireAuth("app-upload");
+}
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const STORAGE_KEY =
+    "saiAppPackages";
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const fileInput =
+    document.getElementById(
+        "packageFile"
+    );
+
+const uploadBox =
+    document.getElementById(
+        "uploadBox"
+    );
+
+const fileInfo =
+    document.getElementById(
+        "fileInfo"
+    );
+
+const versionInput =
+    document.getElementById(
+        "version"
+    );
+
+const releaseType =
+    document.getElementById(
+        "releaseType"
+    );
+
+const releaseTitle =
+    document.getElementById(
+        "releaseTitle"
+    );
+
+const releaseNotes =
+    document.getElementById(
+        "releaseNotes"
+    );
+
+let selectedFile =
+    null;
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function getPackages(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                STORAGE_KEY
+            ) || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+function savePackages(
+    packages
+){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            packages
+        )
+    );
+
+}
+
+
+function formatSize(bytes){
+
+    if(bytes < 1024){
+
+        return bytes + " B";
+
+    }
+
+    if(bytes < 1024 * 1024){
+
+        return (
+            bytes / 1024
+        ).toFixed(1) + " KB";
+
+    }
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(2) + " MB";
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   FILE SELECT
+   ========================================================= */
+
+fileInput.addEventListener(
+    "change",
+    event => {
+
+        const file =
+            event.target.files[0];
+
+        if(file){
+
+            handleFile(
+                file
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   HANDLE FILE
+   ========================================================= */
+
+function handleFile(file){
+
+    const maxSize =
+        50 * 1024 * 1024;
+
+    if(
+        file.size >
+        maxSize
+    ){
+
+        showToast(
+            "File is larger than 50 MB"
+        );
+
+        fileInput.value =
+            "";
+
+        return;
+
+    }
+
+    selectedFile =
+        file;
+
+    fileInfo.classList.add(
+        "show"
+    );
+
+    document.getElementById(
+        "fileName"
+    ).textContent =
+        file.name;
+
+    document.getElementById(
+        "fileSize"
+    ).textContent =
+        formatSize(
+            file.size
+        );
+
+    document.getElementById(
+        "fileType"
+    ).textContent =
+        file.type ||
+        "Unknown";
+
+    document.getElementById(
+        "fileDate"
+    ).textContent =
+        new Date(
+            file.lastModified
+        ).toLocaleString();
+
+    uploadBox.classList.remove(
+        "drag"
+    );
+
+}
+
+
+/* =========================================================
+   DRAG & DROP
+   ========================================================= */
+
+[
+    "dragenter",
+    "dragover"
+].forEach(
+    eventName => {
+
+        uploadBox.addEventListener(
+            eventName,
+            event => {
+
+                event.preventDefault();
+
+                uploadBox.classList.add(
+                    "drag"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+[
+    "dragleave",
+    "drop"
+].forEach(
+    eventName => {
+
+        uploadBox.addEventListener(
+            eventName,
+            event => {
+
+                event.preventDefault();
+
+                uploadBox.classList.remove(
+                    "drag"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+uploadBox.addEventListener(
+    "drop",
+    event => {
+
+        const file =
+            event.dataTransfer.files[0];
+
+        if(file){
+
+            handleFile(
+                file
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SAVE PACKAGE
+   ========================================================= */
+
+document
+.getElementById("savePackage")
+.addEventListener(
+    "click",
+    () => {
+
+        if(!selectedFile){
+
+            showToast(
+                "First choose an app package"
+            );
+
+            return;
+
+        }
+
+        const version =
+            versionInput.value.trim();
+
+        if(!version){
+
+            showToast(
+                "Enter app version"
+            );
+
+            versionInput.focus();
+
+            return;
+
+        }
+
+        const title =
+            releaseTitle.value.trim() ||
+            `Sai Fitness ${version}`;
+
+        const packages =
+            getPackages();
+
+        const record = {
+
+            id:
+                Date.now(),
+
+            fileName:
+                selectedFile.name,
+
+            fileSize:
+                selectedFile.size,
+
+            fileType:
+                selectedFile.type ||
+                "unknown",
+
+            version:
+                version,
+
+            releaseType:
+                releaseType.value,
+
+            title:
+                title,
+
+            notes:
+                releaseNotes.value.trim(),
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+        packages.unshift(
+            record
+        );
+
+        savePackages(
+            packages
+        );
+
+        renderHistory();
+        updateStats();
+
+        showToast(
+            "Release saved successfully ✓"
+        );
+
+        selectedFile =
+            null;
+
+        fileInput.value =
+            "";
+
+        fileInfo.classList.remove(
+            "show"
+        );
+
+        versionInput.value =
+            "";
+
+        releaseTitle.value =
+            "";
+
+        releaseNotes.value =
+            "";
+
+    }
+);
+
+
+/* =========================================================
+   RENDER HISTORY
+   ========================================================= */
+
+function renderHistory(){
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+    const packages =
+        getPackages();
+
+    if(!packages.length){
+
+        list.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:25px;
+                color:#68756d;
+                font-size:11px;
+            ">
+                <i class="fa-solid fa-box-open"
+                   style="font-size:25px;margin-bottom:9px">
+                </i>
+
+                <br>
+
+                No app releases saved yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        packages.map(
+            item => {
+
+                const date =
+                    new Date(
+                        item.createdAt
+                    ).toLocaleDateString();
+
+                const type =
+                    item.releaseType ||
+                    "stable";
+
+                return `
+
+                <div class="release">
+
+                    <div class="release-icon">
+
+                        <i class="fa-solid fa-box"></i>
+
+                    </div>
+
+                    <div class="release-info">
+
+                        <strong>
+                            ${escapeHTML(
+                                item.title
+                            )}
+                        </strong>
+
+                        <span>
+                            v${escapeHTML(
+                                item.version
+                            )}
+                            •
+                            ${escapeHTML(
+                                type
+                            )}
+                            •
+                            ${escapeHTML(
+                                date
+                            )}
+                            •
+                            ${formatSize(
+                                item.fileSize
+                            )}
+                        </span>
+
+                    </div>
+
+                    <div class="release-actions">
+
+                        <button
+                            class="icon-btn"
+                            title="View"
+                            onclick="viewPackage(${item.id})">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                        <button
+                            class="icon-btn danger"
+                            title="Delete"
+                            onclick="deletePackage(${item.id})">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   VIEW PACKAGE
+   ========================================================= */
+
+window.viewPackage =
+function(id){
+
+    const packages =
+        getPackages();
+
+    const item =
+        packages.find(
+            p => p.id === id
+        );
+
+    if(!item){
+        return;
+    }
+
+    const notes =
+        item.notes ||
+        "No release notes.";
+
+    alert(
+`Sai Fitness Release
+
+Title: ${item.title}
+Version: ${item.version}
+Type: ${item.releaseType}
+File: ${item.fileName}
+Size: ${formatSize(item.fileSize)}
+
+Release Notes:
+${notes}`
+    );
+
+};
+
+
+/* =========================================================
+   DELETE PACKAGE
+   ========================================================= */
+
+window.deletePackage =
+function(id){
+
+    if(
+        !confirm(
+            "Delete this release record?"
+        )
+    ){
+
+        return;
+
+    }
+
+    const packages =
+        getPackages()
+        .filter(
+            p => p.id !== id
+        );
+
+    savePackages(
+        packages
+    );
+
+    renderHistory();
+    updateStats();
+
+    showToast(
+        "Release deleted"
+    );
+
+};
+
+
+/* =========================================================
+   CLEAR ALL
+   ========================================================= */
+
+document
+.getElementById("clearBtn")
+.addEventListener(
+    "click",
+    () => {
+
+        const packages =
+            getPackages();
+
+        if(!packages.length){
+
+            showToast(
+                "Nothing to clear"
+            );
+
+            return;
+
+        }
+
+        if(
+            !confirm(
+                "Delete all saved release records?"
+            )
+        ){
+
+            return;
+
+        }
+
+        localStorage.removeItem(
+            STORAGE_KEY
+        );
+
+        renderHistory();
+        updateStats();
+
+        showToast(
+            "All release records cleared"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   EXPORT
+   ========================================================= */
+
+document
+.getElementById("exportPackages")
+.addEventListener(
+    "click",
+    () => {
+
+        const packages =
+            getPackages();
+
+        if(!packages.length){
+
+            showToast(
+                "No release data to export"
+            );
+
+            return;
+
+        }
+
+        const data = {
+
+            app:
+                "Sai Fitness Bidupur",
+
+            exportedAt:
+                new Date().toISOString(),
+
+            packages:
+                packages
+
+        };
+
+        const blob =
+            new Blob(
+                [
+                    JSON.stringify(
+                        data,
+                        null,
+                        2
+                    )
+                ],
+                {
+                    type:
+                        "application/json"
+                }
+            );
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+        const a =
+            document.createElement(
+                "a"
+            );
+
+        a.href =
+            url;
+
+        a.download =
+            "sai-fitness-app-releases.json";
+
+        a.click();
+
+        URL.revokeObjectURL(
+            url
+        );
+
+        showToast(
+            "Release data exported ✓"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+function updateStats(){
+
+    const packages =
+        getPackages();
+
+    document.getElementById(
+        "packageCount"
+    ).textContent =
+        packages.length;
+
+
+    if(packages.length){
+
+        document.getElementById(
+            "latestVersion"
+        ).textContent =
+            "v" +
+            (
+                packages[0].version ||
+                "—"
+            );
+
+    }else{
+
+        document.getElementById(
+            "latestVersion"
+        ).textContent =
+            "—";
+
+    }
+
+
+    const total =
+        packages.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum +
+                Number(
+                    item.fileSize ||
+                    0
+                ),
+            0
+        );
+
+    document.getElementById(
+        "totalSize"
+    ).textContent =
+        formatSize(
+            total
+        );
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+document
+.getElementById("mobileMenu")
+.addEventListener(
+    "click",
+    () => {
+
+        document
+        .getElementById("sidebar")
+        .classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(
+    message
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+renderHistory();
+updateStats();
+
+</script>
+
+</body>
+</html>

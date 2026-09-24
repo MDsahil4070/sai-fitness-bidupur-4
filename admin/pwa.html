@@ -1,0 +1,4181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>PWA Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070b09;
+  --panel:#0b120e;
+  --card:#101a14;
+  --card2:#131f18;
+  --border:#1e3025;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --text:#f4f8f5;
+  --muted:#91a398;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#3b82f6;
+  --purple:#8b5cf6;
+  --radius:18px;
+}
+
+html,
+body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar{
+  width:260px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:100;
+  overflow-y:auto;
+  padding:20px 14px;
+  background:#09100c;
+  border-right:1px solid var(--border);
+  transition:.25s;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:5px 8px 24px;
+}
+
+.logo{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+  box-shadow:0 8px 25px rgba(22,163,74,.22);
+  color:white;
+}
+
+.brand h2{
+  font-size:15px;
+  font-weight:800;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav-title{
+  padding:12px 10px 7px;
+  color:#607267;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#a9b8ae;
+  text-decoration:none;
+  padding:11px 12px;
+  border-radius:12px;
+  margin:3px 0;
+  font-size:13px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.nav a i{
+  width:19px;
+  text-align:center;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#fff;
+  background:#122319;
+}
+
+.nav a.active{
+  box-shadow:inset 3px 0 var(--green);
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main{
+  margin-left:260px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:72px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:rgba(7,11,9,.92);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+}
+
+.page-title{
+  font-size:19px;
+  font-weight:800;
+}
+
+.page-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+.icon-btn{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:#b7c5bc;
+}
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:28px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero{
+  padding:26px;
+  margin-bottom:20px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(34,197,94,.14),transparent 30%),
+    linear-gradient(145deg,#101a14,#0b120e);
+}
+
+.hero-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.hero-icon{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(22,163,74,.13);
+  border:1px solid rgba(34,197,94,.15);
+  color:var(--green2);
+  font-size:26px;
+}
+
+.hero h1{
+  font-size:25px;
+  margin:15px 0 8px;
+}
+
+.hero p{
+  max-width:780px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.status-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:17px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 11px;
+  border-radius:999px;
+  background:rgba(22,163,74,.1);
+  color:#86efac;
+  border:1px solid rgba(34,197,94,.2);
+  font-size:10px;
+  font-weight:700;
+}
+
+.badge.warning{
+  color:#fbbf24;
+  background:rgba(245,158,11,.08);
+  border-color:rgba(245,158,11,.2);
+}
+
+.badge.blue{
+  color:#93c5fd;
+  background:rgba(59,130,246,.08);
+  border-color:rgba(59,130,246,.2);
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:13px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:17px;
+}
+
+.stat i{
+  color:var(--green2);
+  font-size:17px;
+}
+
+.stat-value{
+  font-size:21px;
+  font-weight:800;
+  margin-top:10px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+/* =========================================
+   GRID / CARD
+========================================= */
+
+.grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:18px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.card-desc{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:4px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group.full-row{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  display:block;
+  color:#b9c7be;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.input,
+.select,
+.textarea{
+  width:100%;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:#0a100d;
+  color:#fff;
+  padding:11px 12px;
+  font-size:12px;
+}
+
+.textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus{
+  border-color:var(--green);
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:10px 13px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:var(--green);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--green2);
+}
+
+.btn-dark{
+  background:#18231d;
+  color:#d9e5dd;
+  border:1px solid var(--border);
+}
+
+.btn-warning{
+  color:#fbbf24;
+  background:rgba(245,158,11,.1);
+  border:1px solid rgba(245,158,11,.2);
+}
+
+.btn-danger{
+  color:#f87171;
+  background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.2);
+}
+
+.btn-blue{
+  color:#93c5fd;
+  background:rgba(59,130,246,.1);
+  border:1px solid rgba(59,130,246,.2);
+}
+
+.full{
+  width:100%;
+}
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.toggle-row:last-child{
+  border-bottom:0;
+}
+
+.toggle-info strong{
+  display:block;
+  font-size:12px;
+}
+
+.toggle-info span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:4px;
+}
+
+.switch{
+  width:44px;
+  height:24px;
+  position:relative;
+  flex:none;
+}
+
+.switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  border-radius:30px;
+  background:#26342c;
+  transition:.2s;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  left:3px;
+  top:3px;
+  border-radius:50%;
+  background:#9aa69e;
+  transition:.2s;
+}
+
+.switch input:checked + .slider{
+  background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(20px);
+  background:#fff;
+}
+
+/* =========================================
+   INFO
+========================================= */
+
+.info{
+  display:flex;
+  gap:11px;
+  padding:14px;
+  border-radius:14px;
+  background:#0b120e;
+  border:1px solid var(--border);
+  margin-bottom:11px;
+}
+
+.info i{
+  color:var(--green2);
+  margin-top:2px;
+}
+
+.info strong{
+  font-size:11px;
+}
+
+.info p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin-top:4px;
+}
+
+/* =========================================
+   CHECKLIST
+========================================= */
+
+.check-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.check-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  background:#0b120e;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.check-icon{
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#17251b;
+  color:var(--green2);
+  flex:none;
+}
+
+.check-item.bad .check-icon{
+  color:#fbbf24;
+  background:#241c0b;
+}
+
+.check-item span{
+  color:#c0cdc4;
+  font-size:10px;
+  font-weight:700;
+}
+
+.check-item small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* =========================================
+   MANIFEST CODE
+========================================= */
+
+.code{
+  background:#070b09;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:13px;
+  color:#9ee6b1;
+  font-family:monospace;
+  font-size:10px;
+  line-height:1.6;
+  white-space:pre-wrap;
+  word-break:break-word;
+  max-height:320px;
+  overflow:auto;
+}
+
+/* =========================================
+   CACHE LIST
+========================================= */
+
+.cache-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.cache-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#0b120e;
+}
+
+.cache-name{
+  font-size:10px;
+  font-weight:700;
+}
+
+.cache-size{
+  color:var(--muted);
+  font-size:9px;
+}
+
+/* =========================================
+   INSTALL BOX
+========================================= */
+
+.install-box{
+  padding:20px;
+  border:1px dashed #2a4934;
+  background:#0b120e;
+  border-radius:15px;
+  text-align:center;
+}
+
+.install-icon{
+  width:62px;
+  height:62px;
+  margin:0 auto 12px;
+  border-radius:18px;
+  background:#15251a;
+  color:var(--green2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+}
+
+.install-box h3{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.install-box p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+/* =========================================
+   ACTION GRID
+========================================= */
+
+.action-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.action-card{
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--card2);
+}
+
+.action-card i{
+  color:var(--green2);
+  font-size:18px;
+  margin-bottom:9px;
+}
+
+.action-card h3{
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.action-card p{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+  margin-bottom:10px;
+}
+
+/* =========================================
+   WARNING
+========================================= */
+
+.warning{
+  background:rgba(245,158,11,.07);
+  border:1px solid rgba(245,158,11,.18);
+  color:#d8b46c;
+  border-radius:14px;
+  padding:13px;
+  font-size:10px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+.warning i{
+  color:#fbbf24;
+  margin-right:5px;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:9999;
+  padding:13px 16px;
+  border-radius:13px;
+  background:#132219;
+  border:1px solid #284333;
+  color:#fff;
+  font-size:11px;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+  transform:translateY(30px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:1100px){
+
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .sidebar{
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .mobile-menu{
+    display:block;
+    margin-right:9px;
+  }
+
+  .topbar{
+    padding:0 16px;
+  }
+
+  .container{
+    padding:18px 14px 30px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full-row{
+    grid-column:auto;
+  }
+
+  .hero{
+    padding:20px;
+  }
+
+  .hero-row{
+    flex-direction:column;
+  }
+
+  .hero h1{
+    font-size:21px;
+  }
+
+  .action-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat-value{
+    font-size:18px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =================================================
+     SIDEBAR
+================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+
+    <div class="logo">
+      <i class="fa-solid fa-dumbbell"></i>
+    </div>
+
+    <div>
+      <h2>Sai Fitness</h2>
+      <span>Bidupur • Admin</span>
+    </div>
+
+  </div>
+
+
+  <div class="nav-title">Main</div>
+
+  <nav class="nav">
+
+    <a href="index.html">
+      <i class="fa-solid fa-chart-line"></i>
+      Dashboard
+    </a>
+
+    <a href="members.html">
+      <i class="fa-solid fa-users"></i>
+      Members
+    </a>
+
+    <a href="workouts.html">
+      <i class="fa-solid fa-dumbbell"></i>
+      Workouts
+    </a>
+
+    <a href="exercises.html">
+      <i class="fa-solid fa-person-running"></i>
+      Exercises
+    </a>
+
+    <a href="diet.html">
+      <i class="fa-solid fa-utensils"></i>
+      Diet
+    </a>
+
+    <a href="goals.html">
+      <i class="fa-solid fa-bullseye"></i>
+      Goals
+    </a>
+
+    <a href="achievements.html">
+      <i class="fa-solid fa-trophy"></i>
+      Achievements
+    </a>
+
+    <a href="notifications.html">
+      <i class="fa-solid fa-bell"></i>
+      Notifications
+    </a>
+
+  </nav>
+
+
+  <div class="nav-title">Customize</div>
+
+  <nav class="nav">
+
+    <a href="theme.html">
+      <i class="fa-solid fa-palette"></i>
+      Theme Studio
+    </a>
+
+    <a href="css-manager.html">
+      <i class="fa-solid fa-code"></i>
+      CSS Manager
+    </a>
+
+    <a href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Animations
+    </a>
+
+    <a href="media.html">
+      <i class="fa-solid fa-photo-film"></i>
+      Media
+    </a>
+
+    <a href="page-builder.html">
+      <i class="fa-solid fa-layer-group"></i>
+      Page Builder
+    </a>
+
+    <a href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i>
+      Content
+    </a>
+
+  </nav>
+
+
+  <div class="nav-title">System</div>
+
+  <nav class="nav">
+
+    <a href="analytics.html">
+      <i class="fa-solid fa-chart-pie"></i>
+      Analytics
+    </a>
+
+    <a href="backup.html">
+      <i class="fa-solid fa-database"></i>
+      Backup & Restore
+    </a>
+
+    <a href="pwa.html" class="active">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      PWA Manager
+    </a>
+
+    <a href="version.html">
+      <i class="fa-solid fa-code-branch"></i>
+      Version
+    </a>
+
+    <a href="maintenance.html">
+      <i class="fa-solid fa-screwdriver-wrench"></i>
+      Maintenance
+    </a>
+
+    <a href="security.html">
+      <i class="fa-solid fa-shield-halved"></i>
+      Security
+    </a>
+
+    <a href="settings.html">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+
+    <a href="#" onclick="logout();return false;">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Logout
+    </a>
+
+  </nav>
+
+</aside>
+
+
+<!-- =================================================
+     MAIN
+================================================= -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;">
+
+    <button class="icon-btn mobile-menu"
+            onclick="toggleSidebar()">
+
+      <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+    <div>
+
+      <div class="page-title">
+        PWA Manager
+      </div>
+
+      <div class="page-sub">
+        Progressive Web App Control Center
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="top-actions">
+
+    <button class="icon-btn"
+            onclick="runPwaCheck()">
+
+      <i class="fa-solid fa-rotate"></i>
+
+    </button>
+
+    <button class="icon-btn"
+            onclick="saveSettings()">
+
+      <i class="fa-solid fa-floppy-disk"></i>
+
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     HERO
+================================================= -->
+
+<section class="hero">
+
+  <div class="hero-row">
+
+    <div>
+
+      <div class="hero-icon">
+
+        <i class="fa-solid fa-mobile-screen-button"></i>
+
+      </div>
+
+      <h1>
+        PWA Control Center
+      </h1>
+
+      <p>
+        Manage installation, manifest, offline cache,
+        service worker, update behaviour, app identity
+        and PWA readiness from one place.
+      </p>
+
+
+      <div class="status-row">
+
+        <div class="badge"
+             id="mainStatus">
+
+          <i class="fa-solid fa-circle-check"></i>
+
+          Checking PWA
+
+        </div>
+
+
+        <div class="badge blue"
+             id="secureBadge">
+
+          <i class="fa-solid fa-lock"></i>
+
+          Checking Security
+
+        </div>
+
+
+        <div class="badge warning"
+             id="installBadge">
+
+          <i class="fa-solid fa-download"></i>
+
+          Install Status
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <button class="btn btn-primary"
+              onclick="saveSettings()">
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        Save Settings
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
+     STATS
+================================================= -->
+
+<section class="stats">
+
+  <div class="stat">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <div class="stat-value"
+         id="scoreValue">
+
+      --
+
+    </div>
+
+    <div class="stat-label">
+      PWA Readiness
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <i class="fa-solid fa-hard-drive"></i>
+
+    <div class="stat-value"
+         id="cacheValue">
+
+      --
+
+    </div>
+
+    <div class="stat-label">
+      Cache Status
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <i class="fa-solid fa-gear"></i>
+
+    <div class="stat-value"
+         id="swValue">
+
+      --
+
+    </div>
+
+    <div class="stat-label">
+      Service Worker
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <i class="fa-solid fa-shield-halved"></i>
+
+    <div class="stat-value"
+         id="secureValue">
+
+      --
+
+    </div>
+
+    <div class="stat-label">
+      Secure Context
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <i class="fa-solid fa-mobile-screen"></i>
+
+    <div class="stat-value"
+         id="installValue">
+
+      --
+
+    </div>
+
+    <div class="stat-label">
+      Install Ready
+    </div>
+
+  </div>
+
+</section>
+
+
+<div class="warning">
+
+  <i class="fa-solid fa-triangle-exclamation"></i>
+
+  PWA installation normally requires HTTPS or localhost.
+  Browser support and install eligibility are controlled by
+  the browser. This admin panel can configure and test your
+  PWA, but it cannot force browser installation.
+
+</div>
+
+
+<div class="grid">
+
+
+<!-- =================================================
+     LEFT COLUMN
+================================================= -->
+
+<div>
+
+
+<!-- APP IDENTITY -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        App Identity
+      </div>
+
+      <div class="card-desc">
+        Manifest and installation information
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label>
+        App Name
+      </label>
+
+      <input
+        class="input"
+        id="appName"
+        placeholder="Sai Fitness Bidupur">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Short Name
+      </label>
+
+      <input
+        class="input"
+        id="shortName"
+        placeholder="Sai Fitness">
+
+    </div>
+
+
+    <div class="form-group full-row">
+
+      <label>
+        Description
+      </label>
+
+      <textarea
+        class="textarea"
+        id="description"
+        placeholder="Your personal fitness and workout companion"></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Start URL
+      </label>
+
+      <input
+        class="input"
+        id="startUrl"
+        placeholder="index.html">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Scope
+      </label>
+
+      <input
+        class="input"
+        id="scope"
+        placeholder="./">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Display Mode
+      </label>
+
+      <select class="select"
+              id="displayMode">
+
+        <option value="standalone">
+          Standalone
+        </option>
+
+        <option value="fullscreen">
+          Fullscreen
+        </option>
+
+        <option value="minimal-ui">
+          Minimal UI
+        </option>
+
+        <option value="browser">
+          Browser
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Orientation
+      </label>
+
+      <select class="select"
+              id="orientation">
+
+        <option value="portrait">
+          Portrait
+        </option>
+
+        <option value="landscape">
+          Landscape
+        </option>
+
+        <option value="any">
+          Any
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- COLORS -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Theme & Browser Colors
+      </div>
+
+      <div class="card-desc">
+        PWA splash screen and browser UI colors
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label>
+        Theme Color
+      </label>
+
+      <input
+        class="input"
+        id="themeColor"
+        placeholder="#070b09">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Background Color
+      </label>
+
+      <input
+        class="input"
+        id="backgroundColor"
+        placeholder="#070b09">
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ICONS -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        PWA Icon Manager
+      </div>
+
+      <div class="card-desc">
+        Icons referenced by manifest.json
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-image"></i>
+
+    <div>
+
+      <strong>
+        192 × 192 Icon
+      </strong>
+
+      <p>
+        File: icon-192.png
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-image"></i>
+
+    <div>
+
+      <strong>
+        512 × 512 Icon
+      </strong>
+
+      <p>
+        File: icon-512.png
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <button class="btn btn-dark full"
+          onclick="checkIcons()">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    Check Icon Files
+
+  </button>
+
+</div>
+
+
+<!-- OFFLINE -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Offline & Cache
+      </div>
+
+      <div class="card-desc">
+        Control offline behaviour and cached assets
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <strong>
+        Offline Support
+      </strong>
+
+      <span>
+        Enable offline application support.
+      </span>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        type="checkbox"
+        id="offlineEnabled">
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <strong>
+        Offline Fallback
+      </strong>
+
+      <span>
+        Use offline.html when content cannot load.
+      </span>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        type="checkbox"
+        id="offlineFallback">
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <strong>
+        Auto Update Cache
+      </strong>
+
+      <span>
+        Allow the service worker to update cached files.
+      </span>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        type="checkbox"
+        id="autoUpdate">
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div style="margin-top:15px;">
+
+    <button class="btn btn-warning"
+            onclick="clearCaches()">
+
+      <i class="fa-solid fa-broom"></i>
+
+      Clear Cache
+
+    </button>
+
+    <button class="btn btn-dark"
+            onclick="inspectCaches()">
+
+      <i class="fa-solid fa-layer-group"></i>
+
+      Inspect Cache
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- SERVICE WORKER -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Service Worker Manager
+      </div>
+
+      <div class="card-desc">
+        Registration, update and cache control
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-gears"></i>
+
+    <div>
+
+      <strong>
+        sw.js
+      </strong>
+
+      <p id="swStatus">
+        Checking service worker...
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="action-grid">
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-plug-circle-check"></i>
+
+      <h3>
+        Register
+      </h3>
+
+      <p>
+        Register the application's service worker.
+      </p>
+
+      <button class="btn btn-primary full"
+              onclick="registerServiceWorker()">
+
+        Register
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-arrows-rotate"></i>
+
+      <h3>
+        Update
+      </h3>
+
+      <p>
+        Ask the browser to check for a newer worker.
+      </p>
+
+      <button class="btn btn-blue full"
+              onclick="updateServiceWorker()">
+
+        Update
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-trash"></i>
+
+      <h3>
+        Unregister
+      </h3>
+
+      <p>
+        Remove service worker registrations.
+      </p>
+
+      <button class="btn btn-danger full"
+              onclick="unregisterServiceWorkers()">
+
+        Unregister
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-rotate"></i>
+
+      <h3>
+        Refresh
+      </h3>
+
+      <p>
+        Refresh status information.
+      </p>
+
+      <button class="btn btn-dark full"
+              onclick="runPwaCheck()">
+
+        Refresh
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- INSTALL EXPERIENCE -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Installation Experience
+      </div>
+
+      <div class="card-desc">
+        Configure the app install experience
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <strong>
+        Install Prompt
+      </strong>
+
+      <span>
+        Capture the browser beforeinstallprompt event.
+      </span>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        type="checkbox"
+        id="installPrompt">
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <strong>
+        Install Button
+      </strong>
+
+      <span>
+        Enable installation action in the user app.
+      </span>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        type="checkbox"
+        id="installButton">
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div style="margin-top:15px;">
+
+    <div class="install-box">
+
+      <div class="install-icon">
+
+        <i class="fa-solid fa-download"></i>
+
+      </div>
+
+      <h3>
+        Install Sai Fitness
+      </h3>
+
+      <p id="installText">
+        Checking browser installation availability...
+      </p>
+
+      <button
+        class="btn btn-primary"
+        id="installBtn"
+        onclick="installApp()">
+
+        <i class="fa-solid fa-mobile-screen-button"></i>
+
+        Install App
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+</div>
+
+
+<!-- =================================================
+     RIGHT COLUMN
+================================================= -->
+
+<div>
+
+
+<!-- PWA CHECK -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        PWA Readiness
+      </div>
+
+      <div class="card-desc">
+        Automatic installation requirement check
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="check-list"
+       id="checkList">
+
+  </div>
+
+</div>
+
+
+<!-- MANIFEST -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Manifest Manager
+      </div>
+
+      <div class="card-desc">
+        Preview and export manifest.json
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="code"
+       id="manifestPreview">
+  </div>
+
+
+  <div style="
+       display:flex;
+       gap:8px;
+       margin-top:12px;
+       flex-wrap:wrap;">
+
+    <button class="btn btn-primary"
+            onclick="downloadManifest()">
+
+      <i class="fa-solid fa-download"></i>
+
+      Download manifest.json
+
+    </button>
+
+
+    <button class="btn btn-dark"
+            onclick="copyManifest()">
+
+      <i class="fa-solid fa-copy"></i>
+
+      Copy
+
+    </button>
+
+
+    <button class="btn btn-blue"
+            onclick="openManifest()">
+
+      <i class="fa-solid fa-up-right-from-square"></i>
+
+      Open
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CACHE INSPECTOR -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Cache Inspector
+      </div>
+
+      <div class="card-desc">
+        Browser Cache Storage information
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="cacheList"
+       class="cache-list">
+
+    <div class="info">
+
+      <i class="fa-solid fa-spinner fa-spin"></i>
+
+      <div>
+
+        <strong>
+          Checking caches...
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- PWA INSTALL -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Installation Status
+      </div>
+
+      <div class="card-desc">
+        Current browser installation state
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="installDetails">
+
+    <div class="info">
+
+      <i class="fa-solid fa-mobile-screen"></i>
+
+      <div>
+
+        <strong>
+          Browser Mode
+        </strong>
+
+        <p>
+          Checking...
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Quick PWA Actions
+      </div>
+
+      <div class="card-desc">
+        Common administration tools
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="action-grid">
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-clipboard-check"></i>
+
+      <h3>
+        Run Full Check
+      </h3>
+
+      <p>
+        Check manifest, service worker, HTTPS and install state.
+      </p>
+
+      <button class="btn btn-primary full"
+              onclick="runPwaCheck()">
+
+        Run Check
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-broom"></i>
+
+      <h3>
+        Clear All Cache
+      </h3>
+
+      <p>
+        Remove browser Cache Storage entries.
+      </p>
+
+      <button class="btn btn-warning full"
+              onclick="clearCaches()">
+
+        Clear Cache
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-file-code"></i>
+
+      <h3>
+        Export Manifest
+      </h3>
+
+      <p>
+        Generate the current manifest configuration.
+      </p>
+
+      <button class="btn btn-dark full"
+              onclick="downloadManifest()">
+
+        Export
+
+      </button>
+
+    </div>
+
+
+    <div class="action-card">
+
+      <i class="fa-solid fa-rotate-left"></i>
+
+      <h3>
+        Reset PWA Settings
+      </h3>
+
+      <p>
+        Restore the default PWA configuration.
+      </p>
+
+      <button class="btn btn-danger full"
+              onclick="resetSettings()">
+
+        Reset
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- IMPORTANT INFO -->
+
+<div class="card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        Deployment Checklist
+      </div>
+
+      <div class="card-desc">
+        Before publishing the app
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-file-code"></i>
+
+    <div>
+
+      <strong>
+        manifest.json
+      </strong>
+
+      <p>
+        Keep the generated manifest.json in the main GYM-PRO folder.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-gears"></i>
+
+    <div>
+
+      <strong>
+        sw.js
+      </strong>
+
+      <p>
+        Keep the service worker in the correct scope. The current
+        main app expects sw.js in the GYM-PRO root.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-images"></i>
+
+    <div>
+
+      <strong>
+        PWA Icons
+      </strong>
+
+      <p>
+        Keep icon-192.png and icon-512.png available at the paths
+        referenced by the manifest.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <i class="fa-solid fa-lock"></i>
+
+    <div>
+
+      <strong>
+        HTTPS
+      </strong>
+
+      <p>
+        Production PWA installation should be served through HTTPS.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SAVE / RESET -->
+
+<div class="card">
+
+  <button class="btn btn-primary full"
+          onclick="saveSettings()">
+
+    <i class="fa-solid fa-floppy-disk"></i>
+
+    Save All PWA Settings
+
+  </button>
+
+
+  <button class="btn btn-dark full"
+          style="margin-top:8px;"
+          onclick="resetSettings()">
+
+    <i class="fa-solid fa-rotate-left"></i>
+
+    Reset PWA Defaults
+
+  </button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+<script>
+
+/* =================================================
+   SAI FITNESS BIDUPUR
+   ADVANCED PWA MANAGER
+================================================= */
+
+
+if(window.Security){
+
+  Security.requireAuth("pwa");
+
+}
+
+
+/* =================================================
+   DEFAULTS
+================================================= */
+
+const DEFAULTS = {
+
+  appName:"Sai Fitness Bidupur",
+
+  shortName:"Sai Fitness",
+
+  description:
+    "Your personal fitness and workout companion",
+
+  startUrl:"index.html",
+
+  scope:"./",
+
+  displayMode:"standalone",
+
+  orientation:"portrait",
+
+  themeColor:"#070b09",
+
+  backgroundColor:"#070b09",
+
+  offlineEnabled:true,
+
+  offlineFallback:true,
+
+  autoUpdate:true,
+
+  installPrompt:true,
+
+  installButton:true,
+
+  updatedAt:null
+
+};
+
+
+let deferredPrompt = null;
+
+
+/* =================================================
+   STORAGE
+================================================= */
+
+function getSettings(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem("saiPWASettings") || "{}"
+      );
+
+    return {
+      ...DEFAULTS,
+      ...saved
+    };
+
+  }catch(error){
+
+    return {
+      ...DEFAULTS
+    };
+
+  }
+
+}
+
+
+function saveSettings(){
+
+  const settings = {
+
+    appName:
+      document.getElementById("appName").value.trim(),
+
+    shortName:
+      document.getElementById("shortName").value.trim(),
+
+    description:
+      document.getElementById("description").value.trim(),
+
+    startUrl:
+      document.getElementById("startUrl").value.trim(),
+
+    scope:
+      document.getElementById("scope").value.trim(),
+
+    displayMode:
+      document.getElementById("displayMode").value,
+
+    orientation:
+      document.getElementById("orientation").value,
+
+    themeColor:
+      document.getElementById("themeColor").value.trim(),
+
+    backgroundColor:
+      document.getElementById("backgroundColor").value.trim(),
+
+    offlineEnabled:
+      document.getElementById("offlineEnabled").checked,
+
+    offlineFallback:
+      document.getElementById("offlineFallback").checked,
+
+    autoUpdate:
+      document.getElementById("autoUpdate").checked,
+
+    installPrompt:
+      document.getElementById("installPrompt").checked,
+
+    installButton:
+      document.getElementById("installButton").checked,
+
+    updatedAt:
+      new Date().toISOString()
+
+  };
+
+
+  localStorage.setItem(
+    "saiPWASettings",
+    JSON.stringify(settings)
+  );
+
+
+  updateManifestPreview();
+
+  updateAllStatus();
+
+  showToast(
+    "All PWA settings saved"
+  );
+
+}
+
+
+/* =================================================
+   LOAD SETTINGS
+================================================= */
+
+function loadSettings(){
+
+  const s = getSettings();
+
+
+  document.getElementById("appName").value =
+    s.appName;
+
+  document.getElementById("shortName").value =
+    s.shortName;
+
+  document.getElementById("description").value =
+    s.description;
+
+  document.getElementById("startUrl").value =
+    s.startUrl;
+
+  document.getElementById("scope").value =
+    s.scope;
+
+  document.getElementById("displayMode").value =
+    s.displayMode;
+
+  document.getElementById("orientation").value =
+    s.orientation;
+
+  document.getElementById("themeColor").value =
+    s.themeColor;
+
+  document.getElementById("backgroundColor").value =
+    s.backgroundColor;
+
+  document.getElementById("offlineEnabled").checked =
+    !!s.offlineEnabled;
+
+  document.getElementById("offlineFallback").checked =
+    !!s.offlineFallback;
+
+  document.getElementById("autoUpdate").checked =
+    !!s.autoUpdate;
+
+  document.getElementById("installPrompt").checked =
+    !!s.installPrompt;
+
+  document.getElementById("installButton").checked =
+    !!s.installButton;
+
+}
+
+
+/* =================================================
+   BUILD MANIFEST
+================================================= */
+
+function buildManifest(){
+
+  const s = getSettings();
+
+
+  return {
+
+    name:s.appName,
+
+    short_name:s.shortName,
+
+    description:s.description,
+
+    start_url:s.startUrl,
+
+    display:s.displayMode,
+
+    background_color:s.backgroundColor,
+
+    theme_color:s.themeColor,
+
+    orientation:s.orientation,
+
+    scope:s.scope,
+
+    icons:[
+
+      {
+        src:"icon-192.png",
+        sizes:"192x192",
+        type:"image/png",
+        purpose:"any maskable"
+      },
+
+      {
+        src:"icon-512.png",
+        sizes:"512x512",
+        type:"image/png",
+        purpose:"any maskable"
+      }
+
+    ]
+
+  };
+
+}
+
+
+function updateManifestPreview(){
+
+  document.getElementById(
+    "manifestPreview"
+  ).textContent =
+    JSON.stringify(
+      buildManifest(),
+      null,
+      2
+    );
+
+}
+
+
+/* =================================================
+   DOWNLOAD MANIFEST
+================================================= */
+
+function downloadManifest(){
+
+  const json =
+    JSON.stringify(
+      buildManifest(),
+      null,
+      2
+    );
+
+
+  const blob =
+    new Blob(
+      [json],
+      {
+        type:"application/manifest+json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download = "manifest.json";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+
+  setTimeout(
+    ()=>{
+      URL.revokeObjectURL(url);
+    },
+    1000
+  );
+
+
+  showToast(
+    "manifest.json downloaded"
+  );
+
+}
+
+
+/* =================================================
+   COPY MANIFEST
+================================================= */
+
+async function copyManifest(){
+
+  const text =
+    JSON.stringify(
+      buildManifest(),
+      null,
+      2
+    );
+
+
+  try{
+
+    await navigator.clipboard.writeText(text);
+
+    showToast(
+      "Manifest copied"
+    );
+
+  }catch(error){
+
+    showToast(
+      "Copy unavailable"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   OPEN MANIFEST
+================================================= */
+
+function openManifest(){
+
+  const json =
+    JSON.stringify(
+      buildManifest(),
+      null,
+      2
+    );
+
+
+  const blob =
+    new Blob(
+      [json],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+
+  setTimeout(
+    ()=>{
+      URL.revokeObjectURL(url);
+    },
+    5000
+  );
+
+}
+
+
+/* =================================================
+   INSTALL PROMPT
+================================================= */
+
+window.addEventListener(
+  "beforeinstallprompt",
+  event=>{
+
+    event.preventDefault();
+
+    deferredPrompt = event;
+
+    updateInstallStatus();
+
+  }
+);
+
+
+async function installApp(){
+
+  if(!deferredPrompt){
+
+    showToast(
+      "Install prompt is not available"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    deferredPrompt.prompt();
+
+    await deferredPrompt.userChoice;
+
+  }catch(error){
+
+  }
+
+
+  deferredPrompt = null;
+
+  updateInstallStatus();
+
+}
+
+
+window.addEventListener(
+  "appinstalled",
+  ()=>{
+
+    deferredPrompt = null;
+
+    updateInstallStatus();
+
+    showToast(
+      "Sai Fitness installed"
+    );
+
+  }
+);
+
+
+/* =================================================
+   SERVICE WORKER
+================================================= */
+
+async function registerServiceWorker(){
+
+  if(!("serviceWorker" in navigator)){
+
+    showToast(
+      "Service Worker not supported"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    location.protocol !== "https:" &&
+    location.hostname !== "localhost" &&
+    location.hostname !== "127.0.0.1"
+  ){
+
+    showToast(
+      "Use HTTPS or localhost"
+    );
+
+    document.getElementById(
+      "swStatus"
+    ).textContent =
+      "HTTPS or localhost is required.";
+
+    return;
+
+  }
+
+
+  try{
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "../sw.js",
+        {
+          scope:"../"
+        }
+      );
+
+
+    document.getElementById(
+      "swStatus"
+    ).textContent =
+      "Service worker registered successfully.";
+
+
+    if(registration.update){
+
+      await registration.update();
+
+    }
+
+
+    showToast(
+      "Service worker registered"
+    );
+
+
+    await checkServiceWorker();
+
+  }catch(error){
+
+    document.getElementById(
+      "swStatus"
+    ).textContent =
+      "Registration failed: " +
+      error.message;
+
+    showToast(
+      "Registration failed"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   UPDATE SERVICE WORKER
+================================================= */
+
+async function updateServiceWorker(){
+
+  if(!("serviceWorker" in navigator)){
+
+    showToast(
+      "Service Worker not supported"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const registrations =
+      await navigator.serviceWorker
+        .getRegistrations();
+
+
+    if(!registrations.length){
+
+      showToast(
+        "No service worker registered"
+      );
+
+      return;
+
+    }
+
+
+    for(
+      const registration
+      of registrations
+    ){
+
+      if(registration.update){
+
+        await registration.update();
+
+      }
+
+    }
+
+
+    showToast(
+      "Service worker update checked"
+    );
+
+
+    await checkServiceWorker();
+
+  }catch(error){
+
+    showToast(
+      "Service worker update failed"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   UNREGISTER
+================================================= */
+
+async function unregisterServiceWorkers(){
+
+  if(!("serviceWorker" in navigator)){
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    "Unregister all service workers from this browser?"
+  )){
+
+    return;
+
+  }
+
+
+  try{
+
+    const registrations =
+      await navigator.serviceWorker
+        .getRegistrations();
+
+
+    let count = 0;
+
+
+    for(
+      const registration
+      of registrations
+    ){
+
+      const result =
+        await registration.unregister();
+
+      if(result){
+        count++;
+      }
+
+    }
+
+
+    showToast(
+      count +
+      " service worker(s) unregistered"
+    );
+
+
+    await checkServiceWorker();
+
+  }catch(error){
+
+    showToast(
+      "Could not unregister"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   CHECK SERVICE WORKER
+================================================= */
+
+async function checkServiceWorker(){
+
+  const status =
+    document.getElementById(
+      "swStatus"
+    );
+
+
+  if(!("serviceWorker" in navigator)){
+
+    status.textContent =
+      "Service workers are not supported.";
+
+    document.getElementById(
+      "swValue"
+    ).textContent =
+      "No";
+
+    return false;
+
+  }
+
+
+  try{
+
+    const registrations =
+      await navigator.serviceWorker
+        .getRegistrations();
+
+
+    if(registrations.length){
+
+      status.textContent =
+        registrations.length +
+        " service worker registration(s) found.";
+
+      document.getElementById(
+        "swValue"
+      ).textContent =
+        "Active";
+
+      return true;
+
+    }
+
+
+    status.textContent =
+      "No registered service worker found.";
+
+    document.getElementById(
+      "swValue"
+    ).textContent =
+      "None";
+
+    return false;
+
+  }catch(error){
+
+    status.textContent =
+      "Unable to inspect service worker.";
+
+    return false;
+
+  }
+
+}
+
+
+/* =================================================
+   CACHE INSPECTOR
+================================================= */
+
+async function inspectCaches(){
+
+  const box =
+    document.getElementById(
+      "cacheList"
+    );
+
+
+  if(!("caches" in window)){
+
+    box.innerHTML = `
+      <div class="info">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <div>
+          <strong>Cache Storage unavailable</strong>
+          <p>Your browser does not expose Cache Storage here.</p>
+        </div>
+      </div>
+    `;
+
+    document.getElementById(
+      "cacheValue"
+    ).textContent =
+      "N/A";
+
+    return;
+
+  }
+
+
+  try{
+
+    const names =
+      await caches.keys();
+
+
+    if(!names.length){
+
+      box.innerHTML = `
+        <div class="info">
+          <i class="fa-solid fa-box-open"></i>
+          <div>
+            <strong>No cache entries found</strong>
+            <p>The service worker may not have created a cache yet.</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById(
+        "cacheValue"
+      ).textContent =
+        "Empty";
+
+      return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    for(
+      const name
+      of names
+    ){
+
+      let count = 0;
+
+
+      try{
+
+        const cache =
+          await caches.open(name);
+
+        const requests =
+          await cache.keys();
+
+        count =
+          requests.length;
+
+      }catch(error){}
+
+
+      const div =
+        document.createElement("div");
+
+
+      div.className =
+        "cache-item";
+
+
+      div.innerHTML = `
+
+        <div>
+
+          <div class="cache-name">
+            <i class="fa-solid fa-box"
+               style="color:var(--green2);margin-right:5px;"></i>
+
+            ${escapeHTML(name)}
+
+          </div>
+
+          <div class="cache-size">
+            ${count} cached request(s)
+          </div>
+
+        </div>
+
+        <button
+          class="btn btn-danger"
+          onclick="deleteSingleCache('${encodeURIComponent(name)}')">
+
+          <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+      `;
+
+
+      box.appendChild(div);
+
+    }
+
+
+    document.getElementById(
+      "cacheValue"
+    ).textContent =
+      names.length + " Cache";
+
+  }catch(error){
+
+    box.innerHTML = `
+      <div class="info">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <div>
+          <strong>Cache inspection failed</strong>
+          <p>${escapeHTML(error.message)}</p>
+        </div>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =================================================
+   DELETE SINGLE CACHE
+================================================= */
+
+async function deleteSingleCache(encoded){
+
+  const name =
+    decodeURIComponent(encoded);
+
+
+  if(!confirm(
+    "Delete cache: " + name + "?"
+  )){
+
+    return;
+
+  }
+
+
+  try{
+
+    const result =
+      await caches.delete(name);
+
+
+    if(result){
+
+      showToast(
+        "Cache deleted"
+      );
+
+    }else{
+
+      showToast(
+        "Cache not found"
+      );
+
+    }
+
+
+    await inspectCaches();
+
+  }catch(error){
+
+    showToast(
+      "Could not delete cache"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   CLEAR ALL CACHE
+================================================= */
+
+async function clearCaches(){
+
+  if(!("caches" in window)){
+
+    showToast(
+      "Cache Storage unavailable"
+    );
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    "Delete all browser Cache Storage entries?"
+  )){
+
+    return;
+
+  }
+
+
+  try{
+
+    const names =
+      await caches.keys();
+
+
+    let deleted = 0;
+
+
+    for(
+      const name
+      of names
+    ){
+
+      const result =
+        await caches.delete(name);
+
+      if(result){
+        deleted++;
+      }
+
+    }
+
+
+    showToast(
+      deleted +
+      " cache(s) cleared"
+    );
+
+
+    await inspectCaches();
+
+  }catch(error){
+
+    showToast(
+      "Could not clear cache"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   ICON CHECK
+================================================= */
+
+async function checkIcons(){
+
+  const files = [
+    "../icon-192.png",
+    "../icon-512.png"
+  ];
+
+
+  let found = 0;
+
+
+  for(
+    const file
+    of files
+  ){
+
+    try{
+
+      const response =
+        await fetch(
+          file,
+          {
+            method:"HEAD",
+            cache:"no-store"
+          }
+        );
+
+
+      if(response.ok){
+
+        found++;
+
+      }
+
+    }catch(error){}
+
+  }
+
+
+  if(found === 2){
+
+    showToast(
+      "Both PWA icons found"
+    );
+
+  }else if(found === 1){
+
+    showToast(
+      "Only one PWA icon found"
+    );
+
+  }else{
+
+    showToast(
+      "PWA icons not found"
+    );
+
+  }
+
+}
+
+
+/* =================================================
+   INSTALL STATUS
+================================================= */
+
+function isStandalone(){
+
+  return (
+    window.matchMedia(
+      "(display-mode: standalone)"
+    ).matches ||
+
+    window.navigator.standalone === true
+  );
+
+}
+
+
+function updateInstallStatus(){
+
+  const badge =
+    document.getElementById(
+      "installBadge"
+    );
+
+  const value =
+    document.getElementById(
+      "installValue"
+    );
+
+  const text =
+    document.getElementById(
+      "installText"
+    );
+
+
+  if(isStandalone()){
+
+    badge.className =
+      "badge";
+
+    badge.innerHTML =
+      '<i class="fa-solid fa-circle-check"></i> Installed';
+
+    value.textContent =
+      "Yes";
+
+    text.textContent =
+      "Sai Fitness is currently running as an installed app.";
+
+    return;
+
+  }
+
+
+  if(deferredPrompt){
+
+    badge.className =
+      "badge";
+
+    badge.innerHTML =
+      '<i class="fa-solid fa-download"></i> Install Ready';
+
+    value.textContent =
+      "Ready";
+
+    text.textContent =
+      "The browser has provided an install prompt.";
+
+    return;
+
+  }
+
+
+  badge.className =
+    "badge warning";
+
+  badge.innerHTML =
+    '<i class="fa-solid fa-clock"></i> Waiting';
+
+  value.textContent =
+    "Waiting";
+
+  text.textContent =
+    "The browser has not provided an install prompt yet.";
+
+}
+
+
+/* =================================================
+   INSTALL DETAILS
+================================================= */
+
+function renderInstallDetails(){
+
+  const box =
+    document.getElementById(
+      "installDetails"
+    );
+
+
+  const standalone =
+    isStandalone();
+
+
+  const secure =
+    window.isSecureContext;
+
+
+  box.innerHTML = `
+
+    <div class="info">
+
+      <i class="fa-solid ${
+        standalone
+        ? "fa-circle-check"
+        : "fa-globe"
+      }"></i>
+
+      <div>
+
+        <strong>
+          ${
+            standalone
+            ? "Installed / Standalone"
+            : "Browser Mode"
+          }
+        </strong>
+
+        <p>
+          ${
+            standalone
+            ? "The app is running outside the normal browser tab."
+            : "The app is currently running inside the browser."
+          }
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      <i class="fa-solid ${
+        secure
+        ? "fa-lock"
+        : "fa-lock-open"
+      }"></i>
+
+      <div>
+
+        <strong>
+          ${
+            secure
+            ? "Secure Context"
+            : "Non-secure Context"
+          }
+        </strong>
+
+        <p>
+          ${
+            secure
+            ? "HTTPS or another secure browser context is active."
+            : "Use HTTPS or localhost for normal PWA features."
+          }
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =================================================
+   READINESS CHECK
+================================================= */
+
+async function runPwaCheck(){
+
+  updateManifestPreview();
+
+  updateInstallStatus();
+
+  renderInstallDetails();
+
+  await checkServiceWorker();
+
+  await inspectCaches();
+
+  await buildChecklist();
+
+}
+
+
+/* =================================================
+   CHECKLIST
+================================================= */
+
+async function buildChecklist(){
+
+  const box =
+    document.getElementById(
+      "checkList"
+    );
+
+
+  box.innerHTML = "";
+
+
+  let score = 0;
+
+  let total = 0;
+
+
+  function check(
+    title,
+    ok,
+    message
+  ){
+
+    total++;
+
+    if(ok){
+      score++;
+    }
+
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+      "check-item" +
+      (ok ? "" : " bad");
+
+
+    div.innerHTML = `
+
+      <div class="check-icon">
+
+        <i class="fa-solid ${
+          ok
+          ? "fa-check"
+          : "fa-circle-exclamation"
+        }"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          ${escapeHTML(title)}
+        </span>
+
+        <small>
+          ${escapeHTML(message)}
+        </small>
+
+      </div>
+
+    `;
+
+
+    box.appendChild(div);
+
+  }
+
+
+  const secure =
+    window.isSecureContext;
+
+
+  const manifest =
+    document.querySelector(
+      'link[rel="manifest"]'
+    );
+
+
+  const swSupported =
+    "serviceWorker" in navigator;
+
+
+  const cacheSupported =
+    "caches" in window;
+
+
+  const settings =
+    getSettings();
+
+
+  check(
+    "Secure Context",
+    secure,
+    secure
+      ? "HTTPS / localhost detected"
+      : "HTTPS or localhost required"
+  );
+
+
+  check(
+    "Manifest Link",
+    !!manifest,
+    manifest
+      ? "Manifest link detected"
+      : "Add manifest.json to application pages"
+  );
+
+
+  check(
+    "Service Worker API",
+    swSupported,
+    swSupported
+      ? "Browser supports service workers"
+      : "Service workers are unavailable"
+  );
+
+
+  check(
+    "Cache Storage",
+    cacheSupported,
+    cacheSupported
+      ? "Cache Storage is supported"
+      : "Cache Storage unavailable"
+  );
+
+
+  check(
+    "Offline Setting",
+    settings.offlineEnabled,
+    settings.offlineEnabled
+      ? "Offline support enabled"
+      : "Offline support disabled"
+  );
+
+
+  check(
+    "Offline Fallback",
+    settings.offlineFallback,
+    settings.offlineFallback
+      ? "offline.html fallback enabled"
+      : "Fallback disabled"
+  );
+
+
+  check(
+    "PWA Icons",
+    true,
+    "Manifest references 192px and 512px icons"
+  );
+
+
+  check(
+    "Start URL",
+    !!settings.startUrl,
+    settings.startUrl
+      ? "Start URL configured"
+      : "Start URL missing"
+  );
+
+
+  check(
+    "Scope",
+    !!settings.scope,
+    settings.scope
+      ? "Scope configured"
+      : "Scope missing"
+  );
+
+
+  const percentage =
+    Math.round(
+      (score / total) * 100
+    );
+
+
+  document.getElementById(
+    "scoreValue"
+  ).textContent =
+    percentage + "%";
+
+
+  const main =
+    document.getElementById(
+      "mainStatus"
+    );
+
+
+  if(percentage >= 80){
+
+    main.className =
+      "badge";
+
+    main.innerHTML =
+      '<i class="fa-solid fa-circle-check"></i> PWA Ready';
+
+  }else{
+
+    main.className =
+      "badge warning";
+
+    main.innerHTML =
+      '<i class="fa-solid fa-triangle-exclamation"></i> Setup Needs Attention';
+
+  }
+
+
+  document.getElementById(
+    "secureValue"
+  ).textContent =
+    secure
+      ? "Yes"
+      : "No";
+
+
+  updateInstallStatus();
+
+}
+
+
+/* =================================================
+   RESET
+================================================= */
+
+function resetSettings(){
+
+  if(!confirm(
+    "Reset all PWA Manager settings to defaults?"
+  )){
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(
+    "saiPWASettings"
+  );
+
+
+  loadSettings();
+
+  updateManifestPreview();
+
+  updateAllStatus();
+
+  showToast(
+    "PWA settings reset"
+  );
+
+}
+
+
+/* =================================================
+   GLOBAL STATUS
+================================================= */
+
+async function updateAllStatus(){
+
+  updateInstallStatus();
+
+  renderInstallDetails();
+
+  await checkServiceWorker();
+
+  await inspectCaches();
+
+  await buildChecklist();
+
+}
+
+
+/* =================================================
+   SIDEBAR
+================================================= */
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+function logout(){
+
+  if(!confirm(
+    "Logout from admin panel?"
+  )){
+
+    return;
+
+  }
+
+
+  if(
+    window.Security &&
+    typeof Security.logout === "function"
+  ){
+
+    Security.logout();
+
+  }else{
+
+    location.href =
+      "login.html";
+
+  }
+
+}
+
+
+/* =================================================
+   ESCAPE
+================================================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =================================================
+   TOAST
+================================================= */
+
+function showToast(message){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    window.__toastTimer
+  );
+
+
+  window.__toastTimer =
+    setTimeout(
+      ()=>{
+        toast.classList.remove(
+          "show"
+        );
+      },
+      2600
+    );
+
+}
+
+
+/* =================================================
+   INIT
+================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async ()=>{
+
+    loadSettings();
+
+    updateManifestPreview();
+
+    await updateAllStatus();
+
+  }
+);
+
+
+/* =================================================
+   NETWORK
+================================================= */
+
+window.addEventListener(
+  "online",
+  ()=>{
+    updateAllStatus();
+  }
+);
+
+
+window.addEventListener(
+  "offline",
+  ()=>{
+    updateAllStatus();
+  }
+);
+
+
+/* =================================================
+   VISIBILITY
+================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+    if(!document.hidden){
+      updateAllStatus();
+    }
+  }
+);
+
+
+/* =================================================
+   LIVE MANIFEST PREVIEW
+================================================= */
+
+[
+  "appName",
+  "shortName",
+  "description",
+  "startUrl",
+  "scope",
+  "displayMode",
+  "orientation",
+  "themeColor",
+  "backgroundColor"
+].forEach(id=>{
+
+  const el =
+    document.getElementById(id);
+
+  if(!el) return;
+
+  el.addEventListener(
+    "input",
+    updateManifestPreview
+  );
+
+  el.addEventListener(
+    "change",
+    updateManifestPreview
+  );
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Settings • Sai Fitness Bidupur</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    :root{
+      --bg:#070b09;
+      --panel:#101713;
+      --panel2:#0b110e;
+      --border:rgba(255,255,255,.07);
+      --text:#f4f7f5;
+      --muted:#89968f;
+      --green:#16a34a;
+      --green2:#22c55e;
+      --danger:#ef4444;
+      --warning:#f59e0b;
+    }
+
+    html,
+    body{
+      min-height:100%;
+    }
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Inter",sans-serif;
+      overflow-x:hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    .layout{
+      min-height:100vh;
+      display:flex;
+    }
+
+    /* ==============================
+       SIDEBAR
+    ============================== */
+
+    .sidebar{
+      width:250px;
+      position:fixed;
+      inset:0 auto 0 0;
+      background:#090e0b;
+      border-right:1px solid var(--border);
+      padding:20px 14px;
+      z-index:50;
+      overflow-y:auto;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:6px 9px 22px;
+    }
+
+    .brand-icon{
+      width:43px;
+      height:43px;
+      border-radius:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,#16a34a,#0d6b32);
+      box-shadow:0 10px 25px rgba(22,163,74,.18);
+    }
+
+    .brand-text strong{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .brand-text span{
+      display:block;
+      margin-top:3px;
+      color:#65736b;
+      font-size:10px;
+    }
+
+    .nav-label{
+      padding:12px 10px 7px;
+      color:#4f5d55;
+      font-size:9px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:800;
+    }
+
+    .nav-item{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      width:100%;
+      padding:11px;
+      margin-bottom:3px;
+      border-radius:10px;
+      color:#7e8b84;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:600;
+      transition:.2s;
+    }
+
+    .nav-item i{
+      width:17px;
+      text-align:center;
+      font-size:13px;
+    }
+
+    .nav-item:hover{
+      background:#101813;
+      color:#d9e5df;
+    }
+
+    .nav-item.active{
+      background:rgba(22,163,74,.12);
+      color:#6ee7a0;
+      border:1px solid rgba(22,163,74,.15);
+    }
+
+    .nav-bottom{
+      margin-top:18px;
+      padding-top:15px;
+      border-top:1px solid var(--border);
+    }
+
+    /* ==============================
+       MAIN
+    ============================== */
+
+    .main{
+      margin-left:250px;
+      width:calc(100% - 250px);
+      min-height:100vh;
+    }
+
+    .topbar{
+      height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 28px;
+      border-bottom:1px solid var(--border);
+      background:rgba(7,11,9,.92);
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter:blur(15px);
+    }
+
+    .top-title h1{
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .top-title p{
+      margin-top:3px;
+      color:#68766e;
+      font-size:10px;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .icon-btn{
+      width:38px;
+      height:38px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#101713;
+      color:#8c9992;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+    }
+
+    .user-pill{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px 6px 6px;
+      border:1px solid var(--border);
+      background:#101713;
+      border-radius:999px;
+    }
+
+    .avatar{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#163b25;
+      color:#7df0a8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .user-pill span{
+      color:#b8c2bd;
+      font-size:10px;
+      font-weight:700;
+    }
+
+    .mobile-menu{
+      display:none;
+    }
+
+    /* ==============================
+       CONTENT
+    ============================== */
+
+    .content{
+      padding:26px;
+      max-width:1450px;
+      margin:auto;
+    }
+
+    .hero{
+      padding:22px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 85% 20%,rgba(22,163,74,.12),transparent 35%),
+        var(--panel);
+      margin-bottom:20px;
+    }
+
+    .hero-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .hero-left{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .hero-icon{
+      width:56px;
+      height:56px;
+      flex:0 0 56px;
+      border-radius:16px;
+      background:rgba(22,163,74,.12);
+      color:#5ee894;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:21px;
+    }
+
+    .hero h2{
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+      line-height:1.5;
+    }
+
+    .save-indicator{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:rgba(34,197,94,.08);
+      border:1px solid rgba(34,197,94,.15);
+      color:#6ee7a0;
+      font-size:9px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .save-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#22c55e;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:17px;
+      padding:19px;
+    }
+
+    .card.full{
+      grid-column:1/-1;
+    }
+
+    .card-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:17px;
+    }
+
+    .card-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .card-title-icon{
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      background:rgba(22,163,74,.10);
+      color:#64e995;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+    }
+
+    .card-title h3{
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .card-title p{
+      margin-top:3px;
+      color:#66736c;
+      font-size:9px;
+    }
+
+    /* ==============================
+       SETTINGS
+    ============================== */
+
+    .setting{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      min-height:55px;
+      padding:11px 0;
+      border-bottom:1px solid rgba(255,255,255,.045);
+    }
+
+    .setting:last-child{
+      border-bottom:0;
+    }
+
+    .setting-info{
+      min-width:0;
+      flex:1;
+    }
+
+    .setting-info strong{
+      display:block;
+      font-size:11px;
+      font-weight:700;
+      color:#d5ddd8;
+    }
+
+    .setting-info span{
+      display:block;
+      margin-top:4px;
+      color:#65726b;
+      font-size:9px;
+      line-height:1.45;
+    }
+
+    .toggle{
+      width:45px;
+      height:25px;
+      border:0;
+      border-radius:999px;
+      background:#29322e;
+      position:relative;
+      transition:.2s;
+      flex:0 0 auto;
+    }
+
+    .toggle::after{
+      content:"";
+      position:absolute;
+      width:19px;
+      height:19px;
+      top:3px;
+      left:3px;
+      border-radius:50%;
+      background:#8c9891;
+      transition:.2s;
+    }
+
+    .toggle.on{
+      background:#16a34a;
+    }
+
+    .toggle.on::after{
+      left:23px;
+      background:white;
+    }
+
+    select,
+    input,
+    textarea{
+      width:100%;
+      border:1px solid var(--border);
+      outline:none;
+      background:#0a100d;
+      color:#dce4df;
+      border-radius:10px;
+      padding:0 11px;
+      font-size:11px;
+    }
+
+    select,
+    input{
+      height:40px;
+    }
+
+    textarea{
+      min-height:95px;
+      padding:11px;
+      resize:vertical;
+      line-height:1.5;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus{
+      border-color:rgba(22,163,74,.55);
+      box-shadow:0 0 0 3px rgba(22,163,74,.08);
+    }
+
+    .small-select{
+      width:145px;
+      flex:0 0 145px;
+    }
+
+    /* ==============================
+       FORM GRID
+    ============================== */
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:13px;
+    }
+
+    .form-group{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .form-group.full{
+      grid-column:1/-1;
+    }
+
+    .form-group label{
+      color:#8d9992;
+      font-size:9px;
+      font-weight:700;
+    }
+
+    /* ==============================
+       BUTTONS
+    ============================== */
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:17px;
+    }
+
+    .btn{
+      min-height:40px;
+      border-radius:10px;
+      padding:0 14px;
+      border:1px solid var(--border);
+      background:#101713;
+      color:#b8c2bd;
+      font-size:10px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+    }
+
+    .btn.primary{
+      border-color:rgba(22,163,74,.2);
+      background:#126f35;
+      color:white;
+    }
+
+    .btn.danger{
+      border-color:rgba(239,68,68,.16);
+      background:rgba(239,68,68,.07);
+      color:#fca5a5;
+    }
+
+    .btn:hover{
+      filter:brightness(1.1);
+    }
+
+    /* ==============================
+       INFO
+    ============================== */
+
+    .info{
+      display:flex;
+      gap:10px;
+      padding:12px;
+      border-radius:11px;
+      background:rgba(22,163,74,.055);
+      border:1px solid rgba(22,163,74,.11);
+      color:#91aaa0;
+      font-size:9px;
+      line-height:1.55;
+    }
+
+    .info i{
+      color:#5ee894;
+      margin-top:1px;
+    }
+
+    .warning{
+      background:rgba(245,158,11,.055);
+      border-color:rgba(245,158,11,.12);
+      color:#bda773;
+    }
+
+    .warning i{
+      color:#f59e0b;
+    }
+
+    /* ==============================
+       STORAGE
+    ============================== */
+
+    .storage-box{
+      padding:15px;
+      border-radius:13px;
+      background:#0b110e;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .storage-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:9px;
+    }
+
+    .storage-top strong{
+      font-size:11px;
+    }
+
+    .storage-top span{
+      color:#728078;
+      font-size:9px;
+    }
+
+    .storage-bar{
+      height:7px;
+      border-radius:999px;
+      background:#1a231e;
+      overflow:hidden;
+    }
+
+    .storage-fill{
+      width:0%;
+      height:100%;
+      background:#16a34a;
+      border-radius:999px;
+      transition:.3s;
+    }
+
+    /* ==============================
+       MODAL
+    ============================== */
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.68);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:100;
+      backdrop-filter:blur(7px);
+    }
+
+    .modal.show{
+      display:flex;
+    }
+
+    .modal-card{
+      width:100%;
+      max-width:450px;
+      background:#101713;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 25px 80px rgba(0,0,0,.5);
+      animation:modalIn .2s ease;
+    }
+
+    @keyframes modalIn{
+      from{
+        opacity:0;
+        transform:translateY(12px) scale(.98);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:17px;
+    }
+
+    .modal-head h3{
+      font-size:14px;
+    }
+
+    .close{
+      width:34px;
+      height:34px;
+      border-radius:9px;
+      border:1px solid var(--border);
+      background:#0b110e;
+      color:#89968f;
+    }
+
+    /* ==============================
+       TOAST
+    ============================== */
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      transform:translate(-50%,20px);
+      opacity:0;
+      pointer-events:none;
+      z-index:200;
+      padding:11px 15px;
+      border-radius:11px;
+      background:#16231b;
+      border:1px solid rgba(22,163,74,.25);
+      color:#dfffea;
+      box-shadow:0 15px 40px rgba(0,0,0,.4);
+      font-size:10px;
+      font-weight:700;
+      transition:.25s;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translate(-50%,0);
+    }
+
+    /* ==============================
+       MOBILE
+    ============================== */
+
+    @media(max-width:850px){
+
+      .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+        box-shadow:20px 0 50px rgba(0,0,0,.35);
+      }
+
+      .sidebar.open{
+        transform:translateX(0);
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+      }
+
+      .mobile-menu{
+        display:flex;
+        width:38px;
+        height:38px;
+        border:1px solid var(--border);
+        background:#101713;
+        color:#aab5af;
+        border-radius:10px;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .topbar{
+        padding:0 14px;
+      }
+
+      .top-title{
+        margin-left:8px;
+        flex:1;
+      }
+
+      .top-title h1{
+        font-size:15px;
+      }
+
+      .user-pill{
+        display:none;
+      }
+
+      .content{
+        padding:16px 13px 30px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .card.full{
+        grid-column:auto;
+      }
+
+      .hero-row{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .save-indicator{
+        align-self:flex-start;
+      }
+    }
+
+    @media(max-width:550px){
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .form-group.full{
+        grid-column:auto;
+      }
+
+      .small-select{
+        width:110px;
+        flex-basis:110px;
+      }
+
+      .setting{
+        align-items:flex-start;
+      }
+
+      .hero{
+        padding:17px;
+      }
+
+      .hero h2{
+        font-size:17px;
+      }
+
+      .card{
+        padding:15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ==============================
+       SIDEBAR
+  ============================== -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        <i class="fa-solid fa-dumbbell"></i>
+      </div>
+
+      <div class="brand-text">
+        <strong>Sai Fitness</strong>
+        <span>Admin Control Center</span>
+      </div>
+
+    </div>
+
+    <div class="nav-label">Main</div>
+
+    <a class="nav-item" href="index.html">
+      <i class="fa-solid fa-gauge-high"></i>
+      Dashboard
+    </a>
+
+    <a class="nav-item" href="members.html">
+      <i class="fa-solid fa-users"></i>
+      Members
+    </a>
+
+    <a class="nav-item" href="workouts.html">
+      <i class="fa-solid fa-dumbbell"></i>
+      Workouts
+    </a>
+
+    <a class="nav-item" href="exercises.html">
+      <i class="fa-solid fa-person-running"></i>
+      Exercises
+    </a>
+
+    <a class="nav-item" href="diet.html">
+      <i class="fa-solid fa-apple-whole"></i>
+      Diet
+    </a>
+
+    <a class="nav-item" href="goals.html">
+      <i class="fa-solid fa-bullseye"></i>
+      Goals
+    </a>
+
+    <a class="nav-item" href="achievements.html">
+      <i class="fa-solid fa-trophy"></i>
+      Achievements
+    </a>
+
+    <a class="nav-item" href="notifications.html">
+      <i class="fa-solid fa-bell"></i>
+      Notifications
+    </a>
+
+    <div class="nav-label">Customize</div>
+
+    <a class="nav-item" href="theme.html">
+      <i class="fa-solid fa-palette"></i>
+      Theme Studio
+    </a>
+
+    <a class="nav-item" href="css-manager.html">
+      <i class="fa-solid fa-code"></i>
+      CSS Manager
+    </a>
+
+    <a class="nav-item" href="animation-manager.html">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Animations
+    </a>
+
+    <a class="nav-item" href="media.html">
+      <i class="fa-solid fa-photo-film"></i>
+      Media
+    </a>
+
+    <a class="nav-item" href="page-builder.html">
+      <i class="fa-solid fa-layer-group"></i>
+      Page Builder
+    </a>
+
+    <a class="nav-item" href="content.html">
+      <i class="fa-solid fa-pen-to-square"></i>
+      Content
+    </a>
+
+    <div class="nav-label">System</div>
+
+    <a class="nav-item" href="backup.html">
+      <i class="fa-solid fa-database"></i>
+      Backup
+    </a>
+
+    <a class="nav-item" href="analytics.html">
+      <i class="fa-solid fa-chart-line"></i>
+      Analytics
+    </a>
+
+    <a class="nav-item" href="security.html">
+      <i class="fa-solid fa-shield-halved"></i>
+      Security
+    </a>
+
+    <a class="nav-item active" href="settings.html">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+
+    <div class="nav-bottom">
+
+      <button
+        class="nav-item"
+        id="logoutBtn"
+        style="border:0;background:transparent;text-align:left;">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ==============================
+       MAIN
+  ============================== -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div style="display:flex;align-items:center;">
+
+        <button
+          class="mobile-menu"
+          id="menuBtn"
+          aria-label="Menu">
+
+          <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+        <div class="top-title">
+
+          <h1>Settings</h1>
+
+          <p>
+            Manage application preferences
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="top-actions">
+
+        <a
+          href="index.html"
+          class="icon-btn"
+          title="Dashboard">
+
+          <i class="fa-solid fa-house"></i>
+
+        </a>
+
+        <div class="user-pill">
+
+          <div
+            class="avatar"
+            id="userAvatar">
+            A
+          </div>
+
+          <span id="userName">
+            Administrator
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+      <!-- HERO -->
+
+      <div class="hero">
+
+        <div class="hero-row">
+
+          <div class="hero-left">
+
+            <div class="hero-icon">
+              <i class="fa-solid fa-gear"></i>
+            </div>
+
+            <div>
+
+              <h2>App Settings</h2>
+
+              <p>
+                Control general behavior, user experience,
+                data and administrator preferences.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="save-indicator">
+
+            <span class="save-dot"></span>
+
+            <span id="saveStatus">
+              Settings Ready
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid">
+
+        <!-- GENERAL -->
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <div class="card-title">
+
+              <div class="card-title-icon">
+                <i class="fa-solid fa-sliders"></i>
+              </div>
+
+              <div>
+
+                <h3>General Settings</h3>
+
+                <p>
+                  Basic application behavior
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                User Notifications
+              </strong>
+
+              <span>
+                Allow fitness notifications and reminders.
+              </span>
+
+            </div>
+
+            <button
+              class="toggle"
+              id="notificationsToggle">
+            </button>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                Vibration
+              </strong>
+
+              <span>
+                Enable vibration feedback on supported devices.
+              </span>
+
+            </div>
+
+            <button
+              class="toggle"
+              id="vibrationToggle">
+            </button>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                Sound Feedback
+              </strong>
+
+              <span>
+                Enable sound effects for app interactions.
+              </span>
+
+            </div>
+
+            <button
+              class="toggle"
+              id="soundToggle">
+            </button>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                Dark Mode
+              </strong>
+
+              <span>
+                Use the dark fitness interface.
+              </span>
+
+            </div>
+
+            <button
+              class="toggle"
+              id="darkModeToggle">
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- UNITS -->
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <div class="card-title">
+
+              <div class="card-title-icon">
+                <i class="fa-solid fa-ruler-combined"></i>
+              </div>
+
+              <div>
+
+                <h3>Measurement Units</h3>
+
+                <p>
+                  Default fitness units
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                Weight Unit
+              </strong>
+
+              <span>
+                Unit used for body weight and measurements.
+              </span>
+
+            </div>
+
+            <select
+              id="weightUnit"
+              class="small-select">
+
+              <option value="kg">
+                Kilogram (kg)
+              </option>
+
+              <option value="lb">
+                Pound (lb)
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div class="setting-info">
+
+              <strong>
+                Height Unit
+              </strong>
+
+              <span>
+                Unit used for height measurement.
+              </span>
+
+            </div>
+
+            <select
+              id="heightUnit"
+              class="small-select">
+
+              <option value="cm">
+                Centimeter (cm)
+              </option>
+
+              <option value="ft">
+                Feet / Inch
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="info" style="margin-top:15px;">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <span>
+              These are default app preferences.
+              Individual profile data can still use its
+              own stored values.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- APP IDENTITY -->
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <div class="card-title">
+
+              <div class="card-title-icon">
+                <i class="fa-solid fa-fingerprint"></i>
+              </div>
+
+              <div>
+
+                <h3>Application Identity</h3>
+
+                <p>
+                  Basic app information
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label>
+                Application Name
+              </label>
+
+              <input
+                id="appName"
+                type="text"
+                placeholder="Sai Fitness Bidupur">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Version
+              </label>
+
+              <input
+                id="appVersion"
+                type="text"
+                placeholder="1.0.0">
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label>
+                Tagline
+              </label>
+
+              <input
+                id="appTagline"
+                type="text"
+                placeholder="Train Hard • Stay Strong">
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ADMIN -->
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <div class="card-title">
+
+              <div class="card-title-icon">
+                <i class="fa-solid fa-user-gear"></i>
+              </div>
+
+              <div>
+
+                <h3>Administrator</h3>
+
+                <p>
+                  Current admin information
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label>
+                Admin Name
+              </label>
+
+              <input
+                id="adminName"
+                type="text"
+                placeholder="Administrator">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Username
+              </label>
+
+              <input
+                id="adminUsername"
+                type="text"
+                readonly>
+
+            </div>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              class="btn primary"
+              id="securityBtn">
+
+              <i class="fa-solid fa-shield-halved"></i>
+              Security Center
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- DATA -->
+
+        <div class="card full">
+
+          <div class="card-head">
+
+            <div class="card-title">
+
+              <div class="card-title-icon">
+                <i class="fa-solid fa-database"></i>
+              </div>
+
+              <div>
+
+                <h3>Browser Storage</h3>
+
+                <p>
+                  Local application data
+                </p>
+
+              </div>
+
+            </div>
+
+            <span
+              id="storageText"
+              style="font-size:9px;color:#738078;">
+              Calculating...
+            </span>
+
+          </div>
+
+
+          <div class="storage-box">
+
+            <div class="storage-top">
+
+              <strong>
+                Local Storage Usage
+              </strong>
+
+              <span id="storageDetail">
+                0 KB
+              </span>
+
+            </div>
+
+            <div class="storage-bar">
+
+              <div
+                class="storage-fill"
+                id="storageFill">
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              class="btn"
+              id="exportSettingsBtn">
+
+              <i class="fa-solid fa-file-export"></i>
+              Export Settings
+
+            </button>
+
+            <button
+              class="btn"
+              id="importSettingsBtn">
+
+              <i class="fa-solid fa-file-import"></i>
+              Import Settings
+
+            </button>
+
+            <button
+              class="btn danger"
+              id="resetSettingsBtn">
+
+              <i class="fa-solid fa-rotate-left"></i>
+              Reset App Settings
+
+            </button>
+
+          </div>
+
+
+          <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            hidden>
+
+        </div>
+
+
+        <!-- SAVE -->
+
+        <div class="card full">
+
+          <div class="actions" style="margin-top:0;">
+
+            <button
+              class="btn primary"
+              id="saveBtn">
+
+              <i class="fa-solid fa-floppy-disk"></i>
+              Save All Settings
+
+            </button>
+
+
+            <button
+              class="btn"
+              id="resetFormBtn">
+
+              <i class="fa-solid fa-rotate"></i>
+              Reload
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- WARNING -->
+
+        <div class="card full">
+
+          <div class="info warning">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            <span>
+              <strong>Important:</strong>
+              These settings are primarily browser/localStorage
+              settings in this version. For a production multi-user
+              application, sensitive configuration and authentication
+              should be controlled server-side using PHP/MySQL.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<!-- SECURITY ENGINE -->
+
+<script src="admin-security.js"></script>
+
+<script>
+"use strict";
+
+/* ==========================================
+   AUTH
+========================================== */
+
+if(
+  !window.Security ||
+  typeof Security.requireAuth !== "function"
+){
+
+  document.body.innerHTML = `
+    <div style="
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#070b09;
+      color:#fff;
+      font-family:Inter,sans-serif;
+      text-align:center;
+      padding:20px;">
+      <div>
+        <h2>Security Engine Missing</h2>
+        <p style="color:#87938d;margin-top:8px;">
+          admin-security.js load नहीं हुआ।
+        </p>
+      </div>
+    </div>
+  `;
+
+  throw new Error(
+    "admin-security.js missing"
+  );
+
+}
+
+Security.requireAuth("settings");
+
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+const $ = selector =>
+  document.querySelector(selector);
+
+let toastTimer = null;
+
+let settings = {};
+
+let content = {};
+
+
+function showToast(text){
+
+  const toast =
+    $("#toast");
+
+  clearTimeout(toastTimer);
+
+  toast.textContent =
+    text;
+
+  toast.classList.add("show");
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },2200);
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
+   DEFAULT SETTINGS
+========================================== */
+
+const defaultSettings = {
+
+  notifications:true,
+
+  vibration:true,
+
+  sound:true,
+
+  darkMode:true,
+
+  weightUnit:"kg",
+
+  heightUnit:"cm"
+
+};
+
+
+const defaultContent = {
+
+  appName:"Sai Fitness Bidupur",
+
+  tagline:"Train Hard • Stay Strong",
+
+  version:"1.0.0"
+
+};
+
+
+/* ==========================================
+   LOAD JSON
+========================================== */
+
+function loadJSON(
+  key,
+  fallback
+){
+
+  try{
+
+    const raw =
+      localStorage.getItem(key);
+
+    if(!raw){
+      return fallback;
+    }
+
+    const parsed =
+      JSON.parse(raw);
+
+    return {
+      ...fallback,
+      ...parsed
+    };
+
+  }catch(error){
+
+    return fallback;
+
+  }
+
+}
+
+
+/* ==========================================
+   LOAD APP SETTINGS
+========================================== */
+
+function loadAppSettings(){
+
+  settings =
+    loadJSON(
+      "saiAppSettings",
+      defaultSettings
+    );
+
+}
+
+
+/* ==========================================
+   LOAD CONTENT
+========================================== */
+
+function loadContent(){
+
+  content =
+    loadJSON(
+      "saiAppContent",
+      defaultContent
+    );
+
+}
+
+
+/* ==========================================
+   LOAD ADMIN USER
+========================================== */
+
+function loadAdmin(){
+
+  let user = null;
+
+  try{
+
+    if(
+      typeof Security.getCurrentUser ===
+      "function"
+    ){
+
+      user =
+        Security.getCurrentUser();
+
+    }
+
+  }catch(error){}
+
+  if(!user){
+
+    $("#adminName").value =
+      "Administrator";
+
+    $("#adminUsername").value =
+      "admin";
+
+    return;
+
+  }
+
+  $("#adminName").value =
+    user.name ||
+    "Administrator";
+
+  $("#adminUsername").value =
+    user.username ||
+    "admin";
+
+  const name =
+    user.name ||
+    user.username ||
+    "Administrator";
+
+  $("#userName").textContent =
+    name;
+
+  $("#userAvatar").textContent =
+    name.charAt(0).toUpperCase();
+
+}
+
+
+/* ==========================================
+   APPLY TO FORM
+========================================== */
+
+function applyToForm(){
+
+  $("#notificationsToggle")
+    .classList.toggle(
+      "on",
+      settings.notifications !== false
+    );
+
+  $("#vibrationToggle")
+    .classList.toggle(
+      "on",
+      settings.vibration !== false
+    );
+
+  $("#soundToggle")
+    .classList.toggle(
+      "on",
+      settings.sound !== false
+    );
+
+  $("#darkModeToggle")
+    .classList.toggle(
+      "on",
+      settings.darkMode !== false
+    );
+
+
+  $("#weightUnit").value =
+    settings.weightUnit || "kg";
+
+  $("#heightUnit").value =
+    settings.heightUnit || "cm";
+
+
+  $("#appName").value =
+    content.appName ||
+    defaultContent.appName;
+
+  $("#appTagline").value =
+    content.tagline ||
+    defaultContent.tagline;
+
+  $("#appVersion").value =
+    content.version ||
+    defaultContent.version;
+
+
+  $("#saveStatus").textContent =
+    "Settings Ready";
+
+}
+
+
+/* ==========================================
+   TOGGLE SETTINGS
+========================================== */
+
+function toggleSetting(
+  key,
+  button
+){
+
+  settings[key] =
+    !Boolean(settings[key]);
+
+  button.classList.toggle(
+    "on",
+    settings[key]
+  );
+
+  $("#saveStatus").textContent =
+    "Unsaved Changes";
+
+}
+
+
+/* ==========================================
+   TOGGLE EVENTS
+========================================== */
+
+$("#notificationsToggle")
+  .addEventListener(
+    "click",
+    function(){
+
+      toggleSetting(
+        "notifications",
+        this
+      );
+
+    }
+  );
+
+
+$("#vibrationToggle")
+  .addEventListener(
+    "click",
+    function(){
+
+      toggleSetting(
+        "vibration",
+        this
+      );
+
+    }
+  );
+
+
+$("#soundToggle")
+  .addEventListener(
+    "click",
+    function(){
+
+      toggleSetting(
+        "sound",
+        this
+      );
+
+    }
+  );
+
+
+$("#darkModeToggle")
+  .addEventListener(
+    "click",
+    function(){
+
+      toggleSetting(
+        "darkMode",
+        this
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   UNIT EVENTS
+========================================== */
+
+$("#weightUnit")
+  .addEventListener(
+    "change",
+    function(){
+
+      settings.weightUnit =
+        this.value;
+
+      $("#saveStatus").textContent =
+        "Unsaved Changes";
+
+    }
+  );
+
+
+$("#heightUnit")
+  .addEventListener(
+    "change",
+    function(){
+
+      settings.heightUnit =
+        this.value;
+
+      $("#saveStatus").textContent =
+        "Unsaved Changes";
+
+    }
+  );
+
+
+/* ==========================================
+   SAVE CONTENT
+========================================== */
+
+function collectContent(){
+
+  content.appName =
+    $("#appName").value.trim() ||
+    defaultContent.appName;
+
+  content.tagline =
+    $("#appTagline").value.trim() ||
+    defaultContent.tagline;
+
+  content.version =
+    $("#appVersion").value.trim() ||
+    defaultContent.version;
+
+}
+
+
+/* ==========================================
+   SAVE SETTINGS
+========================================== */
+
+function saveAll(){
+
+  collectContent();
+
+  localStorage.setItem(
+    "saiAppSettings",
+    JSON.stringify(settings)
+  );
+
+  localStorage.setItem(
+    "saiAppContent",
+    JSON.stringify(
+      content
+    )
+  );
+
+
+  /*
+    If the global app engine exposes a save
+    method, keep it synchronized too.
+  */
+
+  try{
+
+    if(
+      window.SaiFitness &&
+      typeof SaiFitness.saveSettings ===
+      "function"
+    ){
+
+      SaiFitness.saveSettings(
+        settings
+      );
+
+    }
+
+  }catch(error){}
+
+
+  try{
+
+    if(
+      window.SaiFitness &&
+      typeof SaiFitness.saveAppContent ===
+      "function"
+    ){
+
+      SaiFitness.saveAppContent(
+        content
+      );
+
+    }
+
+  }catch(error){}
+
+
+  $("#saveStatus").textContent =
+    "All Settings Saved";
+
+  updateStorage();
+
+  showToast(
+    "Settings saved successfully."
+  );
+
+}
+
+
+/* ==========================================
+   SAVE BUTTON
+========================================== */
+
+$("#saveBtn")
+  .addEventListener(
+    "click",
+    saveAll
+  );
+
+
+/* ==========================================
+   RELOAD
+========================================== */
+
+$("#resetFormBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      loadAppSettings();
+      loadContent();
+      loadAdmin();
+      applyToForm();
+
+      showToast(
+        "Settings reloaded."
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   SECURITY CENTER
+========================================== */
+
+$("#securityBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      window.location.href =
+        "security.html";
+
+    }
+  );
+
+
+/* ==========================================
+   STORAGE SIZE
+========================================== */
+
+function calculateStorage(){
+
+  let totalBytes = 0;
+
+  for(
+    let i = 0;
+    i < localStorage.length;
+    i++
+  ){
+
+    const key =
+      localStorage.key(i);
+
+    const value =
+      localStorage.getItem(key) || "";
+
+    totalBytes +=
+      (key.length + value.length) * 2;
+
+  }
+
+  return totalBytes;
+
+}
+
+
+function formatBytes(bytes){
+
+  if(bytes < 1024){
+
+    return bytes + " B";
+
+  }
+
+  if(bytes < 1024 * 1024){
+
+    return (
+      bytes / 1024
+    ).toFixed(1) + " KB";
+
+  }
+
+  return (
+    bytes /
+    (1024 * 1024)
+  ).toFixed(2) + " MB";
+
+}
+
+
+function updateStorage(){
+
+  const bytes =
+    calculateStorage();
+
+  const formatted =
+    formatBytes(bytes);
+
+  $("#storageText").textContent =
+    formatted;
+
+  $("#storageDetail").textContent =
+    formatted;
+
+
+  /*
+    This is only a visual indicator.
+    Browser localStorage limits differ by browser.
+  */
+
+  const assumedLimit =
+    5 * 1024 * 1024;
+
+  const percent =
+    Math.min(
+      100,
+      (bytes / assumedLimit) * 100
+    );
+
+  $("#storageFill").style.width =
+    percent + "%";
+
+}
+
+
+/* ==========================================
+   EXPORT SETTINGS
+========================================== */
+
+$("#exportSettingsBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      collectContent();
+
+      const data = {
+
+        exportedAt:
+          new Date().toISOString(),
+
+        app:
+          "Sai Fitness Bidupur",
+
+        settings:{
+          ...settings
+        },
+
+        content:{
+          ...content
+        },
+
+        adminSettings:
+          loadJSON(
+            "saiAdminSettings",
+            {}
+          )
+
+      };
+
+
+      downloadJSON(
+        data,
+        "sai-fitness-settings.json"
+      );
+
+
+      showToast(
+        "Settings exported."
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   DOWNLOAD JSON
+========================================== */
+
+function downloadJSON(
+  data,
+  filename
+){
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+  const a =
+    document.createElement("a");
+
+  a.href =
+    url;
+
+  a.download =
+    filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  setTimeout(
+    () => URL.revokeObjectURL(url),
+    500
+  );
+
+}
+
+
+/* ==========================================
+   IMPORT SETTINGS
+========================================== */
+
+$("#importSettingsBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      $("#importFile").click();
+
+    }
+  );
+
+
+$("#importFile")
+  .addEventListener(
+    "change",
+    function(){
+
+      const file =
+        this.files?.[0];
+
+      if(!file){
+        return;
+      }
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(){
+
+          try{
+
+            const data =
+              JSON.parse(
+                reader.result
+              );
+
+
+            if(
+              data.settings &&
+              typeof data.settings ===
+              "object"
+            ){
+
+              settings = {
+                ...defaultSettings,
+                ...data.settings
+              };
+
+            }
+
+
+            if(
+              data.content &&
+              typeof data.content ===
+              "object"
+            ){
+
+              content = {
+                ...defaultContent,
+                ...data.content
+              };
+
+            }
+
+
+            if(
+              data.adminSettings &&
+              typeof data.adminSettings ===
+              "object"
+            ){
+
+              localStorage.setItem(
+                "saiAdminSettings",
+                JSON.stringify(
+                  data.adminSettings
+                )
+              );
+
+            }
+
+
+            applyToForm();
+
+            saveAll();
+
+            showToast(
+              "Settings imported successfully."
+            );
+
+          }catch(error){
+
+            console.error(error);
+
+            showToast(
+              "Invalid settings JSON file."
+            );
+
+          }
+
+          $("#importFile").value = "";
+
+        };
+
+
+      reader.readAsText(file);
+
+    }
+  );
+
+
+/* ==========================================
+   RESET APP SETTINGS
+========================================== */
+
+$("#resetSettingsBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      const ok =
+        confirm(
+          "App settings को default पर reset करना है?"
+        );
+
+      if(!ok){
+        return;
+      }
+
+
+      settings = {
+        ...defaultSettings
+      };
+
+
+      content = {
+        ...content,
+        ...defaultContent
+      };
+
+
+      localStorage.setItem(
+        "saiAppSettings",
+        JSON.stringify(
+          settings
+        )
+      );
+
+
+      localStorage.setItem(
+        "saiAppContent",
+        JSON.stringify(
+          content
+        )
+      );
+
+
+      applyToForm();
+      updateStorage();
+
+
+      showToast(
+        "App settings reset हो गईं."
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+$("#logoutBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      if(
+        !confirm(
+          "Admin account से logout करना है?"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      try{
+
+        if(
+          typeof Security.logout ===
+          "function"
+        ){
+
+          Security.logout();
+
+        }else{
+
+          localStorage.removeItem(
+            "saiAdminSession"
+          );
+
+        }
+
+      }catch(error){
+
+        localStorage.removeItem(
+          "saiAdminSession"
+        );
+
+      }
+
+
+      window.location.replace(
+        "login.html"
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+$("#menuBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      $("#sidebar")
+        .classList.toggle(
+          "open"
+        );
+
+    }
+  );
+
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      window.innerWidth > 850
+    ){
+      return;
+    }
+
+    const sidebar =
+      $("#sidebar");
+
+    const menu =
+      $("#menuBtn");
+
+    if(
+      sidebar.classList.contains("open") &&
+      !sidebar.contains(event.target) &&
+      !menu.contains(event.target)
+    ){
+
+      sidebar.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   INPUT CHANGE DETECTION
+========================================== */
+
+[
+  "#appName",
+  "#appTagline",
+  "#appVersion",
+  "#adminName"
+].forEach(selector => {
+
+  const element =
+    $(selector);
+
+  if(!element){
+    return;
+  }
+
+  element.addEventListener(
+    "input",
+    function(){
+
+      $("#saveStatus").textContent =
+        "Unsaved Changes";
+
+    }
+  );
+
+});
+
+
+/* ==========================================
+   INIT
+========================================== */
+
+loadAppSettings();
+
+loadContent();
+
+loadAdmin();
+
+applyToForm();
+
+updateStorage();
+
+</script>
+
+</body>
+</html>

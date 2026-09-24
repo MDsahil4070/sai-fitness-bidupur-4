@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Theme Studio • Sai Fitness Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --bg:#070b09;
+ --card:#101713;
+ --card2:#141d18;
+ --border:#223128;
+ --primary:#16a34a;
+ --text:#f5f7f6;
+ --muted:#91a097;
+ --danger:#ef4444;
+ --warning:#f59e0b;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+.layout{display:flex;min-height:100vh}
+
+.sidebar{
+ width:250px;
+ background:#0b100d;
+ border-right:1px solid var(--border);
+ position:fixed;
+ left:0;top:0;bottom:0;
+ z-index:1000;
+ overflow-y:auto;
+}
+
+.brand{
+ height:76px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:18px;
+ border-bottom:1px solid var(--border);
+}
+
+.brand-logo{
+ width:40px;height:40px;
+ border-radius:12px;
+ background:linear-gradient(135deg,#16a34a,#22c55e);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:white;
+ font-size:20px;
+}
+
+.brand h2{font-size:15px;font-weight:800}
+.brand span{
+ display:block;
+ color:var(--muted);
+ font-size:10px;
+ margin-top:3px;
+}
+
+.nav{padding:14px 10px 30px}
+
+.nav-title{
+ color:#65736a;
+ font-size:10px;
+ font-weight:800;
+ text-transform:uppercase;
+ letter-spacing:1px;
+ padding:14px 10px 7px;
+}
+
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ color:#aab6af;
+ text-decoration:none;
+ padding:11px 12px;
+ margin:3px 0;
+ border-radius:10px;
+ font-size:13px;
+ transition:.2s;
+}
+
+.nav a:hover,.nav a.active{
+ color:#fff;
+ background:#14221a;
+}
+
+.nav a.active{border-left:3px solid #22c55e}
+.nav i{width:20px;text-align:center}
+
+.main{
+ margin-left:250px;
+ width:calc(100% - 250px);
+ min-height:100vh;
+}
+
+.topbar{
+ height:76px;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 28px;
+ background:rgba(7,11,9,.94);
+ position:sticky;
+ top:0;
+ z-index:500;
+ backdrop-filter:blur(15px);
+}
+
+.page-title h1{font-size:20px;font-weight:800}
+.page-title p{
+ color:var(--muted);
+ font-size:11px;
+ margin-top:4px;
+}
+
+.top-actions{display:flex;gap:8px}
+
+.btn{
+ border:1px solid var(--border);
+ background:#101713;
+ color:#dce5df;
+ border-radius:10px;
+ padding:10px 14px;
+ font-size:12px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+}
+
+.btn:hover{background:#17221b}
+
+.btn-primary{
+ background:#16a34a;
+ border-color:#16a34a;
+ color:#fff;
+}
+
+.btn-primary:hover{background:#15803d}
+
+.btn-danger{
+ background:#351313;
+ border-color:#6b2222;
+ color:#ff8b8b;
+}
+
+.btn-warning{
+ background:#33270d;
+ border-color:#66501b;
+ color:#fbbf24;
+}
+
+.container{
+ max-width:1350px;
+ margin:auto;
+ padding:24px;
+}
+
+.hero{
+ background:
+ radial-gradient(circle at 90% 20%,rgba(34,197,94,.18),transparent 35%),
+ linear-gradient(135deg,#101b14,#0c120f);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:25px;
+ margin-bottom:20px;
+}
+
+.hero h2{font-size:23px;margin-bottom:7px}
+.hero p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.6;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:18px;
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px;
+}
+
+.card.full{grid-column:1/-1}
+
+.card-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:18px;
+}
+
+.card-head h3{font-size:15px}
+.card-head p{
+ color:var(--muted);
+ font-size:11px;
+ margin-top:4px;
+}
+
+.icon-title{
+ display:flex;
+ align-items:center;
+ gap:11px;
+}
+
+.icon-box{
+ width:38px;height:38px;
+ border-radius:11px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#15321f;
+ color:#4ade80;
+}
+
+.status{
+ display:inline-flex;
+ align-items:center;
+ gap:6px;
+ font-size:10px;
+ color:#4ade80;
+ background:#102619;
+ border:1px solid #1e4a2b;
+ padding:6px 9px;
+ border-radius:20px;
+}
+
+/* COLORS */
+.color-row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+.color-item{
+ background:#0c120f;
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:12px;
+}
+
+.color-item label{
+ display:block;
+ color:#aab6af;
+ font-size:11px;
+ margin-bottom:8px;
+}
+
+.color-control{
+ display:flex;
+ align-items:center;
+ gap:9px;
+}
+
+.color-control input[type=color]{
+ width:45px;
+ height:38px;
+ padding:2px;
+ border:0;
+ border-radius:8px;
+ background:none;
+}
+
+.hex{
+ flex:1;
+ background:#111914;
+ color:white;
+ border:1px solid var(--border);
+ border-radius:8px;
+ padding:9px;
+ font-size:12px;
+}
+
+/* PRESETS */
+.presets{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+}
+
+.preset{
+ border:1px solid var(--border);
+ background:#0d1410;
+ padding:12px;
+ border-radius:12px;
+ cursor:pointer;
+ text-align:left;
+ color:white;
+}
+
+.preset:hover{border-color:#2f7547}
+
+.preset-preview{
+ height:45px;
+ border-radius:8px;
+ margin-bottom:9px;
+}
+
+.preset strong{font-size:11px}
+.preset small{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
+}
+
+/* RANGE */
+.range-wrap{margin-top:14px}
+
+.range-wrap label{
+ display:flex;
+ justify-content:space-between;
+ color:#aab6af;
+ font-size:11px;
+ margin-bottom:8px;
+}
+
+input[type=range]{
+ width:100%;
+ accent-color:#16a34a;
+}
+
+/* TOGGLE */
+.toggle-row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:13px 0;
+ border-bottom:1px solid #1b251f;
+}
+
+.toggle-row:last-child{border-bottom:0}
+
+.toggle-row strong{font-size:12px}
+
+.toggle-row small{
+ display:block;
+ color:var(--muted);
+ margin-top:3px;
+ font-size:10px;
+}
+
+.switch{
+ position:relative;
+ width:44px;
+ height:24px;
+}
+
+.switch input{display:none}
+
+.slider{
+ position:absolute;
+ inset:0;
+ background:#26322b;
+ border-radius:30px;
+ transition:.2s;
+}
+
+.slider:before{
+ content:"";
+ position:absolute;
+ width:18px;height:18px;
+ left:3px;top:3px;
+ background:white;
+ border-radius:50%;
+ transition:.2s;
+}
+
+.switch input:checked+.slider{background:#16a34a}
+
+.switch input:checked+.slider:before{
+ transform:translateX(20px);
+}
+
+/* UPLOAD */
+.upload-box{
+ border:1px dashed #36513e;
+ background:#0b120e;
+ border-radius:14px;
+ padding:20px;
+ text-align:center;
+ transition:.2s;
+}
+
+.upload-box:hover{
+ border-color:#22c55e;
+ background:#0e1711;
+}
+
+.upload-icon{
+ width:52px;height:52px;
+ margin:0 auto 10px;
+ border-radius:15px;
+ background:#15321f;
+ color:#4ade80;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:22px;
+}
+
+.upload-box h4{
+ font-size:13px;
+ margin-bottom:5px;
+}
+
+.upload-box p{
+ color:var(--muted);
+ font-size:10px;
+ line-height:1.5;
+ margin-bottom:14px;
+}
+
+.file-input{display:none}
+
+.file-label{
+ display:inline-flex;
+ align-items:center;
+ gap:8px;
+ padding:10px 14px;
+ border-radius:9px;
+ background:#16a34a;
+ color:white;
+ font-size:11px;
+ cursor:pointer;
+}
+
+.file-label:hover{background:#15803d}
+
+.file-info{
+ margin-top:12px;
+ display:none;
+ text-align:left;
+ background:#101713;
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:10px;
+ font-size:10px;
+}
+
+.file-info.show{display:block}
+
+.file-info strong{
+ display:block;
+ color:#4ade80;
+ margin-bottom:4px;
+}
+
+.file-info span{color:var(--muted)}
+
+/* CODE */
+.code-box{
+ width:100%;
+ min-height:150px;
+ resize:vertical;
+ background:#080c0a;
+ border:1px solid var(--border);
+ border-radius:10px;
+ color:#b9f6c9;
+ padding:13px;
+ outline:none;
+ font-family:monospace;
+ font-size:11px;
+ line-height:1.6;
+ margin-top:12px;
+}
+
+.code-box:focus{border-color:#28743e}
+
+/* PREVIEW */
+.preview-box{
+ background:#070b09;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:18px;
+}
+
+.preview-app{
+ max-width:390px;
+ margin:auto;
+ border-radius:22px;
+ overflow:hidden;
+ background:#070b09;
+ border:1px solid #25342b;
+ min-height:480px;
+}
+
+.preview-top{
+ padding:18px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.preview-logo{
+ width:43px;height:43px;
+ border-radius:13px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:white;
+ font-size:19px;
+}
+
+.preview-title{font-size:14px;font-weight:800}
+
+.preview-sub{
+ color:#91a097;
+ font-size:9px;
+ margin-top:3px;
+}
+
+.preview-body{padding:8px 18px 25px}
+
+.preview-hero{
+ padding:22px;
+ border-radius:18px;
+ margin-bottom:14px;
+}
+
+.preview-hero h3{
+ font-size:21px;
+ line-height:1.2;
+}
+
+.preview-hero p{
+ color:#aab6af;
+ font-size:10px;
+ line-height:1.5;
+ margin-top:7px;
+}
+
+.preview-btn{
+ border:0;
+ padding:10px 15px;
+ color:white;
+ border-radius:9px;
+ margin-top:13px;
+ font-size:10px;
+ font-weight:700;
+}
+
+.preview-cards{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.preview-card{
+ padding:16px;
+ border-radius:14px;
+}
+
+.preview-card i{font-size:17px}
+
+.preview-card strong{
+ display:block;
+ margin-top:9px;
+ font-size:11px;
+}
+
+.preview-card small{
+ display:block;
+ color:#91a097;
+ font-size:8px;
+ margin-top:3px;
+}
+
+/* UPLOAD LIST */
+.upload-list{
+ margin-top:15px;
+ display:grid;
+ gap:8px;
+}
+
+.upload-item{
+ background:#0c120f;
+ border:1px solid var(--border);
+ border-radius:11px;
+ padding:11px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.upload-item-left{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ min-width:0;
+}
+
+.upload-item-icon{
+ width:35px;height:35px;
+ border-radius:9px;
+ background:#15321f;
+ color:#4ade80;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-shrink:0;
+}
+
+.upload-item-name{
+ font-size:11px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.upload-item-meta{
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
+}
+
+.upload-item-actions{
+ display:flex;
+ gap:5px;
+ flex-shrink:0;
+}
+
+.mini-btn{
+ width:31px;height:31px;
+ border-radius:8px;
+ border:1px solid var(--border);
+ background:#111914;
+ color:#cbd5cf;
+}
+
+.mini-btn:hover{background:#1b271f}
+
+.mini-btn.delete{
+ color:#f87171;
+}
+
+/* ACTION */
+.actions{
+ display:flex;
+ justify-content:flex-end;
+ gap:10px;
+ margin-top:20px;
+}
+
+/* TOAST */
+.toast{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ background:#101713;
+ border:1px solid #2b3a30;
+ color:white;
+ padding:13px 16px;
+ border-radius:12px;
+ font-size:12px;
+ box-shadow:0 15px 40px rgba(0,0,0,.4);
+ transform:translateY(100px);
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:3000;
+}
+
+.toast.show{
+ transform:translateY(0);
+ opacity:1;
+}
+
+/* MOBILE */
+.menu-btn{
+ display:none;
+ border:0;
+ background:none;
+ color:white;
+ font-size:20px;
+}
+
+.overlay{display:none}
+
+@media(max-width:850px){
+
+ .sidebar{
+  transform:translateX(-100%);
+  transition:.25s;
+ }
+
+ .sidebar.open{transform:translateX(0)}
+
+ .overlay.show{
+  display:block;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:900;
+ }
+
+ .main{
+  margin-left:0;
+  width:100%;
+ }
+
+ .menu-btn{display:block}
+
+ .topbar{padding:0 15px}
+
+ .container{padding:15px}
+
+ .grid{grid-template-columns:1fr}
+
+ .card.full{grid-column:auto}
+
+ .presets{grid-template-columns:1fr 1fr}
+
+ .top-actions .btn span{display:none}
+}
+
+@media(max-width:500px){
+
+ .color-row{grid-template-columns:1fr}
+
+ .actions{flex-direction:column}
+
+ .actions .btn{width:100%}
+
+ .presets{grid-template-columns:1fr 1fr}
+
+ .hero{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+ <div class="brand-logo">
+  <i class="fa-solid fa-dumbbell"></i>
+ </div>
+ <div>
+  <h2>Sai Fitness</h2>
+  <span>ADMIN PANEL</span>
+ </div>
+</div>
+
+<nav class="nav">
+
+<div class="nav-title">Dashboard</div>
+
+<a href="index.html">
+ <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+
+<div class="nav-title">Management</div>
+
+<a href="members.html">
+ <i class="fa-solid fa-users"></i> Members
+</a>
+
+<a href="workouts.html">
+ <i class="fa-solid fa-fire"></i> Workouts
+</a>
+
+<a href="exercises.html">
+ <i class="fa-solid fa-dumbbell"></i> Exercises
+</a>
+
+<a href="diet.html">
+ <i class="fa-solid fa-utensils"></i> Diet
+</a>
+
+<a href="goals.html">
+ <i class="fa-solid fa-bullseye"></i> Goals
+</a>
+
+<a href="achievements.html">
+ <i class="fa-solid fa-trophy"></i> Achievements
+</a>
+
+<a href="notifications.html">
+ <i class="fa-solid fa-bell"></i> Notifications
+</a>
+
+<div class="nav-title">Customization</div>
+
+<a href="theme.html" class="active">
+ <i class="fa-solid fa-palette"></i> Theme Studio
+</a>
+
+<a href="css-manager.html">
+ <i class="fa-brands fa-css3-alt"></i> CSS Manager
+</a>
+
+<a href="animation-manager.html">
+ <i class="fa-solid fa-wand-magic-sparkles"></i> Animations
+</a>
+
+<a href="media.html">
+ <i class="fa-solid fa-photo-film"></i> Media Library
+</a>
+
+<a href="page-builder.html">
+ <i class="fa-solid fa-layer-group"></i> Page Builder
+</a>
+
+<a href="content.html">
+ <i class="fa-solid fa-pen-to-square"></i> Content
+</a>
+
+<div class="nav-title">System</div>
+
+<a href="analytics.html">
+ <i class="fa-solid fa-chart-line"></i> Analytics
+</a>
+
+<a href="backup.html">
+ <i class="fa-solid fa-database"></i> Backup
+</a>
+
+<a href="pwa.html">
+ <i class="fa-solid fa-mobile-screen-button"></i> PWA Manager
+</a>
+
+<a href="version.html">
+ <i class="fa-solid fa-code-branch"></i> Versions
+</a>
+
+<a href="maintenance.html">
+ <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance
+</a>
+
+<a href="security.html">
+ <i class="fa-solid fa-shield-halved"></i> Security
+</a>
+
+<a href="settings.html">
+ <i class="fa-solid fa-gear"></i> Settings
+</a>
+
+<div class="nav-title">App</div>
+
+<a href="../index.html">
+ <i class="fa-solid fa-arrow-up-right-from-square"></i> Open User App
+</a>
+
+</nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+
+<div style="display:flex;align-items:center;gap:12px">
+
+<button class="menu-btn" id="menuBtn">
+ <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="page-title">
+ <h1>Theme Studio</h1>
+ <p>Theme, CSS & Animation customization</p>
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<button class="btn" onclick="resetTheme()">
+ <i class="fa-solid fa-rotate-left"></i>
+ <span>Reset</span>
+</button>
+
+<button class="btn btn-primary" onclick="saveTheme()">
+ <i class="fa-solid fa-floppy-disk"></i>
+ <span>Save</span>
+</button>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<section class="hero">
+
+<h2>🎨 Complete Theme Studio</h2>
+
+<p>
+Create your own Sai Fitness appearance. Change colors, UI style,
+upload custom CSS and animation files, preview them and save your
+custom design locally.
+</p>
+
+</section>
+
+<div class="grid">
+
+<!-- COLORS -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+ <i class="fa-solid fa-droplet"></i>
+</div>
+
+<div>
+ <h3>Brand Colors</h3>
+ <p>Customize your main colors</p>
+</div>
+
+</div>
+
+<span class="status">
+ <i class="fa-solid fa-circle"></i> Live
+</span>
+
+</div>
+
+<div class="color-row">
+
+<div class="color-item">
+<label>Primary Color</label>
+
+<div class="color-control">
+<input type="color" id="primaryColor" value="#16a34a">
+<input class="hex" id="primaryHex" value="#16a34a">
+</div>
+
+</div>
+
+<div class="color-item">
+<label>Background</label>
+
+<div class="color-control">
+<input type="color" id="backgroundColor" value="#070b09">
+<input class="hex" id="backgroundHex" value="#070b09">
+</div>
+
+</div>
+
+<div class="color-item">
+<label>Card Color</label>
+
+<div class="color-control">
+<input type="color" id="cardColor" value="#101713">
+<input class="hex" id="cardHex" value="#101713">
+</div>
+
+</div>
+
+<div class="color-item">
+<label>Text Color</label>
+
+<div class="color-control">
+<input type="color" id="textColor" value="#f5f7f6">
+<input class="hex" id="textHex" value="#f5f7f6">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PRESETS -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+ <i class="fa-solid fa-swatchbook"></i>
+</div>
+
+<div>
+ <h3>Theme Presets</h3>
+ <p>One tap theme designs</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="presets">
+
+<button class="preset" onclick="applyPreset('emerald')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#16a34a,#070b09)">
+</div>
+<strong>Emerald Pro</strong>
+<small>Fitness default</small>
+</button>
+
+<button class="preset" onclick="applyPreset('blue')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#2563eb,#070b09)">
+</div>
+<strong>Ocean Blue</strong>
+<small>Modern blue</small>
+</button>
+
+<button class="preset" onclick="applyPreset('purple')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#9333ea,#070b09)">
+</div>
+<strong>Royal Purple</strong>
+<small>Premium purple</small>
+</button>
+
+<button class="preset" onclick="applyPreset('orange')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#f97316,#070b09)">
+</div>
+<strong>Energy Orange</strong>
+<small>High energy</small>
+</button>
+
+<button class="preset" onclick="applyPreset('red')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#ef4444,#070b09)">
+</div>
+<strong>Power Red</strong>
+<small>Bold gym</small>
+</button>
+
+<button class="preset" onclick="applyPreset('gold')">
+<div class="preset-preview"
+style="background:linear-gradient(135deg,#eab308,#070b09)">
+</div>
+<strong>Gold Elite</strong>
+<small>Luxury style</small>
+</button>
+
+</div>
+
+</div>
+
+<!-- UI STYLE -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+ <i class="fa-solid fa-sliders"></i>
+</div>
+
+<div>
+ <h3>UI Style</h3>
+ <p>Adjust interface appearance</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="range-wrap">
+
+<label>
+<span>Corner Radius</span>
+<strong id="radiusValue">18px</strong>
+</label>
+
+<input type="range" id="radius" min="4" max="30" value="18">
+
+</div>
+
+<div class="range-wrap">
+
+<label>
+<span>UI Scale</span>
+<strong id="scaleValue">100%</strong>
+</label>
+
+<input type="range" id="scale" min="90" max="110" value="100">
+
+</div>
+
+</div>
+
+<!-- EFFECTS -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+ <i class="fa-solid fa-wand-magic-sparkles"></i>
+</div>
+
+<div>
+ <h3>Visual Effects</h3>
+ <p>Control UI effects</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="toggle-row">
+
+<div>
+<strong>Glass Effect</strong>
+<small>Translucent interface cards</small>
+</div>
+
+<label class="switch">
+<input type="checkbox" id="glassEffect" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="toggle-row">
+
+<div>
+<strong>Glow Effect</strong>
+<small>Brand color glow</small>
+</div>
+
+<label class="switch">
+<input type="checkbox" id="glowEffect" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="toggle-row">
+
+<div>
+<strong>Animations</strong>
+<small>Enable interface animation</small>
+</div>
+
+<label class="switch">
+<input type="checkbox" id="animations" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+</div>
+
+<!-- CSS UPLOAD -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+ <i class="fa-brands fa-css3-alt"></i>
+</div>
+
+<div>
+<h3>Custom CSS Upload</h3>
+<p>Upload your own CSS file</p>
+</div>
+
+</div>
+
+<span class="status">
+<i class="fa-solid fa-file-code"></i> CSS
+</span>
+
+</div>
+
+<div class="upload-box">
+
+<div class="upload-icon">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+</div>
+
+<h4>Upload Custom CSS</h4>
+
+<p>
+Select a .css file. Its content will be stored locally
+and can be applied to the app.
+</p>
+
+<label class="file-label" for="cssFile">
+<i class="fa-solid fa-upload"></i>
+Choose CSS File
+</label>
+
+<input
+type="file"
+id="cssFile"
+class="file-input"
+accept=".css,text/css">
+
+<div class="file-info" id="cssInfo">
+<strong id="cssName">CSS File</strong>
+<span id="cssMeta"></span>
+</div>
+
+</div>
+
+<textarea
+id="cssEditor"
+class="code-box"
+placeholder="Or paste custom CSS here...
+
+Example:
+.my-card{
+  border-radius:25px;
+}
+"></textarea>
+
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+
+<button class="btn btn-primary" onclick="applyCustomCSS()">
+<i class="fa-solid fa-check"></i>
+Apply CSS
+</button>
+
+<button class="btn" onclick="saveCustomCSS()">
+<i class="fa-solid fa-floppy-disk"></i>
+Save CSS
+</button>
+
+<button class="btn btn-danger" onclick="removeCustomCSS()">
+<i class="fa-solid fa-trash"></i>
+Remove
+</button>
+
+</div>
+
+</div>
+
+<!-- ANIMATION UPLOAD -->
+<div class="card">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+</div>
+
+<div>
+<h3>Animation CSS Upload</h3>
+<p>Upload custom animation styles</p>
+</div>
+
+</div>
+
+<span class="status">
+<i class="fa-solid fa-bolt"></i> FX
+</span>
+
+</div>
+
+<div class="upload-box">
+
+<div class="upload-icon">
+<i class="fa-solid fa-film"></i>
+</div>
+
+<h4>Upload Animation CSS</h4>
+
+<p>
+Upload a CSS animation file containing
+@keyframes and animation rules.
+</p>
+
+<label class="file-label" for="animationFile">
+<i class="fa-solid fa-upload"></i>
+Choose Animation File
+</label>
+
+<input
+type="file"
+id="animationFile"
+class="file-input"
+accept=".css,text/css">
+
+<div class="file-info" id="animationInfo">
+<strong id="animationName">Animation File</strong>
+<span id="animationMeta"></span>
+</div>
+
+</div>
+
+<textarea
+id="animationEditor"
+class="code-box"
+placeholder="Paste animation CSS here...
+
+Example:
+@keyframes pulsePro{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.04)}
+  100%{transform:scale(1)}
+}
+"></textarea>
+
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+
+<button class="btn btn-primary" onclick="applyAnimationCSS()">
+<i class="fa-solid fa-play"></i>
+Apply Animation
+</button>
+
+<button class="btn" onclick="saveAnimationCSS()">
+<i class="fa-solid fa-floppy-disk"></i>
+Save Animation
+</button>
+
+<button class="btn btn-danger" onclick="removeAnimationCSS()">
+<i class="fa-solid fa-trash"></i>
+Remove
+</button>
+
+</div>
+
+</div>
+
+<!-- PREVIEW -->
+<div class="card full">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-eye"></i>
+</div>
+
+<div>
+<h3>Live Preview</h3>
+<p>Theme preview with your current settings</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="preview-box">
+
+<div class="preview-app" id="previewApp">
+
+<div class="preview-top">
+
+<div class="preview-logo" id="previewLogo">
+<i class="fa-solid fa-dumbbell"></i>
+</div>
+
+<div>
+<div class="preview-title">
+Sai Fitness Bidupur
+</div>
+
+<div class="preview-sub">
+Train Hard • Stay Strong
+</div>
+</div>
+
+</div>
+
+<div class="preview-body">
+
+<div class="preview-hero" id="previewHero">
+
+<h3>Build Your Best Body</h3>
+
+<p>
+Track workouts, calories and your daily fitness progress.
+</p>
+
+<button class="preview-btn" id="previewBtn">
+Start Workout
+</button>
+
+</div>
+
+<div class="preview-cards">
+
+<div class="preview-card" id="previewCard1">
+<i class="fa-solid fa-fire"></i>
+<strong>Calories</strong>
+<small>520 kcal</small>
+</div>
+
+<div class="preview-card" id="previewCard2">
+<i class="fa-solid fa-clock"></i>
+<strong>Workout</strong>
+<small>35 minutes</small>
+</div>
+
+<div class="preview-card" id="previewCard3">
+<i class="fa-solid fa-bolt"></i>
+<strong>Streak</strong>
+<small>7 days</small>
+</div>
+
+<div class="preview-card" id="previewCard4">
+<i class="fa-solid fa-trophy"></i>
+<strong>Progress</strong>
+<small>Excellent</small>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SAVED FILES -->
+<div class="card full">
+
+<div class="card-head">
+
+<div class="icon-title">
+
+<div class="icon-box">
+<i class="fa-solid fa-folder-open"></i>
+</div>
+
+<div>
+<h3>Saved Custom Files</h3>
+<p>CSS and animation files stored in this browser</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="upload-list" id="savedFilesList"></div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn" onclick="exportTheme()">
+<i class="fa-solid fa-download"></i>
+Export Theme
+</button>
+
+<button class="btn btn-primary" onclick="saveTheme()">
+<i class="fa-solid fa-check"></i>
+Apply & Save Everything
+</button>
+
+</div>
+
+</div>
+
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin-security.js"></script>
+
+<script>
+/* =========================
+   SECURITY
+========================= */
+
+if(window.Security &&
+   typeof Security.requireAuth==="function"){
+    Security.requireAuth("theme");
+}
+
+/* =========================
+   DEFAULT THEME
+========================= */
+
+const DEFAULT_THEME={
+ primary:"#16a34a",
+ background:"#070b09",
+ card:"#101713",
+ text:"#f5f7f6",
+ radius:18,
+ scale:100,
+ glass:true,
+ glow:true,
+ animations:true
+};
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const primaryColor=document.getElementById("primaryColor");
+const primaryHex=document.getElementById("primaryHex");
+
+const backgroundColor=document.getElementById("backgroundColor");
+const backgroundHex=document.getElementById("backgroundHex");
+
+const cardColor=document.getElementById("cardColor");
+const cardHex=document.getElementById("cardHex");
+
+const textColor=document.getElementById("textColor");
+const textHex=document.getElementById("textHex");
+
+const radius=document.getElementById("radius");
+const scale=document.getElementById("scale");
+
+const glassEffect=document.getElementById("glassEffect");
+const glowEffect=document.getElementById("glowEffect");
+const animations=document.getElementById("animations");
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message){
+
+ const box=document.getElementById("toast");
+
+ box.textContent=message;
+ box.classList.add("show");
+
+ setTimeout(()=>{
+  box.classList.remove("show");
+ },2300);
+}
+
+/* =========================
+   COLOR BIND
+========================= */
+
+function bindColor(color,hex){
+
+ color.addEventListener("input",()=>{
+  hex.value=color.value;
+  updatePreview();
+ });
+
+ hex.addEventListener("input",()=>{
+
+  const value=hex.value.trim();
+
+  if(/^#[0-9A-Fa-f]{6}$/.test(value)){
+   color.value=value;
+   updatePreview();
+  }
+
+ });
+}
+
+bindColor(primaryColor,primaryHex);
+bindColor(backgroundColor,backgroundHex);
+bindColor(cardColor,cardHex);
+bindColor(textColor,textHex);
+
+/* =========================
+   RANGE
+========================= */
+
+radius.addEventListener("input",()=>{
+
+ document.getElementById("radiusValue").textContent=
+ radius.value+"px";
+
+ updatePreview();
+
+});
+
+scale.addEventListener("input",()=>{
+
+ document.getElementById("scaleValue").textContent=
+ scale.value+"%";
+
+ updatePreview();
+
+});
+
+glassEffect.addEventListener("change",updatePreview);
+glowEffect.addEventListener("change",updatePreview);
+animations.addEventListener("change",updatePreview);
+
+/* =========================
+   PREVIEW
+========================= */
+
+function updatePreview(){
+
+ const primary=primaryColor.value;
+ const bg=backgroundColor.value;
+ const card=cardColor.value;
+ const text=textColor.value;
+
+ const r=radius.value;
+ const s=scale.value;
+
+ const app=document.getElementById("previewApp");
+ const logo=document.getElementById("previewLogo");
+ const hero=document.getElementById("previewHero");
+ const btn=document.getElementById("previewBtn");
+
+ app.style.background=bg;
+ app.style.transform=`scale(${s/100})`;
+
+ logo.style.background=primary;
+
+ hero.style.background=card;
+ hero.style.borderRadius=r+"px";
+
+ btn.style.background=primary;
+
+ document.querySelector(".preview-title").style.color=text;
+
+ document.querySelectorAll(".preview-card").forEach(el=>{
+
+  el.style.background=card;
+  el.style.borderRadius=r+"px";
+  el.style.color=text;
+
+ });
+
+ if(glowEffect.checked){
+
+  app.style.boxShadow=
+   `0 20px 60px ${primary}44`;
+
+ }else{
+
+  app.style.boxShadow=
+   "0 20px 50px rgba(0,0,0,.35)";
+
+ }
+
+ if(glassEffect.checked){
+
+  hero.style.backdropFilter="blur(14px)";
+
+ }else{
+
+  hero.style.backdropFilter="none";
+
+ }
+
+}
+
+/* =========================
+   THEME DATA
+========================= */
+
+function getTheme(){
+
+ return{
+
+  primary:primaryColor.value,
+  background:backgroundColor.value,
+  card:cardColor.value,
+  text:textColor.value,
+
+  radius:Number(radius.value),
+  scale:Number(scale.value),
+
+  glass:glassEffect.checked,
+  glow:glowEffect.checked,
+  animations:animations.checked
+
+ };
+
+}
+
+function setTheme(theme){
+
+ theme={
+  ...DEFAULT_THEME,
+  ...(theme||{})
+ };
+
+ primaryColor.value=theme.primary;
+ primaryHex.value=theme.primary;
+
+ backgroundColor.value=theme.background;
+ backgroundHex.value=theme.background;
+
+ cardColor.value=theme.card;
+ cardHex.value=theme.card;
+
+ textColor.value=theme.text;
+ textHex.value=theme.text;
+
+ radius.value=theme.radius;
+ scale.value=theme.scale;
+
+ glassEffect.checked=!!theme.glass;
+ glowEffect.checked=!!theme.glow;
+ animations.checked=!!theme.animations;
+
+ document.getElementById("radiusValue").textContent=
+ theme.radius+"px";
+
+ document.getElementById("scaleValue").textContent=
+ theme.scale+"%";
+
+ updatePreview();
+
+}
+
+/* =========================
+   PRESETS
+========================= */
+
+const PRESETS={
+
+ emerald:{
+  primary:"#16a34a",
+  background:"#070b09",
+  card:"#101713",
+  text:"#f5f7f6",
+  radius:18,scale:100,
+  glass:true,glow:true,animations:true
+ },
+
+ blue:{
+  primary:"#2563eb",
+  background:"#070a12",
+  card:"#101622",
+  text:"#f5f7ff",
+  radius:18,scale:100,
+  glass:true,glow:true,animations:true
+ },
+
+ purple:{
+  primary:"#9333ea",
+  background:"#0b0710",
+  card:"#16101c",
+  text:"#faf7ff",
+  radius:20,scale:100,
+  glass:true,glow:true,animations:true
+ },
+
+ orange:{
+  primary:"#f97316",
+  background:"#100a06",
+  card:"#1b120c",
+  text:"#fff8f2",
+  radius:18,scale:100,
+  glass:true,glow:true,animations:true
+ },
+
+ red:{
+  primary:"#ef4444",
+  background:"#100707",
+  card:"#1a0f0f",
+  text:"#fff5f5",
+  radius:16,scale:100,
+  glass:false,glow:true,animations:true
+ },
+
+ gold:{
+  primary:"#eab308",
+  background:"#0d0b05",
+  card:"#18150a",
+  text:"#fffdf3",
+  radius:18,scale:100,
+  glass:true,glow:true,animations:true
+ }
+
+};
+
+function applyPreset(name){
+
+ if(!PRESETS[name])return;
+
+ setTheme(PRESETS[name]);
+
+ toast(
+  name.charAt(0).toUpperCase()+
+  name.slice(1)+
+  " theme applied"
+ );
+
+}
+
+/* =========================
+   THEME SAVE
+========================= */
+
+function saveTheme(){
+
+ localStorage.setItem(
+  "saiCustomTheme",
+  JSON.stringify(getTheme())
+ );
+
+ localStorage.setItem(
+  "saiThemeEnabled",
+  "true"
+ );
+
+ saveCustomCSS(false);
+ saveAnimationCSS(false);
+
+ toast("Theme + custom files saved ✓");
+
+}
+
+/* =========================
+   RESET
+========================= */
+
+function resetTheme(){
+
+ setTheme(DEFAULT_THEME);
+
+ localStorage.removeItem("saiCustomTheme");
+ localStorage.setItem("saiThemeEnabled","false");
+
+ toast("Default theme restored");
+
+}
+
+/* =====================================================
+   CSS FILE UPLOAD
+===================================================== */
+
+document.getElementById("cssFile")
+.addEventListener("change",function(){
+
+ const file=this.files[0];
+
+ if(!file)return;
+
+ if(!file.name.toLowerCase().endsWith(".css")){
+
+  toast("Only CSS files allowed");
+
+  this.value="";
+  return;
+ }
+
+ if(file.size>1024*1024){
+
+  toast("CSS file must be below 1 MB");
+
+  this.value="";
+  return;
+ }
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+
+  document.getElementById("cssEditor").value=e.target.result;
+
+  document.getElementById("cssName").textContent=
+   file.name;
+
+  document.getElementById("cssMeta").textContent=
+   formatBytes(file.size)+" • CSS File";
+
+  document.getElementById("cssInfo")
+   .classList.add("show");
+
+  toast("CSS file loaded ✓");
+
+ };
+
+ reader.readAsText(file);
+
+});
+
+/* =====================================================
+   ANIMATION FILE UPLOAD
+===================================================== */
+
+document.getElementById("animationFile")
+.addEventListener("change",function(){
+
+ const file=this.files[0];
+
+ if(!file)return;
+
+ if(!file.name.toLowerCase().endsWith(".css")){
+
+  toast("Animation file must be CSS");
+
+  this.value="";
+  return;
+ }
+
+ if(file.size>1024*1024){
+
+  toast("Animation file must be below 1 MB");
+
+  this.value="";
+  return;
+ }
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+
+  document.getElementById("animationEditor").value=
+   e.target.result;
+
+  document.getElementById("animationName").textContent=
+   file.name;
+
+  document.getElementById("animationMeta").textContent=
+   formatBytes(file.size)+" • Animation CSS";
+
+  document.getElementById("animationInfo")
+   .classList.add("show");
+
+  toast("Animation file loaded ✓");
+
+ };
+
+ reader.readAsText(file);
+
+});
+
+/* =========================
+   CSS APPLY
+========================= */
+
+function applyCustomCSS(){
+
+ const css=
+  document.getElementById("cssEditor").value.trim();
+
+ if(!css){
+
+  toast("CSS code is empty");
+  return;
+
+ }
+
+ let old=document.getElementById("adminCustomCSS");
+
+ if(old)old.remove();
+
+ const style=document.createElement("style");
+
+ style.id="adminCustomCSS";
+ style.textContent=css;
+
+ document.head.appendChild(style);
+
+ localStorage.setItem(
+  "saiCustomCSS",
+  css
+ );
+
+ toast("Custom CSS applied ✓");
+
+ renderSavedFiles();
+
+}
+
+/* =========================
+   CSS SAVE
+========================= */
+
+function saveCustomCSS(show=true){
+
+ const css=
+  document.getElementById("cssEditor").value.trim();
+
+ if(!css){
+
+  if(show)toast("CSS code is empty");
+
+  return;
+ }
+
+ localStorage.setItem(
+  "saiCustomCSS",
+  css
+ );
+
+ if(show)toast("Custom CSS saved ✓");
+
+ renderSavedFiles();
+
+}
+
+/* =========================
+   CSS REMOVE
+========================= */
+
+function removeCustomCSS(){
+
+ localStorage.removeItem("saiCustomCSS");
+
+ const old=document.getElementById("adminCustomCSS");
+
+ if(old)old.remove();
+
+ document.getElementById("cssEditor").value="";
+
+ toast("Custom CSS removed");
+
+ renderSavedFiles();
+
+}
+
+/* =====================================================
+   ANIMATION APPLY
+===================================================== */
+
+function applyAnimationCSS(){
+
+ const css=
+  document.getElementById("animationEditor")
+  .value.trim();
+
+ if(!css){
+
+  toast("Animation CSS is empty");
+  return;
+
+ }
+
+ let old=
+  document.getElementById("adminAnimationCSS");
+
+ if(old)old.remove();
+
+ const style=document.createElement("style");
+
+ style.id="adminAnimationCSS";
+ style.textContent=css;
+
+ document.head.appendChild(style);
+
+ localStorage.setItem(
+  "saiAnimationCSS",
+  css
+ );
+
+ toast("Animation CSS applied ✓");
+
+ renderSavedFiles();
+
+}
+
+/* =========================
+   ANIMATION SAVE
+========================= */
+
+function saveAnimationCSS(show=true){
+
+ const css=
+  document.getElementById("animationEditor")
+  .value.trim();
+
+ if(!css){
+
+  if(show)toast("Animation CSS is empty");
+
+  return;
+ }
+
+ localStorage.setItem(
+  "saiAnimationCSS",
+  css
+ );
+
+ if(show)toast("Animation CSS saved ✓");
+
+ renderSavedFiles();
+
+}
+
+/* =========================
+   ANIMATION REMOVE
+========================= */
+
+function removeAnimationCSS(){
+
+ localStorage.removeItem("saiAnimationCSS");
+
+ const old=
+  document.getElementById("adminAnimationCSS");
+
+ if(old)old.remove();
+
+ document.getElementById("animationEditor").value="";
+
+ toast("Animation CSS removed");
+
+ renderSavedFiles();
+
+}
+
+/* =========================
+   FORMAT SIZE
+========================= */
+
+function formatBytes(bytes){
+
+ if(bytes===0)return "0 Bytes";
+
+ const sizes=[
+  "Bytes",
+  "KB",
+  "MB"
+ ];
+
+ const i=
+  Math.floor(
+   Math.log(bytes)/Math.log(1024)
+  );
+
+ return(
+  Math.round(
+   bytes/Math.pow(1024,i)*100
+  )/100+
+  " "+
+  sizes[i]
+ );
+
+}
+
+/* =========================
+   SAVED FILES
+========================= */
+
+function renderSavedFiles(){
+
+ const list=
+  document.getElementById("savedFilesList");
+
+ const css=
+  localStorage.getItem("saiCustomCSS");
+
+ const animation=
+  localStorage.getItem("saiAnimationCSS");
+
+ list.innerHTML="";
+
+ if(!css && !animation){
+
+  list.innerHTML=`
+   <div style="
+    text-align:center;
+    padding:25px;
+    color:#65736a;
+    font-size:11px;
+   ">
+    <i class="fa-solid fa-folder-open"
+       style="font-size:24px;margin-bottom:8px;display:block">
+    </i>
+    No custom files saved yet.
+   </div>
+  `;
+
+  return;
+ }
+
+ if(css){
+
+  list.innerHTML+=`
+
+   <div class="upload-item">
+
+    <div class="upload-item-left">
+
+     <div class="upload-item-icon">
+      <i class="fa-brands fa-css3-alt"></i>
+     </div>
+
+     <div style="min-width:0">
+
+      <div class="upload-item-name">
+       Custom CSS
+      </div>
+
+      <div class="upload-item-meta">
+       ${formatBytes(new Blob([css]).size)}
+       • Stored locally
+      </div>
+
+     </div>
+
+    </div>
+
+    <div class="upload-item-actions">
+
+     <button
+      class="mini-btn"
+      title="Apply"
+      onclick="applyCustomCSS()">
+      <i class="fa-solid fa-play"></i>
+     </button>
+
+     <button
+      class="mini-btn delete"
+      title="Delete"
+      onclick="removeCustomCSS()">
+      <i class="fa-solid fa-trash"></i>
+     </button>
+
+    </div>
+
+   </div>
+
+  `;
+
+ }
+
+ if(animation){
+
+  list.innerHTML+=`
+
+   <div class="upload-item">
+
+    <div class="upload-item-left">
+
+     <div class="upload-item-icon">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+     </div>
+
+     <div style="min-width:0">
+
+      <div class="upload-item-name">
+       Animation CSS
+      </div>
+
+      <div class="upload-item-meta">
+       ${formatBytes(new Blob([animation]).size)}
+       • Stored locally
+      </div>
+
+     </div>
+
+    </div>
+
+    <div class="upload-item-actions">
+
+     <button
+      class="mini-btn"
+      title="Apply"
+      onclick="applyAnimationCSS()">
+      <i class="fa-solid fa-play"></i>
+     </button>
+
+     <button
+      class="mini-btn delete"
+      title="Delete"
+      onclick="removeAnimationCSS()">
+      <i class="fa-solid fa-trash"></i>
+     </button>
+
+    </div>
+
+   </div>
+
+  `;
+
+ }
+
+}
+
+/* =========================
+   LOAD CUSTOM FILES
+========================= */
+
+function loadCustomFiles(){
+
+ const css=
+  localStorage.getItem("saiCustomCSS");
+
+ if(css){
+
+  document.getElementById("cssEditor")
+   .value=css;
+
+  applyCustomCSS();
+
+ }
+
+ const animation=
+  localStorage.getItem("saiAnimationCSS");
+
+ if(animation){
+
+  document.getElementById("animationEditor")
+   .value=animation;
+
+  applyAnimationCSS();
+
+ }
+
+}
+
+/* =========================
+   EXPORT THEME
+========================= */
+
+function exportTheme(){
+
+ const data={
+
+  app:"Sai Fitness Bidupur",
+
+  theme:getTheme(),
+
+  customCSS:
+   localStorage.getItem("saiCustomCSS")||"",
+
+  animationCSS:
+   localStorage.getItem("saiAnimationCSS")||"",
+
+  exportedAt:new Date().toISOString()
+
+ };
+
+ const blob=new Blob(
+  [JSON.stringify(data,null,2)],
+  {type:"application/json"}
+ );
+
+ const url=URL.createObjectURL(blob);
+
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download="sai-fitness-theme.json";
+
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ URL.revokeObjectURL(url);
+
+ toast("Theme exported ✓");
+
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuBtn=document.getElementById("menuBtn");
+const sidebar=document.getElementById("sidebar");
+const overlay=document.getElementById("overlay");
+
+menuBtn.addEventListener("click",()=>{
+
+ sidebar.classList.add("open");
+ overlay.classList.add("show");
+
+});
+
+overlay.addEventListener("click",()=>{
+
+ sidebar.classList.remove("open");
+ overlay.classList.remove("show");
+
+});
+
+document.querySelectorAll(".nav a")
+.forEach(link=>{
+
+ link.addEventListener("click",()=>{
+
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+
+ });
+
+});
+
+/* =========================
+   LOAD SAVED THEME
+========================= */
+
+function loadTheme(){
+
+ try{
+
+  const saved=
+   localStorage.getItem("saiCustomTheme");
+
+  if(saved){
+
+   setTheme(JSON.parse(saved));
+
+  }else{
+
+   setTheme(DEFAULT_THEME);
+
+  }
+
+ }catch(error){
+
+  console.error(error);
+
+  setTheme(DEFAULT_THEME);
+
+ }
+
+}
+
+/* =========================
+   START
+========================= */
+
+loadTheme();
+loadCustomFiles();
+renderSavedFiles();
+updatePreview();
+
+</script>
+
+</body>
+</html>

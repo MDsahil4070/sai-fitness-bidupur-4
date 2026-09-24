@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Analytics • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --bg:#070b09;
+ --panel:#0d1410;
+ --card:#101a14;
+ --border:#1d3025;
+ --primary:#16a34a;
+ --green:#22c55e;
+ --text:#f5f7f6;
+ --muted:#8d9b93;
+ --danger:#ef4444;
+ --blue:#3b82f6;
+ --orange:#f59e0b;
+ --purple:#8b5cf6;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+ width:255px;
+ position:fixed;
+ inset:0 auto 0 0;
+ background:#09100c;
+ border-right:1px solid var(--border);
+ padding:20px 14px;
+ overflow-y:auto;
+ z-index:100;
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:6px 8px 22px;
+ border-bottom:1px solid var(--border);
+ margin-bottom:15px;
+}
+
+.brand-icon{
+ width:42px;
+ height:42px;
+ border-radius:13px;
+ background:linear-gradient(135deg,#16a34a,#064e3b);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ box-shadow:0 8px 25px rgba(22,163,74,.22);
+}
+
+.brand h2{font-size:14px;font-weight:800}
+.brand span{
+ display:block;
+ color:var(--muted);
+ font-size:10px;
+ margin-top:3px;
+}
+
+.nav-title{
+ color:#607067;
+ font-size:9px;
+ letter-spacing:1.2px;
+ text-transform:uppercase;
+ padding:12px 10px 7px;
+ font-weight:800;
+}
+
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ color:#aab7b0;
+ text-decoration:none;
+ padding:11px 12px;
+ border-radius:11px;
+ margin:3px 0;
+ font-size:12px;
+ font-weight:600;
+ transition:.2s;
+}
+
+.nav a i{
+ width:19px;
+ text-align:center;
+}
+
+.nav a:hover{
+ background:#101c15;
+ color:#fff;
+}
+
+.nav a.active{
+ background:rgba(22,163,74,.14);
+ color:#4ade80;
+ border:1px solid rgba(22,163,74,.18);
+}
+
+.main{
+ width:calc(100% - 255px);
+ margin-left:255px;
+ padding:25px;
+}
+
+.mobile-head{display:none}
+
+.topbar{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+ margin-bottom:24px;
+}
+
+.page-title h1{
+ font-size:26px;
+ font-weight:800;
+}
+
+.page-title p{
+ color:var(--muted);
+ font-size:12px;
+ margin-top:6px;
+}
+
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+}
+
+.btn{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:7px;
+ padding:10px 14px;
+ border-radius:10px;
+ border:1px solid var(--border);
+ background:#101913;
+ color:#dce5df;
+ font-size:11px;
+ font-weight:700;
+ transition:.2s;
+}
+
+.btn:hover{transform:translateY(-1px)}
+
+.btn.primary{
+ background:linear-gradient(135deg,#16a34a,#15803d);
+ color:#fff;
+ border-color:#16a34a;
+}
+
+.btn.blue{color:#93c5fd}
+.btn.small{padding:8px 10px;font-size:10px}
+
+.filters{
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-bottom:18px;
+}
+
+.select{
+ background:#0a110d;
+ border:1px solid var(--border);
+ color:#e9efeb;
+ border-radius:10px;
+ padding:10px 12px;
+ outline:none;
+ font-size:11px;
+ min-width:145px;
+}
+
+.select:focus{border-color:#16a34a}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:12px;
+ margin-bottom:18px;
+}
+
+.stat{
+ background:linear-gradient(145deg,#101913,#0c130f);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:16px;
+}
+
+.stat-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:8px;
+}
+
+.stat-icon{
+ width:37px;
+ height:37px;
+ border-radius:11px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:#4ade80;
+ background:rgba(22,163,74,.12);
+}
+
+.stat-label{
+ color:var(--muted);
+ font-size:9px;
+ font-weight:700;
+}
+
+.stat-value{
+ font-size:22px;
+ font-weight:800;
+ margin-top:7px;
+}
+
+.stat-change{
+ font-size:9px;
+ margin-top:5px;
+ color:#4ade80;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1.35fr .65fr;
+ gap:18px;
+}
+
+.panel{
+ background:var(--panel);
+ border:1px solid var(--border);
+ border-radius:17px;
+ padding:18px;
+}
+
+.panel-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:17px;
+}
+
+.panel-head h2{font-size:14px}
+
+.panel-head p{
+ color:var(--muted);
+ font-size:10px;
+ margin-top:4px;
+}
+
+.chart-wrap{
+ width:100%;
+ height:280px;
+ position:relative;
+}
+
+canvas{
+ width:100%;
+ height:100%;
+ display:block;
+}
+
+.legend{
+ display:flex;
+ flex-wrap:wrap;
+ gap:14px;
+ margin-top:12px;
+}
+
+.legend-item{
+ display:flex;
+ align-items:center;
+ gap:6px;
+ font-size:9px;
+ color:var(--muted);
+}
+
+.dot{
+ width:8px;
+ height:8px;
+ border-radius:50%;
+ background:#22c55e;
+}
+
+.dot.blue{background:#3b82f6}
+.dot.orange{background:#f59e0b}
+.dot.purple{background:#8b5cf6}
+
+.mini-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.mini{
+ background:#0a110d;
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:13px;
+}
+
+.mini i{
+ color:#4ade80;
+ font-size:14px;
+}
+
+.mini strong{
+ display:block;
+ font-size:18px;
+ margin-top:9px;
+}
+
+.mini span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
+}
+
+.progress-row{
+ margin-bottom:15px;
+}
+
+.progress-head{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ font-size:10px;
+ margin-bottom:7px;
+}
+
+.progress-head span:last-child{
+ color:#4ade80;
+ font-weight:700;
+}
+
+.progress{
+ height:7px;
+ border-radius:10px;
+ background:#18231c;
+ overflow:hidden;
+}
+
+.progress div{
+ height:100%;
+ border-radius:10px;
+ background:linear-gradient(90deg,#16a34a,#22c55e);
+}
+
+.activity-list{
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+}
+
+.activity{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:10px;
+ background:#0a110d;
+ border:1px solid var(--border);
+ border-radius:11px;
+}
+
+.activity-icon{
+ width:34px;
+ height:34px;
+ border-radius:10px;
+ background:rgba(22,163,74,.1);
+ color:#4ade80;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex:none;
+}
+
+.activity strong{
+ display:block;
+ font-size:10px;
+}
+
+.activity span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
+}
+
+.empty{
+ text-align:center;
+ padding:25px 10px;
+ color:var(--muted);
+ font-size:11px;
+}
+
+.info{
+ padding:12px;
+ background:rgba(59,130,246,.07);
+ border:1px solid rgba(59,130,246,.18);
+ border-radius:11px;
+ color:#a9c9f3;
+ font-size:10px;
+ line-height:1.6;
+ margin-top:14px;
+}
+
+.toast{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ z-index:999;
+ background:#132019;
+ border:1px solid #294634;
+ color:#e9f7ee;
+ padding:12px 15px;
+ border-radius:11px;
+ font-size:11px;
+ box-shadow:0 15px 40px rgba(0,0,0,.35);
+ opacity:0;
+ transform:translateY(20px);
+ pointer-events:none;
+ transition:.25s;
+}
+
+.toast.show{
+ opacity:1;
+ transform:translateY(0);
+}
+
+@media(max-width:1150px){
+ .stats{grid-template-columns:repeat(3,1fr)}
+ .grid{grid-template-columns:1fr}
+}
+
+@media(max-width:760px){
+ .sidebar{
+  transform:translateX(-100%);
+  transition:.25s;
+  width:270px;
+ }
+ .sidebar.open{transform:translateX(0)}
+
+ .main{
+  width:100%;
+  margin-left:0;
+  padding:15px;
+ }
+
+ .mobile-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:17px;
+ }
+
+ .mobile-head button{
+  width:40px;
+  height:40px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  background:#101913;
+  color:#fff;
+ }
+
+ .mobile-title{
+  font-size:14px;
+  font-weight:800;
+ }
+
+ .topbar{
+  display:block;
+  margin-bottom:18px;
+ }
+
+ .actions{margin-top:13px}
+
+ .stats{
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+ }
+
+ .stat{padding:13px}
+ .stat-value{font-size:19px}
+
+ .panel{padding:13px}
+
+ .chart-wrap{height:240px}
+
+ .mini-grid{gap:8px}
+}
+
+@media(max-width:420px){
+ .chart-wrap{height:210px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+ <div class="brand-icon">
+  <i class="fa-solid fa-dumbbell"></i>
+ </div>
+ <div>
+  <h2>Sai Fitness</h2>
+  <span>Admin Control Panel</span>
+ </div>
+</div>
+
+<nav class="nav">
+
+<div class="nav-title">Dashboard</div>
+
+<a href="index.html">
+ <i class="fa-solid fa-chart-line"></i>
+ Dashboard
+</a>
+
+<div class="nav-title">Management</div>
+
+<a href="members.html">
+ <i class="fa-solid fa-users"></i>
+ Members
+</a>
+
+<a href="workouts.html">
+ <i class="fa-solid fa-dumbbell"></i>
+ Workouts
+</a>
+
+<a href="exercises.html">
+ <i class="fa-solid fa-person-running"></i>
+ Exercises
+</a>
+
+<a href="diet.html">
+ <i class="fa-solid fa-utensils"></i>
+ Diet
+</a>
+
+<a href="goals.html">
+ <i class="fa-solid fa-bullseye"></i>
+ Goals
+</a>
+
+<a href="achievements.html">
+ <i class="fa-solid fa-trophy"></i>
+ Achievements
+</a>
+
+<a href="notifications.html">
+ <i class="fa-solid fa-bell"></i>
+ Notifications
+</a>
+
+<div class="nav-title">Customization</div>
+
+<a href="theme.html">
+ <i class="fa-solid fa-palette"></i>
+ Theme Studio
+</a>
+
+<a href="css-manager.html">
+ <i class="fa-solid fa-code"></i>
+ CSS Manager
+</a>
+
+<a href="animation-manager.html">
+ <i class="fa-solid fa-wand-magic-sparkles"></i>
+ Animations
+</a>
+
+<a href="media.html">
+ <i class="fa-solid fa-photo-film"></i>
+ Media
+</a>
+
+<a href="content.html">
+ <i class="fa-solid fa-pen-to-square"></i>
+ Content
+</a>
+
+<a href="home.html">
+ <i class="fa-solid fa-house"></i>
+ Home Manager
+</a>
+
+<a href="page-builder.html">
+ <i class="fa-solid fa-layer-group"></i>
+ Page Builder
+</a>
+
+<div class="nav-title">Growth</div>
+
+<a href="seo.html">
+ <i class="fa-solid fa-magnifying-glass-chart"></i>
+ SEO Manager
+</a>
+
+<a href="analytics.html" class="active">
+ <i class="fa-solid fa-chart-pie"></i>
+ Analytics
+</a>
+
+<div class="nav-title">System</div>
+
+<a href="app-upload.html">
+ <i class="fa-solid fa-cloud-arrow-up"></i>
+ App Upload
+</a>
+
+<a href="backup.html">
+ <i class="fa-solid fa-database"></i>
+ Backup & Restore
+</a>
+
+<a href="pwa.html">
+ <i class="fa-solid fa-mobile-screen-button"></i>
+ PWA Manager
+</a>
+
+<a href="version.html">
+ <i class="fa-solid fa-code-branch"></i>
+ Version Manager
+</a>
+
+<a href="maintenance.html">
+ <i class="fa-solid fa-screwdriver-wrench"></i>
+ Maintenance
+</a>
+
+<a href="security.html">
+ <i class="fa-solid fa-shield-halved"></i>
+ Security
+</a>
+
+<a href="settings.html">
+ <i class="fa-solid fa-gear"></i>
+ Settings
+</a>
+
+</nav>
+</aside>
+
+<main class="main">
+
+<div class="mobile-head">
+ <button onclick="toggleSidebar()">
+  <i class="fa-solid fa-bars"></i>
+ </button>
+
+ <div class="mobile-title">Analytics</div>
+
+ <button onclick="refreshAnalytics()">
+  <i class="fa-solid fa-rotate"></i>
+ </button>
+</div>
+
+<div class="topbar">
+
+<div class="page-title">
+ <h1>Analytics Dashboard</h1>
+ <p>Track members, workouts, calories and fitness activity.</p>
+</div>
+
+<div class="actions">
+
+<button class="btn" onclick="refreshAnalytics()">
+ <i class="fa-solid fa-rotate"></i>
+ Refresh
+</button>
+
+<button class="btn blue" onclick="exportAnalytics()">
+ <i class="fa-solid fa-download"></i>
+ Export
+</button>
+
+</div>
+
+</div>
+
+<div class="filters">
+
+<select id="period" class="select" onchange="changePeriod()">
+ <option value="7">Last 7 Days</option>
+ <option value="14">Last 14 Days</option>
+ <option value="30" selected>Last 30 Days</option>
+ <option value="90">Last 90 Days</option>
+</select>
+
+<select id="metric" class="select" onchange="changeMetric()">
+ <option value="workouts">Workouts</option>
+ <option value="calories">Calories</option>
+ <option value="minutes">Minutes</option>
+ <option value="members">Members</option>
+</select>
+
+<button class="btn small" onclick="clearDemoAnalytics()">
+ <i class="fa-solid fa-broom"></i>
+ Clear Demo
+</button>
+
+</div>
+
+<section class="stats">
+
+<div class="stat">
+ <div class="stat-top">
+  <div>
+   <div class="stat-label">TOTAL MEMBERS</div>
+   <div class="stat-value" id="totalMembers">0</div>
+   <div class="stat-change">Registered users</div>
+  </div>
+
+  <div class="stat-icon">
+   <i class="fa-solid fa-users"></i>
+  </div>
+ </div>
+</div>
+
+<div class="stat">
+ <div class="stat-top">
+  <div>
+   <div class="stat-label">WORKOUTS</div>
+   <div class="stat-value" id="totalWorkouts">0</div>
+   <div class="stat-change">Available workouts</div>
+  </div>
+
+  <div class="stat-icon">
+   <i class="fa-solid fa-dumbbell"></i>
+  </div>
+ </div>
+</div>
+
+<div class="stat">
+ <div class="stat-top">
+  <div>
+   <div class="stat-label">CALORIES</div>
+   <div class="stat-value" id="totalCalories">0</div>
+   <div class="stat-change">Workout calories</div>
+  </div>
+
+  <div class="stat-icon">
+   <i class="fa-solid fa-fire"></i>
+  </div>
+ </div>
+</div>
+
+<div class="stat">
+ <div class="stat-top">
+  <div>
+   <div class="stat-label">MINUTES</div>
+   <div class="stat-value" id="totalMinutes">0</div>
+   <div class="stat-change">Training time</div>
+  </div>
+
+  <div class="stat-icon">
+   <i class="fa-solid fa-clock"></i>
+  </div>
+ </div>
+</div>
+
+<div class="stat">
+ <div class="stat-top">
+  <div>
+   <div class="stat-label">STREAK</div>
+   <div class="stat-value" id="streakValue">0</div>
+   <div class="stat-change">Current streak</div>
+  </div>
+
+  <div class="stat-icon">
+   <i class="fa-solid fa-fire-flame-curved"></i>
+  </div>
+ </div>
+</div>
+
+</section>
+
+<div class="grid">
+
+<section class="panel">
+
+<div class="panel-head">
+ <div>
+  <h2 id="chartTitle">Workout Activity</h2>
+  <p id="chartSubtitle">Activity over selected period</p>
+ </div>
+</div>
+
+<div class="chart-wrap">
+ <canvas id="activityChart"></canvas>
+</div>
+
+<div class="legend">
+ <div class="legend-item">
+  <span class="dot"></span>
+  Activity
+ </div>
+</div>
+
+</section>
+
+<section class="panel">
+
+<div class="panel-head">
+ <div>
+  <h2>Overview</h2>
+  <p>Current app performance</p>
+ </div>
+</div>
+
+<div class="mini-grid">
+
+<div class="mini">
+ <i class="fa-solid fa-user-plus"></i>
+ <strong id="activeMembers">0</strong>
+ <span>Active Members</span>
+</div>
+
+<div class="mini">
+ <i class="fa-solid fa-calendar-check"></i>
+ <strong id="completedWorkouts">0</strong>
+ <span>Completed Workouts</span>
+</div>
+
+<div class="mini">
+ <i class="fa-solid fa-bolt"></i>
+ <strong id="avgCalories">0</strong>
+ <span>Avg Calories</span>
+</div>
+
+<div class="mini">
+ <i class="fa-solid fa-stopwatch"></i>
+ <strong id="avgMinutes">0</strong>
+ <span>Avg Minutes</span>
+</div>
+
+</div>
+
+<div class="info">
+ <i class="fa-solid fa-circle-info"></i>
+ Analytics uses data stored by the current browser app. For
+ real multi-user analytics, connect this panel to a server/API
+ and database.
+</div>
+
+</section>
+
+</div>
+
+<section class="panel" style="margin-top:18px;">
+
+<div class="panel-head">
+ <div>
+  <h2>Fitness Distribution</h2>
+  <p>Workout, calorie and training-time distribution.</p>
+ </div>
+</div>
+
+<div class="progress-row">
+ <div class="progress-head">
+  <span>Workout Completion</span>
+  <span id="workoutPercent">0%</span>
+ </div>
+
+ <div class="progress">
+  <div id="workoutBar" style="width:0%"></div>
+ </div>
+</div>
+
+<div class="progress-row">
+ <div class="progress-head">
+  <span>Calorie Target</span>
+  <span id="caloriePercent">0%</span>
+ </div>
+
+ <div class="progress">
+  <div id="calorieBar" style="width:0%"></div>
+ </div>
+</div>
+
+<div class="progress-row">
+ <div class="progress-head">
+  <span>Training Consistency</span>
+  <span id="consistencyPercent">0%</span>
+ </div>
+
+ <div class="progress">
+  <div id="consistencyBar" style="width:0%"></div>
+ </div>
+</div>
+
+</section>
+
+<section class="panel" style="margin-top:18px;">
+
+<div class="panel-head">
+ <div>
+  <h2>Recent Activity</h2>
+  <p>Latest workout and app activity.</p>
+ </div>
+
+ <button class="btn small" onclick="renderActivity()">
+  <i class="fa-solid fa-rotate"></i>
+ </button>
+</div>
+
+<div id="activityList" class="activity-list"></div>
+
+</section>
+
+<section class="panel" style="margin-top:18px;">
+
+<div class="panel-head">
+ <div>
+  <h2>Analytics Data</h2>
+  <p>Raw local analytics summary.</p>
+ </div>
+</div>
+
+<div id="rawData"
+style="
+background:#050806;
+border:1px solid #1c3023;
+border-radius:12px;
+padding:14px;
+font-family:monospace;
+font-size:10px;
+line-height:1.7;
+color:#b9f7cb;
+white-space:pre-wrap;
+overflow:auto;
+max-height:300px;
+"></div>
+
+</section>
+
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS ANALYTICS
+========================================================= */
+
+const DATA_KEYS = {
+ fitness:"saiFitnessData",
+ history:"saiWorkoutHistory",
+ members:"saiFitnessMembers",
+ workouts:"saiAdminWorkouts",
+ diet:"saiDietData",
+ goals:"saiGoalTargets"
+};
+
+let currentPeriod = 30;
+let currentMetric = "workouts";
+
+let analytics = {
+ labels:[],
+ values:[]
+};
+
+function getJSON(key,fallback){
+
+ try{
+  const data=JSON.parse(
+   localStorage.getItem(key)
+  );
+
+  return data ?? fallback;
+
+ }catch(e){
+  return fallback;
+ }
+}
+
+function number(value){
+ return Number(value)||0;
+}
+
+function loadAnalytics(){
+
+ const fitness =
+  getJSON(DATA_KEYS.fitness,{
+   workouts:0,
+   calories:0,
+   minutes:0,
+   streak:0
+  });
+
+ const members =
+  getJSON(DATA_KEYS.members,[]);
+
+ const workouts =
+  getJSON(DATA_KEYS.workouts,[]);
+
+ const history =
+  getJSON(DATA_KEYS.history,[]);
+
+ document.getElementById("totalMembers").textContent =
+  Array.isArray(members) ? members.length : 0;
+
+ document.getElementById("totalWorkouts").textContent =
+  Array.isArray(workouts)
+   ? workouts.length
+   : number(fitness.workouts);
+
+ let totalCalories=0;
+ let totalMinutes=0;
+
+ if(Array.isArray(workouts)){
+
+  workouts.forEach(item=>{
+   totalCalories += number(item.calories);
+   totalMinutes += number(item.duration);
+  });
+ }
+
+ if(!totalCalories){
+  totalCalories=number(fitness.calories);
+ }
+
+ if(!totalMinutes){
+  totalMinutes=number(fitness.minutes);
+ }
+
+ document.getElementById("totalCalories").textContent =
+  formatNumber(totalCalories);
+
+ document.getElementById("totalMinutes").textContent =
+  formatNumber(totalMinutes);
+
+ document.getElementById("streakValue").textContent =
+  number(fitness.streak);
+
+ document.getElementById("activeMembers").textContent =
+  Array.isArray(members)
+   ? members.filter(m=>{
+      return m.active !== false &&
+             m.status !== "inactive";
+     }).length
+   : 0;
+
+ const completed =
+  Array.isArray(history)
+   ? history.length
+   : number(fitness.workouts);
+
+ document.getElementById("completedWorkouts").textContent =
+  completed;
+
+ document.getElementById("avgCalories").textContent =
+  completed
+   ? Math.round(number(fitness.calories)/completed)
+   : 0;
+
+ document.getElementById("avgMinutes").textContent =
+  completed
+   ? Math.round(number(fitness.minutes)/completed)
+   : 0;
+
+ buildChartData(history);
+
+ updateDistribution(fitness,completed);
+
+ renderActivity();
+
+ renderRawData();
+
+ drawChart();
+}
+
+function buildChartData(history){
+
+ const days=currentPeriod;
+
+ const labels=[];
+ const values=[];
+
+ const today=new Date();
+
+ for(let i=days-1;i>=0;i--){
+
+  const date=new Date(today);
+
+  date.setHours(0,0,0,0);
+  date.setDate(today.getDate()-i);
+
+  labels.push(
+   date.toLocaleDateString(
+    "en-IN",
+    {
+     day:"2-digit",
+     month:"short"
+    }
+   )
+  );
+
+  let total=0;
+
+  if(Array.isArray(history)){
+
+   history.forEach(item=>{
+
+    const itemDate =
+     item.date ||
+     item.completedAt ||
+     item.createdAt ||
+     item.timestamp;
+
+    if(!itemDate)return;
+
+    const d=new Date(itemDate);
+
+    if(
+     d.getFullYear()===date.getFullYear() &&
+     d.getMonth()===date.getMonth() &&
+     d.getDate()===date.getDate()
+    ){
+
+     if(currentMetric==="workouts"){
+      total+=1;
+     }
+
+     else if(currentMetric==="calories"){
+      total+=number(
+       item.calories ||
+       item.calorie ||
+       item.kcal
+      );
+     }
+
+     else if(currentMetric==="minutes"){
+      total+=number(
+       item.minutes ||
+       item.duration
+      );
+     }
+
+     else if(currentMetric==="members"){
+      total+=number(item.members || 1);
+     }
+
+    }
+
+   });
+  }
+
+  values.push(total);
+ }
+
+ analytics={
+  labels,
+  values
+ };
+
+ updateChartTitles();
+}
+
+function updateChartTitles(){
+
+ const title =
+  document.getElementById("chartTitle");
+
+ const subtitle =
+  document.getElementById("chartSubtitle");
+
+ const names={
+  workouts:"Workout Activity",
+  calories:"Calorie Burn",
+  minutes:"Training Minutes",
+  members:"Member Activity"
+ };
+
+ title.textContent=
+  names[currentMetric] || "Activity";
+
+ subtitle.textContent=
+  "Last "+currentPeriod+" days";
+}
+
+function drawChart(){
+
+ const canvas=
+  document.getElementById("activityChart");
+
+ const rect=
+  canvas.getBoundingClientRect();
+
+ const ratio=
+  window.devicePixelRatio || 1;
+
+ canvas.width=
+  rect.width*ratio;
+
+ canvas.height=
+  rect.height*ratio;
+
+ const ctx=
+  canvas.getContext("2d");
+
+ ctx.scale(ratio,ratio);
+
+ const width=rect.width;
+ const height=rect.height;
+
+ ctx.clearRect(0,0,width,height);
+
+ const padding={
+  left:38,
+  right:15,
+  top:20,
+  bottom:35
+ };
+
+ const chartWidth=
+  width-padding.left-padding.right;
+
+ const chartHeight=
+  height-padding.top-padding.bottom;
+
+ const values=
+  analytics.values.length
+   ? analytics.values
+   : [0];
+
+ const max=
+  Math.max(...values,1);
+
+ /* GRID */
+
+ ctx.strokeStyle="#1b2b21";
+ ctx.lineWidth=1;
+
+ for(let i=0;i<=4;i++){
+
+  const y=
+   padding.top+
+   chartHeight-(chartHeight*i/4);
+
+  ctx.beginPath();
+  ctx.moveTo(padding.left,y);
+  ctx.lineTo(width-padding.right,y);
+  ctx.stroke();
+
+  ctx.fillStyle="#64736a";
+  ctx.font="9px Inter";
+
+  const val=
+   Math.round(max*i/4);
+
+  ctx.fillText(
+   formatCompact(val),
+   5,
+   y+3
+  );
+ }
+
+ if(values.length===1){
+
+  values.push(0);
+ }
+
+ const step=
+  chartWidth/(values.length-1);
+
+ const points=[];
+
+ values.forEach((value,index)=>{
+
+  const x=
+   padding.left+
+   step*index;
+
+  const y=
+   padding.top+
+   chartHeight-
+   (value/max)*chartHeight;
+
+  points.push({x,y});
+ });
+
+ /* AREA */
+
+ const gradient=
+  ctx.createLinearGradient(
+   0,
+   padding.top,
+   0,
+   height
+  );
+
+ gradient.addColorStop(
+  0,
+  "rgba(34,197,94,.24)"
+ );
+
+ gradient.addColorStop(
+  1,
+  "rgba(34,197,94,0)"
+ );
+
+ ctx.beginPath();
+
+ points.forEach((p,i)=>{
+
+  if(i===0){
+   ctx.moveTo(p.x,p.y);
+  }else{
+   ctx.lineTo(p.x,p.y);
+  }
+
+ });
+
+ ctx.lineTo(
+  points[points.length-1].x,
+  height-padding.bottom
+ );
+
+ ctx.lineTo(
+  points[0].x,
+  height-padding.bottom
+ );
+
+ ctx.closePath();
+
+ ctx.fillStyle=gradient;
+ ctx.fill();
+
+ /* LINE */
+
+ ctx.beginPath();
+
+ points.forEach((p,i)=>{
+
+  if(i===0){
+   ctx.moveTo(p.x,p.y);
+  }else{
+   ctx.lineTo(p.x,p.y);
+  }
+
+ });
+
+ ctx.strokeStyle="#22c55e";
+ ctx.lineWidth=2.5;
+ ctx.lineJoin="round";
+ ctx.lineCap="round";
+ ctx.stroke();
+
+ /* POINTS */
+
+ points.forEach((p,index)=>{
+
+  if(
+   values.length>15 &&
+   index%Math.ceil(values.length/7)!==0
+  ){
+   return;
+  }
+
+  ctx.beginPath();
+
+  ctx.arc(
+   p.x,
+   p.y,
+   3.5,
+   0,
+   Math.PI*2
+  );
+
+  ctx.fillStyle="#22c55e";
+  ctx.fill();
+
+  ctx.strokeStyle="#07100a";
+  ctx.lineWidth=2;
+  ctx.stroke();
+ });
+
+ /* LABELS */
+
+ ctx.fillStyle="#64736a";
+ ctx.font="9px Inter";
+
+ const labelStep=
+  Math.max(
+   1,
+   Math.ceil(
+    analytics.labels.length/6
+   )
+  );
+
+ analytics.labels.forEach((label,index)=>{
+
+  if(index%labelStep!==0)return;
+
+  const x=
+   padding.left+
+   step*index;
+
+  ctx.fillText(
+   label,
+   x-12,
+   height-12
+  );
+ });
+}
+
+function updateDistribution(fitness,completed){
+
+ const workouts=
+  number(fitness.workouts);
+
+ const calories=
+  number(fitness.calories);
+
+ const minutes=
+  number(fitness.minutes);
+
+ const workoutPercent=
+  Math.min(
+   100,
+   workouts
+    ? Math.round((workouts/20)*100)
+    : 0
+  );
+
+ const caloriePercent=
+  Math.min(
+   100,
+   calories
+    ? Math.round((calories/10000)*100)
+    : 0
+  );
+
+ const consistency=
+  Math.min(
+   100,
+   number(fitness.streak)
+    ? Math.round((number(fitness.streak)/30)*100)
+    : completed
+      ? Math.min(100,completed*5)
+      : 0
+  );
+
+ setProgress(
+  "workoutPercent",
+  "workoutBar",
+  workoutPercent
+ );
+
+ setProgress(
+  "caloriePercent",
+  "calorieBar",
+  caloriePercent
+ );
+
+ setProgress(
+  "consistencyPercent",
+  "consistencyBar",
+  consistency
+ );
+}
+
+function setProgress(label,bar,value){
+
+ document.getElementById(label).textContent=
+  value+"%";
+
+ document.getElementById(bar).style.width=
+  value+"%";
+}
+
+function renderActivity(){
+
+ const list=
+  document.getElementById("activityList");
+
+ const history=
+  getJSON(DATA_KEYS.history,[]);
+
+ if(!Array.isArray(history)||!history.length){
+
+  list.innerHTML=`
+   <div class="empty">
+    <i class="fa-solid fa-chart-line"
+    style="font-size:25px;margin-bottom:10px;"></i>
+    <br>
+    No workout activity found yet.
+   </div>
+  `;
+
+  return;
+ }
+
+ const items=
+  history
+   .slice()
+   .reverse()
+   .slice(0,10);
+
+ list.innerHTML=
+  items.map(item=>{
+
+   const name=
+    item.name ||
+    item.workoutName ||
+    item.title ||
+    "Workout Completed";
+
+   const date=
+    item.date ||
+    item.completedAt ||
+    item.createdAt;
+
+   const calories=
+    number(
+     item.calories ||
+     item.calorie ||
+     item.kcal
+    );
+
+   const minutes=
+    number(
+     item.minutes ||
+     item.duration
+    );
+
+   return `
+    <div class="activity">
+
+     <div class="activity-icon">
+      <i class="fa-solid fa-dumbbell"></i>
+     </div>
+
+     <div style="flex:1">
+
+      <strong>
+       ${escapeHTML(name)}
+      </strong>
+
+      <span>
+       ${date ? formatDate(date) : "Recently"}
+       ${calories ? " • "+calories+" kcal" : ""}
+       ${minutes ? " • "+minutes+" min" : ""}
+      </span>
+
+     </div>
+
+    </div>
+   `;
+
+  }).join("");
+}
+
+function renderRawData(){
+
+ const fitness=
+  getJSON(
+   DATA_KEYS.fitness,
+   {}
+  );
+
+ const members=
+  getJSON(
+   DATA_KEYS.members,
+   []
+  );
+
+ const workouts=
+  getJSON(
+   DATA_KEYS.workouts,
+   []
+  );
+
+ const history=
+  getJSON(
+   DATA_KEYS.history,
+   []
+  );
+
+ const data={
+  generatedAt:new Date().toISOString(),
+  period:currentPeriod+" days",
+  metric:currentMetric,
+  fitness:fitness,
+  members:Array.isArray(members)
+   ? members.length
+   : 0,
+  workouts:Array.isArray(workouts)
+   ? workouts.length
+   : 0,
+  workoutHistory:Array.isArray(history)
+   ? history.length
+   : 0,
+  chart:analytics
+ };
+
+ document.getElementById("rawData").textContent=
+  JSON.stringify(data,null,2);
+}
+
+function refreshAnalytics(){
+
+ loadAnalytics();
+
+ toast("Analytics refreshed");
+}
+
+function changePeriod(){
+
+ currentPeriod=
+  Number(
+   document.getElementById("period").value
+  )||30;
+
+ loadAnalytics();
+}
+
+function changeMetric(){
+
+ currentMetric=
+  document.getElementById("metric").value;
+
+ loadAnalytics();
+}
+
+function exportAnalytics(){
+
+ const data={
+  exportedAt:new Date().toISOString(),
+  period:currentPeriod,
+  metric:currentMetric,
+  summary:{
+   members:
+    document.getElementById("totalMembers").textContent,
+   workouts:
+    document.getElementById("totalWorkouts").textContent,
+   calories:
+    document.getElementById("totalCalories").textContent,
+   minutes:
+    document.getElementById("totalMinutes").textContent,
+   streak:
+    document.getElementById("streakValue").textContent
+  },
+  chart:analytics
+ };
+
+ const blob=
+  new Blob(
+   [JSON.stringify(data,null,2)],
+   {type:"application/json"}
+  );
+
+ const url=
+  URL.createObjectURL(blob);
+
+ const a=
+  document.createElement("a");
+
+ a.href=url;
+ a.download=
+  "sai-fitness-analytics-"+
+  Date.now()+
+  ".json";
+
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ URL.revokeObjectURL(url);
+
+ toast("Analytics exported");
+}
+
+function clearDemoAnalytics(){
+
+ if(!confirm(
+  "This will clear local workout history used by this analytics page. Continue?"
+ )){
+  return;
+ }
+
+ localStorage.removeItem(
+  DATA_KEYS.history
+ );
+
+ loadAnalytics();
+
+ toast("Workout history cleared");
+}
+
+function formatNumber(value){
+
+ return Number(value||0)
+  .toLocaleString("en-IN");
+}
+
+function formatCompact(value){
+
+ value=Number(value)||0;
+
+ if(value>=1000000){
+  return (value/1000000).toFixed(1)+"M";
+ }
+
+ if(value>=1000){
+  return (value/1000).toFixed(1)+"K";
+ }
+
+ return String(value);
+}
+
+function formatDate(value){
+
+ try{
+
+  return new Date(value).toLocaleString(
+   "en-IN",
+   {
+    day:"2-digit",
+    month:"short",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
+   }
+  );
+
+ }catch(e){
+
+  return "Recently";
+ }
+}
+
+function escapeHTML(str){
+
+ return String(str||"")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+}
+
+function toggleSidebar(){
+
+ document
+  .getElementById("sidebar")
+  .classList.toggle("open");
+}
+
+let toastTimer;
+
+function toast(message){
+
+ const el=
+  document.getElementById("toast");
+
+ el.textContent=message;
+
+ el.classList.add("show");
+
+ clearTimeout(toastTimer);
+
+ toastTimer=
+  setTimeout(()=>{
+   el.classList.remove("show");
+  },2500);
+}
+
+window.addEventListener(
+ "resize",
+ ()=>{
+  clearTimeout(window.__chartTimer);
+
+  window.__chartTimer=
+   setTimeout(drawChart,120);
+ }
+);
+
+window.addEventListener(
+ "storage",
+ e=>{
+  if(
+   Object.values(DATA_KEYS)
+    .includes(e.key)
+  ){
+   loadAnalytics();
+  }
+ }
+);
+
+document
+ .querySelectorAll(".sidebar a")
+ .forEach(link=>{
+  link.addEventListener("click",()=>{
+   document
+    .getElementById("sidebar")
+    .classList.remove("open");
+  });
+ });
+
+document.addEventListener(
+ "DOMContentLoaded",
+ ()=>{
+
+  try{
+
+   if(
+    typeof Security!=="undefined" &&
+    typeof Security.requireAuth==="function"
+   ){
+    Security.requireAuth("analytics");
+   }
+
+  }catch(e){
+   console.warn(
+    "Security module not ready:",
+    e
+   );
+  }
+
+  loadAnalytics();
+ }
+);
+</script>
+
+</body>
+</html>

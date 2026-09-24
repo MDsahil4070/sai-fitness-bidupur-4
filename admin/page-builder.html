@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+<title>Page Builder • Sai Fitness</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+ --green:#16a34a;
+ --bg:#070b09;
+ --card:#101713;
+ --dark:#080d0a;
+ --text:#f5f7f6;
+ --muted:#8d9a92;
+ --border:rgba(255,255,255,.08);
+ --danger:#ef4444;
+ --blue:#3b82f6;
+ --orange:#f59e0b;
+}
+
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+}
+
+button,input,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.layout{
+ display:flex;
+ min-height:100vh;
+}
+
+.sidebar{
+ width:255px;
+ position:fixed;
+ inset:0 auto 0 0;
+ background:#0b100d;
+ border-right:1px solid var(--border);
+ padding:20px 14px;
+ overflow-y:auto;
+ z-index:1000;
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:5px 9px 23px;
+}
+
+.logo{
+ width:43px;
+ height:43px;
+ border-radius:13px;
+ background:var(--green);
+ display:grid;
+ place-items:center;
+ font-weight:800;
+}
+
+.brand strong{
+ display:block;
+ font-size:15px;
+}
+
+.brand small{
+ color:var(--muted);
+ font-size:10px;
+}
+
+.nav-title{
+ color:#59655e;
+ font-size:9px;
+ font-weight:800;
+ letter-spacing:1px;
+ margin:18px 10px 8px;
+ text-transform:uppercase;
+}
+
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:10px 11px;
+ border-radius:11px;
+ color:#aab5ae;
+ text-decoration:none;
+ font-size:12px;
+ margin-bottom:3px;
+}
+
+.nav a i{
+ width:18px;
+ text-align:center;
+}
+
+.nav a:hover{
+ background:rgba(255,255,255,.05);
+ color:#fff;
+}
+
+.nav a.active{
+ background:rgba(22,163,74,.14);
+ color:#fff;
+ border:1px solid rgba(22,163,74,.18);
+}
+
+.main{
+ margin-left:255px;
+ width:calc(100% - 255px);
+ padding:27px;
+}
+
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ margin-bottom:22px;
+}
+
+.topbar h1{
+ font-size:25px;
+ margin-bottom:5px;
+}
+
+.topbar p{
+ color:var(--muted);
+ font-size:12px;
+}
+
+.mobile-menu{
+ display:none;
+ width:42px;
+ height:42px;
+ border-radius:12px;
+ background:var(--card);
+ color:#fff;
+ border:1px solid var(--border);
+}
+
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+}
+
+.btn{
+ border:0;
+ border-radius:11px;
+ padding:10px 14px;
+ color:#fff;
+ font-weight:700;
+ font-size:11px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:7px;
+}
+
+.btn-primary{
+ background:var(--green);
+}
+
+.btn-dark{
+ background:#18201b;
+ border:1px solid var(--border);
+}
+
+.btn-danger{
+ background:rgba(239,68,68,.12);
+ color:#f87171;
+ border:1px solid rgba(239,68,68,.18);
+}
+
+.btn-blue{
+ background:rgba(59,130,246,.12);
+ color:#60a5fa;
+ border:1px solid rgba(59,130,246,.18);
+}
+
+.layout-grid{
+ display:grid;
+ grid-template-columns:340px minmax(0,1fr);
+ gap:18px;
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:17px;
+ padding:18px;
+ margin-bottom:18px;
+}
+
+.title{
+ font-size:15px;
+ font-weight:800;
+ margin-bottom:5px;
+}
+
+.sub{
+ color:var(--muted);
+ font-size:10px;
+ line-height:1.6;
+ margin-bottom:16px;
+}
+
+.field{
+ display:flex;
+ flex-direction:column;
+ gap:6px;
+ margin-bottom:12px;
+}
+
+.field label{
+ color:#aab5ae;
+ font-size:10px;
+ font-weight:700;
+}
+
+.field input,
+.field select{
+ width:100%;
+ background:var(--dark);
+ color:#fff;
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:10px 11px;
+ outline:none;
+ font-size:11px;
+}
+
+.field input:focus,
+.field select:focus{
+ border-color:var(--green);
+}
+
+.add-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+}
+
+.add-grid .btn{
+ width:100%;
+}
+
+.page-list{
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+}
+
+.page-item{
+ background:var(--dark);
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:11px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ transition:.18s;
+}
+
+.page-item.dragging{
+ opacity:.45;
+ transform:scale(.98);
+}
+
+.drag{
+ width:25px;
+ color:#58655d;
+ text-align:center;
+ cursor:grab;
+}
+
+.drag:active{
+ cursor:grabbing;
+}
+
+.page-icon{
+ width:37px;
+ height:37px;
+ border-radius:10px;
+ display:grid;
+ place-items:center;
+ background:rgba(22,163,74,.12);
+ color:#4ade80;
+ flex:none;
+}
+
+.page-info{
+ min-width:0;
+ flex:1;
+}
+
+.page-info strong{
+ display:block;
+ font-size:11px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.page-info span{
+ display:block;
+ color:var(--muted);
+ font-size:8px;
+ margin-top:3px;
+}
+
+.page-actions{
+ display:flex;
+ gap:5px;
+}
+
+.icon-btn{
+ width:31px;
+ height:31px;
+ border:1px solid var(--border);
+ border-radius:8px;
+ background:#121914;
+ color:#aeb8b2;
+ display:grid;
+ place-items:center;
+}
+
+.icon-btn:hover{
+ color:#fff;
+}
+
+.icon-btn.danger:hover{
+ color:#f87171;
+}
+
+.status-dot{
+ width:7px;
+ height:7px;
+ border-radius:50%;
+ background:#4ade80;
+ display:inline-block;
+ margin-right:5px;
+}
+
+.status-dot.off{
+ background:#64706a;
+}
+
+.empty{
+ padding:25px 12px;
+ text-align:center;
+ color:var(--muted);
+ font-size:10px;
+}
+
+.preview-wrap{
+ background:#050806;
+ border:1px solid var(--border);
+ border-radius:17px;
+ padding:16px;
+ min-height:650px;
+}
+
+.preview-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:14px;
+}
+
+.preview-top strong{
+ font-size:11px;
+}
+
+.preview-top span{
+ color:var(--muted);
+ font-size:9px;
+}
+
+.phone{
+ width:min(100%,430px);
+ margin:auto;
+ background:#070b09;
+ border:1px solid #26312a;
+ border-radius:25px;
+ overflow:hidden;
+ min-height:620px;
+ box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.phone-head{
+ padding:15px 16px 8px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.phone-brand{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.phone-logo{
+ width:30px;
+ height:30px;
+ border-radius:9px;
+ background:var(--green);
+ display:grid;
+ place-items:center;
+ font-size:9px;
+ font-weight:800;
+}
+
+.phone-brand strong{
+ font-size:10px;
+}
+
+.phone-brand span{
+ display:block;
+ color:var(--muted);
+ font-size:7px;
+ margin-top:2px;
+}
+
+.phone-user{
+ width:31px;
+ height:31px;
+ border-radius:50%;
+ background:#162019;
+ display:grid;
+ place-items:center;
+ color:#8d9a92;
+ font-size:11px;
+}
+
+.preview-content{
+ padding:10px 15px 18px;
+}
+
+.preview-section{
+ margin-bottom:13px;
+}
+
+.preview-hero{
+ padding:16px;
+ border-radius:17px;
+ background:linear-gradient(135deg,#102018,#0b120e);
+ border:1px solid rgba(22,163,74,.14);
+}
+
+.preview-hero small{
+ color:#4ade80;
+ font-size:7px;
+ font-weight:800;
+}
+
+.preview-hero h2{
+ font-size:18px;
+ line-height:1.25;
+ margin:6px 0;
+}
+
+.preview-hero p{
+ color:var(--muted);
+ font-size:8px;
+ line-height:1.5;
+}
+
+.preview-stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:5px;
+}
+
+.stat{
+ padding:10px 5px;
+ border-radius:10px;
+ background:#101713;
+ border:1px solid var(--border);
+ text-align:center;
+}
+
+.stat i{
+ color:#4ade80;
+ font-size:9px;
+ margin-bottom:4px;
+}
+
+.stat strong{
+ display:block;
+ font-size:10px;
+}
+
+.stat span{
+ display:block;
+ color:var(--muted);
+ font-size:6px;
+ margin-top:2px;
+}
+
+.preview-box{
+ background:#101713;
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:12px;
+}
+
+.preview-box h4{
+ font-size:9px;
+ margin-bottom:4px;
+}
+
+.preview-box p{
+ color:var(--muted);
+ font-size:7px;
+ line-height:1.5;
+}
+
+.preview-actions{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:6px;
+}
+
+.preview-action{
+ padding:10px;
+ border-radius:10px;
+ background:#101713;
+ border:1px solid var(--border);
+ font-size:8px;
+}
+
+.preview-action i{
+ color:#4ade80;
+ margin-right:4px;
+}
+
+.preview-nav{
+ position:sticky;
+ bottom:0;
+ background:#0c120e;
+ border-top:1px solid var(--border);
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ padding:10px 4px;
+}
+
+.preview-nav div{
+ text-align:center;
+ color:#66736b;
+ font-size:7px;
+}
+
+.preview-nav i{
+ display:block;
+ margin-bottom:4px;
+}
+
+.preview-nav .active{
+ color:#4ade80;
+}
+
+.help{
+ background:var(--dark);
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:13px;
+ margin-top:12px;
+}
+
+.help h4{
+ font-size:10px;
+ margin-bottom:7px;
+}
+
+.help p,
+.help li{
+ color:var(--muted);
+ font-size:9px;
+ line-height:1.7;
+}
+
+.help ul{
+ padding-left:16px;
+}
+
+.toast{
+ position:fixed;
+ left:50%;
+ bottom:25px;
+ transform:translate(-50%,20px);
+ background:#151c17;
+ border:1px solid var(--border);
+ color:#fff;
+ padding:12px 17px;
+ border-radius:12px;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:99999;
+ font-size:12px;
+ font-weight:700;
+}
+
+.toast.show{
+ opacity:1;
+ transform:translate(-50%,0);
+}
+
+.modal-bg{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.72);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:16px;
+ z-index:5000;
+}
+
+.modal-bg.show{
+ display:flex;
+}
+
+.modal{
+ width:min(100%,470px);
+ max-height:90vh;
+ overflow:auto;
+ background:#101713;
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:20px;
+}
+
+.modal-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:17px;
+}
+
+.modal-head h3{
+ font-size:15px;
+}
+
+.close{
+ width:34px;
+ height:34px;
+ border:1px solid var(--border);
+ border-radius:9px;
+ background:#151c17;
+ color:#fff;
+}
+
+.modal-footer{
+ display:flex;
+ gap:8px;
+ margin-top:15px;
+}
+
+.modal-footer .btn{
+ flex:1;
+}
+
+@media(max-width:1050px){
+
+ .layout-grid{
+  grid-template-columns:1fr;
+ }
+
+ .preview-wrap{
+  min-height:auto;
+ }
+
+}
+
+@media(max-width:950px){
+
+ .sidebar{
+  transform:translateX(-100%);
+  transition:.25s;
+ }
+
+ .sidebar.open{
+  transform:translateX(0);
+ }
+
+ .main{
+  margin-left:0;
+  width:100%;
+  padding:17px;
+ }
+
+ .mobile-menu{
+  display:block;
+ }
+
+}
+
+@media(max-width:600px){
+
+ .topbar{
+  align-items:flex-start;
+ }
+
+ .topbar h1{
+  font-size:21px;
+ }
+
+ .actions{
+  width:100%;
+ }
+
+ .actions .btn{
+  flex:1;
+ }
+
+ .add-grid{
+  grid-template-columns:1fr;
+ }
+
+ .page-actions .icon-btn:nth-child(2){
+  display:none;
+ }
+
+ .preview-stats{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+
+ <div class="brand">
+  <div class="logo">SF</div>
+  <div>
+   <strong>Sai Fitness</strong>
+   <small>Admin Panel</small>
+  </div>
+ </div>
+
+ <nav class="nav">
+
+  <div class="nav-title">Dashboard</div>
+
+  <a href="index.html">
+   <i class="fa-solid fa-chart-line"></i>
+   Dashboard
+  </a>
+
+  <div class="nav-title">Management</div>
+
+  <a href="members.html">
+   <i class="fa-solid fa-users"></i>
+   Members
+  </a>
+
+  <a href="workouts.html">
+   <i class="fa-solid fa-dumbbell"></i>
+   Workouts
+  </a>
+
+  <a href="exercises.html">
+   <i class="fa-solid fa-person-running"></i>
+   Exercises
+  </a>
+
+  <a href="diet.html">
+   <i class="fa-solid fa-apple-whole"></i>
+   Diet
+  </a>
+
+  <a href="goals.html">
+   <i class="fa-solid fa-bullseye"></i>
+   Goals
+  </a>
+
+  <a href="achievements.html">
+   <i class="fa-solid fa-trophy"></i>
+   Achievements
+  </a>
+
+  <a href="notifications.html">
+   <i class="fa-solid fa-bell"></i>
+   Notifications
+  </a>
+
+  <div class="nav-title">Customization</div>
+
+  <a href="theme.html">
+   <i class="fa-solid fa-palette"></i>
+   Theme Studio
+  </a>
+
+  <a href="css-manager.html">
+   <i class="fa-solid fa-code"></i>
+   CSS Manager
+  </a>
+
+  <a href="animation-manager.html">
+   <i class="fa-solid fa-wand-magic-sparkles"></i>
+   Animations
+  </a>
+
+  <a href="media.html">
+   <i class="fa-solid fa-photo-film"></i>
+   Media
+  </a>
+
+  <a href="content.html">
+   <i class="fa-solid fa-pen-to-square"></i>
+   Content
+  </a>
+
+  <a href="home.html">
+   <i class="fa-solid fa-house"></i>
+   Home Manager
+  </a>
+
+  <a href="page-builder.html" class="active">
+   <i class="fa-solid fa-layer-group"></i>
+   Page Builder
+  </a>
+
+  <div class="nav-title">Growth</div>
+
+  <a href="seo.html">
+   <i class="fa-solid fa-magnifying-glass-chart"></i>
+   SEO Manager
+  </a>
+
+  <a href="analytics.html">
+   <i class="fa-solid fa-chart-pie"></i>
+   Analytics
+  </a>
+
+  <div class="nav-title">System</div>
+
+  <a href="app-upload.html">
+   <i class="fa-solid fa-cloud-arrow-up"></i>
+   App Upload
+  </a>
+
+  <a href="backup.html">
+   <i class="fa-solid fa-database"></i>
+   Backup
+  </a>
+
+  <a href="settings.html">
+   <i class="fa-solid fa-gear"></i>
+   Settings
+  </a>
+
+  <a href="security.html">
+   <i class="fa-solid fa-shield-halved"></i>
+   Security
+  </a>
+
+ </nav>
+
+</aside>
+
+
+<main class="main">
+
+ <div class="topbar">
+
+  <div style="display:flex;gap:10px;align-items:flex-start">
+
+   <button class="mobile-menu" id="mobileMenu">
+    <i class="fa-solid fa-bars"></i>
+   </button>
+
+   <div>
+    <h1>Page Builder</h1>
+    <p>
+     Arrange and control the sections of your fitness app.
+    </p>
+   </div>
+
+  </div>
+
+  <div class="actions">
+
+   <button class="btn btn-dark" id="resetBtn">
+    <i class="fa-solid fa-rotate-left"></i>
+    Reset
+   </button>
+
+   <button class="btn btn-primary" id="saveBtn">
+    <i class="fa-solid fa-floppy-disk"></i>
+    Save Layout
+   </button>
+
+  </div>
+
+ </div>
+
+
+ <div class="layout-grid">
+
+  <!-- LEFT -->
+
+  <section>
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-plus"></i>
+     Add Section
+    </div>
+
+    <div class="sub">
+     Create a new section for the home page.
+    </div>
+
+    <div class="field">
+
+     <label>Section Name</label>
+
+     <input
+      id="newName"
+      maxlength="40"
+      placeholder="Example: My Progress">
+
+    </div>
+
+    <div class="field">
+
+     <label>Section Type</label>
+
+     <select id="newType">
+
+      <option value="custom">
+       Custom Section
+      </option>
+
+      <option value="hero">
+       Hero
+      </option>
+
+      <option value="stats">
+       Statistics
+      </option>
+
+      <option value="workout">
+       Workout
+      </option>
+
+      <option value="diet">
+       Diet
+      </option>
+
+      <option value="water">
+       Water
+      </option>
+
+      <option value="goals">
+       Goals
+      </option>
+
+      <option value="activity">
+       Recent Activity
+      </option>
+
+      <option value="motivation">
+       Motivation
+      </option>
+
+      <option value="announcement">
+       Announcement
+      </option>
+
+     </select>
+
+    </div>
+
+    <div class="add-grid">
+
+     <button class="btn btn-primary" id="addBtn">
+      <i class="fa-solid fa-plus"></i>
+      Add Section
+     </button>
+
+     <button class="btn btn-dark" id="duplicateBtn">
+      <i class="fa-solid fa-copy"></i>
+      Duplicate
+     </button>
+
+    </div>
+
+   </div>
+
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-grip-vertical"></i>
+     Page Sections
+    </div>
+
+    <div class="sub">
+     Drag sections to change their order. Use the eye icon to
+     show or hide a section.
+    </div>
+
+    <div class="page-list" id="pageList"></div>
+
+   </div>
+
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-gear"></i>
+     Builder Settings
+    </div>
+
+    <div class="field">
+
+     <label>Page</label>
+
+     <select id="targetPage">
+
+      <option value="home">
+       Home / Dashboard
+      </option>
+
+      <option value="workout">
+       Workout
+      </option>
+
+      <option value="diet">
+       Diet
+      </option>
+
+      <option value="progress">
+       Progress
+      </option>
+
+      <option value="profile">
+       Profile
+      </option>
+
+     </select>
+
+    </div>
+
+    <div class="help">
+
+     <h4>
+      <i class="fa-solid fa-circle-info"></i>
+      How to use
+     </h4>
+
+     <ul>
+      <li>Add a section using the form above.</li>
+      <li>Drag the grip icon to reorder.</li>
+      <li>Eye icon controls visibility.</li>
+      <li>Edit icon changes section details.</li>
+      <li>Trash icon removes a custom section.</li>
+      <li>Save Layout stores the configuration.</li>
+     </ul>
+
+    </div>
+
+   </div>
+
+  </section>
+
+
+  <!-- RIGHT PREVIEW -->
+
+  <section>
+
+   <div class="card">
+
+    <div class="preview-top">
+     <div>
+      <div class="title">Live App Preview</div>
+      <div class="sub" style="margin:0">
+       Approximate mobile preview.
+      </div>
+     </div>
+
+     <span>
+      <i class="fa-solid fa-mobile-screen"></i>
+      Mobile
+     </span>
+    </div>
+
+    <div class="preview-wrap">
+
+     <div class="phone">
+
+      <div class="phone-head">
+
+       <div class="phone-brand">
+
+        <div class="phone-logo">
+         SF
+        </div>
+
+        <div>
+         <strong>Sai Fitness</strong>
+         <span>Train Hard • Stay Strong</span>
+        </div>
+
+       </div>
+
+       <div class="phone-user">
+        <i class="fa-solid fa-user"></i>
+       </div>
+
+      </div>
+
+
+      <div class="preview-content" id="previewContent">
+      </div>
+
+
+      <div class="preview-nav">
+
+       <div class="active">
+        <i class="fa-solid fa-house"></i>
+        Home
+       </div>
+
+       <div>
+        <i class="fa-solid fa-dumbbell"></i>
+        Workout
+       </div>
+
+       <div>
+        <i class="fa-solid fa-chart-line"></i>
+        Progress
+       </div>
+
+       <div>
+        <i class="fa-solid fa-user"></i>
+        Profile
+       </div>
+
+      </div>
+
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <div class="card">
+
+    <div class="title">
+     <i class="fa-solid fa-database"></i>
+     Layout Storage
+    </div>
+
+    <div class="sub">
+     Page Builder data is stored locally on this browser.
+    </div>
+
+    <div class="help">
+
+     <h4>Storage Key</h4>
+
+     <p>
+      <strong>saiPageBuilder</strong>
+     </p>
+
+    </div>
+
+    <div class="help">
+
+     <h4>Important</h4>
+
+     <p>
+      This browser-based builder controls the saved layout
+      configuration. Your actual app pages must read
+      <strong>saiPageBuilder</strong> to automatically render
+      custom sections.
+     </p>
+
+    </div>
+
+   </div>
+
+  </section>
+
+ </div>
+
+</main>
+
+</div>
+
+
+<!-- EDIT MODAL -->
+
+<div class="modal-bg" id="modalBg">
+
+ <div class="modal">
+
+  <div class="modal-head">
+
+   <h3>
+    <i class="fa-solid fa-pen"></i>
+    Edit Section
+   </h3>
+
+   <button class="close" id="closeModal">
+    <i class="fa-solid fa-xmark"></i>
+   </button>
+
+  </div>
+
+  <div class="field">
+
+   <label>Section Name</label>
+
+   <input id="editName" maxlength="40">
+
+  </div>
+
+  <div class="field">
+
+   <label>Section Type</label>
+
+   <select id="editType">
+
+    <option value="custom">
+     Custom Section
+    </option>
+
+    <option value="hero">
+     Hero
+    </option>
+
+    <option value="stats">
+     Statistics
+    </option>
+
+    <option value="workout">
+     Workout
+    </option>
+
+    <option value="diet">
+     Diet
+    </option>
+
+    <option value="water">
+     Water
+    </option>
+
+    <option value="goals">
+     Goals
+    </option>
+
+    <option value="activity">
+     Recent Activity
+    </option>
+
+    <option value="motivation">
+     Motivation
+    </option>
+
+    <option value="announcement">
+     Announcement
+    </option>
+
+   </select>
+
+  </div>
+
+  <div class="modal-footer">
+
+   <button class="btn btn-dark" id="cancelEdit">
+    Cancel
+   </button>
+
+   <button class="btn btn-primary" id="saveEdit">
+    <i class="fa-solid fa-check"></i>
+    Update
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="admin-security.js"></script>
+
+<script>
+"use strict";
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+if(
+ window.Security &&
+ typeof Security.requireAuth === "function"
+){
+ Security.requireAuth("page-builder");
+}
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const STORAGE_KEY =
+ "saiPageBuilder";
+
+
+/* =========================================================
+   DEFAULT LAYOUT
+   ========================================================= */
+
+const DEFAULT_LAYOUT = [
+
+ {
+  id:"hero",
+  name:"Hero",
+  type:"hero",
+  visible:true,
+  locked:true
+ },
+
+ {
+  id:"stats",
+  name:"Fitness Statistics",
+  type:"stats",
+  visible:true,
+  locked:true
+ },
+
+ {
+  id:"workout",
+  name:"Today's Workout",
+  type:"workout",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"quick-actions",
+  name:"Quick Actions",
+  type:"custom",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"water",
+  name:"Water Tracker",
+  type:"water",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"diet",
+  name:"Diet Summary",
+  type:"diet",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"goals",
+  name:"Goals",
+  type:"goals",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"activity",
+  name:"Recent Activity",
+  type:"activity",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"motivation",
+  name:"Motivation",
+  type:"motivation",
+  visible:true,
+  locked:false
+ },
+
+ {
+  id:"announcement",
+  name:"Announcement",
+  type:"announcement",
+  visible:true,
+  locked:false
+ }
+
+];
+
+
+let sections = [];
+let editingId = null;
+let draggedId = null;
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+const ICONS = {
+
+ hero:
+  "fa-house",
+
+ stats:
+  "fa-chart-simple",
+
+ workout:
+  "fa-dumbbell",
+
+ diet:
+  "fa-apple-whole",
+
+ water:
+  "fa-droplet",
+
+ goals:
+  "fa-bullseye",
+
+ activity:
+  "fa-clock-rotate-left",
+
+ motivation:
+  "fa-fire",
+
+ announcement:
+  "fa-bullhorn",
+
+ custom:
+  "fa-layer-group"
+
+};
+
+
+/* =========================================================
+   LOAD
+   ========================================================= */
+
+function loadLayout(){
+
+ try{
+
+  const saved =
+   JSON.parse(
+    localStorage.getItem(
+     STORAGE_KEY
+    ) || "null"
+   );
+
+  if(
+   Array.isArray(saved) &&
+   saved.length
+  ){
+
+   sections =
+    saved.map(
+     item => ({
+      ...item,
+      visible:
+       item.visible !== false
+     })
+    );
+
+  }else{
+
+   sections =
+    JSON.parse(
+     JSON.stringify(
+      DEFAULT_LAYOUT
+     )
+    );
+
+  }
+
+ }catch(error){
+
+  sections =
+   JSON.parse(
+    JSON.stringify(
+     DEFAULT_LAYOUT
+    )
+   );
+
+ }
+
+ render();
+
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+function saveLayout(
+ silent = false
+){
+
+ localStorage.setItem(
+  STORAGE_KEY,
+  JSON.stringify(
+   sections
+  )
+ );
+
+ if(!silent){
+
+  showToast(
+   "Page layout saved ✓"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
+   RENDER LIST
+   ========================================================= */
+
+function render(){
+
+ const list =
+  document.getElementById(
+   "pageList"
+  );
+
+ list.innerHTML = "";
+
+
+ if(!sections.length){
+
+  list.innerHTML = `
+   <div class="empty">
+    No sections available.
+   </div>
+  `;
+
+  updatePreview();
+
+  return;
+
+ }
+
+
+ sections.forEach(
+  section => {
+
+   const item =
+    document.createElement(
+     "div"
+    );
+
+   item.className =
+    "page-item";
+
+   item.draggable =
+    true;
+
+   item.dataset.id =
+    section.id;
+
+
+   item.innerHTML = `
+
+    <div class="drag">
+     <i class="fa-solid fa-grip-vertical"></i>
+    </div>
+
+    <div class="page-icon">
+     <i class="fa-solid ${ICONS[section.type] || ICONS.custom}"></i>
+    </div>
+
+    <div class="page-info">
+
+     <strong>
+      ${escapeHTML(section.name)}
+     </strong>
+
+     <span>
+      <span class="status-dot ${section.visible ? "" : "off"}"></span>
+      ${section.visible ? "Visible" : "Hidden"}
+      • ${escapeHTML(section.type)}
+     </span>
+
+    </div>
+
+    <div class="page-actions">
+
+     <button
+      class="icon-btn"
+      title="${section.visible ? "Hide" : "Show"}"
+      data-action="toggle">
+
+      <i class="fa-solid ${
+       section.visible
+       ? "fa-eye"
+       : "fa-eye-slash"
+      }"></i>
+
+     </button>
+
+     <button
+      class="icon-btn"
+      title="Edit"
+      data-action="edit">
+
+      <i class="fa-solid fa-pen"></i>
+
+     </button>
+
+     <button
+      class="icon-btn danger"
+      title="Delete"
+      data-action="delete"
+      ${section.locked ? "disabled" : ""}>
+
+      <i class="fa-solid fa-trash"></i>
+
+     </button>
+
+    </div>
+   `;
+
+
+   item.addEventListener(
+    "dragstart",
+    () => {
+
+     draggedId =
+      section.id;
+
+     item.classList.add(
+      "dragging"
+     );
+
+    }
+   );
+
+
+   item.addEventListener(
+    "dragend",
+    () => {
+
+     item.classList.remove(
+      "dragging"
+     );
+
+     draggedId =
+      null;
+
+    }
+   );
+
+
+   item.addEventListener(
+    "dragover",
+    event => {
+
+     event.preventDefault();
+
+    }
+   );
+
+
+   item.addEventListener(
+    "drop",
+    event => {
+
+     event.preventDefault();
+
+     if(
+      !draggedId ||
+      draggedId === section.id
+     ){
+
+      return;
+
+     }
+
+     moveSection(
+      draggedId,
+      section.id
+     );
+
+    }
+   );
+
+
+   item
+    .querySelector(
+     '[data-action="toggle"]'
+    )
+    .addEventListener(
+     "click",
+     () => {
+
+      section.visible =
+       !section.visible;
+
+      render();
+
+     }
+    );
+
+
+   item
+    .querySelector(
+     '[data-action="edit"]'
+    )
+    .addEventListener(
+     "click",
+     () => {
+
+      openEdit(
+       section.id
+      );
+
+     }
+    );
+
+
+   const deleteBtn =
+    item.querySelector(
+     '[data-action="delete"]'
+    );
+
+
+   if(deleteBtn){
+
+    deleteBtn.addEventListener(
+     "click",
+     () => {
+
+      deleteSection(
+       section.id
+      );
+
+     }
+    );
+
+   }
+
+
+   list.appendChild(
+    item
+   );
+
+  }
+ );
+
+
+ updatePreview();
+
+}
+
+
+/* =========================================================
+   MOVE
+   ========================================================= */
+
+function moveSection(
+ fromId,
+ toId
+){
+
+ const fromIndex =
+  sections.findIndex(
+   x => x.id === fromId
+  );
+
+ const toIndex =
+  sections.findIndex(
+   x => x.id === toId
+  );
+
+
+ if(
+  fromIndex < 0 ||
+  toIndex < 0
+ ){
+
+  return;
+
+ }
+
+
+ const item =
+  sections.splice(
+   fromIndex,
+   1
+  )[0];
+
+
+ sections.splice(
+  toIndex,
+  0,
+  item
+ );
+
+
+ render();
+
+}
+
+
+/* =========================================================
+   ADD
+   ========================================================= */
+
+document
+.getElementById("addBtn")
+.addEventListener(
+ "click",
+ addSection
+);
+
+
+function addSection(){
+
+ const name =
+  document
+   .getElementById(
+    "newName"
+   )
+   .value
+   .trim();
+
+
+ const type =
+  document
+   .getElementById(
+    "newType"
+   )
+   .value;
+
+
+ if(!name){
+
+  showToast(
+   "Section name required"
+  );
+
+  return;
+
+ }
+
+
+ const id =
+  "custom-" +
+  Date.now();
+
+
+ sections.push({
+
+  id,
+
+  name,
+
+  type,
+
+  visible:true,
+
+  locked:false
+
+ });
+
+
+ document
+  .getElementById(
+   "newName"
+  )
+  .value = "";
+
+
+ render();
+
+ showToast(
+  "Section added ✓"
+ );
+
+}
+
+
+/* =========================================================
+   DUPLICATE
+   ========================================================= */
+
+document
+.getElementById("duplicateBtn")
+.addEventListener(
+ "click",
+ () => {
+
+  if(!sections.length){
+
+   showToast(
+    "No section to duplicate"
+   );
+
+   return;
+
+  }
+
+
+  const source =
+   sections[
+    sections.length - 1
+   ];
+
+
+  const copy = {
+
+   ...source,
+
+   id:
+    "custom-" +
+    Date.now(),
+
+   name:
+    source.name +
+    " Copy",
+
+   locked:false
+
+  };
+
+
+  sections.push(
+   copy
+  );
+
+  render();
+
+  showToast(
+   "Section duplicated ✓"
+  );
+
+ }
+);
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+function deleteSection(
+ id
+){
+
+ const section =
+  sections.find(
+   x => x.id === id
+  );
+
+
+ if(!section){
+
+  return;
+
+ }
+
+
+ if(section.locked){
+
+  showToast(
+   "This default section cannot be deleted"
+  );
+
+  return;
+
+ }
+
+
+ if(
+  !confirm(
+   `Delete "${section.name}"?`
+  )
+ ){
+
+  return;
+
+ }
+
+
+ sections =
+  sections.filter(
+   x => x.id !== id
+  );
+
+
+ render();
+
+ showToast(
+  "Section deleted"
+ );
+
+}
+
+
+/* =========================================================
+   EDIT
+   ========================================================= */
+
+function openEdit(
+ id
+){
+
+ const section =
+  sections.find(
+   x => x.id === id
+  );
+
+
+ if(!section){
+
+  return;
+
+ }
+
+
+ editingId =
+  id;
+
+
+ document
+  .getElementById(
+   "editName"
+  )
+  .value =
+   section.name;
+
+
+ document
+  .getElementById(
+   "editType"
+  )
+  .value =
+   section.type;
+
+
+ document
+  .getElementById(
+   "modalBg"
+  )
+  .classList.add(
+   "show"
+  );
+
+}
+
+
+function closeEdit(){
+
+ editingId =
+  null;
+
+ document
+  .getElementById(
+   "modalBg"
+  )
+  .classList.remove(
+   "show"
+  );
+
+}
+
+
+document
+.getElementById("closeModal")
+.addEventListener(
+ "click",
+ closeEdit
+);
+
+
+document
+.getElementById("cancelEdit")
+.addEventListener(
+ "click",
+ closeEdit
+);
+
+
+document
+.getElementById("saveEdit")
+.addEventListener(
+ "click",
+ () => {
+
+  if(!editingId){
+
+   return;
+
+  }
+
+
+  const section =
+   sections.find(
+    x => x.id === editingId
+   );
+
+
+  if(!section){
+
+   return;
+
+  }
+
+
+  const name =
+   document
+    .getElementById(
+     "editName"
+    )
+    .value
+    .trim();
+
+
+  const type =
+   document
+    .getElementById(
+     "editType"
+    )
+    .value;
+
+
+  if(!name){
+
+   showToast(
+    "Section name required"
+   );
+
+   return;
+
+  }
+
+
+  section.name =
+   name;
+
+  section.type =
+   type;
+
+
+  closeEdit();
+
+  render();
+
+  showToast(
+   "Section updated ✓"
+  );
+
+ }
+);
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+document
+.getElementById("resetBtn")
+.addEventListener(
+ "click",
+ () => {
+
+  if(
+   !confirm(
+    "Reset Page Builder to the default layout?"
+   )
+  ){
+
+   return;
+
+  }
+
+
+  sections =
+   JSON.parse(
+    JSON.stringify(
+     DEFAULT_LAYOUT
+    )
+   );
+
+
+  saveLayout(
+   true
+  );
+
+  render();
+
+  showToast(
+   "Default layout restored"
+  );
+
+ }
+);
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+document
+.getElementById("saveBtn")
+.addEventListener(
+ "click",
+ () => {
+
+  saveLayout();
+
+ }
+);
+
+
+/* =========================================================
+   PREVIEW
+   ========================================================= */
+
+function updatePreview(){
+
+ const box =
+  document.getElementById(
+   "previewContent"
+  );
+
+
+ box.innerHTML = "";
+
+
+ sections
+  .filter(
+   section =>
+    section.visible
+  )
+  .forEach(
+   section => {
+
+    const element =
+     createPreviewSection(
+      section
+     );
+
+    box.appendChild(
+     element
+    );
+
+   }
+  );
+
+
+ if(!box.children.length){
+
+  box.innerHTML = `
+   <div class="preview-box">
+    <h4>No visible sections</h4>
+    <p>
+     Enable a section from the Page Builder.
+    </p>
+   </div>
+  `;
+
+ }
+
+}
+
+
+function createPreviewSection(
+ section
+){
+
+ const wrap =
+  document.createElement(
+   "div"
+  );
+
+ wrap.className =
+  "preview-section";
+
+
+ switch(section.type){
+
+  case "hero":
+
+   wrap.innerHTML = `
+
+    <div class="preview-hero">
+
+     <small>
+      WELCOME BACK!
+     </small>
+
+     <h2>
+      Let's Build Your Best Body
+     </h2>
+
+     <p>
+      Track your workouts, nutrition and progress every day.
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "stats":
+
+   wrap.innerHTML = `
+
+    <div class="preview-stats">
+
+     <div class="stat">
+      <i class="fa-solid fa-dumbbell"></i>
+      <strong>12</strong>
+      <span>Workouts</span>
+     </div>
+
+     <div class="stat">
+      <i class="fa-solid fa-fire"></i>
+      <strong>840</strong>
+      <span>Calories</span>
+     </div>
+
+     <div class="stat">
+      <i class="fa-solid fa-clock"></i>
+      <strong>240</strong>
+      <span>Minutes</span>
+     </div>
+
+     <div class="stat">
+      <i class="fa-solid fa-bolt"></i>
+      <strong>7</strong>
+      <span>Streak</span>
+     </div>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "workout":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-dumbbell"></i>
+      Today's Workout
+     </h4>
+
+     <p>
+      Full Body Starter • 30 min • 220 kcal
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "diet":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-apple-whole"></i>
+      Today's Diet
+     </h4>
+
+     <p>
+      Calories 1,420 / 2,000 • Protein 78g
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "water":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-droplet"></i>
+      Water Tracker
+     </h4>
+
+     <p>
+      5 / 8 glasses completed today.
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "goals":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-bullseye"></i>
+      Today's Goals
+     </h4>
+
+     <p>
+      Workout ✓ • Water 5/8 • Calories 71%
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "activity":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      Recent Activity
+     </h4>
+
+     <p>
+      Completed Full Body Starter 20 minutes ago.
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "motivation":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      🔥 Motivation
+     </h4>
+
+     <p>
+      Small progress every day becomes big results.
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  case "announcement":
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-bullhorn"></i>
+      Announcement
+     </h4>
+
+     <p>
+      New workout plan available!
+     </p>
+
+    </div>
+
+   `;
+
+   break;
+
+
+  default:
+
+   wrap.innerHTML = `
+
+    <div class="preview-box">
+
+     <h4>
+      <i class="fa-solid fa-layer-group"></i>
+      ${escapeHTML(section.name)}
+     </h4>
+
+     <p>
+      Custom app section.
+     </p>
+
+    </div>
+
+   `;
+
+ }
+
+
+ return wrap;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(
+ value
+){
+
+ return String(
+  value ?? ""
+ )
+ .replace(
+  /&/g,
+  "&amp;"
+ )
+ .replace(
+  /</g,
+  "&lt;"
+ )
+ .replace(
+  />/g,
+  "&gt;"
+ )
+ .replace(
+  /"/g,
+  "&quot;"
+ )
+ .replace(
+  /'/g,
+  "&#039;"
+ );
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+document
+.getElementById("mobileMenu")
+.addEventListener(
+ "click",
+ () => {
+
+  document
+   .getElementById(
+    "sidebar"
+   )
+   .classList.toggle(
+    "open"
+   );
+
+ }
+);
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(
+ message
+){
+
+ const toast =
+  document.getElementById(
+   "toast"
+  );
+
+
+ toast.textContent =
+  message;
+
+
+ toast.classList.add(
+  "show"
+ );
+
+
+ clearTimeout(
+  toastTimer
+ );
+
+
+ toastTimer =
+  setTimeout(
+   () => {
+
+    toast.classList.remove(
+     "show"
+    );
+
+   },
+   2200
+  );
+
+}
+
+
+/* =========================================================
+   ESCAPE MODAL
+   ========================================================= */
+
+document.addEventListener(
+ "keydown",
+ event => {
+
+  if(
+   event.key === "Escape"
+  ){
+
+   closeEdit();
+
+  }
+
+ }
+);
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+loadLayout();
+
+</script>
+
+</body>
+</html>

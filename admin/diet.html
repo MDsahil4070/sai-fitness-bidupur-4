@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diet Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070b09;
+  --sidebar:#0b110e;
+  --card:#101713;
+  --card2:#131c17;
+  --border:#1e2b24;
+  --primary:#16a34a;
+  --primary2:#22c55e;
+  --text:#f5f7f6;
+  --muted:#8c9b92;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --blue:#3b82f6;
+  --shadow:0 18px 50px rgba(0,0,0,.28);
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:255px;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:100;
+  overflow-y:auto;
+  transition:.25s;
+}
+
+.logo{
+  height:76px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--primary),#064e24);
+  box-shadow:0 8px 25px rgba(22,163,74,.25);
+  font-size:19px;
+}
+
+.logo-text strong{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+}
+
+.logo-text span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav{
+  padding:15px 11px;
+}
+
+.nav-label{
+  color:#607066;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  padding:10px 10px 7px;
+  font-weight:700;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#9eaaa4;
+  text-decoration:none;
+  padding:11px 12px;
+  border-radius:11px;
+  margin:3px 0;
+  font-size:13px;
+  transition:.2s;
+}
+
+.nav a i{
+  width:19px;
+  text-align:center;
+}
+
+.nav a:hover{
+  background:#121b16;
+  color:#fff;
+}
+
+.nav a.active{
+  background:rgba(22,163,74,.14);
+  color:#4ade80;
+  box-shadow:inset 3px 0 var(--primary);
+}
+
+.sidebar-bottom{
+  margin:10px 11px 20px;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#0d1511;
+}
+
+.admin-mini{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.admin-avatar{
+  width:37px;
+  height:37px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#163d25;
+  color:#4ade80;
+}
+
+.admin-mini strong{
+  font-size:12px;
+  display:block;
+}
+
+.admin-mini span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* MAIN */
+.main{
+  width:calc(100% - 255px);
+  margin-left:255px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:76px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,11,9,.9);
+  backdrop-filter:blur(16px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.page-title h1{
+  font-size:21px;
+  font-weight:800;
+}
+
+.page-title p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.top-actions{
+  display:flex;
+  gap:9px;
+  align-items:center;
+}
+
+.icon-btn{
+  width:39px;
+  height:39px;
+  border:1px solid var(--border);
+  background:#0d1410;
+  color:#a9b5ae;
+  border-radius:11px;
+}
+
+.icon-btn:hover{
+  color:#fff;
+  border-color:#31513d;
+}
+
+.menu-btn{
+  display:none;
+}
+
+/* CONTENT */
+.content{
+  padding:26px;
+  max-width:1450px;
+  margin:auto;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.stat::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-35px;
+  top:-35px;
+  background:rgba(22,163,74,.08);
+  border-radius:50%;
+}
+
+.stat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.stat-icon{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:rgba(22,163,74,.12);
+  color:#4ade80;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:13px;
+}
+
+.stat-value{
+  font-size:25px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.stat-note{
+  color:#68776e;
+  font-size:10px;
+  margin-top:5px;
+}
+
+/* TOOLBAR */
+.toolbar{
+  margin-top:22px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:15px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.search{
+  position:relative;
+  flex:1;
+  min-width:210px;
+}
+
+.search i{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64736a;
+}
+
+.search input{
+  width:100%;
+  height:43px;
+  background:#0b120e;
+  border:1px solid var(--border);
+  color:#fff;
+  border-radius:11px;
+  padding:0 13px 0 39px;
+  outline:none;
+}
+
+.search input:focus{
+  border-color:#267a43;
+}
+
+.filter{
+  height:43px;
+  min-width:140px;
+  background:#0b120e;
+  color:#c7d0ca;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:0 12px;
+  outline:none;
+}
+
+.btn{
+  height:43px;
+  border:0;
+  border-radius:11px;
+  padding:0 15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:700;
+  font-size:12px;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--primary2);
+  transform:translateY(-1px);
+}
+
+.btn-dark{
+  background:#121a15;
+  color:#c9d2cc;
+  border:1px solid var(--border);
+}
+
+.btn-danger{
+  background:rgba(239,68,68,.1);
+  color:#f87171;
+  border:1px solid rgba(239,68,68,.18);
+}
+
+.btn-warning{
+  background:rgba(245,158,11,.1);
+  color:#fbbf24;
+  border:1px solid rgba(245,158,11,.18);
+}
+
+/* SECTION */
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:25px 2px 13px;
+}
+
+.section-head h2{
+  font-size:15px;
+}
+
+.section-head span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* PLANS */
+.plans{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.plan{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  transition:.22s;
+}
+
+.plan:hover{
+  transform:translateY(-2px);
+  border-color:#2a4635;
+}
+
+.plan-head{
+  padding:17px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.plan-title{
+  display:flex;
+  gap:11px;
+  align-items:center;
+}
+
+.plan-icon{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(22,163,74,.13);
+  color:#4ade80;
+  font-size:18px;
+}
+
+.plan-title h3{
+  font-size:14px;
+}
+
+.plan-title p{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.badge{
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:700;
+  height:max-content;
+}
+
+.badge-published{
+  color:#4ade80;
+  background:rgba(22,163,74,.12);
+}
+
+.badge-draft{
+  color:#fbbf24;
+  background:rgba(245,158,11,.1);
+}
+
+.plan-body{
+  padding:16px;
+}
+
+.macro-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.macro{
+  background:#0b120e;
+  border:1px solid #17231c;
+  padding:9px 5px;
+  text-align:center;
+  border-radius:10px;
+}
+
+.macro strong{
+  display:block;
+  font-size:12px;
+}
+
+.macro span{
+  display:block;
+  color:#748179;
+  font-size:8px;
+  margin-top:3px;
+}
+
+.meal-list{
+  margin-top:13px;
+}
+
+.meal{
+  padding:10px 0;
+  border-bottom:1px solid #17211c;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.meal:last-child{
+  border-bottom:0;
+}
+
+.meal-name{
+  font-size:11px;
+  font-weight:600;
+}
+
+.meal-time{
+  color:#66746c;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.meal-cal{
+  color:#9daaa2;
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.plan-foot{
+  padding:12px 16px;
+  border-top:1px solid var(--border);
+  display:flex;
+  gap:7px;
+}
+
+.small-btn{
+  flex:1;
+  height:34px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:#0c130f;
+  color:#aeb9b2;
+  font-size:10px;
+  font-weight:700;
+}
+
+.small-btn:hover{
+  color:#fff;
+  border-color:#31513d;
+}
+
+/* EMPTY */
+.empty{
+  padding:55px 20px;
+  text-align:center;
+  color:#68766e;
+  background:var(--card);
+  border:1px dashed var(--border);
+  border-radius:17px;
+  grid-column:1/-1;
+}
+
+.empty i{
+  font-size:30px;
+  margin-bottom:12px;
+}
+
+.empty h3{
+  color:#cbd3ce;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.empty p{
+  font-size:11px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(7px);
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:720px;
+  max-height:92vh;
+  overflow:auto;
+  background:#0e1511;
+  border:1px solid #26372d;
+  border-radius:20px;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+
+.modal-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  background:#0e1511;
+  z-index:2;
+}
+
+.modal-head h2{
+  font-size:16px;
+}
+
+.close{
+  width:35px;
+  height:35px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#121a15;
+  color:#9ba69f;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+  font-size:10px;
+  color:#8c9991;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  background:#090f0c;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  padding:11px 12px;
+}
+
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:#267a43;
+}
+
+.checks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:5px;
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#aeb9b1;
+  font-size:11px;
+}
+
+.check input{
+  accent-color:var(--primary);
+}
+
+.modal-foot{
+  padding:15px 20px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+/* MEAL BUILDER */
+.meal-builder{
+  margin-top:18px;
+  border:1px solid var(--border);
+  background:#0b120e;
+  border-radius:14px;
+  padding:13px;
+}
+
+.meal-builder-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.meal-builder-head strong{
+  font-size:12px;
+}
+
+.meal-row{
+  display:grid;
+  grid-template-columns:1.3fr .8fr .7fr .7fr .7fr 35px;
+  gap:7px;
+  margin-bottom:7px;
+}
+
+.meal-row input{
+  width:100%;
+  height:35px;
+  background:#080e0b;
+  color:#fff;
+  border:1px solid #1d2a22;
+  border-radius:8px;
+  padding:0 8px;
+  font-size:10px;
+  outline:none;
+}
+
+.remove-meal{
+  width:35px;
+  border:0;
+  border-radius:8px;
+  background:rgba(239,68,68,.1);
+  color:#f87171;
+}
+
+.add-meal{
+  height:34px;
+  padding:0 10px;
+  border:1px solid #244531;
+  background:rgba(22,163,74,.08);
+  color:#4ade80;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111a15;
+  border:1px solid #2a3b31;
+  color:#dce4df;
+  padding:12px 15px;
+  border-radius:11px;
+  font-size:11px;
+  box-shadow:var(--shadow);
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:999;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* MOBILE */
+@media(max-width:1050px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .plans{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .page-title h1{
+    font-size:17px;
+  }
+
+  .page-title p{
+    display:none;
+  }
+
+  .stats{
+    gap:10px;
+  }
+
+  .stat{
+    padding:14px;
+  }
+
+  .stat-value{
+    font-size:21px;
+  }
+
+  .plans{
+    grid-template-columns:1fr;
+  }
+
+  .toolbar{
+    padding:11px;
+  }
+
+  .search{
+    min-width:100%;
+  }
+
+  .filter{
+    flex:1;
+    min-width:120px;
+  }
+
+  .toolbar .btn{
+    flex:1;
+  }
+}
+
+@media(max-width:520px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .meal-row{
+    grid-template-columns:1.4fr .8fr 35px;
+  }
+
+  .meal-row input:nth-child(3),
+  .meal-row input:nth-child(4),
+  .meal-row input:nth-child(5){
+    display:none;
+  }
+
+  .modal-body{
+    padding:15px;
+  }
+
+  .modal-foot{
+    padding:12px 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fa-solid fa-dumbbell"></i>
+      </div>
+      <div class="logo-text">
+        <strong>Sai Fitness</strong>
+        <span>ADMIN CONTROL PANEL</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+
+      <div class="nav-label">Main</div>
+
+      <a href="index.html">
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
+      </a>
+
+      <div class="nav-label">Management</div>
+
+      <a href="members.html">
+        <i class="fa-solid fa-users"></i> Members
+      </a>
+
+      <a href="workouts.html">
+        <i class="fa-solid fa-dumbbell"></i> Workouts
+      </a>
+
+      <a href="exercises.html">
+        <i class="fa-solid fa-person-running"></i> Exercises
+      </a>
+
+      <a href="diet.html" class="active">
+        <i class="fa-solid fa-utensils"></i> Diet Plans
+      </a>
+
+      <a href="goals.html">
+        <i class="fa-solid fa-bullseye"></i> Goals
+      </a>
+
+      <a href="achievements.html">
+        <i class="fa-solid fa-trophy"></i> Achievements
+      </a>
+
+      <a href="notifications.html">
+        <i class="fa-solid fa-bell"></i> Notifications
+      </a>
+
+      <div class="nav-label">Customization</div>
+
+      <a href="theme.html">
+        <i class="fa-solid fa-palette"></i> Theme Studio
+      </a>
+
+      <a href="css-manager.html">
+        <i class="fa-solid fa-code"></i> CSS Manager
+      </a>
+
+      <a href="animation-manager.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Animations
+      </a>
+
+      <a href="media.html">
+        <i class="fa-solid fa-photo-film"></i> Media Library
+      </a>
+
+      <a href="page-builder.html">
+        <i class="fa-solid fa-layer-group"></i> Page Builder
+      </a>
+
+      <a href="content.html">
+        <i class="fa-solid fa-pen-to-square"></i> Content
+      </a>
+
+      <div class="nav-label">System</div>
+
+      <a href="analytics.html">
+        <i class="fa-solid fa-chart-line"></i> Analytics
+      </a>
+
+      <a href="backup.html">
+        <i class="fa-solid fa-database"></i> Backup
+      </a>
+
+      <a href="security.html">
+        <i class="fa-solid fa-shield-halved"></i> Security
+      </a>
+
+      <a href="settings.html">
+        <i class="fa-solid fa-gear"></i> Settings
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="admin-mini">
+        <div class="admin-avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div>
+          <strong id="sideAdmin">Administrator</strong>
+          <span id="sideRole">Owner</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div style="display:flex;align-items:center;gap:11px">
+
+        <button class="icon-btn menu-btn" id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="page-title">
+          <h1>Diet Plan Manager</h1>
+          <p>Create and manage nutrition plans for Sai Fitness members</p>
+        </div>
+
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-btn" title="Open User App"
+          onclick="location.href='../index.html'">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </button>
+
+        <button class="icon-btn" title="Refresh" onclick="render()">
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+      </div>
+
+    </header>
+
+    <div class="content">
+
+      <!-- STATS -->
+      <section class="stats">
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+          </div>
+          <div class="stat-label">Total Plans</div>
+          <div class="stat-value" id="totalPlans">0</div>
+          <div class="stat-note">All nutrition plans</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+          <div class="stat-label">Published</div>
+          <div class="stat-value" id="publishedPlans">0</div>
+          <div class="stat-note">Visible to users</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon">
+              <i class="fa-solid fa-fire"></i>
+            </div>
+          </div>
+          <div class="stat-label">Avg. Calories</div>
+          <div class="stat-value" id="avgCalories">0</div>
+          <div class="stat-note">Per daily plan</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon">
+              <i class="fa-solid fa-bowl-food"></i>
+            </div>
+          </div>
+          <div class="stat-label">Total Meals</div>
+          <div class="stat-value" id="totalMeals">0</div>
+          <div class="stat-note">Across all plans</div>
+        </div>
+
+      </section>
+
+      <!-- TOOLBAR -->
+      <section class="toolbar">
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search diet plans..."
+            oninput="renderPlans()">
+        </div>
+
+        <select class="filter" id="goalFilter" onchange="renderPlans()">
+          <option value="all">All Goals</option>
+          <option value="weight-loss">Weight Loss</option>
+          <option value="muscle-gain">Muscle Gain</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="general">General Fitness</option>
+        </select>
+
+        <select class="filter" id="statusFilter" onchange="renderPlans()">
+          <option value="all">All Status</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+        </select>
+
+        <button class="btn btn-dark" onclick="exportPlans()">
+          <i class="fa-solid fa-download"></i>
+          Export
+        </button>
+
+        <button class="btn btn-primary" onclick="openAdd()">
+          <i class="fa-solid fa-plus"></i>
+          Add Diet Plan
+        </button>
+
+      </section>
+
+      <div class="section-head">
+        <h2>Nutrition Plans</h2>
+        <span id="resultCount">0 plans</span>
+      </div>
+
+      <section class="plans" id="plansGrid"></section>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="dietModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Diet Plan</h2>
+
+      <button class="close" onclick="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <form id="dietForm">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Plan Name *</label>
+            <input id="planName" required
+              placeholder="e.g. Lean Muscle Plan">
+          </div>
+
+          <div class="field">
+            <label>Goal *</label>
+            <select id="planGoal" required>
+              <option value="weight-loss">Weight Loss</option>
+              <option value="muscle-gain">Muscle Gain</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="general">General Fitness</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Daily Calories</label>
+            <input id="planCalories" type="number" min="0"
+              placeholder="2200">
+          </div>
+
+          <div class="field">
+            <label>Protein (g)</label>
+            <input id="planProtein" type="number" min="0"
+              placeholder="140">
+          </div>
+
+          <div class="field">
+            <label>Carbs (g)</label>
+            <input id="planCarbs" type="number" min="0"
+              placeholder="240">
+          </div>
+
+          <div class="field">
+            <label>Fat (g)</label>
+            <input id="planFat" type="number" min="0"
+              placeholder="65">
+          </div>
+
+          <div class="field">
+            <label>Duration</label>
+            <input id="planDuration"
+              placeholder="e.g. 30 Days">
+          </div>
+
+          <div class="field">
+            <label>Status</label>
+            <select id="planStatus">
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Description</label>
+            <textarea id="planDescription"
+              placeholder="Short description about this nutrition plan..."></textarea>
+          </div>
+
+          <div class="field full">
+            <label>Assign Member</label>
+            <select id="planMember">
+              <option value="">All Members / General Plan</option>
+            </select>
+          </div>
+
+          <div class="field full">
+
+            <div class="checks">
+
+              <label class="check">
+                <input type="checkbox" id="planFeatured">
+                Featured Plan
+              </label>
+
+              <label class="check">
+                <input type="checkbox" id="planShowUser" checked>
+                Show in User App
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- MEALS -->
+        <div class="meal-builder">
+
+          <div class="meal-builder-head">
+            <strong>
+              <i class="fa-solid fa-bowl-food"></i>
+              Meal Schedule
+            </strong>
+
+            <button type="button" class="add-meal" onclick="addMealRow()">
+              <i class="fa-solid fa-plus"></i> Add Meal
+            </button>
+          </div>
+
+          <div id="mealRows"></div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="modal-foot">
+
+      <button class="btn btn-dark" onclick="closeModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="savePlan()">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Diet Plan
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   SAI FITNESS — DIET MANAGER
+========================================================= */
+
+(function(){
+
+  if(window.Security){
+
+    Security.requireAuth("diet");
+
+    const user = Security.getCurrentUser();
+
+    if(user){
+
+      document.getElementById("sideAdmin").textContent =
+        user.username || "Administrator";
+
+      document.getElementById("sideRole").textContent =
+        Security.getRoleName(user.role);
+
+    }
+
+  }
+
+})();
+
+const STORAGE_KEY = "saiAdminDiet";
+
+let diets = [];
+let editingId = null;
+
+/* =========================
+   DEFAULT DATA
+========================= */
+
+const defaultDiets = [
+
+  {
+    id:"diet_001",
+    name:"Lean Fat Loss",
+    goal:"weight-loss",
+    calories:1800,
+    protein:130,
+    carbs:170,
+    fat:55,
+    duration:"30 Days",
+    status:"published",
+    description:"Balanced calorie-controlled plan for gradual fat loss.",
+    member:"",
+    featured:true,
+    showUser:true,
+    meals:[
+      {name:"Breakfast",time:"08:00",calories:400,protein:25,carbs:45,fat:12},
+      {name:"Lunch",time:"13:00",calories:500,protein:40,carbs:55,fat:14},
+      {name:"Snack",time:"17:00",calories:200,protein:15,carbs:20,fat:6},
+      {name:"Dinner",time:"20:30",calories:500,protein:40,carbs:40,fat:18}
+    ]
+  },
+
+  {
+    id:"diet_002",
+    name:"Muscle Builder",
+    goal:"muscle-gain",
+    calories:2600,
+    protein:170,
+    carbs:300,
+    fat:75,
+    duration:"45 Days",
+    status:"published",
+    description:"High-protein nutrition plan designed to support muscle growth.",
+    member:"",
+    featured:true,
+    showUser:true,
+    meals:[
+      {name:"Breakfast",time:"07:30",calories:600,protein:35,carbs:70,fat:18},
+      {name:"Lunch",time:"13:00",calories:700,protein:50,carbs:80,fat:20},
+      {name:"Pre Workout",time:"16:30",calories:300,protein:20,carbs:40,fat:5},
+      {name:"Dinner",time:"20:30",calories:700,protein:50,carbs:75,fat:22}
+    ]
+  },
+
+  {
+    id:"diet_003",
+    name:"Daily Fitness",
+    goal:"general",
+    calories:2200,
+    protein:140,
+    carbs:240,
+    fat:65,
+    duration:"30 Days",
+    status:"draft",
+    description:"Simple balanced plan for active people and everyday fitness.",
+    member:"",
+    featured:false,
+    showUser:true,
+    meals:[
+      {name:"Breakfast",time:"08:00",calories:500,protein:30,carbs:55,fat:15},
+      {name:"Lunch",time:"13:00",calories:650,protein:40,carbs:75,fat:18},
+      {name:"Evening Snack",time:"17:00",calories:250,protein:15,carbs:25,fat:7},
+      {name:"Dinner",time:"20:30",calories:600,protein:40,carbs:60,fat:20}
+    ]
+  }
+
+];
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadDiets(){
+
+  try{
+
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "null"
+    );
+
+    if(Array.isArray(saved)){
+      diets = saved;
+    }else{
+      diets = defaultDiets;
+      saveDiets();
+    }
+
+  }catch(e){
+
+    diets = defaultDiets;
+    saveDiets();
+
+  }
+
+}
+
+function saveDiets(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(diets)
+  );
+
+}
+
+/* =========================
+   MEMBERS
+========================= */
+
+function loadMembers(){
+
+  const select = document.getElementById("planMember");
+
+  select.innerHTML =
+    `<option value="">All Members / General Plan</option>`;
+
+  let members = [];
+
+  try{
+
+    members = JSON.parse(
+      localStorage.getItem("saiFitnessMembers") || "[]"
+    );
+
+  }catch(e){}
+
+  if(!Array.isArray(members)) return;
+
+  members.forEach(member=>{
+
+    const option = document.createElement("option");
+
+    option.value =
+      member.id || member.username || member.name || "";
+
+    option.textContent =
+      member.name ||
+      member.username ||
+      member.phone ||
+      "Member";
+
+    select.appendChild(option);
+
+  });
+
+}
+
+/* =========================
+   INIT
+========================= */
+
+function init(){
+
+  loadDiets();
+  loadMembers();
+  render();
+
+}
+
+function render(){
+
+  renderStats();
+  renderPlans();
+
+}
+
+/* =========================
+   STATS
+========================= */
+
+function renderStats(){
+
+  const total = diets.length;
+
+  const published =
+    diets.filter(x=>x.status==="published").length;
+
+  const calories =
+    total
+      ? Math.round(
+          diets.reduce(
+            (sum,x)=>sum + Number(x.calories || 0),
+            0
+          ) / total
+        )
+      : 0;
+
+  const meals =
+    diets.reduce(
+      (sum,x)=>sum + (x.meals?.length || 0),
+      0
+    );
+
+  document.getElementById("totalPlans").textContent = total;
+  document.getElementById("publishedPlans").textContent = published;
+  document.getElementById("avgCalories").textContent = calories;
+  document.getElementById("totalMeals").textContent = meals;
+
+}
+
+/* =========================
+   FILTER
+========================= */
+
+function renderPlans(){
+
+  const grid =
+    document.getElementById("plansGrid");
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const goal =
+    document.getElementById("goalFilter").value;
+
+  const status =
+    document.getElementById("statusFilter").value;
+
+  const filtered = diets.filter(plan=>{
+
+    const matchesSearch =
+      !search ||
+      plan.name.toLowerCase().includes(search) ||
+      (plan.description || "")
+        .toLowerCase()
+        .includes(search);
+
+    const matchesGoal =
+      goal==="all" || plan.goal===goal;
+
+    const matchesStatus =
+      status==="all" || plan.status===status;
+
+    return matchesSearch &&
+           matchesGoal &&
+           matchesStatus;
+
+  });
+
+  document.getElementById("resultCount").textContent =
+    filtered.length +
+    (filtered.length===1 ? " plan" : " plans");
+
+  if(!filtered.length){
+
+    grid.innerHTML = `
+      <div class="empty">
+        <i class="fa-solid fa-utensils"></i>
+        <h3>No Diet Plans Found</h3>
+        <p>Create a new plan or change your filters.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML =
+    filtered.map(plan=>planCard(plan)).join("");
+
+}
+
+/* =========================
+   CARD
+========================= */
+
+function planCard(plan){
+
+  const goalNames = {
+    "weight-loss":"Weight Loss",
+    "muscle-gain":"Muscle Gain",
+    "maintenance":"Maintenance",
+    "general":"General Fitness"
+  };
+
+  const iconMap = {
+    "weight-loss":"fa-person-running",
+    "muscle-gain":"fa-dumbbell",
+    "maintenance":"fa-scale-balanced",
+    "general":"fa-heart-pulse"
+  };
+
+  const meals = Array.isArray(plan.meals)
+    ? plan.meals
+    : [];
+
+  const mealHTML = meals
+    .slice(0,4)
+    .map(meal=>`
+      <div class="meal">
+        <div>
+          <div class="meal-name">${escapeHTML(meal.name)}</div>
+          <div class="meal-time">${escapeHTML(meal.time)}</div>
+        </div>
+        <div class="meal-cal">
+          ${Number(meal.calories || 0)} kcal
+        </div>
+      </div>
+    `)
+    .join("");
+
+  return `
+
+    <article class="plan">
+
+      <div class="plan-head">
+
+        <div class="plan-title">
+
+          <div class="plan-icon">
+            <i class="fa-solid ${iconMap[plan.goal] || "fa-utensils"}"></i>
+          </div>
+
+          <div>
+            <h3>${escapeHTML(plan.name)}</h3>
+            <p>
+              ${goalNames[plan.goal] || "General"}
+              • ${escapeHTML(plan.duration || "Flexible")}
+            </p>
+          </div>
+
+        </div>
+
+        <span class="badge ${
+          plan.status==="published"
+            ? "badge-published"
+            : "badge-draft"
+        }">
+          ${
+            plan.status==="published"
+              ? "PUBLISHED"
+              : "DRAFT"
+          }
+        </span>
+
+      </div>
+
+      <div class="plan-body">
+
+        <div class="macro-grid">
+
+          <div class="macro">
+            <strong>${Number(plan.calories||0)}</strong>
+            <span>KCAL</span>
+          </div>
+
+          <div class="macro">
+            <strong>${Number(plan.protein||0)}g</strong>
+            <span>PROTEIN</span>
+          </div>
+
+          <div class="macro">
+            <strong>${Number(plan.carbs||0)}g</strong>
+            <span>CARBS</span>
+          </div>
+
+          <div class="macro">
+            <strong>${Number(plan.fat||0)}g</strong>
+            <span>FAT</span>
+          </div>
+
+        </div>
+
+        <div class="meal-list">
+          ${mealHTML || `
+            <div class="meal">
+              <div class="meal-name">No meals added</div>
+            </div>
+          `}
+        </div>
+
+      </div>
+
+      <div class="plan-foot">
+
+        <button class="small-btn"
+          onclick="viewPlan('${plan.id}')">
+          <i class="fa-solid fa-eye"></i> View
+        </button>
+
+        <button class="small-btn"
+          onclick="editPlan('${plan.id}')">
+          <i class="fa-solid fa-pen"></i> Edit
+        </button>
+
+        <button class="small-btn"
+          onclick="toggleStatus('${plan.id}')">
+          <i class="fa-solid fa-toggle-on"></i>
+          ${plan.status==="published" ? "Draft" : "Publish"}
+        </button>
+
+        <button class="small-btn"
+          onclick="deletePlan('${plan.id}')"
+          style="color:#f87171">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+
+    </article>
+  `;
+
+}
+
+/* =========================
+   ADD
+========================= */
+
+function openAdd(){
+
+  editingId = null;
+
+  document.getElementById("modalTitle").textContent =
+    "Add Diet Plan";
+
+  document.getElementById("dietForm").reset();
+
+  document.getElementById("planStatus").value =
+    "published";
+
+  document.getElementById("planShowUser").checked =
+    true;
+
+  document.getElementById("mealRows").innerHTML = "";
+
+  addMealRow("Breakfast","08:00","400","25","45","12");
+  addMealRow("Lunch","13:00","600","40","65","18");
+  addMealRow("Dinner","20:30","600","40","55","20");
+
+  loadMembers();
+
+  document.getElementById("dietModal")
+    .classList.add("show");
+
+}
+
+/* =========================
+   EDIT
+========================= */
+
+function editPlan(id){
+
+  const plan =
+    diets.find(x=>x.id===id);
+
+  if(!plan) return;
+
+  editingId = id;
+
+  document.getElementById("modalTitle").textContent =
+    "Edit Diet Plan";
+
+  document.getElementById("planName").value =
+    plan.name || "";
+
+  document.getElementById("planGoal").value =
+    plan.goal || "general";
+
+  document.getElementById("planCalories").value =
+    plan.calories || "";
+
+  document.getElementById("planProtein").value =
+    plan.protein || "";
+
+  document.getElementById("planCarbs").value =
+    plan.carbs || "";
+
+  document.getElementById("planFat").value =
+    plan.fat || "";
+
+  document.getElementById("planDuration").value =
+    plan.duration || "";
+
+  document.getElementById("planStatus").value =
+    plan.status || "draft";
+
+  document.getElementById("planDescription").value =
+    plan.description || "";
+
+  loadMembers();
+
+  document.getElementById("planMember").value =
+    plan.member || "";
+
+  document.getElementById("planFeatured").checked =
+    !!plan.featured;
+
+  document.getElementById("planShowUser").checked =
+    plan.showUser !== false;
+
+  document.getElementById("mealRows").innerHTML = "";
+
+  if(plan.meals?.length){
+
+    plan.meals.forEach(meal=>{
+
+      addMealRow(
+        meal.name,
+        meal.time,
+        meal.calories,
+        meal.protein,
+        meal.carbs,
+        meal.fat
+      );
+
+    });
+
+  }else{
+
+    addMealRow();
+
+  }
+
+  document.getElementById("dietModal")
+    .classList.add("show");
+
+}
+
+/* =========================
+   MEAL ROW
+========================= */
+
+function addMealRow(
+  name="",
+  time="",
+  calories="",
+  protein="",
+  carbs="",
+  fat=""
+){
+
+  const container =
+    document.getElementById("mealRows");
+
+  const row =
+    document.createElement("div");
+
+  row.className = "meal-row";
+
+  row.innerHTML = `
+
+    <input
+      class="meal-name-input"
+      placeholder="Meal name"
+      value="${escapeAttr(name)}">
+
+    <input
+      class="meal-time-input"
+      placeholder="08:00"
+      value="${escapeAttr(time)}">
+
+    <input
+      class="meal-cal-input"
+      type="number"
+      placeholder="kcal"
+      value="${escapeAttr(calories)}">
+
+    <input
+      class="meal-protein-input"
+      type="number"
+      placeholder="Protein"
+      value="${escapeAttr(protein)}">
+
+    <input
+      class="meal-carb-input"
+      type="number"
+      placeholder="Carbs"
+      value="${escapeAttr(carbs)}">
+
+    <button
+      type="button"
+      class="remove-meal"
+      onclick="this.parentElement.remove()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  `;
+
+  container.appendChild(row);
+
+}
+
+/* =========================
+   SAVE
+========================= */
+
+function savePlan(){
+
+  const name =
+    document.getElementById("planName")
+      .value
+      .trim();
+
+  if(!name){
+
+    showToast("Plan name is required");
+
+    return;
+
+  }
+
+  const meals = [];
+
+  document
+    .querySelectorAll("#mealRows .meal-row")
+    .forEach(row=>{
+
+      const mealName =
+        row.querySelector(".meal-name-input")
+          .value.trim();
+
+      if(!mealName) return;
+
+      meals.push({
+
+        name:mealName,
+
+        time:
+          row.querySelector(".meal-time-input")
+            .value.trim(),
+
+        calories:Number(
+          row.querySelector(".meal-cal-input")
+            .value || 0
+        ),
+
+        protein:Number(
+          row.querySelector(".meal-protein-input")
+            .value || 0
+        ),
+
+        carbs:Number(
+          row.querySelector(".meal-carb-input")
+            .value || 0
+        ),
+
+        fat:0
+
+      });
+
+    });
+
+  const data = {
+
+    name,
+
+    goal:
+      document.getElementById("planGoal").value,
+
+    calories:Number(
+      document.getElementById("planCalories").value || 0
+    ),
+
+    protein:Number(
+      document.getElementById("planProtein").value || 0
+    ),
+
+    carbs:Number(
+      document.getElementById("planCarbs").value || 0
+    ),
+
+    fat:Number(
+      document.getElementById("planFat").value || 0
+    ),
+
+    duration:
+      document.getElementById("planDuration")
+        .value.trim(),
+
+    status:
+      document.getElementById("planStatus").value,
+
+    description:
+      document.getElementById("planDescription")
+        .value.trim(),
+
+    member:
+      document.getElementById("planMember").value,
+
+    featured:
+      document.getElementById("planFeatured").checked,
+
+    showUser:
+      document.getElementById("planShowUser").checked,
+
+    meals
+
+  };
+
+  if(editingId){
+
+    const index =
+      diets.findIndex(x=>x.id===editingId);
+
+    if(index !== -1){
+
+      diets[index] = {
+        ...diets[index],
+        ...data,
+        updatedAt:new Date().toISOString()
+      };
+
+    }
+
+    showToast("Diet plan updated");
+
+  }else{
+
+    diets.unshift({
+
+      id:
+        "diet_" +
+        Date.now(),
+
+      ...data,
+
+      createdAt:
+        new Date().toISOString(),
+
+      updatedAt:
+        new Date().toISOString()
+
+    });
+
+    showToast("Diet plan created");
+
+  }
+
+  saveDiets();
+
+  closeModal();
+
+  render();
+
+}
+
+/* =========================
+   VIEW
+========================= */
+
+function viewPlan(id){
+
+  const plan =
+    diets.find(x=>x.id===id);
+
+  if(!plan) return;
+
+  const meals =
+    plan.meals || [];
+
+  let text =
+    plan.name +
+    "\n\n" +
+    "Calories: " +
+    plan.calories +
+    " kcal\n" +
+    "Protein: " +
+    plan.protein +
+    "g\n" +
+    "Carbs: " +
+    plan.carbs +
+    "g\n" +
+    "Fat: " +
+    plan.fat +
+    "g\n\n" +
+    "Meals:\n";
+
+  meals.forEach(meal=>{
+
+    text +=
+      "\n• " +
+      meal.name +
+      " — " +
+      meal.time +
+      " — " +
+      meal.calories +
+      " kcal";
+
+  });
+
+  alert(text);
+
+}
+
+/* =========================
+   STATUS
+========================= */
+
+function toggleStatus(id){
+
+  const plan =
+    diets.find(x=>x.id===id);
+
+  if(!plan) return;
+
+  plan.status =
+    plan.status==="published"
+      ? "draft"
+      : "published";
+
+  plan.updatedAt =
+    new Date().toISOString();
+
+  saveDiets();
+
+  render();
+
+  showToast(
+    plan.status==="published"
+      ? "Plan published"
+      : "Plan moved to draft"
+  );
+
+}
+
+/* =========================
+   DELETE
+========================= */
+
+function deletePlan(id){
+
+  const plan =
+    diets.find(x=>x.id===id);
+
+  if(!plan) return;
+
+  if(!confirm(
+    `Delete "${plan.name}"?\n\nThis action cannot be undone.`
+  )) return;
+
+  diets =
+    diets.filter(x=>x.id!==id);
+
+  saveDiets();
+
+  render();
+
+  showToast("Diet plan deleted");
+
+}
+
+/* =========================
+   EXPORT
+========================= */
+
+function exportPlans(){
+
+  const data = {
+
+    app:"Sai Fitness Bidupur",
+
+    type:"diet-plans",
+
+    exportedAt:
+      new Date().toISOString(),
+
+    plans:diets
+
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "sai-fitness-diet-plans.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("Diet plans exported");
+
+}
+
+/* =========================
+   MODAL
+========================= */
+
+function closeModal(){
+
+  document.getElementById("dietModal")
+    .classList.remove("show");
+
+  editingId = null;
+
+}
+
+document
+  .getElementById("dietModal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+      closeModal();
+    }
+
+  });
+
+/* =========================
+   SIDEBAR
+========================= */
+
+document
+  .getElementById("menuBtn")
+  .addEventListener("click",function(){
+
+    document
+      .getElementById("sidebar")
+      .classList.toggle("open");
+
+  });
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+
+      toast.classList.remove("show");
+
+    },2500);
+
+}
+
+/* =========================
+   HELPERS
+========================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function escapeAttr(value){
+
+  return escapeHTML(value);
+
+}
+
+/* =========================
+   START
+========================= */
+
+init();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Manager • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="admin-security.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070b09;
+    --panel:#101713;
+    --panel2:#121b16;
+    --border:#1e2b24;
+    --green:#16a34a;
+    --green2:#22c55e;
+    --text:#f5f7f6;
+    --muted:#91a098;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --radius:18px;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#0b110e;
+    border-right:1px solid var(--border);
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.brand{
+    padding:22px 18px;
+    border-bottom:1px solid var(--border);
+}
+
+.brand-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:18px;
+    font-weight:800;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--green),#0f6d32);
+    box-shadow:0 10px 30px rgba(22,163,74,.2);
+}
+
+.brand small{
+    display:block;
+    color:var(--muted);
+    margin-top:6px;
+    margin-left:54px;
+    font-size:11px;
+}
+
+.nav{
+    padding:15px 10px;
+}
+
+.nav-title{
+    font-size:10px;
+    color:#5f7067;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:12px 12px 7px;
+}
+
+.nav a{
+    color:#aab6b0;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 13px;
+    margin:3px 0;
+    border-radius:12px;
+    font-size:13px;
+    transition:.2s;
+}
+
+.nav a:hover{
+    background:#111b15;
+    color:#fff;
+}
+
+.nav a.active{
+    background:rgba(22,163,74,.14);
+    color:#4ade80;
+}
+
+.nav a i{
+    width:18px;
+    text-align:center;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    padding:24px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.page-title h1{
+    font-size:26px;
+    font-weight:800;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:5px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:#dce5e0;
+    padding:11px 15px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+}
+
+.btn:hover{
+    border-color:#31523e;
+}
+
+.btn-primary{
+    background:var(--green);
+    color:#fff;
+    border-color:var(--green);
+}
+
+.btn-primary:hover{
+    background:#15803d;
+}
+
+/* SCORE */
+
+.score-card{
+    background:linear-gradient(135deg,#102117,#0e1712);
+    border:1px solid #203b2b;
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.score-circle{
+    width:100px;
+    height:100px;
+    flex:none;
+    border-radius:50%;
+    border:8px solid #1d3828;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:#0b120e;
+}
+
+.score-circle strong{
+    font-size:27px;
+}
+
+.score-circle span{
+    font-size:10px;
+    color:var(--muted);
+}
+
+.score-content h2{
+    font-size:18px;
+    margin-bottom:7px;
+}
+
+.score-content p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.progress{
+    height:7px;
+    background:#1a2820;
+    border-radius:20px;
+    margin-top:13px;
+    overflow:hidden;
+    max-width:500px;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--green),var(--green2));
+    border-radius:20px;
+    transition:.4s;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:20px;
+}
+
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.card h2{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.card-sub{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    color:#b9c5bf;
+    margin-bottom:7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    background:#0b110e;
+    border:1px solid #233129;
+    color:#f3f7f5;
+    outline:none;
+    border-radius:12px;
+    padding:12px 13px;
+    font-size:13px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(22,163,74,.1);
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.help{
+    color:#718078;
+    font-size:11px;
+    margin-top:6px;
+    line-height:1.5;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    background:#0b110e;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.checkbox input{
+    width:auto;
+}
+
+.checkbox label{
+    margin:0;
+    font-size:12px;
+}
+
+/* CHECKLIST */
+
+.check-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.check{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:11px;
+    background:#0b110e;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.check i{
+    margin-top:2px;
+}
+
+.check.ok i{
+    color:#22c55e;
+}
+
+.check.warn i{
+    color:#f59e0b;
+}
+
+.check strong{
+    font-size:12px;
+    display:block;
+}
+
+.check span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+/* PREVIEW */
+
+.google-preview{
+    background:#fff;
+    color:#202124;
+    border-radius:14px;
+    padding:17px;
+}
+
+.google-url{
+    font-size:12px;
+    color:#188038;
+    margin-bottom:6px;
+}
+
+.google-title{
+    color:#1a0dab;
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.google-description{
+    color:#4d5156;
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* INFO */
+
+.info-box{
+    padding:14px;
+    border-radius:13px;
+    background:rgba(22,163,74,.08);
+    border:1px solid rgba(22,163,74,.2);
+    color:#a9c9b5;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.warning-box{
+    padding:14px;
+    border-radius:13px;
+    background:rgba(245,158,11,.08);
+    border:1px solid rgba(245,158,11,.2);
+    color:#d9bd83;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:10px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#122019;
+    border:1px solid #285238;
+    color:#fff;
+    padding:13px 16px;
+    border-radius:13px;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    transform:translateY(100px);
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:9999;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:760px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:16px;
+    }
+
+    .mobile-menu{
+        display:flex;
+        width:42px;
+        height:42px;
+        border-radius:12px;
+        border:1px solid var(--border);
+        background:var(--panel);
+        color:#fff;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .top-actions .btn span{
+        display:none;
+    }
+
+    .page-title h1{
+        font-size:21px;
+    }
+
+    .score-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-title">
+            <div class="brand-icon">
+                <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            Sai Fitness
+        </div>
+        <small>Admin Control Center</small>
+    </div>
+
+    <nav class="nav">
+
+        <div class="nav-title">Dashboard</div>
+
+        <a href="index.html">
+            <i class="fa-solid fa-chart-pie"></i>
+            Dashboard
+        </a>
+
+        <div class="nav-title">Management</div>
+
+        <a href="members.html">
+            <i class="fa-solid fa-users"></i>
+            Members
+        </a>
+
+        <a href="workouts.html">
+            <i class="fa-solid fa-fire"></i>
+            Workouts
+        </a>
+
+        <a href="exercises.html">
+            <i class="fa-solid fa-person-running"></i>
+            Exercises
+        </a>
+
+        <a href="diet.html">
+            <i class="fa-solid fa-utensils"></i>
+            Diet
+        </a>
+
+        <a href="goals.html">
+            <i class="fa-solid fa-bullseye"></i>
+            Goals
+        </a>
+
+        <a href="achievements.html">
+            <i class="fa-solid fa-trophy"></i>
+            Achievements
+        </a>
+
+        <a href="notifications.html">
+            <i class="fa-solid fa-bell"></i>
+            Notifications
+        </a>
+
+        <div class="nav-title">Customization</div>
+
+        <a href="theme.html">
+            <i class="fa-solid fa-palette"></i>
+            Theme Studio
+        </a>
+
+        <a href="css-manager.html">
+            <i class="fa-solid fa-code"></i>
+            CSS Manager
+        </a>
+
+        <a href="animation-manager.html">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Animations
+        </a>
+
+        <a href="media.html">
+            <i class="fa-solid fa-images"></i>
+            Media
+        </a>
+
+        <a href="page-builder.html">
+            <i class="fa-solid fa-layer-group"></i>
+            Page Builder
+        </a>
+
+        <a href="content.html">
+            <i class="fa-solid fa-file-lines"></i>
+            Content
+        </a>
+
+        <div class="nav-title">Growth</div>
+
+        <a href="seo.html" class="active">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            SEO Manager
+        </a>
+
+        <a href="analytics.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Analytics
+        </a>
+
+        <div class="nav-title">System</div>
+
+        <a href="backup.html">
+            <i class="fa-solid fa-database"></i>
+            Backup
+        </a>
+
+        <a href="security.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Security
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <div class="topbar">
+
+        <div style="display:flex;gap:12px;align-items:flex-start">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="page-title">
+                <h1>SEO Manager</h1>
+                <p>Search engine visibility & website optimization</p>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+            <button class="btn" onclick="exportSEO()">
+                <i class="fa-solid fa-download"></i>
+                <span>Export</span>
+            </button>
+
+            <button class="btn btn-primary" onclick="saveSEO()">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Save SEO</span>
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- SEO SCORE -->
+
+    <section class="score-card">
+
+        <div class="score-circle">
+            <strong id="score">0</strong>
+            <span>/ 100</span>
+        </div>
+
+        <div class="score-content">
+            <h2>SEO Optimization Score</h2>
+
+            <p>
+                Technical SEO settings ko configure karke search engines ko
+                website ke content ko samajhne mein help karein.
+            </p>
+
+            <div class="progress">
+                <span id="scoreBar"></span>
+            </div>
+        </div>
+
+    </section>
+
+
+    <div class="grid">
+
+        <!-- LEFT -->
+
+        <div>
+
+            <!-- BASIC SEO -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-globe"></i>
+                    Basic SEO
+                </h2>
+
+                <p class="card-sub">
+                    Google aur other search engines ke liye main information.
+                </p>
+
+                <div class="form-group">
+
+                    <label>SEO Title</label>
+
+                    <input
+                        id="seoTitle"
+                        maxlength="60"
+                        placeholder="Sai Fitness Bidupur • Fitness & Workout"
+                    >
+
+                    <div class="help">
+                        Recommended: approximately 50–60 characters.
+                        <span id="titleCount">0</span>/60
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Meta Description</label>
+
+                    <textarea
+                        id="seoDescription"
+                        maxlength="160"
+                        placeholder="Sai Fitness Bidupur helps you track workouts, diet, fitness goals and progress."
+                    ></textarea>
+
+                    <div class="help">
+                        Recommended: approximately 120–160 characters.
+                        <span id="descriptionCount">0</span>/160
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Keywords</label>
+
+                    <input
+                        id="seoKeywords"
+                        placeholder="fitness, workout, gym, Bidupur, Bihar, Sai Fitness"
+                    >
+
+                    <div class="help">
+                        Comma separated keywords.
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Website URL</label>
+
+                    <input
+                        id="siteUrl"
+                        type="url"
+                        placeholder="https://example.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Canonical URL</label>
+
+                    <input
+                        id="canonicalUrl"
+                        type="url"
+                        placeholder="https://example.com/"
+                    >
+
+                    <div class="help">
+                        Duplicate URLs ko consolidate karne ke liye use hota hai.
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="form-group">
+
+                        <label>Robots</label>
+
+                        <select id="robots">
+
+                            <option value="index, follow">
+                                Index, Follow
+                            </option>
+
+                            <option value="noindex, follow">
+                                No Index, Follow
+                            </option>
+
+                            <option value="index, nofollow">
+                                Index, No Follow
+                            </option>
+
+                            <option value="noindex, nofollow">
+                                No Index, No Follow
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Language</label>
+
+                        <select id="language">
+
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="en-IN">English India</option>
+                            <option value="hi-IN">Hindi India</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SOCIAL SEO -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-share-nodes"></i>
+                    Social & Open Graph
+                </h2>
+
+                <p class="card-sub">
+                    Facebook, WhatsApp, Telegram aur other social sharing preview.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>Open Graph Title</label>
+
+                    <input id="ogTitle"
+                    placeholder="Sai Fitness Bidupur">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Open Graph Description</label>
+
+                    <textarea
+                    id="ogDescription"
+                    placeholder="Train hard, track progress and become stronger with Sai Fitness Bidupur."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Social Share Image URL</label>
+
+                    <input
+                    id="ogImage"
+                    placeholder="https://example.com/share-image.jpg"
+                    >
+
+                    <div class="help">
+                        Recommended social preview image: 1200 × 630 pixels.
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Twitter Card</label>
+
+                    <select id="twitterCard">
+
+                        <option value="summary_large_image">
+                            Large Image
+                        </option>
+
+                        <option value="summary">
+                            Summary
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- GOOGLE -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-brands fa-google"></i>
+                    Google Search Tools
+                </h2>
+
+                <p class="card-sub">
+                    Search Console verification aur sitemap configuration.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>Google Search Console Verification</label>
+
+                    <input
+                    id="googleVerification"
+                    placeholder="Paste verification content value"
+                    >
+
+                    <div class="help">
+                        Search Console se mila verification value yahan paste karein.
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Sitemap URL</label>
+
+                    <input
+                    id="sitemapUrl"
+                    placeholder="https://example.com/sitemap.xml"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Robots.txt URL</label>
+
+                    <input
+                    id="robotsUrl"
+                    placeholder="https://example.com/robots.txt"
+                    >
+
+                </div>
+
+            </section>
+
+
+            <!-- STRUCTURED DATA -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-code"></i>
+                    Structured Data
+                </h2>
+
+                <p class="card-sub">
+                    Search engines ko website/business information samajhne mein help.
+                </p>
+
+
+                <div class="row">
+
+                    <div class="form-group">
+
+                        <label>Business / App Name</label>
+
+                        <input
+                        id="schemaName"
+                        placeholder="Sai Fitness Bidupur"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Business Type</label>
+
+                        <select id="schemaType">
+
+                            <option value="WebSite">Website</option>
+                            <option value="Organization">Organization</option>
+                            <option value="LocalBusiness">Local Business</option>
+                            <option value="SportsActivityLocation">
+                                Fitness / Sports
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Short Description</label>
+
+                    <textarea
+                    id="schemaDescription"
+                    placeholder="Fitness and workout platform based in Bidupur, Bihar."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Logo URL</label>
+
+                    <input
+                    id="schemaLogo"
+                    placeholder="https://example.com/logo.png"
+                    >
+
+                </div>
+
+            </section>
+
+
+            <!-- ACTIONS -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-bolt"></i>
+                    SEO Actions
+                </h2>
+
+                <p class="card-sub">
+                    Settings ko manage aur backup karein.
+                </p>
+
+                <div class="actions">
+
+                    <button class="btn btn-primary" onclick="saveSEO()">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Settings
+                    </button>
+
+                    <button class="btn" onclick="exportSEO()">
+                        <i class="fa-solid fa-file-export"></i>
+                        Export JSON
+                    </button>
+
+                    <button class="btn" onclick="generateCode()">
+                        <i class="fa-solid fa-code"></i>
+                        Generate SEO Code
+                    </button>
+
+                    <button class="btn" onclick="resetSEO()">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Reset
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div>
+
+            <!-- CHECKLIST -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-list-check"></i>
+                    SEO Checklist
+                </h2>
+
+                <p class="card-sub">
+                    Important SEO settings ka status.
+                </p>
+
+                <div class="check-list" id="checkList"></div>
+
+            </section>
+
+
+            <!-- GOOGLE PREVIEW -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-brands fa-google"></i>
+                    Google Preview
+                </h2>
+
+                <p class="card-sub">
+                    Search result approximately aisa appear ho sakta hai.
+                </p>
+
+                <div class="google-preview">
+
+                    <div class="google-url" id="previewUrl">
+                        example.com
+                    </div>
+
+                    <div class="google-title" id="previewTitle">
+                        Sai Fitness Bidupur
+                    </div>
+
+                    <div class="google-description" id="previewDescription">
+                        Your personal fitness and workout companion.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- INFO -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-circle-info"></i>
+                    Important
+                </h2>
+
+                <div class="warning-box">
+
+                    <strong>SEO setting se direct Google #1 guarantee nahi hota.</strong>
+
+                    <br><br>
+
+                    Search ranking multiple factors par depend karti hai,
+                    jaise useful content, technical quality, page experience,
+                    links, indexing aur search intent.
+
+                </div>
+
+                <br>
+
+                <div class="info-box">
+
+                    Ye panel SEO configuration save karta hai.
+                    Actual search engine effect ke liye main website ke
+                    HTML/head section mein in settings ko apply karna hoga.
+
+                </div>
+
+            </section>
+
+
+            <!-- QUICK SEO -->
+
+            <section class="card">
+
+                <h2>
+                    <i class="fa-solid fa-rocket"></i>
+                    Quick Optimization
+                </h2>
+
+                <p class="card-sub">
+                    Basic SEO setup complete karne ke steps.
+                </p>
+
+                <div class="check-list">
+
+                    <div class="check">
+                        <i class="fa-solid fa-1"></i>
+                        <div>
+                            <strong>SEO Title</strong>
+                            <span>Clear aur relevant title rakhein.</span>
+                        </div>
+                    </div>
+
+                    <div class="check">
+                        <i class="fa-solid fa-2"></i>
+                        <div>
+                            <strong>Meta Description</strong>
+                            <span>Page ka useful short description likhein.</span>
+                        </div>
+                    </div>
+
+                    <div class="check">
+                        <i class="fa-solid fa-3"></i>
+                        <div>
+                            <strong>Canonical</strong>
+                            <span>Main URL define karein.</span>
+                        </div>
+                    </div>
+
+                    <div class="check">
+                        <i class="fa-solid fa-4"></i>
+                        <div>
+                            <strong>Sitemap</strong>
+                            <span>Search engines ko pages discover karne mein help karega.</span>
+                        </div>
+                    </div>
+
+                    <div class="check">
+                        <i class="fa-solid fa-5"></i>
+                        <div>
+                            <strong>Search Console</strong>
+                            <span>Website indexing aur search performance monitor karein.</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const STORAGE_KEY = "saiAdminSEO";
+
+const defaultSEO = {
+
+    seoTitle:
+    "Sai Fitness Bidupur • Fitness & Workout",
+
+    seoDescription:
+    "Sai Fitness Bidupur helps you track workouts, diet, fitness goals and progress every day.",
+
+    seoKeywords:
+    "fitness, workout, gym, Bidupur, Bihar, Sai Fitness",
+
+    siteUrl:
+    "",
+
+    canonicalUrl:
+    "",
+
+    robots:
+    "index, follow",
+
+    language:
+    "en-IN",
+
+    ogTitle:
+    "Sai Fitness Bidupur",
+
+    ogDescription:
+    "Train hard, track your progress and become stronger with Sai Fitness Bidupur.",
+
+    ogImage:
+    "",
+
+    twitterCard:
+    "summary_large_image",
+
+    googleVerification:
+    "",
+
+    sitemapUrl:
+    "",
+
+    robotsUrl:
+    "",
+
+    schemaName:
+    "Sai Fitness Bidupur",
+
+    schemaType:
+    "WebSite",
+
+    schemaDescription:
+    "Fitness and workout platform based in Bidupur, Bihar.",
+
+    schemaLogo:
+    ""
+
+};
+
+
+function $(id){
+    return document.getElementById(id);
+}
+
+
+function loadSEO(){
+
+    let data = localStorage.getItem(STORAGE_KEY);
+
+    if(!data){
+        return {...defaultSEO};
+    }
+
+    try{
+
+        return {
+            ...defaultSEO,
+            ...JSON.parse(data)
+        };
+
+    }catch(e){
+
+        return {...defaultSEO};
+
+    }
+
+}
+
+
+function setValue(id,value){
+
+    const el = $(id);
+
+    if(el){
+        el.value = value || "";
+    }
+
+}
+
+
+function getValue(id){
+
+    const el = $(id);
+
+    return el ? el.value.trim() : "";
+
+}
+
+
+function fillForm(){
+
+    const data = loadSEO();
+
+    Object.keys(defaultSEO).forEach(key => {
+
+        setValue(key,data[key]);
+
+    });
+
+    updateUI();
+
+}
+
+
+function collectSEO(){
+
+    return {
+
+        seoTitle:getValue("seoTitle"),
+
+        seoDescription:getValue("seoDescription"),
+
+        seoKeywords:getValue("seoKeywords"),
+
+        siteUrl:getValue("siteUrl"),
+
+        canonicalUrl:getValue("canonicalUrl"),
+
+        robots:getValue("robots"),
+
+        language:getValue("language"),
+
+        ogTitle:getValue("ogTitle"),
+
+        ogDescription:getValue("ogDescription"),
+
+        ogImage:getValue("ogImage"),
+
+        twitterCard:getValue("twitterCard"),
+
+        googleVerification:getValue("googleVerification"),
+
+        sitemapUrl:getValue("sitemapUrl"),
+
+        robotsUrl:getValue("robotsUrl"),
+
+        schemaName:getValue("schemaName"),
+
+        schemaType:getValue("schemaType"),
+
+        schemaDescription:getValue("schemaDescription"),
+
+        schemaLogo:getValue("schemaLogo")
+
+    };
+
+}
+
+
+function saveSEO(){
+
+    const data = collectSEO();
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+    updateUI();
+
+    showToast("SEO settings saved successfully");
+
+}
+
+
+function resetSEO(){
+
+    if(!confirm(
+        "SEO settings ko default par reset karein?"
+    )){
+        return;
+    }
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    fillForm();
+
+    showToast("SEO settings reset ho gayi");
+
+}
+
+
+function exportSEO(){
+
+    const data = collectSEO();
+
+    const blob = new Blob(
+        [JSON.stringify(data,null,2)],
+        {type:"application/json"}
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "sai-fitness-seo-settings.json";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+    showToast("SEO JSON exported");
+
+}
+
+
+function generateCode(){
+
+    const data = collectSEO();
+
+    const code = `<!-- Sai Fitness SEO -->
+<title>${escapeHTML(data.seoTitle)}</title>
+
+<meta name="description" content="${escapeAttr(data.seoDescription)}">
+
+<meta name="keywords" content="${escapeAttr(data.seoKeywords)}">
+
+<meta name="robots" content="${escapeAttr(data.robots)}">
+
+<meta name="language" content="${escapeAttr(data.language)}">
+
+${data.canonicalUrl
+? `<link rel="canonical" href="${escapeAttr(data.canonicalUrl)}">`
+: ""}
+
+${data.googleVerification
+? `<meta name="google-site-verification" content="${escapeAttr(data.googleVerification)}">`
+: ""}
+
+<!-- Open Graph -->
+
+<meta property="og:title" content="${escapeAttr(data.ogTitle || data.seoTitle)}">
+
+<meta property="og:description" content="${escapeAttr(data.ogDescription || data.seoDescription)}">
+
+${data.ogImage
+? `<meta property="og:image" content="${escapeAttr(data.ogImage)}">`
+: ""}
+
+${data.siteUrl
+? `<meta property="og:url" content="${escapeAttr(data.siteUrl)}">`
+: ""}
+
+<meta property="og:type" content="website">
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="${escapeAttr(data.twitterCard)}">
+
+<meta name="twitter:title" content="${escapeAttr(data.ogTitle || data.seoTitle)}">
+
+<meta name="twitter:description" content="${escapeAttr(data.ogDescription || data.seoDescription)}">
+
+${data.ogImage
+? `<meta name="twitter:image" content="${escapeAttr(data.ogImage)}">`
+: ""}
+
+<!-- Structured Data -->
+
+<script type="application/ld+json">
+${JSON.stringify({
+    "@context":"https://schema.org",
+    "@type":data.schemaType,
+    "name":data.schemaName,
+    "description":data.schemaDescription,
+    ...(data.schemaLogo ? {
+        "logo":data.schemaLogo
+    } : {}),
+    ...(data.siteUrl ? {
+        "url":data.siteUrl
+    } : {})
+},null,2)}
+<\/script>`;
+
+    navigator.clipboard.writeText(code)
+    .then(() => {
+
+        showToast(
+            "SEO code clipboard me copy ho gaya"
+        );
+
+    })
+    .catch(() => {
+
+        showCodeModal(code);
+
+    });
+
+}
+
+
+function showCodeModal(code){
+
+    const modal = document.createElement("div");
+
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.75);
+        z-index:10000;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+
+        <div style="
+            width:min(900px,100%);
+            max-height:90vh;
+            background:#101713;
+            border:1px solid #26392d;
+            border-radius:18px;
+            padding:20px;
+            overflow:auto;
+        ">
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:12px;
+            ">
+
+                <strong>Generated SEO Code</strong>
+
+                <button
+                    onclick="this.closest('[style*=fixed]').remove()"
+                    class="btn"
+                >
+                    Close
+                </button>
+
+            </div>
+
+            <textarea
+                style="
+                    width:100%;
+                    min-height:500px;
+                    font-family:monospace;
+                    font-size:12px;
+                "
+            >${escapeHTML(code)}</textarea>
+
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+    return escapeHTML(value);
+
+}
+
+
+function updateUI(){
+
+    const data = collectSEO();
+
+    $("titleCount").textContent =
+        data.seoTitle.length;
+
+    $("descriptionCount").textContent =
+        data.seoDescription.length;
+
+    updatePreview(data);
+
+    updateChecklist(data);
+
+}
+
+
+function updatePreview(data){
+
+    $("previewUrl").textContent =
+        data.siteUrl
+        ? data.siteUrl.replace(/^https?:\/\//,"")
+        : "example.com";
+
+    $("previewTitle").textContent =
+        data.seoTitle ||
+        "Sai Fitness Bidupur";
+
+    $("previewDescription").textContent =
+        data.seoDescription ||
+        "Your personal fitness and workout companion.";
+
+}
+
+
+function updateChecklist(data){
+
+    const checks = [
+
+        {
+            name:"SEO Title",
+            ok:data.seoTitle.length >= 20,
+            detail:"A clear page title is configured."
+        },
+
+        {
+            name:"Meta Description",
+            ok:data.seoDescription.length >= 70,
+            detail:"A useful search description is configured."
+        },
+
+        {
+            name:"Keywords",
+            ok:data.seoKeywords.length > 0,
+            detail:"Relevant topic keywords are present."
+        },
+
+        {
+            name:"Website URL",
+            ok:isValidURL(data.siteUrl),
+            detail:"Public website URL is configured."
+        },
+
+        {
+            name:"Canonical URL",
+            ok:isValidURL(data.canonicalUrl),
+            detail:"Canonical URL is configured."
+        },
+
+        {
+            name:"Open Graph",
+            ok:data.ogTitle.length > 0 &&
+               data.ogDescription.length > 0,
+            detail:"Social sharing metadata is configured."
+        },
+
+        {
+            name:"Social Image",
+            ok:isValidURL(data.ogImage),
+            detail:"Social preview image URL is configured."
+        },
+
+        {
+            name:"Sitemap",
+            ok:isValidURL(data.sitemapUrl),
+            detail:"Sitemap URL is configured."
+        },
+
+        {
+            name:"Robots.txt",
+            ok:isValidURL(data.robotsUrl),
+            detail:"Robots.txt URL is configured."
+        },
+
+        {
+            name:"Search Console",
+            ok:data.googleVerification.length > 0,
+            detail:"Verification value is configured."
+        },
+
+        {
+            name:"Structured Data",
+            ok:data.schemaName.length > 0 &&
+               data.schemaDescription.length > 0,
+            detail:"Basic structured data information is ready."
+        }
+
+    ];
+
+
+    const passed =
+        checks.filter(x => x.ok).length;
+
+    const score =
+        Math.round((passed / checks.length) * 100);
+
+    $("score").textContent = score;
+
+    $("scoreBar").style.width =
+        score + "%";
+
+
+    $("checkList").innerHTML =
+        checks.map(item => `
+
+            <div class="check ${item.ok ? "ok" : "warn"}">
+
+                <i class="fa-solid ${
+                    item.ok
+                    ? "fa-circle-check"
+                    : "fa-circle-exclamation"
+                }"></i>
+
+                <div>
+
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <span>
+                        ${item.ok
+                            ? item.detail
+                            : "Not configured yet."
+                        }
+                    </span>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+function isValidURL(value){
+
+    if(!value){
+        return false;
+    }
+
+    try{
+
+        const url = new URL(value);
+
+        return (
+            url.protocol === "http:" ||
+            url.protocol === "https:"
+        );
+
+    }catch(e){
+
+        return false;
+
+    }
+
+}
+
+
+function showToast(message){
+
+    const toast = $("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        },2500);
+
+}
+
+
+function toggleSidebar(){
+
+    $("sidebar").classList.toggle("open");
+
+}
+
+
+/* LIVE UPDATE */
+
+document.addEventListener(
+    "input",
+    function(e){
+
+        if(
+            e.target.matches(
+                "input, textarea, select"
+            )
+        ){
+
+            updateUI();
+
+        }
+
+    }
+);
+
+
+/* AUTH */
+
+try{
+
+    if(
+        window.Security &&
+        typeof Security.requireAuth === "function"
+    ){
+
+        Security.requireAuth("seo");
+
+    }
+
+}catch(error){
+
+    console.warn(
+        "Admin security module not available:",
+        error
+    );
+
+}
+
+
+/* START */
+
+fillForm();
+
+</script>
+
+</body>
+</html>
