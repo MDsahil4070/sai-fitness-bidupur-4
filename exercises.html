@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exercises • Sai Fitness Bidupur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #070b09;
+            color: #e8f1eb;
+            font-family: "Inter", sans-serif;
+        }
+
+        .exercise-page {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* HEADER */
+
+        .top-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(7, 11, 9, .92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .back-btn,
+        .header-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: #101713;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* HERO */
+
+        .hero {
+            margin: 18px 16px;
+            padding: 22px;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 90% 10%,
+                rgba(57,229,140,.20),
+                transparent 40%),
+                linear-gradient(145deg,#111a15,#0c120f);
+            border: 1px solid rgba(57,229,140,.12);
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 30px;
+            background: rgba(57,229,140,.10);
+            color: #39e58c;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 27px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #8b9990;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 10px 0 0;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            margin: 0 16px 15px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7d8c83;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: #101713;
+            color: white;
+            outline: none;
+            border-radius: 16px;
+            padding: 0 15px 0 45px;
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(57,229,140,.45);
+        }
+
+        /* FILTER */
+
+        .filter-wrap {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 0 16px 15px;
+            scrollbar-width: none;
+        }
+
+        .filter-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,.07);
+            background: #101713;
+            color: #9ba79f;
+            padding: 9px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            color: #06110b;
+            background: #39e58c;
+            border-color: #39e58c;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 16px 12px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .result-count {
+            color: #7e8b83;
+            font-size: 11px;
+        }
+
+        /* EXERCISE GRID */
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 16px;
+        }
+
+        .exercise-card {
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 20px;
+            padding: 14px;
+            cursor: pointer;
+            transition: .25s ease;
+            min-width: 0;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(57,229,140,.30);
+        }
+
+        .exercise-card:active {
+            transform: scale(.98);
+        }
+
+        .exercise-icon {
+            height: 86px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #39e58c;
+            background:
+                radial-gradient(circle at center,
+                rgba(57,229,140,.15),
+                rgba(57,229,140,.03));
+            margin-bottom: 12px;
+        }
+
+        .exercise-card h3 {
+            margin: 0 0 6px;
+            font-size: 13px;
+        }
+
+        .exercise-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+            color: #7f8c84;
+            font-size: 9px;
+        }
+
+        .difficulty {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 9px;
+            font-size: 9px;
+            color: #39e58c;
+        }
+
+        /* EMPTY */
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            color: #7f8c84;
+        }
+
+        .empty-state i {
+            font-size: 38px;
+            margin-bottom: 15px;
+            opacity: .6;
+        }
+
+        .empty-state h3 {
+            color: white;
+            margin: 0 0 7px;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* MODAL */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(10px);
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #0d1410;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 28px 28px 0 0;
+            padding: 20px;
+            animation: slideUp .28s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 13px;
+            background: #171f1a;
+            color: white;
+            cursor: pointer;
+        }
+
+        .detail-icon {
+            height: 130px;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle,
+                rgba(57,229,140,.20),
+                rgba(57,229,140,.03));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #39e58c;
+            font-size: 55px;
+            margin-bottom: 18px;
+        }
+
+        .detail-title {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .detail-category {
+            margin-top: 6px;
+            color: #39e58c;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .detail-description {
+            color: #89968e;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 12px 0 18px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 9px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #121a15;
+            border: 1px solid rgba(255,255,255,.05);
+            padding: 12px;
+            border-radius: 15px;
+        }
+
+        .info-box span {
+            display: block;
+            color: #76837b;
+            font-size: 9px;
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+            font-size: 12px;
+            color: #edf5ef;
+        }
+
+        .detail-section {
+            margin-top: 20px;
+        }
+
+        .detail-section h3 {
+            font-size: 14px;
+            margin: 0 0 10px;
+        }
+
+        .instruction {
+            display: flex;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .instruction:last-child {
+            border-bottom: 0;
+        }
+
+        .step-number {
+            width: 25px;
+            height: 25px;
+            flex: 0 0 25px;
+            border-radius: 8px;
+            background: rgba(57,229,140,.10);
+            color: #39e58c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .instruction p {
+            margin: 0;
+            color: #a0aaa4;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .tips {
+            padding: 13px;
+            border-radius: 15px;
+            background: rgba(57,229,140,.07);
+            border: 1px solid rgba(57,229,140,.10);
+            color: #b7c5bd;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .tips i {
+            color: #39e58c;
+            margin-right: 6px;
+        }
+
+        .start-btn {
+            width: 100%;
+            height: 52px;
+            border: 0;
+            border-radius: 17px;
+            background: #39e58c;
+            color: #06110b;
+            font-weight: 800;
+            font-size: 13px;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(57,229,140,.12);
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 520px;
+            z-index: 70;
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+            background: rgba(8,12,10,.94);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #68756d;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #39e58c;
+        }
+
+        @media(max-width:360px) {
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="exercise-page">
+
+    <!-- HEADER -->
+    <header class="top-header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <div class="header-title">Exercise Library</div>
+
+        <button class="header-icon" onclick="resetExerciseSearch()">
+            <i class="fa-solid fa-rotate"></i>
+        </button>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">
+            <i class="fa-solid fa-dumbbell"></i>
+            SAI FITNESS
+        </div>
+
+        <h1>Train Smarter.<br>Get Stronger.</h1>
+
+        <p>
+            Explore exercises with proper form,
+            target muscles, sets, reps and expert tips.
+        </p>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="search"
+            id="exerciseSearch"
+            placeholder="Search exercise, muscle..."
+            autocomplete="off"
+        >
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-wrap" id="categoryFilters">
+
+        <button class="filter-btn active" data-category="All">
+            All
+        </button>
+
+        <button class="filter-btn" data-category="Chest">
+            Chest
+        </button>
+
+        <button class="filter-btn" data-category="Back">
+            Back
+        </button>
+
+        <button class="filter-btn" data-category="Legs">
+            Legs
+        </button>
+
+        <button class="filter-btn" data-category="Shoulders">
+            Shoulders
+        </button>
+
+        <button class="filter-btn" data-category="Arms">
+            Arms
+        </button>
+
+        <button class="filter-btn" data-category="Abs">
+            Abs
+        </button>
+
+        <button class="filter-btn" data-category="Cardio">
+            Cardio
+        </button>
+
+    </div>
+
+    <!-- TITLE -->
+    <div class="section-title">
+        <h2>Exercises</h2>
+        <span class="result-count" id="resultCount">12 exercises</span>
+    </div>
+
+    <!-- GRID -->
+    <div class="exercise-grid" id="exerciseGrid"></div>
+
+    <!-- EMPTY -->
+    <div class="empty-state" id="emptyState">
+        <i class="fa-solid fa-face-frown"></i>
+        <h3>No Exercise Found</h3>
+        <p>Try another exercise or category.</p>
+    </div>
+
+</div>
+
+
+<!-- DETAIL MODAL -->
+
+<div class="modal" id="exerciseModal">
+
+    <div class="modal-content">
+
+        <div class="modal-top">
+
+            <strong>Exercise Details</strong>
+
+            <button class="modal-close" onclick="closeExerciseModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div id="exerciseDetails"></div>
+
+    </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <div class="nav-item" onclick="location.href='index.html'">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </div>
+
+    <div class="nav-item" onclick="location.href='workout.html'">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workout
+    </div>
+
+    <div class="nav-item" onclick="location.href='diet.html'">
+        <i class="fa-solid fa-utensils"></i>
+        Diet
+    </div>
+
+    <div class="nav-item active">
+        <i class="fa-solid fa-list-check"></i>
+        Exercises
+    </div>
+
+    <div class="nav-item" onclick="location.href='profile.html'">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </div>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+<script>
+
+"use strict";
+
+
+/* ================================
+   EXERCISE DATABASE
+================================ */
+
+const exercises = [
+
+    {
+        id: "push-ups",
+        name: "Push Ups",
+        category: "Chest",
+        icon: "fa-solid fa-person-running",
+        target: "Chest",
+        secondary: "Triceps, Shoulders",
+        difficulty: "Beginner",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "10–15 Reps",
+        rest: "60 sec",
+        calories: "8–12 kcal",
+        description:
+            "A classic bodyweight movement for building upper-body pushing strength.",
+        instructions: [
+            "Start in a high plank with hands slightly wider than your shoulders.",
+            "Keep your body straight from head to heels.",
+            "Lower your chest slowly toward the floor.",
+            "Push through your palms and return to the starting position."
+        ],
+        tips:
+            "Keep your core tight and avoid dropping your hips during the movement."
+    },
+
+    {
+        id: "dumbbell-press",
+        name: "Dumbbell Press",
+        category: "Chest",
+        icon: "fa-solid fa-dumbbell",
+        target: "Chest",
+        secondary: "Triceps, Shoulders",
+        difficulty: "Intermediate",
+        equipment: "Dumbbells",
+        sets: "3 Sets",
+        reps: "8–12 Reps",
+        rest: "75 sec",
+        calories: "10–16 kcal",
+        description:
+            "A strength exercise focused on chest development using dumbbells.",
+        instructions: [
+            "Lie on a bench holding one dumbbell in each hand.",
+            "Position the dumbbells near your chest.",
+            "Press both dumbbells upward until your arms are extended.",
+            "Lower them slowly and repeat."
+        ],
+        tips:
+            "Do not lock your elbows aggressively at the top."
+    },
+
+    {
+        id: "dumbbell-rows",
+        name: "Dumbbell Rows",
+        category: "Back",
+        icon: "fa-solid fa-dumbbell",
+        target: "Upper Back",
+        secondary: "Biceps, Rear Shoulders",
+        difficulty: "Intermediate",
+        equipment: "Dumbbells",
+        sets: "3 Sets",
+        reps: "10–12 Reps",
+        rest: "75 sec",
+        calories: "10–15 kcal",
+        description:
+            "A pulling movement designed to strengthen the back and improve upper-body stability.",
+        instructions: [
+            "Place one hand and knee on a bench.",
+            "Keep your back neutral.",
+            "Pull the dumbbell toward your hip.",
+            "Lower the dumbbell under control."
+        ],
+        tips:
+            "Focus on moving your elbow backward rather than simply lifting the weight."
+    },
+
+    {
+        id: "squats",
+        name: "Bodyweight Squats",
+        category: "Legs",
+        icon: "fa-solid fa-person",
+        target: "Quadriceps",
+        secondary: "Glutes, Hamstrings",
+        difficulty: "Beginner",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "15–20 Reps",
+        rest: "60 sec",
+        calories: "10–18 kcal",
+        description:
+            "A fundamental lower-body exercise for strength, balance and mobility.",
+        instructions: [
+            "Stand with feet around shoulder-width apart.",
+            "Push your hips back and bend your knees.",
+            "Lower until comfortable while keeping your chest up.",
+            "Drive through your feet to stand back up."
+        ],
+        tips:
+            "Keep your knees tracking in the same direction as your toes."
+    },
+
+    {
+        id: "walking-lunges",
+        name: "Walking Lunges",
+        category: "Legs",
+        icon: "fa-solid fa-person-walking",
+        target: "Glutes",
+        secondary: "Quads, Hamstrings",
+        difficulty: "Intermediate",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "10 Each Leg",
+        rest: "60 sec",
+        calories: "12–20 kcal",
+        description:
+            "A unilateral leg movement that challenges balance and lower-body strength.",
+        instructions: [
+            "Stand tall with your feet together.",
+            "Step forward with one leg.",
+            "Lower your body until both knees are comfortably bent.",
+            "Push forward and repeat with the opposite leg."
+        ],
+        tips:
+            "Take controlled steps and keep your torso upright."
+    },
+
+    {
+        id: "shoulder-press",
+        name: "Shoulder Press",
+        category: "Shoulders",
+        icon: "fa-solid fa-dumbbell",
+        target: "Shoulders",
+        secondary: "Triceps",
+        difficulty: "Intermediate",
+        equipment: "Dumbbells",
+        sets: "3 Sets",
+        reps: "8–12 Reps",
+        rest: "75 sec",
+        calories: "8–14 kcal",
+        description:
+            "An overhead pressing exercise for developing shoulder strength.",
+        instructions: [
+            "Hold dumbbells at shoulder level.",
+            "Keep your core stable.",
+            "Press the dumbbells overhead.",
+            "Lower them slowly back to shoulder level."
+        ],
+        tips:
+            "Use a comfortable weight and avoid excessive arching of your lower back."
+    },
+
+    {
+        id: "bicep-curls",
+        name: "Bicep Curls",
+        category: "Arms",
+        icon: "fa-solid fa-dumbbell",
+        target: "Biceps",
+        secondary: "Forearms",
+        difficulty: "Beginner",
+        equipment: "Dumbbells",
+        sets: "3 Sets",
+        reps: "10–15 Reps",
+        rest: "60 sec",
+        calories: "6–10 kcal",
+        description:
+            "A simple isolation movement for developing the biceps.",
+        instructions: [
+            "Stand tall holding dumbbells beside your body.",
+            "Keep your elbows close to your torso.",
+            "Curl the dumbbells toward your shoulders.",
+            "Lower them slowly to the starting position."
+        ],
+        tips:
+            "Avoid swinging your body to move the weights."
+    },
+
+    {
+        id: "tricep-dips",
+        name: "Tricep Dips",
+        category: "Arms",
+        icon: "fa-solid fa-person",
+        target: "Triceps",
+        secondary: "Chest, Shoulders",
+        difficulty: "Intermediate",
+        equipment: "Bench / Chair",
+        sets: "3 Sets",
+        reps: "8–12 Reps",
+        rest: "60 sec",
+        calories: "7–12 kcal",
+        description:
+            "A bodyweight exercise that targets the back of the upper arms.",
+        instructions: [
+            "Sit on a stable bench or chair.",
+            "Place your hands beside your hips.",
+            "Move your hips slightly forward.",
+            "Bend your elbows to lower your body and press back up."
+        ],
+        tips:
+            "Use a stable surface and keep the movement controlled."
+    },
+
+    {
+        id: "plank",
+        name: "Plank",
+        category: "Abs",
+        icon: "fa-solid fa-person",
+        target: "Core",
+        secondary: "Shoulders, Glutes",
+        difficulty: "Beginner",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "30–60 sec",
+        rest: "45 sec",
+        calories: "5–9 kcal",
+        description:
+            "An isometric core exercise that improves stability and endurance.",
+        instructions: [
+            "Place your forearms on the floor.",
+            "Extend your legs behind you.",
+            "Keep your body in a straight line.",
+            "Brace your core and hold the position."
+        ],
+        tips:
+            "Do not let your hips sag or rise too high."
+    },
+
+    {
+        id: "mountain-climbers",
+        name: "Mountain Climbers",
+        category: "Cardio",
+        icon: "fa-solid fa-person-running",
+        target: "Core",
+        secondary: "Legs, Shoulders",
+        difficulty: "Intermediate",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "30–45 sec",
+        rest: "45 sec",
+        calories: "12–20 kcal",
+        description:
+            "A dynamic bodyweight exercise combining core work with cardio conditioning.",
+        instructions: [
+            "Start in a high plank position.",
+            "Drive one knee toward your chest.",
+            "Return it and immediately switch legs.",
+            "Continue alternating at a controlled pace."
+        ],
+        tips:
+            "Keep your shoulders above your hands and maintain a strong plank."
+    },
+
+    {
+        id: "jumping-jacks",
+        name: "Jumping Jacks",
+        category: "Cardio",
+        icon: "fa-solid fa-person-running",
+        target: "Full Body",
+        secondary: "Legs, Shoulders",
+        difficulty: "Beginner",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "30–60 sec",
+        rest: "30 sec",
+        calories: "10–18 kcal",
+        description:
+            "A simple cardio movement useful for warming up and increasing heart rate.",
+        instructions: [
+            "Stand upright with feet together.",
+            "Jump while moving your feet outward.",
+            "Raise your arms overhead.",
+            "Jump back to the starting position."
+        ],
+        tips:
+            "Land softly and keep your knees slightly bent."
+    },
+
+    {
+        id: "burpees",
+        name: "Burpees",
+        category: "Cardio",
+        icon: "fa-solid fa-person-running",
+        target: "Full Body",
+        secondary: "Chest, Legs, Core",
+        difficulty: "Advanced",
+        equipment: "None",
+        sets: "3 Sets",
+        reps: "8–12 Reps",
+        rest: "75 sec",
+        calories: "15–25 kcal",
+        description:
+            "A high-intensity full-body movement combining strength and cardio.",
+        instructions: [
+            "Start standing with your feet around shoulder-width apart.",
+            "Squat down and place your hands on the floor.",
+            "Jump or step your feet backward into a plank.",
+            "Return your feet forward and stand or jump up."
+        ],
+        tips:
+            "Prioritize controlled form instead of rushing through repetitions."
+    }
+
+];
+
+
+/* ================================
+   STATE
+================================ */
+
+let selectedCategory = "All";
+let searchTerm = "";
+
+
+/* ================================
+   HELPERS
+================================ */
+
+function escapeExerciseHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* ================================
+   FILTER EXERCISES
+================================ */
+
+function getFilteredExercises() {
+
+    return exercises.filter(exercise => {
+
+        const categoryMatch =
+            selectedCategory === "All" ||
+            exercise.category === selectedCategory;
+
+        const searchMatch =
+            !searchTerm ||
+            exercise.name.toLowerCase().includes(searchTerm) ||
+            exercise.category.toLowerCase().includes(searchTerm) ||
+            exercise.target.toLowerCase().includes(searchTerm) ||
+            exercise.secondary.toLowerCase().includes(searchTerm);
+
+        return categoryMatch && searchMatch;
+    });
+}
+
+
+/* ================================
+   RENDER CARDS
+================================ */
+
+function renderExercises() {
+
+    const grid =
+        document.getElementById("exerciseGrid");
+
+    const empty =
+        document.getElementById("emptyState");
+
+    const count =
+        document.getElementById("resultCount");
+
+    const list = getFilteredExercises();
+
+    count.textContent =
+        list.length +
+        (list.length === 1 ? " exercise" : " exercises");
+
+    if (!list.length) {
+
+        grid.innerHTML = "";
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+
+    grid.innerHTML = list.map(exercise => {
+
+        return `
+            <article
+                class="exercise-card"
+                onclick="openExercise('${exercise.id}')"
+            >
+
+                <div class="exercise-icon">
+                    <i class="${escapeExerciseHTML(exercise.icon)}"></i>
+                </div>
+
+                <h3>
+                    ${escapeExerciseHTML(exercise.name)}
+                </h3>
+
+                <div class="exercise-meta">
+                    <span>
+                        ${escapeExerciseHTML(exercise.target)}
+                    </span>
+
+                    <span>
+                        ${escapeExerciseHTML(exercise.reps)}
+                    </span>
+                </div>
+
+                <div class="difficulty">
+                    <i class="fa-solid fa-bolt"></i>
+                    ${escapeExerciseHTML(exercise.difficulty)}
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+}
+
+
+/* ================================
+   OPEN DETAILS
+================================ */
+
+function openExercise(id) {
+
+    const exercise =
+        exercises.find(item => item.id === id);
+
+    if (!exercise) return;
+
+    localStorage.setItem(
+        "saiSelectedExercise",
+        JSON.stringify(exercise)
+    );
+
+    const details =
+        document.getElementById("exerciseDetails");
+
+    details.innerHTML = `
+
+        <div class="detail-icon">
+            <i class="${escapeExerciseHTML(exercise.icon)}"></i>
+        </div>
+
+        <h2 class="detail-title">
+            ${escapeExerciseHTML(exercise.name)}
+        </h2>
+
+        <div class="detail-category">
+            ${escapeExerciseHTML(exercise.category)}
+            •
+            ${escapeExerciseHTML(exercise.target)}
+        </div>
+
+        <p class="detail-description">
+            ${escapeExerciseHTML(exercise.description)}
+        </p>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <span>Target Muscle</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.target)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Secondary</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.secondary)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Difficulty</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.difficulty)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Equipment</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.equipment)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Sets</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.sets)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Reps / Time</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.reps)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Rest</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.rest)}
+                </strong>
+            </div>
+
+            <div class="info-box">
+                <span>Calories</span>
+                <strong>
+                    ${escapeExerciseHTML(exercise.calories)}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h3>
+                <i class="fa-solid fa-list-ol"></i>
+                How To Perform
+            </h3>
+
+            ${
+                exercise.instructions.map((step,index) => `
+                    <div class="instruction">
+
+                        <div class="step-number">
+                            ${index + 1}
+                        </div>
+
+                        <p>
+                            ${escapeExerciseHTML(step)}
+                        </p>
+
+                    </div>
+                `).join("")
+            }
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h3>
+                <i class="fa-solid fa-lightbulb"></i>
+                Pro Tip
+            </h3>
+
+            <div class="tips">
+                <i class="fa-solid fa-circle-check"></i>
+                ${escapeExerciseHTML(exercise.tips)}
+            </div>
+
+        </div>
+
+
+        <button
+            class="start-btn"
+            onclick="startSelectedExercise()"
+        >
+            <i class="fa-solid fa-play"></i>
+            Start This Exercise
+        </button>
+    `;
+
+    document
+        .getElementById("exerciseModal")
+        .classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* ================================
+   CLOSE MODAL
+================================ */
+
+function closeExerciseModal() {
+
+    document
+        .getElementById("exerciseModal")
+        .classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+
+/* ================================
+   START SELECTED EXERCISE
+================================ */
+
+function startSelectedExercise() {
+
+    const selected =
+        localStorage.getItem("saiSelectedExercise");
+
+    if (!selected) return;
+
+    location.href = "workout.html";
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+document
+    .getElementById("exerciseSearch")
+    .addEventListener("input", function() {
+
+        searchTerm =
+            this.value
+                .trim()
+                .toLowerCase();
+
+        renderExercises();
+    });
+
+
+/* ================================
+   CATEGORY FILTER
+================================ */
+
+document
+    .querySelectorAll(".filter-btn")
+    .forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+            this.classList.add("active");
+
+            selectedCategory =
+                this.dataset.category;
+
+            renderExercises();
+        });
+
+    });
+
+
+/* ================================
+   RESET SEARCH
+================================ */
+
+function resetExerciseSearch() {
+
+    searchTerm = "";
+    selectedCategory = "All";
+
+    document.getElementById("exerciseSearch").value = "";
+
+    document
+        .querySelectorAll(".filter-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+            if (btn.dataset.category === "All") {
+                btn.classList.add("active");
+            }
+
+        });
+
+    renderExercises();
+}
+
+
+/* ================================
+   MODAL EVENTS
+================================ */
+
+document
+    .getElementById("exerciseModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeExerciseModal();
+        }
+
+    });
+
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeExerciseModal();
+    }
+
+});
+
+
+/* ================================
+   INITIALIZE
+================================ */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    renderExercises();
+
+});
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

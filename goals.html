@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Goals • Sai Fitness Bidupur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #070b09;
+            color: #e8f1eb;
+            font-family: "Inter", sans-serif;
+        }
+
+        .goals-page {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            min-height: 100vh;
+            padding-bottom: 105px;
+        }
+
+        /* HEADER */
+
+        .top-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 16px;
+
+            background: rgba(7,11,9,.94);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .back-btn,
+        .header-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid rgba(255,255,255,.07);
+            background: #101713;
+            color: white;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* HERO */
+
+        .goal-hero {
+            margin: 18px 16px;
+
+            padding: 22px;
+
+            border-radius: 25px;
+
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(57,229,140,.20),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    #111a15,
+                    #0c120f
+                );
+
+            border: 1px solid rgba(57,229,140,.12);
+        }
+
+        .goal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 11px;
+
+            border-radius: 30px;
+
+            background: rgba(57,229,140,.10);
+
+            color: #39e58c;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .goal-hero h1 {
+            margin: 14px 0 7px;
+
+            font-size: 27px;
+            line-height: 1.2;
+        }
+
+        .goal-hero p {
+            margin: 0;
+
+            color: #8b9990;
+
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* SUMMARY */
+
+        .summary-card {
+            margin: 0 16px 18px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background: #101713;
+
+            border: 1px solid rgba(255,255,255,.06);
+        }
+
+        .summary-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .summary-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .summary-percent {
+            color: #39e58c;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .overall-progress {
+            height: 9px;
+
+            margin-top: 13px;
+
+            background: #19221c;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .overall-fill {
+            width: 0%;
+
+            height: 100%;
+
+            background: #39e58c;
+
+            border-radius: inherit;
+
+            transition: width .5s ease;
+        }
+
+        .summary-text {
+            margin-top: 9px;
+
+            color: #77847c;
+
+            font-size: 10px;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 5px 16px 12px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+
+            font-size: 16px;
+        }
+
+        .section-title span {
+            color: #758178;
+            font-size: 10px;
+        }
+
+        /* GOAL CARD */
+
+        .goals-list {
+            padding: 0 16px;
+        }
+
+        .goal-card {
+            position: relative;
+
+            padding: 16px;
+
+            margin-bottom: 11px;
+
+            background: #101713;
+
+            border: 1px solid rgba(255,255,255,.06);
+
+            border-radius: 19px;
+
+            overflow: hidden;
+        }
+
+        .goal-card.completed {
+            border-color: rgba(57,229,140,.25);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(57,229,140,.08),
+                    #101713
+                );
+        }
+
+        .goal-main {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .goal-icon {
+            width: 45px;
+            height: 45px;
+
+            flex: 0 0 45px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(57,229,140,.09);
+
+            color: #39e58c;
+
+            font-size: 18px;
+        }
+
+        .goal-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .goal-name {
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .goal-desc {
+            margin-top: 4px;
+
+            color: #758178;
+
+            font-size: 9px;
+        }
+
+        .goal-value {
+            text-align: right;
+        }
+
+        .goal-value strong {
+            display: block;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .goal-value span {
+            color: #758178;
+            font-size: 8px;
+        }
+
+        .goal-progress {
+            height: 7px;
+
+            margin-top: 14px;
+
+            background: #19221c;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .goal-fill {
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background: #39e58c;
+
+            transition: width .5s ease;
+        }
+
+        .goal-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 8px;
+        }
+
+        .goal-bottom span {
+            color: #758178;
+            font-size: 9px;
+        }
+
+        .goal-status {
+            color: #39e58c !important;
+            font-weight: 700;
+        }
+
+        /* WEEKLY */
+
+        .weekly-card {
+            margin: 0 16px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background: #101713;
+
+            border: 1px solid rgba(255,255,255,.06);
+        }
+
+        .week-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(7,1fr);
+
+            gap: 7px;
+
+            margin-top: 15px;
+        }
+
+        .day-box {
+            text-align: center;
+        }
+
+        .day-name {
+            color: #68756d;
+
+            font-size: 8px;
+
+            margin-bottom: 7px;
+        }
+
+        .day-circle {
+            width: 34px;
+            height: 34px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #18211b;
+
+            color: #67746b;
+
+            font-size: 10px;
+        }
+
+        .day-circle.active {
+            background: rgba(57,229,140,.15);
+            color: #39e58c;
+        }
+
+        .day-circle.today {
+            border: 1px solid #39e58c;
+        }
+
+        /* TARGET SETTINGS */
+
+        .settings-card {
+            margin: 18px 16px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background: #101713;
+
+            border: 1px solid rgba(255,255,255,.06);
+        }
+
+        .setting-row {
+            display: grid;
+
+            grid-template-columns: 1fr 100px;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid rgba(255,255,255,.05);
+        }
+
+        .setting-row:last-child {
+            border-bottom: 0;
+        }
+
+        .setting-info strong {
+            display: block;
+
+            font-size: 11px;
+        }
+
+        .setting-info span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #748078;
+
+            font-size: 8px;
+        }
+
+        .setting-row input {
+            width: 100%;
+
+            height: 38px;
+
+            border-radius: 11px;
+
+            border:
+                1px solid rgba(255,255,255,.07);
+
+            background: #0b100d;
+
+            color: white;
+
+            padding: 0 9px;
+
+            outline: none;
+
+            text-align: center;
+        }
+
+        .save-btn {
+            width: 100%;
+
+            height: 46px;
+
+            margin-top: 14px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            background: #39e58c;
+
+            color: #06110b;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* MOTIVATION */
+
+        .motivation {
+            margin: 18px 16px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(57,229,140,.10),
+                    rgba(57,229,140,.03)
+                );
+
+            border:
+                1px solid rgba(57,229,140,.10);
+        }
+
+        .motivation i {
+            color: #39e58c;
+
+            font-size: 18px;
+        }
+
+        .motivation p {
+            margin: 9px 0 0;
+
+            color: #b3c0b8;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+        /* NAV */
+
+        .bottom-nav {
+            position: fixed;
+
+            left: 50%;
+            bottom: 0;
+
+            transform: translateX(-50%);
+
+            width: 100%;
+            max-width: 520px;
+
+            z-index: 70;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5,1fr);
+
+            padding:
+                10px
+                10px
+                calc(10px + env(safe-area-inset-bottom));
+
+            background:
+                rgba(8,12,10,.94);
+
+            backdrop-filter: blur(20px);
+
+            border-top:
+                1px solid rgba(255,255,255,.06);
+        }
+
+        .nav-item {
+            text-align: center;
+
+            color: #68756d;
+
+            font-size: 9px;
+
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            display: block;
+
+            font-size: 17px;
+
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #39e58c;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+
+            left: 50%;
+            bottom: 85px;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            background: #17221b;
+
+            color: white;
+
+            padding: 11px 15px;
+
+            border-radius: 13px;
+
+            font-size: 11px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: .25s;
+
+            z-index: 200;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="goals-page">
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <button class="back-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <div class="header-title">
+            My Goals
+        </div>
+
+        <button class="header-btn" onclick="refreshGoals()">
+            <i class="fa-solid fa-rotate"></i>
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="goal-hero">
+
+        <div class="goal-badge">
+            <i class="fa-solid fa-bullseye"></i>
+            GOAL MODE
+        </div>
+
+        <h1>
+            Small Goals.<br>
+            Big Results.
+        </h1>
+
+        <p>
+            Stay consistent every day and turn
+            your fitness targets into real progress.
+        </p>
+
+    </section>
+
+
+    <!-- OVERALL -->
+
+    <section class="summary-card">
+
+        <div class="summary-top">
+
+            <div class="summary-title">
+                Today's Goal Progress
+            </div>
+
+            <div
+                class="summary-percent"
+                id="summaryPercent"
+            >
+                0%
+            </div>
+
+        </div>
+
+        <div class="overall-progress">
+
+            <div
+                class="overall-fill"
+                id="overallFill"
+            ></div>
+
+        </div>
+
+        <div
+            class="summary-text"
+            id="summaryText"
+        >
+            Start your first goal today.
+        </div>
+
+    </section>
+
+
+    <!-- DAILY -->
+
+    <div class="section-title">
+
+        <h2>Daily Goals</h2>
+
+        <span>
+            Auto tracked
+        </span>
+
+    </div>
+
+
+    <div
+        class="goals-list"
+        id="dailyGoals"
+    ></div>
+
+
+    <!-- WEEKLY -->
+
+    <div class="section-title"
+         style="margin-top:18px;">
+
+        <h2>Weekly Activity</h2>
+
+        <span>
+            Workout days
+        </span>
+
+    </div>
+
+
+    <section class="weekly-card">
+
+        <div class="summary-top">
+
+            <strong style="font-size:13px;">
+                Consistency
+            </strong>
+
+            <span
+                id="weeklyCount"
+                style="
+                    color:#39e58c;
+                    font-size:11px;
+                    font-weight:700;
+                "
+            >
+                0 / 7 days
+            </span>
+
+        </div>
+
+        <div
+            class="week-grid"
+            id="weekGrid"
+        ></div>
+
+    </section>
+
+
+    <!-- TARGET SETTINGS -->
+
+    <div class="section-title"
+         style="margin-top:18px;">
+
+        <h2>Goal Targets</h2>
+
+        <span>
+            Customize
+        </span>
+
+    </div>
+
+
+    <section class="settings-card">
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Daily Calories
+                </strong>
+
+                <span>
+                    Calories to burn
+                </span>
+
+            </div>
+
+            <input
+                id="targetCalories"
+                type="number"
+                min="1"
+            >
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Workout Minutes
+                </strong>
+
+                <span>
+                    Daily training time
+                </span>
+
+            </div>
+
+            <input
+                id="targetMinutes"
+                type="number"
+                min="1"
+            >
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Exercises
+                </strong>
+
+                <span>
+                    Daily completed exercises
+                </span>
+
+            </div>
+
+            <input
+                id="targetExercises"
+                type="number"
+                min="1"
+            >
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Water Glasses
+                </strong>
+
+                <span>
+                    Daily hydration target
+                </span>
+
+            </div>
+
+            <input
+                id="targetWater"
+                type="number"
+                min="1"
+                max="20"
+            >
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            onclick="saveGoalTargets()"
+        >
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Goal Targets
+        </button>
+
+    </section>
+
+
+    <!-- MOTIVATION -->
+
+    <section class="motivation">
+
+        <i class="fa-solid fa-quote-left"></i>
+
+        <p id="motivationText">
+            Consistency beats motivation.
+            Show up today and let the results follow.
+        </p>
+
+    </section>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <div
+        class="nav-item"
+        onclick="location.href='index.html'"
+    >
+        <i class="fa-solid fa-house"></i>
+        Home
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='workout.html'"
+    >
+        <i class="fa-solid fa-dumbbell"></i>
+        Workout
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='diet.html'"
+    >
+        <i class="fa-solid fa-utensils"></i>
+        Diet
+    </div>
+
+    <div
+        class="nav-item active"
+        onclick="location.href='goals.html'"
+    >
+        <i class="fa-solid fa-bullseye"></i>
+        Goals
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='profile.html'"
+    >
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </div>
+
+</nav>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script src="app.js"></script>
+
+<script>
+
+"use strict";
+
+
+/* =====================================
+   DEFAULT GOALS
+===================================== */
+
+const defaultGoals = {
+
+    calories: 250,
+
+    minutes: 30,
+
+    exercises: 5,
+
+    water: 8
+
+};
+
+
+/* =====================================
+   GET GOALS
+===================================== */
+
+function getGoalTargets() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiGoalTargets"
+        )
+    ) || {
+        ...defaultGoals
+    };
+
+}
+
+
+/* =====================================
+   FITNESS DATA
+===================================== */
+
+function getFitnessData() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiFitnessData"
+        )
+    ) || {
+
+        calories: 0,
+
+        minutes: 0,
+
+        workouts: 0,
+
+        streak: 0,
+
+        lastWorkoutDate: null
+
+    };
+
+}
+
+
+/* =====================================
+   HISTORY
+===================================== */
+
+function getWorkoutHistory() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiWorkoutHistory"
+        )
+    ) || [];
+
+}
+
+
+/* =====================================
+   WATER
+===================================== */
+
+function getWaterData() {
+
+    const data = JSON.parse(
+        localStorage.getItem(
+            "saiWater"
+        )
+    );
+
+    const today =
+        getTodayKey();
+
+    if (
+        !data ||
+        data.date !== today
+    ) {
+
+        return {
+            date: today,
+            count: 0
+        };
+
+    }
+
+    return data;
+
+}
+
+
+/* =====================================
+   TODAY
+===================================== */
+
+function getTodayKey() {
+
+    const date =
+        new Date();
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =====================================
+   TODAY HISTORY
+===================================== */
+
+function getTodayHistory() {
+
+    const today =
+        getTodayKey();
+
+    return getWorkoutHistory()
+        .filter(
+            item => item.date === today
+        );
+
+}
+
+
+/* =====================================
+   TODAY EXERCISES
+===================================== */
+
+function getTodayExercises() {
+
+    return getTodayHistory()
+        .reduce(
+            (sum,item) =>
+                sum +
+                Number(
+                    item.exercises || 0
+                ),
+            0
+        );
+
+}
+
+
+/* =====================================
+   TODAY CALORIES
+===================================== */
+
+function getTodayCalories() {
+
+    return getTodayHistory()
+        .reduce(
+            (sum,item) =>
+                sum +
+                Number(
+                    item.calories || 0
+                ),
+            0
+        );
+
+}
+
+
+/* =====================================
+   TODAY MINUTES
+===================================== */
+
+function getTodayMinutes() {
+
+    return getTodayHistory()
+        .reduce(
+            (sum,item) =>
+                sum +
+                Number(
+                    item.minutes || 0
+                ),
+            0
+        );
+
+}
+
+
+/* =====================================
+   PERCENT
+===================================== */
+
+function getPercent(value,target) {
+
+    if (!target || target <= 0) {
+        return 0;
+    }
+
+    return Math.min(
+        100,
+        Math.round(
+            (value / target) * 100
+        )
+    );
+
+}
+
+
+/* =====================================
+   DAILY GOALS
+===================================== */
+
+function renderDailyGoals() {
+
+    const targets =
+        getGoalTargets();
+
+    const calories =
+        getTodayCalories();
+
+    const minutes =
+        getTodayMinutes();
+
+    const exercises =
+        getTodayExercises();
+
+    const water =
+        getWaterData().count || 0;
+
+
+    const goals = [
+
+        {
+            name: "Burn Calories",
+            desc: "Complete your calorie target",
+            icon: "fa-solid fa-fire",
+            value: calories,
+            target: targets.calories,
+            unit: "kcal"
+        },
+
+        {
+            name: "Workout Time",
+            desc: "Stay active for your daily target",
+            icon: "fa-solid fa-clock",
+            value: minutes,
+            target: targets.minutes,
+            unit: "min"
+        },
+
+        {
+            name: "Complete Exercises",
+            desc: "Finish your exercise target",
+            icon: "fa-solid fa-dumbbell",
+            value: exercises,
+            target: targets.exercises,
+            unit: "exercises"
+        },
+
+        {
+            name: "Drink Water",
+            desc: "Stay hydrated throughout the day",
+            icon: "fa-solid fa-droplet",
+            value: water,
+            target: targets.water,
+            unit: "glasses"
+        }
+
+    ];
+
+
+    const container =
+        document.getElementById(
+            "dailyGoals"
+        );
+
+
+    container.innerHTML =
+        goals.map(goal => {
+
+            const percent =
+                getPercent(
+                    goal.value,
+                    goal.target
+                );
+
+            const completed =
+                percent >= 100;
+
+            return `
+
+                <div
+                    class="goal-card
+                    ${completed ? "completed" : ""}"
+                >
+
+                    <div class="goal-main">
+
+                        <div class="goal-icon">
+
+                            <i
+                                class="${goal.icon}"
+                            ></i>
+
+                        </div>
+
+                        <div class="goal-info">
+
+                            <div class="goal-name">
+                                ${goal.name}
+                            </div>
+
+                            <div class="goal-desc">
+                                ${goal.desc}
+                            </div>
+
+                        </div>
+
+                        <div class="goal-value">
+
+                            <strong>
+                                ${goal.value}
+                            </strong>
+
+                            <span>
+                                / ${goal.target}
+                                ${goal.unit}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="goal-progress">
+
+                        <div
+                            class="goal-fill"
+                            style="
+                                width:${percent}%;
+                            "
+                        ></div>
+
+                    </div>
+
+
+                    <div class="goal-bottom">
+
+                        <span>
+                            ${percent}% complete
+                        </span>
+
+                        <span class="goal-status">
+
+                            ${
+                                completed
+                                ? "✓ Completed"
+                                : `${goal.target - goal.value} ${goal.unit} left`
+                            }
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    updateOverall(goals);
+
+}
+
+
+/* =====================================
+   OVERALL
+===================================== */
+
+function updateOverall(goals) {
+
+    const percentages =
+        goals.map(goal =>
+            getPercent(
+                goal.value,
+                goal.target
+            )
+        );
+
+
+    const average =
+        Math.round(
+            percentages.reduce(
+                (a,b) => a + b,
+                0
+            ) / percentages.length
+        );
+
+
+    document.getElementById(
+        "summaryPercent"
+    ).textContent =
+        average + "%";
+
+
+    document.getElementById(
+        "overallFill"
+    ).style.width =
+        average + "%";
+
+
+    const completed =
+        percentages.filter(
+            value => value >= 100
+        ).length;
+
+
+    document.getElementById(
+        "summaryText"
+    ).textContent =
+        completed === goals.length
+        ? "🎉 All daily goals completed!"
+        : `${completed} of ${goals.length} goals completed today.`;
+
+}
+
+
+/* =====================================
+   WEEK
+===================================== */
+
+function renderWeeklyActivity() {
+
+    const history =
+        getWorkoutHistory();
+
+    const grid =
+        document.getElementById(
+            "weekGrid"
+        );
+
+
+    let activeDays = 0;
+
+    const today =
+        new Date();
+
+
+    let html = "";
+
+
+    for (
+        let i = 6;
+        i >= 0;
+        i--
+    ) {
+
+        const date =
+            new Date();
+
+        date.setDate(
+            today.getDate() - i
+        );
+
+
+        const year =
+            date.getFullYear();
+
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(2,"0");
+
+        const day =
+            String(
+                date.getDate()
+            ).padStart(2,"0");
+
+        const key =
+            `${year}-${month}-${day}`;
+
+
+        const hasWorkout =
+            history.some(
+                item => item.date === key
+            );
+
+
+        if (hasWorkout) {
+            activeDays++;
+        }
+
+
+        const dayName =
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "short"
+                }
+            ).slice(0,2);
+
+
+        const isToday =
+            i === 0;
+
+
+        html += `
+
+            <div class="day-box">
+
+                <div class="day-name">
+                    ${dayName}
+                </div>
+
+                <div
+                    class="
+                        day-circle
+                        ${hasWorkout ? "active" : ""}
+                        ${isToday ? "today" : ""}
+                    "
+                >
+
+                    ${
+                        hasWorkout
+                        ? '<i class="fa-solid fa-check"></i>'
+                        : day
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    grid.innerHTML = html;
+
+
+    document.getElementById(
+        "weeklyCount"
+    ).textContent =
+        `${activeDays} / 7 days`;
+
+}
+
+
+/* =====================================
+   TARGET INPUTS
+===================================== */
+
+function loadGoalInputs() {
+
+    const targets =
+        getGoalTargets();
+
+
+    document.getElementById(
+        "targetCalories"
+    ).value =
+        targets.calories;
+
+
+    document.getElementById(
+        "targetMinutes"
+    ).value =
+        targets.minutes;
+
+
+    document.getElementById(
+        "targetExercises"
+    ).value =
+        targets.exercises;
+
+
+    document.getElementById(
+        "targetWater"
+    ).value =
+        targets.water;
+
+}
+
+
+/* =====================================
+   SAVE TARGETS
+===================================== */
+
+function saveGoalTargets() {
+
+    const data = {
+
+        calories:
+            Math.max(
+                1,
+                Number(
+                    document.getElementById(
+                        "targetCalories"
+                    ).value
+                ) || defaultGoals.calories
+            ),
+
+        minutes:
+            Math.max(
+                1,
+                Number(
+                    document.getElementById(
+                        "targetMinutes"
+                    ).value
+                ) || defaultGoals.minutes
+            ),
+
+        exercises:
+            Math.max(
+                1,
+                Number(
+                    document.getElementById(
+                        "targetExercises"
+                    ).value
+                ) || defaultGoals.exercises
+            ),
+
+        water:
+            Math.min(
+                20,
+                Math.max(
+                    1,
+                    Number(
+                        document.getElementById(
+                            "targetWater"
+                        ).value
+                    ) || defaultGoals.water
+                )
+            )
+
+    };
+
+
+    localStorage.setItem(
+        "saiGoalTargets",
+        JSON.stringify(data)
+    );
+
+
+    renderDailyGoals();
+
+
+    showToast(
+        "Goal targets saved ✓"
+    );
+
+}
+
+
+/* =====================================
+   MOTIVATION
+===================================== */
+
+function updateMotivation() {
+
+    const messages = [
+
+        "Consistency beats motivation. Show up today and let the results follow.",
+
+        "One workout today is better than ten workouts planned for tomorrow.",
+
+        "Your future self will thank you for the work you do today.",
+
+        "Small progress every day becomes a big transformation.",
+
+        "Don't chase perfection. Chase consistency."
+
+    ];
+
+
+    const index =
+        new Date().getDate()
+        % messages.length;
+
+
+    document.getElementById(
+        "motivationText"
+    ).textContent =
+        messages[index];
+
+}
+
+
+/* =====================================
+   ESCAPE
+===================================== */
+
+function escapeGoalHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =====================================
+   REFRESH
+===================================== */
+
+function refreshGoals() {
+
+    renderDailyGoals();
+
+    renderWeeklyActivity();
+
+    loadGoalInputs();
+
+    updateMotivation();
+
+    showToast(
+        "Goals refreshed ✓"
+    );
+
+}
+
+
+/* =====================================
+   INIT
+===================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        renderDailyGoals();
+
+        renderWeeklyActivity();
+
+        loadGoalInputs();
+
+        updateMotivation();
+
+    }
+);
+
+
+/* =====================================
+   RETURN TO PAGE
+===================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (!document.hidden) {
+
+            renderDailyGoals();
+
+            renderWeeklyActivity();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

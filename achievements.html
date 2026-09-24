@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b09">
+
+<title>Achievements • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --bg:#070b09;
+    --card:#101713;
+    --card2:#141c17;
+    --green:#39e58c;
+    --green-soft:rgba(57,229,140,.12);
+    --text:#e8f1eb;
+    --muted:#8b9990;
+    --border:rgba(255,255,255,.07);
+    --gold:#ffc857;
+    --blue:#5ca9ff;
+    --danger:#ff6b6b;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:
+        radial-gradient(circle at top right,
+        rgba(57,229,140,.08),
+        transparent 35%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+    max-width:520px;
+    margin:auto;
+    padding-bottom:95px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:16px 18px;
+    background:rgba(7,11,9,.92);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:#fff;
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+}
+
+.header h1{
+    font-size:18px;
+    font-weight:800;
+}
+
+.header p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.hero{
+    margin:18px;
+    padding:24px;
+    border-radius:25px;
+    background:
+        linear-gradient(135deg,
+        rgba(255,200,87,.13),
+        rgba(16,23,19,.96));
+    border:1px solid rgba(255,200,87,.13);
+    text-align:center;
+}
+
+.trophy{
+    width:66px;
+    height:66px;
+    margin:auto;
+    border-radius:21px;
+    display:grid;
+    place-items:center;
+    background:rgba(255,200,87,.1);
+    color:var(--gold);
+    font-size:29px;
+    box-shadow:0 0 35px rgba(255,200,87,.08);
+}
+
+.hero h2{
+    font-size:22px;
+    margin-top:14px;
+    font-weight:800;
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-top:7px;
+}
+
+.score{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:7px;
+    margin-top:14px;
+    font-size:12px;
+}
+
+.score strong{
+    color:var(--gold);
+    font-size:19px;
+}
+
+.section{
+    margin:0 18px 17px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:11px;
+}
+
+.section-title h3{
+    font-size:15px;
+}
+
+.section-title span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.progress-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:16px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    margin-bottom:9px;
+}
+
+.progress-top span{
+    color:var(--muted);
+}
+
+.progress{
+    height:9px;
+    background:var(--card2);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#18b968,#39e58c);
+    border-radius:20px;
+    transition:width .5s ease;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
+}
+
+.badge{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:19px;
+    padding:18px 14px;
+    min-height:175px;
+    overflow:hidden;
+    transition:.25s ease;
+}
+
+.badge.unlocked{
+    border-color:rgba(57,229,140,.22);
+    background:
+        linear-gradient(145deg,
+        rgba(57,229,140,.09),
+        var(--card));
+}
+
+.badge.locked{
+    opacity:.48;
+}
+
+.badge:active{
+    transform:scale(.98);
+}
+
+.badge-icon{
+    width:52px;
+    height:52px;
+    border-radius:17px;
+    display:grid;
+    place-items:center;
+    font-size:21px;
+    margin-bottom:13px;
+}
+
+.badge.unlocked .badge-icon{
+    background:var(--green-soft);
+    color:var(--green);
+}
+
+.badge.locked .badge-icon{
+    background:rgba(255,255,255,.06);
+    color:var(--muted);
+}
+
+.badge h4{
+    font-size:12px;
+    font-weight:800;
+}
+
+.badge p{
+    color:var(--muted);
+    font-size:9px;
+    line-height:1.5;
+    margin-top:5px;
+}
+
+.badge-status{
+    position:absolute;
+    right:11px;
+    top:11px;
+    font-size:10px;
+}
+
+.unlocked .badge-status{
+    color:var(--green);
+}
+
+.locked .badge-status{
+    color:var(--muted);
+}
+
+.badge-value{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:11px;
+}
+
+.tip{
+    display:flex;
+    gap:12px;
+    padding:16px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.tip i{
+    color:var(--gold);
+    font-size:18px;
+}
+
+.tip p{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.65;
+}
+
+.empty{
+    text-align:center;
+    color:var(--muted);
+    padding:25px;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(520px,100%);
+    height:72px;
+    background:rgba(12,18,15,.96);
+    backdrop-filter:blur(20px);
+    border-top:1px solid var(--border);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    z-index:50;
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    color:var(--muted);
+    font-size:9px;
+    cursor:pointer;
+}
+
+.nav-item i{
+    font-size:17px;
+}
+
+.nav-item.active{
+    color:var(--green);
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:85px;
+    transform:translate(-50%,20px);
+    background:#17231c;
+    border:1px solid rgba(57,229,140,.2);
+    color:#fff;
+    padding:12px 16px;
+    border-radius:13px;
+    font-size:11px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:100;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <button class="back" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <div>
+        <h1>Achievements</h1>
+        <p>Your fitness milestones</p>
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="trophy">
+        <i class="fa-solid fa-trophy"></i>
+    </div>
+
+    <h2>Keep Winning 🏆</h2>
+
+    <p>
+        हर workout और हर consistency आपको
+        एक नए achievement के करीब ले जाती है।
+    </p>
+
+    <div class="score">
+        <strong id="unlockedCount">0</strong>
+        <span>of</span>
+        <strong id="totalCount">0</strong>
+        <span>achievements unlocked</span>
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-title">
+        <h3>Achievement Progress</h3>
+        <span id="progressText">0%</span>
+    </div>
+
+    <div class="progress-card">
+
+        <div class="progress-top">
+            <span>Overall completion</span>
+            <span id="progressNumbers">0 / 0</span>
+        </div>
+
+        <div class="progress">
+            <div
+                class="progress-bar"
+                id="achievementProgress">
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-title">
+        <h3>Milestones</h3>
+        <span>Keep going</span>
+    </div>
+
+    <div
+        class="grid"
+        id="achievementGrid">
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="tip">
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        <p>
+            Tip: छोटे goals complete करते रहें।
+            Consistency बढ़ने के साथ आपके नए badges
+            automatically unlock होंगे।
+        </p>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<nav class="bottom-nav">
+
+    <div
+        class="nav-item"
+        onclick="location.href='index.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='workout.html'">
+        <i class="fa-solid fa-dumbbell"></i>
+        <span>Workout</span>
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='diet.html'">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Diet</span>
+    </div>
+
+    <div
+        class="nav-item"
+        onclick="location.href='progress.html'">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Progress</span>
+    </div>
+
+    <div
+        class="nav-item active"
+        onclick="location.href='profile.html'">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </div>
+
+</nav>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+"use strict";
+
+
+const achievements = [
+
+    {
+        id:"first-workout",
+        title:"First Step",
+        description:"Complete your first workout.",
+        icon:"fa-shoe-prints",
+        type:"workouts",
+        target:1
+    },
+
+    {
+        id:"five-workouts",
+        title:"Getting Started",
+        description:"Complete 5 workouts.",
+        icon:"fa-dumbbell",
+        type:"workouts",
+        target:5
+    },
+
+    {
+        id:"ten-workouts",
+        title:"Workout Machine",
+        description:"Complete 10 workouts.",
+        icon:"fa-fire-flame-curved",
+        type:"workouts",
+        target:10
+    },
+
+    {
+        id:"twenty-five-workouts",
+        title:"Fitness Warrior",
+        description:"Complete 25 workouts.",
+        icon:"fa-person-running",
+        type:"workouts",
+        target:25
+    },
+
+    {
+        id:"fifty-workouts",
+        title:"Elite Habit",
+        description:"Complete 50 workouts.",
+        icon:"fa-medal",
+        type:"workouts",
+        target:50
+    },
+
+    {
+        id:"hundred-workouts",
+        title:"Century Club",
+        description:"Complete 100 workouts.",
+        icon:"fa-crown",
+        type:"workouts",
+        target:100
+    },
+
+    {
+        id:"streak-3",
+        title:"3 Day Fire",
+        description:"Reach a 3 day workout streak.",
+        icon:"fa-fire",
+        type:"streak",
+        target:3
+    },
+
+    {
+        id:"streak-7",
+        title:"One Week Strong",
+        description:"Reach a 7 day workout streak.",
+        icon:"fa-bolt",
+        type:"streak",
+        target:7
+    },
+
+    {
+        id:"streak-14",
+        title:"Two Week Beast",
+        description:"Reach a 14 day streak.",
+        icon:"fa-fire-flame-simple",
+        type:"streak",
+        target:14
+    },
+
+    {
+        id:"streak-30",
+        title:"30 Day Champion",
+        description:"Reach a 30 day workout streak.",
+        icon:"fa-trophy",
+        type:"streak",
+        target:30
+    },
+
+    {
+        id:"calories-1000",
+        title:"Calorie Burner",
+        description:"Burn 1,000 workout calories.",
+        icon:"fa-fire",
+        type:"calories",
+        target:1000
+    },
+
+    {
+        id:"calories-5000",
+        title:"5K Burner",
+        description:"Burn 5,000 workout calories.",
+        icon:"fa-fire-flame-curved",
+        type:"calories",
+        target:5000
+    },
+
+    {
+        id:"minutes-300",
+        title:"Time Invested",
+        description:"Complete 300 workout minutes.",
+        icon:"fa-clock",
+        type:"minutes",
+        target:300
+    },
+
+    {
+        id:"minutes-1000",
+        title:"1000 Minute Club",
+        description:"Complete 1,000 workout minutes.",
+        icon:"fa-stopwatch",
+        type:"minutes",
+        target:1000
+    },
+
+    {
+        id:"consistency-7",
+        title:"Weekly Consistency",
+        description:"Have workouts on 7 different days.",
+        icon:"fa-calendar-check",
+        type:"activeDays",
+        target:7
+    },
+
+    {
+        id:"consistency-30",
+        title:"30 Active Days",
+        description:"Train on 30 different days.",
+        icon:"fa-calendar-days",
+        type:"activeDays",
+        target:30
+    }
+
+];
+
+
+function getFitness(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "saiFitnessData"
+            )
+        ) || {};
+
+    }catch(error){
+
+        return {};
+
+    }
+
+}
+
+
+function getHistory(){
+
+    try{
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiWorkoutHistory"
+                )
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+function getStats(){
+
+    const fitness =
+        getFitness();
+
+    const history =
+        getHistory();
+
+
+    const activeDays =
+        new Set(
+            history
+                .map(item => item.date)
+                .filter(Boolean)
+        ).size;
+
+
+    return {
+
+        workouts:
+            Number(
+                fitness.workouts || 0
+            ),
+
+        calories:
+            Number(
+                fitness.calories || 0
+            ),
+
+        minutes:
+            Number(
+                fitness.minutes || 0
+            ),
+
+        streak:
+            Number(
+                fitness.streak || 0
+            ),
+
+        activeDays
+
+    };
+
+}
+
+
+function getAchievementValue(
+    achievement,
+    stats
+){
+
+    return Number(
+        stats[
+            achievement.type
+        ] || 0
+    );
+
+}
+
+
+function isUnlocked(
+    achievement,
+    stats
+){
+
+    return getAchievementValue(
+        achievement,
+        stats
+    ) >= achievement.target;
+
+}
+
+
+function formatValue(
+    achievement,
+    value
+){
+
+    if(
+        achievement.type === "calories"
+    ){
+
+        return `${value.toLocaleString()} kcal`;
+
+    }
+
+
+    if(
+        achievement.type === "minutes"
+    ){
+
+        return `${value.toLocaleString()} min`;
+
+    }
+
+
+    if(
+        achievement.type === "streak"
+    ){
+
+        return `${value} day streak`;
+
+    }
+
+
+    if(
+        achievement.type === "activeDays"
+    ){
+
+        return `${value} active days`;
+
+    }
+
+
+    return `${value} workouts`;
+
+}
+
+
+function renderAchievements(){
+
+    const stats =
+        getStats();
+
+
+    const grid =
+        document.getElementById(
+            "achievementGrid"
+        );
+
+
+    let unlocked = 0;
+
+
+    grid.innerHTML =
+        achievements.map(
+            achievement => {
+
+                const value =
+                    getAchievementValue(
+                        achievement,
+                        stats
+                    );
+
+
+                const done =
+                    isUnlocked(
+                        achievement,
+                        stats
+                    );
+
+
+                if(done){
+                    unlocked++;
+                }
+
+
+                const percent =
+                    Math.min(
+                        100,
+                        Math.round(
+                            (value /
+                            achievement.target) *
+                            100
+                        )
+                    );
+
+
+                return `
+
+                    <div class="badge ${
+                        done
+                            ? "unlocked"
+                            : "locked"
+                    }">
+
+                        <div class="badge-status">
+
+                            ${
+                                done
+                                ? `<i class="fa-solid fa-circle-check"></i>`
+                                : `<i class="fa-solid fa-lock"></i>`
+                            }
+
+                        </div>
+
+
+                        <div class="badge-icon">
+
+                            <i class="fa-solid ${
+                                achievement.icon
+                            }"></i>
+
+                        </div>
+
+
+                        <h4>
+                            ${achievement.title}
+                        </h4>
+
+
+                        <p>
+                            ${achievement.description}
+                        </p>
+
+
+                        <span class="badge-value">
+
+                            ${
+                                done
+                                ? "Unlocked ✓"
+                                : `${formatValue(
+                                    achievement,
+                                    value
+                                )} / ${achievement.target}`
+                            }
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    const total =
+        achievements.length;
+
+
+    const percentage =
+        total
+        ? Math.round(
+            (unlocked / total) * 100
+        )
+        : 0;
+
+
+    document.getElementById(
+        "unlockedCount"
+    ).textContent =
+        unlocked;
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "progressNumbers"
+    ).textContent =
+        `${unlocked} / ${total}`;
+
+
+    document.getElementById(
+        "achievementProgress"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    renderAchievements
+);
+
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if(!document.hidden){
+
+            renderAchievements();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

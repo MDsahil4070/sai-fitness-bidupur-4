@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sai Fitness • Workout</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="animations.css">
+
+<style>
+
+.workout-page{
+    padding-bottom:110px;
+}
+
+.page-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.back-btn,
+.timer-btn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.page-title strong{
+    display:block;
+    font-size:18px;
+}
+
+.page-title span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.workout-hero{
+    position:relative;
+    overflow:hidden;
+    padding:20px;
+    border-radius:23px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(57,229,140,.18),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            #112119,
+            #0b120f
+        );
+
+    border:1px solid rgba(57,229,140,.12);
+}
+
+.hero-label{
+    color:var(--green);
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+}
+
+.workout-hero h1{
+    font-size:24px;
+    margin:7px 0 5px;
+}
+
+.workout-hero p{
+    color:var(--muted);
+    font-size:10px;
+    margin:0;
+}
+
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    margin-top:17px;
+    font-size:10px;
+}
+
+.progress-info span{
+    color:var(--muted);
+}
+
+.progress-info strong{
+    color:var(--green);
+}
+
+.progress-bar{
+    height:8px;
+    background:rgba(255,255,255,.06);
+    border-radius:99px;
+    overflow:hidden;
+    margin-top:7px;
+}
+
+.progress-bar div{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        var(--green-dark),
+        var(--green)
+    );
+    border-radius:inherit;
+    transition:.35s;
+}
+
+.workout-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin-top:15px;
+}
+
+.workout-stat{
+    background:rgba(255,255,255,.035);
+    border-radius:12px;
+    padding:10px 5px;
+    text-align:center;
+}
+
+.workout-stat strong{
+    display:block;
+    font-size:14px;
+}
+
+.workout-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:22px 0 11px;
+}
+
+.section-head h2{
+    margin:0;
+    font-size:16px;
+}
+
+.section-head a{
+    color:var(--green);
+    font-size:10px;
+    text-decoration:none;
+}
+
+.categories{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding-bottom:3px;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category-btn{
+    flex-shrink:0;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--muted);
+    border-radius:12px;
+    padding:9px 13px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.category-btn.active{
+    background:var(--green);
+    color:#06110b;
+    border-color:var(--green);
+}
+
+.exercise-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:19px;
+    padding:14px;
+    margin-bottom:9px;
+    transition:.25s;
+}
+
+.exercise-card.completed{
+    border-color:rgba(57,229,140,.25);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(57,229,140,.06),
+            var(--card)
+        );
+}
+
+.exercise-top{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.exercise-icon{
+    width:44px;
+    height:44px;
+    border-radius:13px;
+    background:var(--green-soft);
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.exercise-info{
+    flex:1;
+    min-width:0;
+}
+
+.exercise-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.exercise-info span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:4px;
+}
+
+.complete-btn{
+    width:35px;
+    height:35px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    background:var(--bg-soft);
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.exercise-card.completed .complete-btn{
+    background:var(--green);
+    color:#06110b;
+    border-color:var(--green);
+}
+
+.exercise-details{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:12px;
+}
+
+.detail-box{
+    background:var(--bg-soft);
+    border-radius:9px;
+    text-align:center;
+    padding:8px 3px;
+}
+
+.detail-box strong{
+    display:block;
+    font-size:10px;
+}
+
+.detail-box span{
+    color:var(--muted);
+    font-size:8px;
+}
+
+.timer-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:20px;
+    text-align:center;
+}
+
+.timer-ring{
+    width:175px;
+    height:175px;
+    border-radius:50%;
+    margin:5px auto 17px;
+
+    background:
+        conic-gradient(
+            var(--green) var(--timer-progress,0%),
+            rgba(255,255,255,.06) 0
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.timer-ring::before{
+    content:"";
+    position:absolute;
+    inset:10px;
+    background:var(--card);
+    border-radius:50%;
+}
+
+.timer-inner{
+    position:relative;
+    z-index:2;
+}
+
+.timer-inner strong{
+    display:block;
+    font-size:38px;
+    letter-spacing:-1px;
+}
+
+.timer-inner span{
+    color:var(--muted);
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.timer-status{
+    color:var(--green);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+}
+
+.timer-presets{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-top:15px;
+}
+
+.timer-presets button{
+    padding:9px 3px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--bg-soft);
+    color:var(--muted);
+    font-size:9px;
+}
+
+.timer-presets button.active{
+    color:var(--green);
+    border-color:rgba(57,229,140,.3);
+    background:var(--green-soft);
+}
+
+.timer-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.timer-actions button{
+    flex:1;
+    border:1px solid var(--border);
+    background:var(--bg-soft);
+    color:var(--text);
+    padding:11px;
+    border-radius:11px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.timer-actions button.primary{
+    background:var(--green);
+    color:#06110b;
+    border-color:var(--green);
+}
+
+.finish-btn{
+    width:100%;
+    margin-top:14px;
+    border:0;
+    background:linear-gradient(
+        135deg,
+        var(--green),
+        var(--green-dark)
+    );
+    color:#06110b;
+    border-radius:13px;
+    padding:13px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.empty-state{
+    background:var(--card);
+    border:1px dashed var(--border);
+    border-radius:18px;
+    text-align:center;
+    padding:25px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:12px;
+    transform:translateX(-50%);
+    width:min(92%,500px);
+    z-index:50;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+
+    padding:8px;
+
+    background:rgba(12,18,15,.94);
+    backdrop-filter:blur(16px);
+
+    border:1px solid var(--border);
+    border-radius:20px;
+}
+
+.bottom-nav a{
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    padding:7px 3px;
+    border-radius:13px;
+    font-size:9px;
+}
+
+.bottom-nav a.active{
+    background:var(--green-soft);
+    color:var(--green);
+}
+
+.bottom-nav i{
+    display:block;
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app-container workout-page">
+
+    <!-- HEADER -->
+
+    <header class="page-header">
+
+        <div class="header-left">
+
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <div class="page-title">
+                <strong>Workout</strong>
+                <span>Sai Fitness • Bidupur</span>
+            </div>
+
+        </div>
+
+        <button
+            class="timer-btn"
+            onclick="scrollToTimer()"
+        >
+            <i class="fa-solid fa-stopwatch"></i>
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="workout-hero">
+
+        <div class="hero-label">
+            <i class="fa-solid fa-fire"></i>
+            Today's Training
+        </div>
+
+        <h1 id="workoutTitle">
+            Full Body Blast
+        </h1>
+
+        <p id="workoutDescription">
+            Build strength, improve stamina and
+            stay consistent.
+        </p>
+
+        <div class="progress-info">
+
+            <span>
+                Exercise Progress
+            </span>
+
+            <strong id="exerciseProgressText">
+                0/8
+            </strong>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div id="exerciseProgressBar"></div>
+
+        </div>
+
+
+        <div class="workout-stats">
+
+            <div class="workout-stat">
+
+                <strong id="heroExerciseCount">
+                    8
+                </strong>
+
+                <span>Exercises</span>
+
+            </div>
+
+            <div class="workout-stat">
+
+                <strong id="heroMinutes">
+                    35
+                </strong>
+
+                <span>Minutes</span>
+
+            </div>
+
+            <div class="workout-stat">
+
+                <strong id="heroCalories">
+                    250
+                </strong>
+
+                <span>Calories</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="section-head">
+
+        <h2>Workout Type</h2>
+
+        <a href="exercises.html">
+            Exercise Library
+        </a>
+
+    </div>
+
+
+    <div class="categories">
+
+        <button
+            class="category-btn active"
+            data-category="Full Body"
+        >
+            Full Body
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Chest"
+        >
+            Chest
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Back"
+        >
+            Back
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Shoulders"
+        >
+            Shoulders
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Arms"
+        >
+            Arms
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Legs"
+        >
+            Legs
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="Abs"
+        >
+            Abs
+        </button>
+
+    </div>
+
+
+    <!-- EXERCISES -->
+
+    <div class="section-head">
+
+        <h2>Exercises</h2>
+
+        <span id="categoryLabel">
+            Full Body</span>
+
+    </div>
+
+
+    <div id="exerciseList"></div>
+
+
+    <!-- TIMER -->
+
+    <div
+        class="section-head"
+        id="restTimerSection"
+    >
+
+        <h2>Rest Timer</h2>
+
+        <span>Recover between sets</span>
+
+    </div>
+
+
+    <section class="timer-card">
+
+        <div
+            class="timer-ring"
+            id="timerRing"
+            style="--timer-progress:0%;"
+        >
+
+            <div class="timer-inner">
+
+                <strong id="timerDisplay">
+                    00:30
+                </strong>
+
+                <span id="timerStatus">
+                    READY
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="timer-presets">
+
+            <button
+                data-time="30"
+                class="active"
+                onclick="setRestTime(30,this)"
+            >
+                30s
+            </button>
+
+            <button
+                data-time="45"
+                onclick="setRestTime(45,this)"
+            >
+                45s
+            </button>
+
+            <button
+                data-time="60"
+                onclick="setRestTime(60,this)"
+            >
+                60s
+            </button>
+
+            <button
+                data-time="90"
+                onclick="setRestTime(90,this)"
+            >
+                90s
+            </button>
+
+        </div>
+
+
+        <div class="timer-actions">
+
+            <button
+                class="primary"
+                id="timerStartButton"
+                onclick="toggleRestTimer()"
+            >
+                <i class="fa-solid fa-play"></i>
+                Start
+            </button>
+
+            <button onclick="resetRestTimer()">
+                <i class="fa-solid fa-rotate-left"></i>
+                Reset
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FINISH -->
+
+    <button
+        class="finish-btn"
+        onclick="finishWorkout()"
+    >
+        <i class="fa-solid fa-flag-checkered"></i>
+        Finish Workout
+    </button>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+
+    <a href="workout.html" class="active">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workout
+    </a>
+
+    <a href="progress.html">
+        <i class="fa-solid fa-chart-line"></i>
+        Progress
+    </a>
+
+    <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+<script>
+
+"use strict";
+
+
+/* =====================================
+   WORKOUT DATABASE
+===================================== */
+
+const workoutDatabase = {
+
+    "Full Body": {
+
+        title:"Full Body Blast",
+
+        description:
+            "Complete body workout for strength and stamina.",
+
+        minutes:35,
+
+        calories:250,
+
+        exercises:[
+
+            {
+                name:"Bodyweight Squats",
+                muscle:"Legs",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-person-walking"
+            },
+
+            {
+                name:"Push Ups",
+                muscle:"Chest",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Walking Lunges",
+                muscle:"Legs",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-person-running"
+            },
+
+            {
+                name:"Mountain Climbers",
+                muscle:"Full Body",
+                sets:3,
+                reps:"20 Reps",
+                icon:"fa-person-running"
+            },
+
+            {
+                name:"Dumbbell Press",
+                muscle:"Chest",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Plank",
+                muscle:"Abs",
+                sets:3,
+                reps:"30 Seconds",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Dumbbell Rows",
+                muscle:"Back",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Jumping Jacks",
+                muscle:"Cardio",
+                sets:3,
+                reps:"20 Reps",
+                icon:"fa-person-running"
+            }
+
+        ]
+
+    },
+
+
+    "Chest": {
+
+        title:"Chest Builder",
+
+        description:
+            "Build your chest with focused pushing exercises.",
+
+        minutes:25,
+
+        calories:190,
+
+        exercises:[
+
+            {
+                name:"Push Ups",
+                muscle:"Chest",
+                sets:4,
+                reps:"12 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Wide Push Ups",
+                muscle:"Chest",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Dumbbell Press",
+                muscle:"Chest",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Incline Push Ups",
+                muscle:"Upper Chest",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Diamond Push Ups",
+                muscle:"Chest + Triceps",
+                sets:3,
+                reps:"8 Reps",
+                icon:"fa-person"
+            }
+
+        ]
+
+    },
+
+
+    "Back": {
+
+        title:"Back Strength",
+
+        description:
+            "Train your back and improve upper-body strength.",
+
+        minutes:25,
+
+        calories:200,
+
+        exercises:[
+
+            {
+                name:"Dumbbell Rows",
+                muscle:"Back",
+                sets:4,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Reverse Fly",
+                muscle:"Upper Back",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Superman",
+                muscle:"Lower Back",
+                sets:3,
+                reps:"15 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Bird Dog",
+                muscle:"Back",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-person"
+            }
+
+        ]
+
+    },
+
+
+    "Shoulders": {
+
+        title:"Shoulder Power",
+
+        description:
+            "Strengthen your shoulders and upper body.",
+
+        minutes:22,
+
+        calories:175,
+
+        exercises:[
+
+            {
+                name:"Shoulder Press",
+                muscle:"Shoulders",
+                sets:4,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Lateral Raises",
+                muscle:"Side Delts",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Front Raises",
+                muscle:"Front Delts",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Reverse Fly",
+                muscle:"Rear Delts",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-dumbbell"
+            }
+
+        ]
+
+    },
+
+
+    "Arms": {
+
+        title:"Arm Builder",
+
+        description:
+            "Train biceps and triceps for stronger arms.",
+
+        minutes:23,
+
+        calories:180,
+
+        exercises:[
+
+            {
+                name:"Bicep Curls",
+                muscle:"Biceps",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Hammer Curls",
+                muscle:"Biceps",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-dumbbell"
+            },
+
+            {
+                name:"Tricep Dips",
+                muscle:"Triceps",
+                sets:3,
+                reps:"10 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Close Grip Push Ups",
+                muscle:"Triceps",
+                sets:3,
+                reps:"8 Reps",
+                icon:"fa-person"
+            }
+
+        ]
+
+    },
+
+
+    "Legs": {
+
+        title:"Leg Power",
+
+        description:
+            "Build stronger legs with a complete lower-body session.",
+
+        minutes:28,
+
+        calories:230,
+
+        exercises:[
+
+            {
+                name:"Bodyweight Squats",
+                muscle:"Quads",
+                sets:4,
+                reps:"15 Reps",
+                icon:"fa-person-walking"
+            },
+
+            {
+                name:"Walking Lunges",
+                muscle:"Legs",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-person-running"
+            },
+
+            {
+                name:"Glute Bridge",
+                muscle:"Glutes",
+                sets:3,
+                reps:"15 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Calf Raises",
+                muscle:"Calves",
+                sets:4,
+                reps:"15 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Wall Sit",
+                muscle:"Quads",
+                sets:3,
+                reps:"30 Seconds",
+                icon:"fa-person"
+            }
+
+        ]
+
+    },
+
+
+    "Abs": {
+
+        title:"Core Crusher",
+
+        description:
+            "Strengthen your core with focused abdominal training.",
+
+        minutes:20,
+
+        calories:160,
+
+        exercises:[
+
+            {
+                name:"Plank",
+                muscle:"Core",
+                sets:3,
+                reps:"30 Seconds",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Mountain Climbers",
+                muscle:"Abs",
+                sets:3,
+                reps:"20 Reps",
+                icon:"fa-person-running"
+            },
+
+            {
+                name:"Crunches",
+                muscle:"Abs",
+                sets:3,
+                reps:"15 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Leg Raises",
+                muscle:"Lower Abs",
+                sets:3,
+                reps:"12 Reps",
+                icon:"fa-person"
+            },
+
+            {
+                name:"Russian Twists",
+                muscle:"Obliques",
+                sets:3,
+                reps:"20 Reps",
+                icon:"fa-person"
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =====================================
+   STATE
+===================================== */
+
+let currentCategory = "Full Body";
+
+let currentWorkout =
+    workoutDatabase[currentCategory];
+
+let completedExercises = [];
+
+let timerSeconds = 30;
+
+let timerRemaining = 30;
+
+let timerInterval = null;
+
+let timerRunning = false;
+
+
+/* =====================================
+   STORAGE KEY
+===================================== */
+
+function getCompletionKey(){
+
+    return "saiCompleted_" +
+        getTodayKey() +
+        "_" +
+        currentCategory;
+}
+
+
+function getTodayKey(){
+
+    const d = new Date();
+
+    return [
+        d.getFullYear(),
+        String(d.getMonth()+1).padStart(2,"0"),
+        String(d.getDate()).padStart(2,"0")
+    ].join("-");
+}
+
+
+/* =====================================
+   LOAD COMPLETION
+===================================== */
+
+function loadCompletedExercises(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    getCompletionKey()
+                )
+            );
+
+        if(Array.isArray(saved)){
+
+            completedExercises =
+                saved.filter(
+                    index =>
+                        index >= 0 &&
+                        index <
+                        currentWorkout.exercises.length
+                );
+
+        }else{
+
+            completedExercises = [];
+
+        }
+
+    }catch(error){
+
+        completedExercises = [];
+
+    }
+}
+
+
+/* =====================================
+   SAVE COMPLETION
+===================================== */
+
+function saveCompletedExercises(){
+
+    localStorage.setItem(
+        getCompletionKey(),
+        JSON.stringify(
+            completedExercises
+        )
+    );
+}
+
+
+/* =====================================
+   RENDER WORKOUT
+===================================== */
+
+function renderWorkout(){
+
+    currentWorkout =
+        workoutDatabase[currentCategory];
+
+    loadCompletedExercises();
+
+
+    document.getElementById(
+        "workoutTitle"
+    ).textContent =
+        currentWorkout.title;
+
+
+    document.getElementById(
+        "workoutDescription"
+    ).textContent =
+        currentWorkout.description;
+
+
+    document.getElementById(
+        "heroExerciseCount"
+    ).textContent =
+        currentWorkout.exercises.length;
+
+
+    document.getElementById(
+        "heroMinutes"
+    ).textContent =
+        currentWorkout.minutes;
+
+
+    document.getElementById(
+        "heroCalories"
+    ).textContent =
+        currentWorkout.calories;
+
+
+    document.getElementById(
+        "categoryLabel"
+    ).textContent =
+        currentCategory;
+
+
+    const list =
+        document.getElementById(
+            "exerciseList"
+        );
+
+
+    if(!currentWorkout.exercises.length){
+
+        list.innerHTML = `
+            <div class="empty-state">
+                No exercises available.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        currentWorkout.exercises
+        .map((exercise,index)=>{
+
+            const completed =
+                completedExercises
+                .includes(index);
+
+            return `
+
+                <div
+                    class="exercise-card ${completed ? "completed" : ""}"
+                    id="exercise-${index}"
+                >
+
+                    <div class="exercise-top">
+
+                        <div class="exercise-icon">
+
+                            <i class="fa-solid ${exercise.icon}"></i>
+
+                        </div>
+
+
+                        <div class="exercise-info">
+
+                            <strong>
+                                ${escapeWorkoutHTML(
+                                    exercise.name
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeWorkoutHTML(
+                                    exercise.muscle
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="complete-btn"
+                            onclick="toggleExercise(${index})"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="exercise-details">
+
+                        <div class="detail-box">
+
+                            <strong>
+                                ${exercise.sets}
+                            </strong>
+
+                            <span>
+                                Sets
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <strong>
+                                ${escapeWorkoutHTML(
+                                    exercise.reps
+                                )}
+                            </strong>
+
+                            <span>
+                                Reps
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <strong>
+                                ${completed ? "Done" : "Ready"}
+                            </strong>
+
+                            <span>
+                                Status
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    updateWorkoutProgress();
+
+}
+
+
+/* =====================================
+   TOGGLE EXERCISE
+===================================== */
+
+function toggleExercise(index){
+
+    const position =
+        completedExercises.indexOf(index);
+
+
+    if(position === -1){
+
+        completedExercises.push(index);
+
+        showToast(
+            currentWorkout.exercises[index].name +
+            " completed ✓"
+        );
+
+    }else{
+
+        completedExercises.splice(
+            position,
+            1
+        );
+
+        showToast(
+            "Exercise marked incomplete"
+        );
+    }
+
+
+    saveCompletedExercises();
+
+    renderWorkout();
+
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+function updateWorkoutProgress(){
+
+    const total =
+        currentWorkout.exercises.length;
+
+    const done =
+        completedExercises.length;
+
+    const percentage =
+        total
+        ? Math.round(
+            (done / total) * 100
+        )
+        : 0;
+
+
+    document.getElementById(
+        "exerciseProgressText"
+    ).textContent =
+        done + "/" + total;
+
+
+    document.getElementById(
+        "exerciseProgressBar"
+    ).style.width =
+        percentage + "%";
+
+
+    if(
+        done === total &&
+        total > 0
+    ){
+
+        showToast(
+            "All exercises completed! 🔥"
+        );
+    }
+}
+
+
+/* =====================================
+   CATEGORY
+===================================== */
+
+document
+.querySelectorAll(".category-btn")
+.forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            document
+            .querySelectorAll(".category-btn")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+
+            button.classList.add("active");
+
+
+            currentCategory =
+                button.dataset.category;
+
+
+            renderWorkout();
+
+        }
+    );
+
+});
+
+
+/* =====================================
+   TIMER
+===================================== */
+
+function formatTimer(seconds){
+
+    const mins =
+        Math.floor(seconds / 60);
+
+    const secs =
+        seconds % 60;
+
+    return (
+        String(mins).padStart(2,"0")
+        + ":" +
+        String(secs).padStart(2,"0")
+    );
+}
+
+
+function updateTimerUI(){
+
+    document.getElementById(
+        "timerDisplay"
+    ).textContent =
+        formatTimer(timerRemaining);
+
+
+    const percentage =
+        timerSeconds
+        ? (
+            (timerSeconds -
+             timerRemaining)
+            / timerSeconds
+        ) * 100
+        : 0;
+
+
+    document.getElementById(
+        "timerRing"
+    ).style.setProperty(
+        "--timer-progress",
+        percentage + "%"
+    );
+}
+
+
+function setRestTime(seconds,button){
+
+    stopTimer();
+
+    timerSeconds =
+        seconds;
+
+    timerRemaining =
+        seconds;
+
+
+    document
+    .querySelectorAll(".timer-presets button")
+    .forEach(btn =>
+        btn.classList.remove("active")
+    );
+
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    document.getElementById(
+        "timerStatus"
+    ).textContent =
+        "READY";
+
+
+    document.getElementById(
+        "timerStartButton"
+    ).innerHTML =
+        '<i class="fa-solid fa-play"></i> Start';
+
+
+    updateTimerUI();
+}
+
+
+function toggleRestTimer(){
+
+    if(timerRunning){
+
+        pauseTimer();
+
+        return;
+    }
+
+
+    if(timerRemaining <= 0){
+
+        timerRemaining =
+            timerSeconds;
+    }
+
+
+    startRestTimer();
+}
+
+
+function startRestTimer(){
+
+    timerRunning = true;
+
+
+    document.getElementById(
+        "timerStartButton"
+    ).innerHTML =
+        '<i class="fa-solid fa-pause"></i> Pause';
+
+
+    document.getElementById(
+        "timerStatus"
+    ).textContent =
+        "RESTING";
+
+
+    timerInterval =
+        setInterval(()=>{
+
+            timerRemaining--;
+
+            updateTimerUI();
+
+
+            if(timerRemaining <= 0){
+
+                finishTimer();
+
+            }
+
+        },1000);
+}
+
+
+function pauseTimer(){
+
+    timerRunning = false;
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    document.getElementById(
+        "timerStartButton"
+    ).innerHTML =
+        '<i class="fa-solid fa-play"></i> Resume';
+
+
+    document.getElementById(
+        "timerStatus"
+    ).textContent =
+        "PAUSED";
+}
+
+
+function stopTimer(){
+
+    timerRunning = false;
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval = null;
+}
+
+
+function finishTimer(){
+
+    stopTimer();
+
+    timerRemaining = 0;
+
+    updateTimerUI();
+
+
+    document.getElementById(
+        "timerStartButton"
+    ).innerHTML =
+        '<i class="fa-solid fa-rotate-right"></i> Restart';
+
+
+    document.getElementById(
+        "timerStatus"
+    ).textContent =
+        "REST COMPLETE";
+
+
+    if(
+        "vibrate" in navigator
+    ){
+
+        navigator.vibrate(
+            [150,80,150]
+        );
+    }
+
+
+    showToast(
+        "Rest complete! Back to training 🔥"
+    );
+}
+
+
+function resetRestTimer(){
+
+    stopTimer();
+
+    timerRemaining =
+        timerSeconds;
+
+
+    document.getElementById(
+        "timerStatus"
+    ).textContent =
+        "READY";
+
+
+    document.getElementById(
+        "timerStartButton"
+    ).innerHTML =
+        '<i class="fa-solid fa-play"></i> Start';
+
+
+    updateTimerUI();
+}
+
+
+/* =====================================
+   FINISH WORKOUT
+===================================== */
+
+function finishWorkout(){
+
+    const total =
+        currentWorkout.exercises.length;
+
+    const completed =
+        completedExercises.length;
+
+
+    if(completed === 0){
+
+        showToast(
+            "Complete at least one exercise first 💪"
+        );
+
+        return;
+    }
+
+
+    const ratio =
+        completed / total;
+
+
+    const calories =
+        Math.round(
+            currentWorkout.calories *
+            ratio
+        );
+
+
+    const minutes =
+        Math.max(
+            1,
+            Math.round(
+                currentWorkout.minutes *
+                ratio
+            )
+        );
+
+
+    let fitnessData;
+
+    try{
+
+        fitnessData =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiFitnessData"
+                )
+            ) || {};
+
+    }catch(error){
+
+        fitnessData = {};
+    }
+
+
+    fitnessData.calories =
+        (Number(fitnessData.calories) || 0)
+        + calories;
+
+
+    fitnessData.minutes =
+        (Number(fitnessData.minutes) || 0)
+        + minutes;
+
+
+    fitnessData.workouts =
+        (Number(fitnessData.workouts) || 0)
+        + 1;
+
+
+    fitnessData.lastWorkoutDate =
+        getTodayKey();
+
+
+    /* STREAK */
+
+    const yesterday =
+        new Date();
+
+    yesterday.setDate(
+        yesterday.getDate() - 1
+    );
+
+
+    const yesterdayKey =
+        [
+            yesterday.getFullYear(),
+            String(
+                yesterday.getMonth()+1
+            ).padStart(2,"0"),
+            String(
+                yesterday.getDate()
+            ).padStart(2,"0")
+        ].join("-");
+
+
+    if(
+        fitnessData.previousWorkoutDate ===
+        yesterdayKey
+    ){
+
+        fitnessData.streak =
+            (Number(
+                fitnessData.streak
+            ) || 0) + 1;
+
+    }else if(
+        fitnessData.previousWorkoutDate !==
+        getTodayKey()
+    ){
+
+        fitnessData.streak = 1;
+    }
+
+
+    fitnessData.previousWorkoutDate =
+        getTodayKey();
+
+
+    localStorage.setItem(
+        "saiFitnessData",
+        JSON.stringify(
+            fitnessData
+        )
+    );
+
+
+    /* HISTORY */
+
+    let history = [];
+
+    try{
+
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiWorkoutHistory"
+                )
+            ) || [];
+
+    }catch(error){
+
+        history = [];
+    }
+
+
+    history.push({
+
+        id:Date.now(),
+
+        date:getTodayKey(),
+
+        time:new Date()
+            .toLocaleTimeString(
+                "en-IN",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            ),
+
+        title:currentWorkout.title,
+
+        type:currentCategory,
+
+        calories:calories,
+
+        minutes:minutes,
+
+        exercises:completed,
+
+        totalExercises:total,
+
+        exerciseNames:
+            completedExercises.map(
+                index =>
+                    currentWorkout
+                    .exercises[index]
+                    .name
+            )
+
+    });
+
+
+    history =
+        history.slice(-100);
+
+
+    localStorage.setItem(
+        "saiWorkoutHistory",
+        JSON.stringify(history)
+    );
+
+
+    localStorage.removeItem(
+        getCompletionKey()
+    );
+
+
+    showToast(
+        "Workout saved successfully 🔥"
+    );
+
+
+    setTimeout(()=>{
+
+        location.href =
+            "progress.html";
+
+    },700);
+
+}
+
+
+/* =====================================
+   ESCAPE
+===================================== */
+
+function escapeWorkoutHTML(text){
+
+    return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================
+   SCROLL TIMER
+===================================== */
+
+function scrollToTimer(){
+
+    document
+    .getElementById(
+        "restTimerSection"
+    )
+    .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+}
+
+
+/* =====================================
+   INIT
+===================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        renderWorkout();
+
+        updateTimerUI();
+
+    }
+);
+
+
+/* =====================================
+   CLEAN TIMER
+===================================== */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+        stopTimer();
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

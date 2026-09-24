@@ -1,0 +1,425 @@
+/* =========================================================
+   SAI FITNESS BIDUPUR
+   PREMIUM UI ANIMATIONS
+   Lightweight • Mobile First
+========================================================= */
+
+:root {
+    --animation-fast: 0.18s;
+    --animation-normal: 0.3s;
+    --animation-slow: 0.55s;
+}
+
+/* ---------- Page Entrance ---------- */
+
+body {
+    animation: pageEnter 0.45s ease both;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Cards ---------- */
+
+.card,
+.stat-card,
+.quick-link,
+.meal-card,
+.exercise-card,
+.goal-card,
+.notification-card,
+.achievement-card,
+.measure-card,
+.info-card,
+.setting-card,
+.history-card {
+    transition:
+        transform var(--animation-normal) ease,
+        border-color var(--animation-normal) ease,
+        box-shadow var(--animation-normal) ease;
+}
+
+.card:active,
+.stat-card:active,
+.quick-link:active,
+.meal-card:active,
+.exercise-card:active,
+.goal-card:active,
+.notification-card:active,
+.achievement-card:active,
+.measure-card:active,
+.info-card:active,
+.setting-card:active,
+.history-card:active {
+    transform: scale(0.985);
+}
+
+/* ---------- Buttons ---------- */
+
+button,
+.btn,
+a.button,
+.action-btn {
+    transition:
+        transform var(--animation-fast) ease,
+        opacity var(--animation-fast) ease,
+        box-shadow var(--animation-fast) ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+.btn:active,
+a.button:active,
+.action-btn:active {
+    transform: scale(0.96);
+}
+
+/* ---------- Ripple ---------- */
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ripple:active::after {
+    animation: rippleEffect 0.45s ease-out;
+}
+
+@keyframes rippleEffect {
+    0% {
+        transform: scale(0);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(18);
+        opacity: 0;
+    }
+}
+
+/* ---------- Fade Up ---------- */
+
+.animate-up {
+    animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Staggered Cards ---------- */
+
+.stagger > * {
+    animation: fadeUp 0.45s ease both;
+}
+
+.stagger > *:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.stagger > *:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.stagger > *:nth-child(3) {
+    animation-delay: 0.12s;
+}
+
+.stagger > *:nth-child(4) {
+    animation-delay: 0.16s;
+}
+
+.stagger > *:nth-child(5) {
+    animation-delay: 0.20s;
+}
+
+.stagger > *:nth-child(6) {
+    animation-delay: 0.24s;
+}
+
+.stagger > *:nth-child(7) {
+    animation-delay: 0.28s;
+}
+
+.stagger > *:nth-child(8) {
+    animation-delay: 0.32s;
+}
+
+/* ---------- Progress Bars ---------- */
+
+.progress-fill,
+.progress-bar-fill,
+.goal-progress-fill {
+    transform-origin: left center;
+    animation: progressGrow 0.9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes progressGrow {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ---------- Progress Ring ---------- */
+
+.progress-ring circle,
+.progress-circle circle,
+circle.progress {
+    transition:
+        stroke-dashoffset 0.8s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ---------- Icons ---------- */
+
+.quick-link-icon,
+.stat-icon,
+.feature-icon,
+.goal-icon,
+.achievement-icon {
+    transition:
+        transform var(--animation-normal) ease;
+}
+
+.quick-link:active .quick-link-icon,
+.goal-card:active .goal-icon,
+.achievement-card:active .achievement-icon {
+    transform: scale(0.9) rotate(-3deg);
+}
+
+/* ---------- Notification Dot ---------- */
+
+.notification-dot,
+.unread-dot {
+    animation: notificationPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes notificationPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 0.65;
+    }
+}
+
+/* ---------- Green Glow ---------- */
+
+.glow-green {
+    animation: greenGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes greenGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 rgba(57, 229, 140, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 24px rgba(57, 229, 140, 0.12);
+    }
+}
+
+/* ---------- Loading Shimmer ---------- */
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.07),
+        transparent
+    );
+    animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ---------- Toast ---------- */
+
+.toast,
+#toast,
+.settings-toast,
+.backup-status {
+    animation: toastIn 0.35s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 18px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+/* ---------- Modal ---------- */
+
+.modal,
+.modal-overlay {
+    animation: modalFade 0.25s ease both;
+}
+
+.modal-content,
+.modal-card {
+    animation: modalUp 0.3s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- Floating Action ---------- */
+
+.float-animation {
+    animation: floatSoft 3s ease-in-out infinite;
+}
+
+@keyframes floatSoft {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ---------- Pulse ---------- */
+
+.pulse {
+    animation: softPulse 2s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.72;
+    }
+}
+
+/* ---------- Bottom Navigation ---------- */
+
+.bottom-nav a,
+.bottom-nav button {
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.bottom-nav a:active,
+.bottom-nav button:active {
+    transform: translateY(-2px) scale(0.94);
+}
+
+/* ---------- Inputs ---------- */
+
+input,
+select,
+textarea {
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    transform: translateY(-1px);
+}
+
+/* ---------- Selection ---------- */
+
+::selection {
+    background: rgba(57, 229, 140, 0.25);
+    color: #fff;
+}
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

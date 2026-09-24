@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sai Fitness • Diet</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+
+    <style>
+
+        .diet-page {
+            padding-bottom: 105px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 0;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .page-header span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .calorie-card {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255,183,77,.15),
+                    transparent 45%
+                ),
+                var(--card);
+
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 22px;
+        }
+
+        .calorie-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .calorie-circle {
+            width: 125px;
+            height: 125px;
+            flex-shrink: 0;
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    #ffb74d var(--progress),
+                    rgba(255,255,255,.06) 0
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .calorie-circle::before {
+            content: "";
+            position: absolute;
+            inset: 10px;
+            background: var(--card);
+            border-radius: 50%;
+        }
+
+        .calorie-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .calorie-center strong {
+            display: block;
+            font-size: 22px;
+        }
+
+        .calorie-center span {
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .calorie-info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .calorie-info p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+            margin: 7px 0 0;
+        }
+
+        .calorie-goal {
+            margin-top: 17px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .calorie-goal span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .calorie-goal strong {
+            font-size: 11px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 22px 0 11px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .section-title span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .macro-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 8px;
+        }
+
+        .macro-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 8px;
+            text-align: center;
+        }
+
+        .macro-card i {
+            color: var(--green);
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .macro-card strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .macro-card span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .meal-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            padding: 15px;
+            margin-bottom: 9px;
+
+            transition: .25s;
+        }
+
+        .meal-card.eaten {
+            border-color: rgba(57,229,140,.25);
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(57,229,140,.07),
+                    var(--card)
+                );
+        }
+
+        .meal-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meal-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: var(--green-soft);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .meal-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .meal-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .meal-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .meal-check {
+            width: 35px;
+            height: 35px;
+            border-radius: 11px;
+            border: 1px solid var(--border);
+            background: var(--bg-soft);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meal-card.eaten .meal-check {
+            background: var(--green);
+            color: #06110b;
+            border-color: var(--green);
+        }
+
+        .meal-stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 6px;
+            margin-top: 13px;
+        }
+
+        .meal-stat {
+            background: var(--bg-soft);
+            border-radius: 9px;
+            padding: 7px 3px;
+            text-align: center;
+        }
+
+        .meal-stat strong {
+            display: block;
+            font-size: 10px;
+        }
+
+        .meal-stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 8px;
+            margin-top: 2px;
+        }
+
+        .water-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+        }
+
+        .water-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .water-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .water-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: rgba(89,170,255,.1);
+            color: #59aaff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .water-title strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .water-title span {
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .water-count {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .water-bar {
+            height: 7px;
+            background: rgba(255,255,255,.06);
+            border-radius: 99px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .water-bar div {
+            width: 0%;
+            height: 100%;
+            background: #59aaff;
+            border-radius: inherit;
+            transition: .3s;
+        }
+
+        .water-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .water-buttons button {
+            flex: 1;
+            border: 1px solid var(--border);
+            background: var(--bg-soft);
+            color: var(--text);
+            border-radius: 11px;
+            padding: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .water-buttons button:first-child {
+            color: #59aaff;
+        }
+
+        .tip-card {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 18px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(57,229,140,.08),
+                    var(--card)
+                );
+
+            border: 1px solid rgba(57,229,140,.1);
+        }
+
+        .tip-card i {
+            color: var(--green);
+        }
+
+        .tip-card strong {
+            font-size: 12px;
+            margin-left: 7px;
+        }
+
+        .tip-card p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.6;
+            margin: 8px 0 0;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            width: min(92%,500px);
+            z-index: 50;
+
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 5px;
+
+            padding: 8px;
+
+            background: rgba(12,18,15,.94);
+            backdrop-filter: blur(16px);
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .bottom-nav a {
+            color: var(--muted);
+            text-decoration: none;
+            text-align: center;
+            padding: 7px 3px;
+            border-radius: 13px;
+            font-size: 9px;
+        }
+
+        .bottom-nav a.active {
+            background: var(--green-soft);
+            color: var(--green);
+        }
+
+        .bottom-nav i {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="app-container diet-page">
+
+    <!-- HEADER -->
+
+    <header class="page-header">
+
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <div>
+            <h1>Nutrition</h1>
+            <span>Eat smart • Train hard</span>
+        </div>
+
+    </header>
+
+
+    <!-- CALORIE HERO -->
+
+    <section class="calorie-card">
+
+        <div class="calorie-top">
+
+            <div
+                class="calorie-circle"
+                id="calorieCircle"
+                style="--progress:0%;"
+            >
+
+                <div class="calorie-center">
+
+                    <strong id="consumedCalories">
+                        0
+                    </strong>
+
+                    <span>
+                        kcal eaten
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="calorie-info">
+
+                <h2>Daily Calories</h2>
+
+                <p>
+                    Track your meals and stay
+                    consistent with your daily goal.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="calorie-goal">
+
+            <span>
+                Remaining
+            </span>
+
+            <strong id="remainingCalories">
+                2500 kcal
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- MACROS -->
+
+    <div class="section-title">
+
+        <h2>Macros</h2>
+
+        <span>Today's total</span>
+
+    </div>
+
+
+    <div class="macro-grid">
+
+        <div class="macro-card">
+
+            <i class="fa-solid fa-drumstick-bite"></i>
+
+            <strong id="proteinTotal">
+                0g
+            </strong>
+
+            <span>Protein</span>
+
+        </div>
+
+
+        <div class="macro-card">
+
+            <i class="fa-solid fa-wheat-awn"></i>
+
+            <strong id="carbsTotal">
+                0g
+            </strong>
+
+            <span>Carbs</span>
+
+        </div>
+
+
+        <div class="macro-card">
+
+            <i class="fa-solid fa-bottle-droplet"></i>
+
+            <strong id="fatTotal">
+                0g
+            </strong>
+
+            <span>Fat</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEALS -->
+
+    <div class="section-title">
+
+        <h2>Today's Meals</h2>
+
+        <span id="mealProgressText">
+            0/4 eaten
+        </span>
+
+    </div>
+
+
+    <div id="mealsContainer"></div>
+
+
+    <!-- WATER -->
+
+    <div class="section-title">
+
+        <h2>Hydration 💧</h2>
+
+        <span>Goal: 8 glasses</span>
+
+    </div>
+
+
+    <div class="water-card">
+
+        <div class="water-top">
+
+            <div class="water-title">
+
+                <div class="water-icon">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <div>
+
+                    <strong>Daily Water</strong>
+
+                    <span>
+                        Stay hydrated throughout the day
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-count">
+
+                <span id="waterCount">
+                    0
+                </span>/8
+
+            </div>
+
+        </div>
+
+
+        <div class="water-bar">
+
+            <div id="waterProgress"></div>
+
+        </div>
+
+
+        <div class="water-buttons">
+
+            <button onclick="addWaterGlass()">
+                <i class="fa-solid fa-plus"></i>
+                Add Glass
+            </button>
+
+            <button onclick="resetWaterTracker()">
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- TIP -->
+
+    <div class="tip-card">
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        <strong>Fitness Tip</strong>
+
+        <p>
+            Protein-rich food can help support
+            muscle recovery. Drink enough water
+            and maintain a balanced diet.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+
+    <a href="workout.html">
+        <i class="fa-solid fa-dumbbell"></i>
+        Workout
+    </a>
+
+    <a href="progress.html">
+        <i class="fa-solid fa-chart-line"></i>
+        Progress
+    </a>
+
+    <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==========================================
+   DAILY DIET DATA
+========================================== */
+
+const DAILY_CALORIE_GOAL = 2500;
+
+
+const defaultMeals = [
+
+    {
+        id: 1,
+        name: "Breakfast",
+        food: "Oats + Banana + Milk",
+        icon: "fa-mug-hot",
+        calories: 420,
+        protein: 18,
+        carbs: 55,
+        fat: 10
+    },
+
+    {
+        id: 2,
+        name: "Lunch",
+        food: "Rice + Dal + Salad",
+        icon: "fa-bowl-food",
+        calories: 580,
+        protein: 22,
+        carbs: 78,
+        fat: 9
+    },
+
+    {
+        id: 3,
+        name: "Snack",
+        food: "Apple + Roasted Chana",
+        icon: "fa-apple-whole",
+        calories: 210,
+        protein: 8,
+        carbs: 32,
+        fat: 4
+    },
+
+    {
+        id: 4,
+        name: "Dinner",
+        food: "Roti + Paneer + Vegetables",
+        icon: "fa-utensils",
+        calories: 520,
+        protein: 30,
+        carbs: 50,
+        fat: 18
+    }
+
+];
+
+
+/* ==========================================
+   DATE KEY
+========================================== */
+
+function getDietDateKey() {
+
+    const date = new Date();
+
+    return [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2,"0"),
+        String(date.getDate()).padStart(2,"0")
+    ].join("-");
+}
+
+
+/* ==========================================
+   LOAD DATA
+========================================== */
+
+function loadDietData() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem("saiDietData")
+            );
+
+        if (
+            saved &&
+            saved.date === getDietDateKey() &&
+            Array.isArray(saved.meals)
+        ) {
+
+            return saved;
+        }
+
+    } catch(error) {}
+
+    const fresh = {
+
+        date: getDietDateKey(),
+
+        meals:
+            defaultMeals.map(meal => ({
+                ...meal,
+                eaten: false
+            }))
+
+    };
+
+    localStorage.setItem(
+        "saiDietData",
+        JSON.stringify(fresh)
+    );
+
+    return fresh;
+}
+
+
+let dietData = loadDietData();
+
+
+/* ==========================================
+   SAVE DATA
+========================================== */
+
+function saveDietData() {
+
+    localStorage.setItem(
+        "saiDietData",
+        JSON.stringify(dietData)
+    );
+}
+
+
+/* ==========================================
+   RENDER MEALS
+========================================== */
+
+function renderMeals() {
+
+    const container =
+        document.getElementById(
+            "mealsContainer"
+        );
+
+    container.innerHTML =
+        dietData.meals.map(meal => {
+
+            return `
+
+                <div
+                    class="meal-card ${meal.eaten ? "eaten" : ""}"
+                    data-id="${meal.id}"
+                >
+
+                    <div class="meal-top">
+
+                        <div class="meal-icon">
+
+                            <i class="fa-solid ${meal.icon}"></i>
+
+                        </div>
+
+
+                        <div class="meal-info">
+
+                            <strong>
+                                ${escapeDietHTML(meal.name)}
+                            </strong>
+
+                            <span>
+                                ${escapeDietHTML(meal.food)}
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="meal-check"
+                            onclick="toggleMeal(${meal.id})"
+                            aria-label="Toggle meal"
+                        >
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="meal-stats">
+
+                        <div class="meal-stat">
+
+                            <strong>
+                                ${meal.calories}
+                            </strong>
+
+                            <span>Calories</span>
+
+                        </div>
+
+
+                        <div class="meal-stat">
+
+                            <strong>
+                                ${meal.protein}g
+                            </strong>
+
+                            <span>Protein</span>
+
+                        </div>
+
+
+                        <div class="meal-stat">
+
+                            <strong>
+                                ${meal.carbs}g
+                            </strong>
+
+                            <span>Carbs</span>
+
+                        </div>
+
+
+                        <div class="meal-stat">
+
+                            <strong>
+                                ${meal.fat}g
+                            </strong>
+
+                            <span>Fat</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+}
+
+
+/* ==========================================
+   TOGGLE MEAL
+========================================== */
+
+function toggleMeal(id) {
+
+    const meal =
+        dietData.meals.find(
+            item => item.id === id
+        );
+
+    if (!meal) return;
+
+    meal.eaten =
+        !meal.eaten;
+
+    saveDietData();
+
+    renderDietStats();
+
+    renderMeals();
+
+    if (meal.eaten) {
+
+        showToast(
+            meal.name + " added to today's diet 🍎"
+        );
+
+    } else {
+
+        showToast(
+            meal.name + " removed from today's diet"
+        );
+    }
+}
+
+
+/* ==========================================
+   CALCULATE TOTALS
+========================================== */
+
+function calculateDietTotals() {
+
+    return dietData.meals.reduce(
+
+        (total,meal) => {
+
+            if (meal.eaten) {
+
+                total.calories +=
+                    Number(meal.calories) || 0;
+
+                total.protein +=
+                    Number(meal.protein) || 0;
+
+                total.carbs +=
+                    Number(meal.carbs) || 0;
+
+                total.fat +=
+                    Number(meal.fat) || 0;
+
+                total.eatenMeals++;
+            }
+
+            return total;
+
+        },
+
+        {
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0,
+            eatenMeals: 0
+        }
+    );
+}
+
+
+/* ==========================================
+   UPDATE STATS
+========================================== */
+
+function renderDietStats() {
+
+    const totals =
+        calculateDietTotals();
+
+    const calories =
+        Math.round(totals.calories);
+
+    const remaining =
+        Math.max(
+            0,
+            DAILY_CALORIE_GOAL - calories
+        );
+
+    const percentage =
+        Math.min(
+            100,
+            Math.round(
+                (calories / DAILY_CALORIE_GOAL) * 100
+            )
+        );
+
+
+    document.getElementById(
+        "consumedCalories"
+    ).textContent = calories;
+
+
+    document.getElementById(
+        "remainingCalories"
+    ).textContent =
+        remaining + " kcal";
+
+
+    document.getElementById(
+        "proteinTotal"
+    ).textContent =
+        Math.round(totals.protein) + "g";
+
+
+    document.getElementById(
+        "carbsTotal"
+    ).textContent =
+        Math.round(totals.carbs) + "g";
+
+
+    document.getElementById(
+        "fatTotal"
+    ).textContent =
+        Math.round(totals.fat) + "g";
+
+
+    document.getElementById(
+        "mealProgressText"
+    ).textContent =
+        totals.eatenMeals +
+        "/" +
+        dietData.meals.length +
+        " eaten";
+
+
+    document.getElementById(
+        "calorieCircle"
+    ).style.setProperty(
+        "--progress",
+        percentage + "%"
+    );
+}
+
+
+/* ==========================================
+   WATER
+========================================== */
+
+function getWaterDataDiet() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem("saiWater")
+            );
+
+        if (
+            saved &&
+            typeof saved === "object"
+        ) {
+
+            if (
+                saved.date ===
+                getDietDateKey()
+            ) {
+
+                return Math.max(
+                    0,
+                    Math.min(
+                        8,
+                        Number(saved.count) || 0
+                    )
+                );
+            }
+
+            return 0;
+        }
+
+        return Math.max(
+            0,
+            Math.min(
+                8,
+                Number(saved) || 0
+            )
+        );
+
+    } catch(error) {
+
+        return 0;
+    }
+}
+
+
+function saveWaterDataDiet(value) {
+
+    const count =
+        Math.max(
+            0,
+            Math.min(
+                8,
+                Number(value) || 0
+            )
+        );
+
+    localStorage.setItem(
+        "saiWater",
+        JSON.stringify({
+
+            date: getDietDateKey(),
+
+            count: count
+
+        })
+    );
+
+    renderWater();
+}
+
+
+function renderWater() {
+
+    const count =
+        getWaterDataDiet();
+
+    document.getElementById(
+        "waterCount"
+    ).textContent = count;
+
+    document.getElementById(
+        "waterProgress"
+    ).style.width =
+        ((count / 8) * 100) + "%";
+}
+
+
+function addWaterGlass() {
+
+    const current =
+        getWaterDataDiet();
+
+    if (current >= 8) {
+
+        showToast(
+            "Daily water goal completed 💧"
+        );
+
+        return;
+    }
+
+    saveWaterDataDiet(
+        current + 1
+    );
+
+    showToast(
+        "Water glass added 💧"
+    );
+}
+
+
+function resetWaterTracker() {
+
+    saveWaterDataDiet(0);
+
+    showToast(
+        "Water tracker reset"
+    );
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeDietHTML(text) {
+
+    return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* ==========================================
+   REFRESH DAILY DATA
+========================================== */
+
+function checkDietDate() {
+
+    if (
+        dietData.date !==
+        getDietDateKey()
+    ) {
+
+        dietData = loadDietData();
+
+        renderMeals();
+
+        renderDietStats();
+
+        renderWater();
+    }
+}
+
+
+/* ==========================================
+   INIT
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        checkDietDate();
+
+        renderMeals();
+
+        renderDietStats();
+
+        renderWater();
+
+    }
+);
+
+
+/* ==========================================
+   LIVE REFRESH
+========================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (
+            document.visibilityState ===
+            "visible"
+        ) {
+
+            dietData =
+                loadDietData();
+
+            renderMeals();
+
+            renderDietStats();
+
+            renderWater();
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b09">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <title>Sai Fitness Bidupur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+
+    <style>
+        :root {
+            --primary: #16a34a;
+            --bg: #070b09;
+            --card: #101713;
+            --text: #f5f7f6;
+            --muted: #94a39a;
+            --border: rgba(255,255,255,.07);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .app-shell {
+            width: 100%;
+            max-width: 520px;
+            min-height: 100vh;
+            margin: auto;
+            padding-bottom: 90px;
+        }
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 16px 10px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .brand-logo i {
+            font-size: 19px;
+            color: #fff;
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-text h1 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .brand-text p {
+            margin: 3px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .notification-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .notification-btn i {
+            font-size: 17px;
+        }
+
+        .notification-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
+            right: 8px;
+            top: 7px;
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            margin: 10px 16px 18px;
+            min-height: 190px;
+            border-radius: 25px;
+            padding: 23px;
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(22,163,74,.92),
+                    rgba(4,90,42,.82)
+                ),
+                var(--card);
+
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .hero-banner {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .22;
+            display: none;
+        }
+
+        .hero-banner.loaded {
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.12);
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero h2 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.18;
+            font-weight: 800;
+            max-width: 330px;
+        }
+
+        .hero p {
+            margin: 9px 0 0;
+            font-size: 12px;
+            line-height: 1.6;
+            color: rgba(255,255,255,.78);
+            max-width: 350px;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 17px;
+            padding: 11px 15px;
+            border-radius: 12px;
+            background: #fff;
+            color: #0b2415;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .section {
+            margin: 0 16px 18px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .section-head h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .section-head a {
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           STATS
+        ========================================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            border-radius: var(--radius);
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 11px;
+            background: rgba(22,163,74,.12);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-value {
+            margin-top: 12px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* =========================================
+           WORKOUT
+        ========================================= */
+
+        .workout-card {
+            padding: 17px;
+            border-radius: var(--radius);
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .workout-main {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .workout-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: rgba(22,163,74,.14);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .workout-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .workout-info h4 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .workout-info p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .start-btn {
+            border: 0;
+            padding: 10px 12px;
+            border-radius: 11px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .quick-item {
+            min-width: 0;
+            padding: 12px 5px;
+            border-radius: 15px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .quick-item i {
+            display: block;
+            color: var(--primary);
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .quick-item span {
+            display: block;
+            font-size: 8px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        /* =========================================
+           WATER
+        ========================================= */
+
+        .water-card {
+            padding: 17px;
+            border-radius: var(--radius);
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .water-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .water-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .water-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background: rgba(59,130,246,.12);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .water-title h4 {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .water-title p {
+            margin: 3px 0 0;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .water-value {
+            font-size: 18px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            border-radius: 99px;
+            background: rgba(255,255,255,.07);
+            overflow: hidden;
+            margin: 15px 0 12px;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: #3b82f6;
+            transition: width .4s ease;
+        }
+
+        .water-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .water-actions button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.03);
+            color: var(--text);
+            border-radius: 11px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           COMMON CARDS
+        ========================================= */
+
+        .diet-card,
+        .activity-card,
+        .motivation-card,
+        .announcement-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+
+        /* =========================================
+           DIET
+        ========================================= */
+
+        .diet-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .diet-row:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .diet-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diet-left i {
+            color: var(--primary);
+            width: 25px;
+            text-align: center;
+        }
+
+        .diet-left span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .diet-calories {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* =========================================
+           ACTIVITY
+        ========================================= */
+
+        .activity-item {
+            display: flex;
+            gap: 11px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: 0;
+        }
+
+        .activity-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 11px;
+            background: rgba(22,163,74,.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-item strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .activity-item small {
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        /* =========================================
+           MOTIVATION
+        ========================================= */
+
+        .motivation-card {
+            text-align: center;
+            padding: 21px 17px;
+        }
+
+        .motivation-card i {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .motivation-card p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           ANNOUNCEMENT
+        ========================================= */
+
+        .announcement-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(22,163,74,.13),
+                    var(--card)
+                );
+        }
+
+        .announcement-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(22,163,74,.15);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .announcement-card strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .announcement-card p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           BOTTOM NAV
+        ========================================= */
+
+        .bottom-nav {
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            width: min(500px, calc(100% - 20px));
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 8px;
+            border-radius: 21px;
+            background: rgba(12,18,14,.94);
+            border: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            min-height: 50px;
+            border-radius: 15px;
+            color: #819087;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .nav-item i {
+            font-size: 16px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: rgba(22,163,74,.09);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 360px) {
+
+            .hero h2 {
+                font-size: 22px;
+            }
+
+            .quick-grid {
+                gap: 5px;
+            }
+
+            .quick-item {
+                padding-left: 2px;
+                padding-right: 2px;
+            }
+
+            .quick-item span {
+                font-size: 7px;
+            }
+
+            .workout-main {
+                gap: 9px;
+            }
+
+            .workout-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .start-btn {
+                padding: 9px;
+            }
+        }
+
+        @media (min-width: 700px) {
+
+            body {
+                background: #030604;
+            }
+
+            .app-shell {
+                background: var(--bg);
+                box-shadow: 0 0 80px rgba(0,0,0,.3);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+
+                <img
+                    data-app-logo
+                    src="icon-192.png"
+                    alt="Sai Fitness Logo"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='block';
+                    "
+                >
+
+                <i
+                    class="fa-solid fa-dumbbell"
+                    style="display:none;"
+                ></i>
+
+            </div>
+
+            <div class="brand-text">
+
+                <h1 data-app-name>
+                    Sai Fitness Bidupur
+                </h1>
+
+                <p data-app-tagline>
+                    Train Hard • Stay Strong
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="notifications.html"
+            class="notification-btn"
+            aria-label="Notifications"
+        >
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-dot"></span>
+
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section
+        class="hero"
+        id="heroSection"
+    >
+
+        <img
+            id="homeBanner"
+            class="hero-banner"
+            data-home-banner
+            alt="Fitness Banner"
+            onerror="this.classList.remove('loaded');"
+        >
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <i class="fa-solid fa-fire"></i>
+
+                <span id="heroStreak">
+                    0 Day Streak
+                </span>
+
+            </div>
+
+
+            <h2 data-hero-title>
+                Let's Build Your Best Body
+            </h2>
+
+
+            <p data-hero-subtitle>
+                Track your workouts, nutrition and progress every day.
+            </p>
+
+
+            <a
+                href="workout.html"
+                class="hero-btn"
+            >
+
+                Start Workout
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PROGRESS
+    ========================================== -->
+
+    <section
+        class="section"
+        id="progressSection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Today's Progress
+            </h3>
+
+            <a href="progress.html">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="caloriesValue"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Calories Burned
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-dumbbell"></i>
+                    </div>
+
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="workoutsValue"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Workouts
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="minutesValue"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Active Minutes
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="streakValue"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Day Streak
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         WORKOUT
+    ========================================== -->
+
+    <section
+        class="section"
+        id="workoutSection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Today's Workout
+            </h3>
+
+            <a href="workout.html">
+                See All
+            </a>
+
+        </div>
+
+
+        <div class="workout-card">
+
+            <div class="workout-main">
+
+                <div class="workout-icon">
+                    <i class="fa-solid fa-person-running"></i>
+                </div>
+
+
+                <div class="workout-info">
+
+                    <h4>
+                        Full Body Workout
+                    </h4>
+
+                    <p>
+                        30 min • Beginner friendly
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="start-btn"
+                    onclick="startWorkout()"
+                >
+                    START
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         QUICK ACTIONS
+    ========================================== -->
+
+    <section
+        class="section"
+        id="quickActionsSection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Quick Actions
+            </h3>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+            <a
+                href="workout.html"
+                class="quick-item quick-workout"
+                data-quick="workout"
+            >
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+                <span>
+                    Workout
+                </span>
+
+            </a>
+
+
+            <a
+                href="diet.html"
+                class="quick-item quick-diet"
+                data-quick="diet"
+            >
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <span>
+                    Diet
+                </span>
+
+            </a>
+
+
+            <a
+                href="progress.html"
+                class="quick-item quick-progress"
+                data-quick="progress"
+            >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Progress
+                </span>
+
+            </a>
+
+
+            <a
+                href="body.html"
+                class="quick-item quick-body"
+                data-quick="body"
+            >
+
+                <i class="fa-solid fa-weight-scale"></i>
+
+                <span>
+                    Body
+                </span>
+
+            </a>
+
+
+            <a
+                href="goals.html"
+                class="quick-item quick-goals"
+                data-quick="goals"
+            >
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                <span>
+                    Goals
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         WATER
+    ========================================== -->
+
+    <section
+        class="section"
+        id="waterSection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Water Intake
+            </h3>
+
+            <a href="diet.html">
+                Details
+            </a>
+
+        </div>
+
+
+        <div class="water-card">
+
+            <div class="water-head">
+
+                <div class="water-title">
+
+                    <div class="water-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Daily Hydration
+                        </h4>
+
+                        <p id="waterGoalText">
+                            Goal: 3000 ml
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="water-value">
+
+                    <span id="waterValue">
+                        0
+                    </span>
+
+                    ml
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="waterProgress"
+                ></div>
+
+            </div>
+
+
+            <div class="water-actions">
+
+                <button onclick="addWater(250)">
+                    +250 ml
+                </button>
+
+                <button onclick="addWater(500)">
+                    +500 ml
+                </button>
+
+                <button onclick="resetWater()">
+                    Reset
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         DIET
+    ========================================== -->
+
+    <section
+        class="section"
+        id="dietSection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Today's Diet
+            </h3>
+
+            <a href="diet.html">
+                Open Diet
+            </a>
+
+        </div>
+
+
+        <div class="diet-card">
+
+            <div class="diet-row">
+
+                <div class="diet-left">
+
+                    <i class="fa-solid fa-mug-hot"></i>
+
+                    <span>
+                        Breakfast
+                    </span>
+
+                </div>
+
+                <div class="diet-calories">
+                    400 kcal
+                </div>
+
+            </div>
+
+
+            <div class="diet-row">
+
+                <div class="diet-left">
+
+                    <i class="fa-solid fa-bowl-food"></i>
+
+                    <span>
+                        Lunch
+                    </span>
+
+                </div>
+
+                <div class="diet-calories">
+                    600 kcal
+                </div>
+
+            </div>
+
+
+            <div class="diet-row">
+
+                <div class="diet-left">
+
+                    <i class="fa-solid fa-apple-whole"></i>
+
+                    <span>
+                        Snack
+                    </span>
+
+                </div>
+
+                <div class="diet-calories">
+                    200 kcal
+                </div>
+
+            </div>
+
+
+            <div class="diet-row">
+
+                <div class="diet-left">
+
+                    <i class="fa-solid fa-utensils"></i>
+
+                    <span>
+                        Dinner
+                    </span>
+
+                </div>
+
+                <div class="diet-calories">
+                    500 kcal
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ACTIVITY
+    ========================================== -->
+
+    <section
+        class="section"
+        id="activitySection"
+    >
+
+        <div class="section-head">
+
+            <h3>
+                Recent Activity
+            </h3>
+
+        </div>
+
+
+        <div
+            class="activity-card"
+            id="activityList"
+        >
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+
+                    <i class="fa-solid fa-dumbbell"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Welcome to Sai Fitness
+                    </strong>
+
+                    <small>
+                        Your fitness journey starts today.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MOTIVATION
+    ========================================== -->
+
+    <section
+        class="section"
+        id="motivationSection"
+    >
+
+        <div class="motivation-card">
+
+            <i class="fa-solid fa-quote-left"></i>
+
+            <p data-motivation>
+                Small progress every day becomes big results.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ANNOUNCEMENT
+    ========================================== -->
+
+    <section
+        class="section"
+        id="announcementSection"
+    >
+
+        <div
+            class="announcement-card"
+            data-announcement-box
+        >
+
+            <div class="announcement-icon">
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Latest Announcement
+                </strong>
+
+                <p data-announcement>
+                    New workout plan available!
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================
+     BOTTOM NAV
+========================================== -->
+
+<nav class="bottom-nav">
+
+    <a
+        href="index.html"
+        class="nav-item active"
+    >
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Home
+        </span>
+
+    </a>
+
+
+    <a
+        href="workout.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-dumbbell"></i>
+
+        <span>
+            Workout
+        </span>
+
+    </a>
+
+
+    <a
+        href="diet.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-utensils"></i>
+
+        <span>
+            Diet
+        </span>
+
+    </a>
+
+
+    <a
+        href="progress.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>
+            Progress
+        </span>
+
+    </a>
+
+
+    <a
+        href="profile.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+            Profile
+        </span>
+
+    </a>
+
+</nav>
+
+
+<!-- =========================================
+     CORE FILES
+========================================== -->
+
+<!-- Admin → Main App connection -->
+<script src="admin/admin-core.js"></script>
+
+<!-- Main Fitness Engine -->
+<script src="app.js"></script>
+
+
+<script>
+
+/* =========================================================
+   SAI FITNESS HOME SCREEN ENGINE
+   Admin → Home Screen Editor Connection
+========================================================= */
+
+(function () {
+
+    "use strict";
+
+
+    /* =========================================
+       DEFAULT HOME SETTINGS
+    ========================================== */
+
+    const DEFAULT_HOME = {
+
+        sections: {
+
+            progress: true,
+            workout: true,
+            quickActions: true,
+            water: true,
+            diet: true,
+            activity: true,
+            motivation: true,
+            announcement: true
+
+        },
+
+        quickActions: {
+
+            workout: true,
+            diet: true,
+            progress: true,
+            body: true,
+            goals: true
+
+        },
+
+        targets: {
+
+            waterGoal: 3000,
+            calorieGoal: 2000,
+            weeklyWorkoutGoal: 5
+
+        }
+
+    };
+
+
+    /* =========================================
+       HOME SETTINGS
+    ========================================== */
+
+    function getHomeSettings() {
+
+        try {
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem(
+                        "saiHomeSettings"
+                    )
+                );
+
+            if (!saved) {
+
+                return JSON.parse(
+                    JSON.stringify(DEFAULT_HOME)
+                );
+
+            }
+
+            return {
+
+                ...DEFAULT_HOME,
+
+                ...saved,
+
+                sections: {
+
+                    ...DEFAULT_HOME.sections,
+
+                    ...(saved.sections || {})
+
+                },
+
+                quickActions: {
+
+                    ...DEFAULT_HOME.quickActions,
+
+                    ...(saved.quickActions || {})
+
+                },
+
+                targets: {
+
+                    ...DEFAULT_HOME.targets,
+
+                    ...(saved.targets || {})
+
+                }
+
+            };
+
+        } catch (error) {
+
+            console.warn(
+                "Home settings error:",
+                error
+            );
+
+            return JSON.parse(
+                JSON.stringify(DEFAULT_HOME)
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       FITNESS DATA
+    ========================================== */
+
+    function getFitnessData() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    "saiFitnessData"
+                )
+            ) || {
+
+                workouts: 0,
+                calories: 0,
+                minutes: 0,
+                streak: 0,
+                lastWorkoutDate: null
+
+            };
+
+        } catch {
+
+            return {
+
+                workouts: 0,
+                calories: 0,
+                minutes: 0,
+                streak: 0,
+                lastWorkoutDate: null
+
+            };
+
+        }
+
+    }
+
+
+    /* =========================================
+       WATER
+    ========================================== */
+
+    function getWater() {
+
+        const value =
+            parseInt(
+                localStorage.getItem(
+                    "saiWater"
+                )
+            );
+
+        return Number.isFinite(value)
+            ? value
+            : 0;
+
+    }
+
+
+    /* =========================================
+       SECTION VISIBILITY
+    ========================================== */
+
+    function applySectionSettings() {
+
+        const settings =
+            getHomeSettings();
+
+        const map = {
+
+            progress: "progressSection",
+
+            workout: "workoutSection",
+
+            quickActions:
+                "quickActionsSection",
+
+            water: "waterSection",
+
+            diet: "dietSection",
+
+            activity: "activitySection",
+
+            motivation:
+                "motivationSection",
+
+            announcement:
+                "announcementSection"
+
+        };
+
+
+        Object.keys(map).forEach(
+            function (key) {
+
+                const element =
+                    document.getElementById(
+                        map[key]
+                    );
+
+                if (!element) return;
+
+
+                element.classList.toggle(
+
+                    "hidden",
+
+                    settings.sections[key] === false
+
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       QUICK ACTIONS
+    ========================================== */
+
+    function applyQuickActions() {
+
+        const settings =
+            getHomeSettings();
+
+
+        document
+            .querySelectorAll(
+                "[data-quick]"
+            )
+            .forEach(
+                function (item) {
+
+                    const key =
+                        item.dataset.quick;
+
+                    item.classList.toggle(
+
+                        "hidden",
+
+                        settings.quickActions[key] === false
+
+                    );
+
+                }
+            );
+
+
+        const visible =
+            [
+                ...document.querySelectorAll(
+                    "[data-quick]"
+                )
+            ]
+            .filter(
+                function (item) {
+
+                    return !item.classList.contains(
+                        "hidden"
+                    );
+
+                }
+            );
+
+
+        const grid =
+            document.querySelector(
+                ".quick-grid"
+            );
+
+
+        if (!grid) return;
+
+
+        if (visible.length === 1) {
+
+            grid.style.gridTemplateColumns =
+                "1fr";
+
+        }
+
+        else if (visible.length === 2) {
+
+            grid.style.gridTemplateColumns =
+                "repeat(2,1fr)";
+
+        }
+
+        else if (visible.length === 3) {
+
+            grid.style.gridTemplateColumns =
+                "repeat(3,1fr)";
+
+        }
+
+        else if (visible.length === 4) {
+
+            grid.style.gridTemplateColumns =
+                "repeat(4,1fr)";
+
+        }
+
+        else {
+
+            grid.style.gridTemplateColumns =
+                "repeat(5,1fr)";
+
+        }
+
+    }
+
+
+    /* =========================================
+       TARGETS
+    ========================================== */
+
+    function applyTargets() {
+
+        const settings =
+            getHomeSettings();
+
+
+        const waterGoal =
+            Number(
+                settings.targets.waterGoal
+            ) || 3000;
+
+
+        const water =
+            getWater();
+
+
+        const percent =
+            Math.min(
+
+                100,
+
+                Math.round(
+                    (water / waterGoal) * 100
+                )
+
+            );
+
+
+        const waterValue =
+            document.getElementById(
+                "waterValue"
+            );
+
+
+        const waterGoalText =
+            document.getElementById(
+                "waterGoalText"
+            );
+
+
+        const waterProgress =
+            document.getElementById(
+                "waterProgress"
+            );
+
+
+        if (waterValue) {
+
+            waterValue.textContent =
+                water.toLocaleString();
+
+        }
+
+
+        if (waterGoalText) {
+
+            waterGoalText.textContent =
+                "Goal: " +
+                waterGoal.toLocaleString() +
+                " ml";
+
+        }
+
+
+        if (waterProgress) {
+
+            waterProgress.style.width =
+                percent + "%";
+
+        }
+
+    }
+
+
+    /* =========================================
+       STATS
+    ========================================== */
+
+    function updateStats() {
+
+        const data =
+            getFitnessData();
+
+
+        const calories =
+            document.getElementById(
+                "caloriesValue"
+            );
+
+
+        const workouts =
+            document.getElementById(
+                "workoutsValue"
+            );
+
+
+        const minutes =
+            document.getElementById(
+                "minutesValue"
+            );
+
+
+        const streak =
+            document.getElementById(
+                "streakValue"
+            );
+
+
+        const heroStreak =
+            document.getElementById(
+                "heroStreak"
+            );
+
+
+        if (calories) {
+
+            calories.textContent =
+                Number(
+                    data.calories || 0
+                ).toLocaleString();
+
+        }
+
+
+        if (workouts) {
+
+            workouts.textContent =
+                Number(
+                    data.workouts || 0
+                ).toLocaleString();
+
+        }
+
+
+        if (minutes) {
+
+            minutes.textContent =
+                Number(
+                    data.minutes || 0
+                ).toLocaleString();
+
+        }
+
+
+        if (streak) {
+
+            streak.textContent =
+                Number(
+                    data.streak || 0
+                );
+
+        }
+
+
+        if (heroStreak) {
+
+            const value =
+                Number(
+                    data.streak || 0
+                );
+
+
+            heroStreak.textContent =
+                value +
+                " Day Streak";
+
+        }
+
+    }
+
+
+    /* =========================================
+       ANNOUNCEMENT
+    ========================================== */
+
+    function applyAnnouncementState() {
+
+        let content = null;
+
+
+        try {
+
+            if (
+                window.SaiFitness &&
+                typeof SaiFitness.getAppContent ===
+                "function"
+            ) {
+
+                content =
+                    SaiFitness.getAppContent();
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Content read error:",
+                error
+            );
+
+        }
+
+
+        const section =
+            document.getElementById(
+                "announcementSection"
+            );
+
+
+        if (!section) return;
+
+
+        if (
+            content &&
+            content.showAnnouncement === false
+        ) {
+
+            section.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       APPLY ADMIN CORE AGAIN
+       After DOM elements are available
+    ========================================== */
+
+    function applyAdminCoreAgain() {
+
+        try {
+
+            if (
+                window.SaiAdminCore &&
+                typeof SaiAdminCore.applyTheme ===
+                "function"
+            ) {
+
+                SaiAdminCore.applyTheme();
+
+            }
+
+
+            if (
+                window.SaiAdminCore &&
+                typeof SaiAdminCore.applySEO ===
+                "function"
+            ) {
+
+                SaiAdminCore.applySEO();
+
+            }
+
+
+            if (
+                window.SaiAdminCore &&
+                typeof SaiAdminCore.applyContent ===
+                "function"
+            ) {
+
+                SaiAdminCore.applyContent();
+
+            }
+
+
+            if (
+                window.SaiAdminCore &&
+                typeof SaiAdminCore.applyCustomCSS ===
+                "function"
+            ) {
+
+                SaiAdminCore.applyCustomCSS();
+
+            }
+
+
+            if (
+                window.SaiAdminCore &&
+                typeof SaiAdminCore.applyCustomAnimations ===
+                "function"
+            ) {
+
+                SaiAdminCore.applyCustomAnimations();
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Admin Core apply error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       BANNER
+    ========================================== */
+
+    function applyHomeBanner() {
+
+        const banner =
+            document.getElementById(
+                "homeBanner"
+            );
+
+
+        if (!banner) return;
+
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    "saiMediaBanner"
+                );
+
+
+            if (saved) {
+
+                banner.src = saved;
+
+                banner.classList.add(
+                    "loaded"
+                );
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Banner error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       LOGO
+    ========================================== */
+
+    function applyHomeLogo() {
+
+        const logo =
+            document.querySelector(
+                "[data-app-logo]"
+            );
+
+
+        if (!logo) return;
+
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    "saiMediaLogo"
+                );
+
+
+            if (saved) {
+
+                logo.src = saved;
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Logo error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       FULL HOME REFRESH
+    ========================================== */
+
+    function refreshHome() {
+
+        applyAdminCoreAgain();
+
+        applySectionSettings();
+
+        applyQuickActions();
+
+        applyTargets();
+
+        updateStats();
+
+        applyAnnouncementState();
+
+        applyHomeBanner();
+
+        applyHomeLogo();
+
+
+        try {
+
+            if (
+                window.SaiFitness &&
+                typeof SaiFitness.applyGlobalSettings ===
+                "function"
+            ) {
+
+                SaiFitness.applyGlobalSettings();
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Global settings error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       GLOBAL REFRESH FUNCTION
+    ========================================== */
+
+    window.refreshSaiHome =
+        refreshHome;
+
+
+    /* =========================================
+       START
+    ========================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            setTimeout(
+                refreshHome,
+                100
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       STORAGE SYNC
+    ========================================== */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            const keys = [
+
+                "saiHomeSettings",
+
+                "saiAppContent",
+
+                "saiCustomTheme",
+
+                "saiThemeEnabled",
+
+                "saiMediaLogo",
+
+                "saiMediaBanner",
+
+                "saiFitnessData",
+
+                "saiWater",
+
+                "saiCSSManager",
+
+                "saiAnimationManager",
+
+                "saiAdminSEO"
+
+            ];
+
+
+            if (
+                keys.includes(event.key)
+            ) {
+
+                refreshHome();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       RETURN TO APP
+    ========================================== */
+
+    document.addEventListener(
+        "visibilitychange",
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                setTimeout(
+                    refreshHome,
+                    50
+                );
+
+            }
+
+        }
+    );
+
+})();
+
+
+/* =========================================================
+   HOME ACTIONS
+========================================================= */
+
+function startWorkout() {
+
+    try {
+
+        if (
+            window.SaiFitness &&
+            typeof SaiFitness.vibrate ===
+            "function"
+        ) {
+
+            SaiFitness.vibrate(30);
+
+        }
+
+    } catch (error) {
+
+        console.warn(error);
+
+    }
+
+
+    window.location.href =
+        "workout.html";
+
+}
+
+
+function addWater(amount) {
+
+    const current =
+        parseInt(
+            localStorage.getItem(
+                "saiWater"
+            )
+        ) || 0;
+
+
+    const next =
+        Math.max(
+            0,
+            current + Number(amount)
+        );
+
+
+    localStorage.setItem(
+        "saiWater",
+        String(next)
+    );
+
+
+    try {
+
+        if (
+            window.SaiFitness &&
+            typeof SaiFitness.vibrate ===
+            "function"
+        ) {
+
+            SaiFitness.vibrate(20);
+
+        }
+
+
+        if (
+            window.SaiFitness &&
+            typeof SaiFitness.toast ===
+            "function"
+        ) {
+
+            SaiFitness.toast(
+                "+" +
+                amount +
+                " ml water added"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(error);
+
+    }
+
+
+    if (
+        typeof window.refreshSaiHome ===
+        "function"
+    ) {
+
+        window.refreshSaiHome();
+
+    }
+
+}
+
+
+function resetWater() {
+
+    localStorage.setItem(
+        "saiWater",
+        "0"
+    );
+
+
+    try {
+
+        if (
+            window.SaiFitness &&
+            typeof SaiFitness.toast ===
+            "function"
+        ) {
+
+            SaiFitness.toast(
+                "Water intake reset"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(error);
+
+    }
+
+
+    if (
+        typeof window.refreshSaiHome ===
+        "function"
+    ) {
+
+        window.refreshSaiHome();
+
+    }
+
+}
+
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(
+                    function () {
+
+                        console.log(
+                            "Sai Fitness Service Worker registered."
+                        );
+
+                    }
+                )
+                .catch(
+                    function (error) {
+
+                        console.log(
+                            "Service Worker:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>

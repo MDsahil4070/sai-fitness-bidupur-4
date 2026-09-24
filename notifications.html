@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b09">
+
+    <title>Notifications • Sai Fitness Bidupur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #070b09;
+            color: #e8f1eb;
+            font-family: "Inter", sans-serif;
+            padding-bottom: 95px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            padding: 18px 16px 30px;
+        }
+
+        /* HEADER */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 22px;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.07);
+            color: #e8f1eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .page-title {
+            flex: 1;
+        }
+
+        .page-title h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .page-title p {
+            margin: 4px 0 0;
+            color: #77857d;
+            font-size: 10px;
+        }
+
+        .clear-btn {
+            border: 0;
+            background: #141c17;
+            color: #9ba9a1;
+            border-radius: 11px;
+            padding: 9px 10px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        .hero {
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(57,229,140,.18),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    145deg,
+                    #12251b,
+                    #0d1511
+                );
+
+            border: 1px solid rgba(57,229,140,.13);
+            border-radius: 22px;
+            padding: 19px;
+            margin-bottom: 20px;
+        }
+
+        .hero-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hero-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(57,229,140,.11);
+            color: #39e58c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .hero-info {
+            flex: 1;
+        }
+
+        .hero-info h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .hero-info p {
+            margin: 5px 0 0;
+            color: #849189;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .unread-count {
+            color: #39e58c;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        /* FILTER */
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 3px;
+            margin-bottom: 14px;
+            scrollbar-width: none;
+        }
+
+        .filter-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,.06);
+            background: #101713;
+            color: #7f8d85;
+            border-radius: 12px;
+            padding: 9px 13px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: rgba(57,229,140,.12);
+            color: #39e58c;
+            border-color: rgba(57,229,140,.20);
+        }
+
+        /* NOTIFICATION LIST */
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .notification-item {
+            position: relative;
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 18px;
+            transition: .2s ease;
+        }
+
+        .notification-item.unread {
+            border-color: rgba(57,229,140,.16);
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(57,229,140,.055),
+                    #101713
+                );
+        }
+
+        .notification-item:active {
+            transform: scale(.985);
+        }
+
+        .notification-icon {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(57,229,140,.10);
+            color: #39e58c;
+        }
+
+        .notification-icon.workout {
+            background: rgba(255,92,92,.10);
+            color: #ff7474;
+        }
+
+        .notification-icon.water {
+            background: rgba(92,184,255,.10);
+            color: #5cb8ff;
+        }
+
+        .notification-icon.goal {
+            background: rgba(255,193,77,.10);
+            color: #ffc14d;
+        }
+
+        .notification-icon.streak {
+            background: rgba(255,126,52,.10);
+            color: #ff7e34;
+        }
+
+        .notification-icon.system {
+            background: rgba(175,115,255,.10);
+            color: #af73ff;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .notification-title {
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .new-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #39e58c;
+            box-shadow: 0 0 8px #39e58c;
+        }
+
+        .notification-message {
+            margin-top: 5px;
+            color: #849189;
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        .notification-time {
+            margin-top: 7px;
+            color: #5f6c64;
+            font-size: 9px;
+        }
+
+        .notification-action {
+            position: absolute;
+            right: 11px;
+            top: 11px;
+            border: 0;
+            background: transparent;
+            color: #58645d;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* EMPTY */
+
+        .empty-state {
+            text-align: center;
+            padding: 45px 20px;
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 14px;
+            border-radius: 20px;
+            background: rgba(57,229,140,.09);
+            color: #39e58c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .empty-state h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .empty-state p {
+            margin: 7px 0 0;
+            color: #748078;
+            font-size: 11px;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 88px;
+            transform: translate(-50%, 20px);
+            background: #18231d;
+            border: 1px solid rgba(57,229,140,.18);
+            color: #e8f1eb;
+            padding: 11px 15px;
+            border-radius: 13px;
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 500;
+            white-space: nowrap;
+            box-shadow: 0 12px 35px rgba(0,0,0,.35);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 496px;
+            height: 66px;
+            background: rgba(16,23,19,.96);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 21px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            z-index: 100;
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #68766e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 10px;
+        }
+
+        .nav-item i {
+            font-size: 16px;
+        }
+
+        .nav-item.active {
+            color: #39e58c;
+        }
+
+        @media (min-width: 700px) {
+            .app {
+                padding-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <a href="index.html"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </a>
+
+        <div class="page-title">
+
+            <h1>Notifications</h1>
+
+            <p>Stay updated with your fitness journey</p>
+
+        </div>
+
+        <button class="clear-btn"
+                onclick="clearAllNotifications()">
+
+            Clear All
+
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-row">
+
+            <div class="hero-icon">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </div>
+
+            <div class="hero-info">
+
+                <h2>Your Fitness Updates</h2>
+
+                <p>
+                    Workout, goals, water and streak
+                    updates appear here automatically.
+                </p>
+
+            </div>
+
+            <div class="unread-count"
+                 id="unreadCount">
+                0
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FILTER -->
+
+    <div class="filter-row">
+
+        <button class="filter-btn active"
+                data-filter="all">
+            All
+        </button>
+
+        <button class="filter-btn"
+                data-filter="unread">
+            Unread
+        </button>
+
+        <button class="filter-btn"
+                data-filter="workout">
+            Workout
+        </button>
+
+        <button class="filter-btn"
+                data-filter="goal">
+            Goals
+        </button>
+
+        <button class="filter-btn"
+                data-filter="water">
+            Water
+        </button>
+
+        <button class="filter-btn"
+                data-filter="streak">
+            Streak
+        </button>
+
+    </div>
+
+
+    <!-- LIST -->
+
+    <section id="notificationList"
+             class="notification-list">
+    </section>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="notificationToast"
+     class="toast">
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+
+    </a>
+
+    <a href="workout.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-dumbbell"></i>
+
+        <span>Workout</span>
+
+    </a>
+
+    <a href="diet.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-utensils"></i>
+
+        <span>Diet</span>
+
+    </a>
+
+    <a href="progress.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>Progress</span>
+
+    </a>
+
+    <a href="profile.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>Profile</span>
+
+    </a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+<script>
+
+"use strict";
+
+
+/* =====================================
+   NOTIFICATION STORAGE
+===================================== */
+
+const NOTIFICATION_KEY =
+    "saiNotifications";
+
+
+function getTodayKey() {
+
+    const d = new Date();
+
+    return [
+        d.getFullYear(),
+        String(d.getMonth() + 1).padStart(2, "0"),
+        String(d.getDate()).padStart(2, "0")
+    ].join("-");
+}
+
+
+function getNotifications() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            NOTIFICATION_KEY
+        )
+    ) || [];
+
+}
+
+
+function saveNotifications(list) {
+
+    localStorage.setItem(
+        NOTIFICATION_KEY,
+        JSON.stringify(list.slice(0, 100))
+    );
+
+}
+
+
+function createNotification(
+    type,
+    title,
+    message,
+    icon
+) {
+
+    const notifications =
+        getNotifications();
+
+    const today =
+        getTodayKey();
+
+    const duplicate =
+        notifications.some(
+            item =>
+                item.type === type &&
+                item.title === title &&
+                item.date === today
+        );
+
+    if (duplicate) {
+        return;
+    }
+
+    notifications.unshift({
+
+        id:
+            Date.now() +
+            Math.random(),
+
+        type,
+        title,
+        message,
+        icon,
+
+        date: today,
+
+        timestamp:
+            Date.now(),
+
+        read: false
+
+    });
+
+    saveNotifications(
+        notifications
+    );
+
+}
+
+
+/* =====================================
+   AUTO NOTIFICATIONS
+===================================== */
+
+function generateAutomaticNotifications() {
+
+    const fitness =
+        JSON.parse(
+            localStorage.getItem(
+                "saiFitnessData"
+            )
+        ) || {};
+
+    const history =
+        JSON.parse(
+            localStorage.getItem(
+                "saiWorkoutHistory"
+            )
+        ) || [];
+
+    const water =
+        JSON.parse(
+            localStorage.getItem(
+                "saiWater"
+            )
+        ) || {};
+
+    const today =
+        getTodayKey();
+
+
+    /* WORKOUT */
+
+    const todayWorkout =
+        history.some(
+            item =>
+                item.date === today
+        );
+
+    if (todayWorkout) {
+
+        createNotification(
+
+            "workout",
+
+            "Workout Completed 💪",
+
+            "Great job! Your workout has been added to your fitness history.",
+
+            "fa-solid fa-dumbbell"
+
+        );
+
+    } else {
+
+        createNotification(
+
+            "workout",
+
+            "Time to Train 🔥",
+
+            "You haven't completed today's workout yet. Let's get moving!",
+
+            "fa-solid fa-person-running"
+
+        );
+
+    }
+
+
+    /* WATER */
+
+    const waterCount =
+        water.date === today
+            ? Number(water.count) || 0
+            : 0;
+
+    if (waterCount >= 8) {
+
+        createNotification(
+
+            "water",
+
+            "Hydration Goal Complete 💧",
+
+            "Amazing! You completed your 8-glass water goal today.",
+
+            "fa-solid fa-droplet"
+
+        );
+
+    } else if (waterCount > 0) {
+
+        createNotification(
+
+            "water",
+
+            "Stay Hydrated 💧",
+
+            `${waterCount}/8 glasses completed. Keep drinking water throughout the day.`,
+
+            "fa-solid fa-droplet"
+
+        );
+
+    } else {
+
+        createNotification(
+
+            "water",
+
+            "Water Reminder 💧",
+
+            "Start your hydration goal. Today's target is 8 glasses.",
+
+            "fa-solid fa-droplet"
+
+        );
+
+    }
+
+
+    /* STREAK */
+
+    const streak =
+        Number(
+            fitness.streak
+        ) || 0;
+
+    if (streak >= 7) {
+
+        createNotification(
+
+            "streak",
+
+            `${streak} Day Streak 🔥`,
+
+            "Your consistency is getting stronger. Keep the streak alive!",
+
+            "fa-solid fa-fire"
+
+        );
+
+    } else if (streak > 0) {
+
+        createNotification(
+
+            "streak",
+
+            "Keep Your Streak Alive ⚡",
+
+            `You're currently on a ${streak}-day streak. Don't miss today's workout.`,
+
+            "fa-solid fa-bolt"
+
+        );
+
+    }
+
+
+    /* GOAL */
+
+    const goalData =
+        JSON.parse(
+            localStorage.getItem(
+                "saiGoalTargets"
+            )
+        ) || {
+
+            calories: 250,
+            minutes: 30,
+            exercises: 5,
+            water: 8
+
+        };
+
+
+    const todayExercises =
+        history
+            .filter(
+                item =>
+                    item.date === today
+            )
+            .reduce(
+                (
+                    total,
+                    item
+                ) =>
+                    total +
+                    (
+                        Number(
+                            item.exercises
+                        ) || 0
+                    ),
+                0
+            );
+
+
+    const todayMinutes =
+        history
+            .filter(
+                item =>
+                    item.date === today
+            )
+            .reduce(
+                (
+                    total,
+                    item
+                ) =>
+                    total +
+                    (
+                        Number(
+                            item.minutes
+                        ) || 0
+                    ),
+                0
+            );
+
+
+    if (
+        todayExercises >=
+        Number(
+            goalData.exercises
+        )
+    ) {
+
+        createNotification(
+
+            "goal",
+
+            "Exercise Goal Complete 🏆",
+
+            `You completed ${todayExercises} exercises today. Excellent work!`,
+
+            "fa-solid fa-bullseye"
+
+        );
+
+    }
+
+    if (
+        todayMinutes >=
+        Number(
+            goalData.minutes
+        )
+    ) {
+
+        createNotification(
+
+            "goal",
+
+            "Workout Minutes Goal Complete 🎯",
+
+            `You've completed ${todayMinutes} workout minutes today.`,
+
+            "fa-solid fa-clock"
+
+        );
+
+    }
+
+
+    /* WELCOME */
+
+    createNotification(
+
+        "system",
+
+        "Welcome to Sai Fitness 👋",
+
+        "Track workouts, nutrition, water and progress all in one place.",
+
+        "fa-solid fa-heart-pulse"
+
+    );
+
+}
+
+
+/* =====================================
+   TIME FORMAT
+===================================== */
+
+function formatNotificationTime(
+    timestamp
+) {
+
+    const diff =
+        Date.now() -
+        Number(timestamp);
+
+    const minute =
+        60 * 1000;
+
+    const hour =
+        60 * minute;
+
+    const day =
+        24 * hour;
+
+
+    if (diff < minute) {
+        return "Just now";
+    }
+
+    if (diff < hour) {
+
+        return (
+            Math.floor(
+                diff / minute
+            ) +
+            " min ago"
+        );
+
+    }
+
+    if (diff < day) {
+
+        return (
+            Math.floor(
+                diff / hour
+            ) +
+            " hr ago"
+        );
+
+    }
+
+    if (diff < 7 * day) {
+
+        return (
+            Math.floor(
+                diff / day
+            ) +
+            " days ago"
+        );
+
+    }
+
+
+    return new Date(
+        timestamp
+    ).toLocaleDateString(
+        "en-IN",
+        {
+            day: "numeric",
+            month: "short"
+        }
+    );
+
+}
+
+
+/* =====================================
+   ESCAPE HTML
+===================================== */
+
+function escapeNotificationHTML(
+    value
+) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================
+   RENDER
+===================================== */
+
+let activeFilter = "all";
+
+
+function renderNotifications() {
+
+    const container =
+        document.getElementById(
+            "notificationList"
+        );
+
+    const all =
+        getNotifications();
+
+    const unread =
+        all.filter(
+            item =>
+                !item.read
+        ).length;
+
+
+    document.getElementById(
+        "unreadCount"
+    ).textContent =
+        unread;
+
+
+    let list =
+        all.slice();
+
+
+    if (activeFilter === "unread") {
+
+        list =
+            list.filter(
+                item =>
+                    !item.read
+            );
+
+    } else if (
+        activeFilter !== "all"
+    ) {
+
+        list =
+            list.filter(
+                item =>
+                    item.type ===
+                    activeFilter
+            );
+
+    }
+
+
+    if (!list.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i class="
+                        fa-solid
+                        fa-bell-slash">
+                    </i>
+
+                </div>
+
+                <h3>
+                    No notifications
+                </h3>
+
+                <p>
+                    You're all caught up!
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        list.map(
+            item => {
+
+                const safeTitle =
+                    escapeNotificationHTML(
+                        item.title
+                    );
+
+                const safeMessage =
+                    escapeNotificationHTML(
+                        item.message
+                    );
+
+                const icon =
+                    item.icon ||
+                    "fa-solid fa-bell";
+
+
+                return `
+
+                    <article
+                        class="
+                            notification-item
+                            ${item.read ? "" : "unread"}
+                        "
+                        data-id="${item.id}"
+                        onclick="
+                            markNotificationRead(
+                                '${item.id}'
+                            )
+                        "
+                    >
+
+                        <div class="
+                            notification-icon
+                            ${item.type}
+                        ">
+
+                            <i class="${icon}"></i>
+
+                        </div>
+
+
+                        <div class="
+                            notification-content
+                        ">
+
+                            <div class="
+                                notification-title-row
+                            ">
+
+                                <div class="
+                                    notification-title
+                                ">
+
+                                    ${safeTitle}
+
+                                </div>
+
+                                ${
+                                    item.read
+                                    ? ""
+                                    : `
+                                        <span
+                                            class="new-dot">
+                                        </span>
+                                    `
+                                }
+
+                            </div>
+
+
+                            <div class="
+                                notification-message
+                            ">
+
+                                ${safeMessage}
+
+                            </div>
+
+
+                            <div class="
+                                notification-time
+                            ">
+
+                                ${formatNotificationTime(
+                                    item.timestamp
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="
+                                notification-action
+                            "
+                            onclick="
+                                event.stopPropagation();
+                                deleteNotification(
+                                    '${item.id}'
+                                )
+                            "
+                            aria-label="Delete"
+                        >
+
+                            <i class="
+                                fa-solid
+                                fa-xmark">
+                            </i>
+
+                        </button>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================
+   READ
+===================================== */
+
+function markNotificationRead(
+    id
+) {
+
+    const notifications =
+        getNotifications();
+
+    const item =
+        notifications.find(
+            n =>
+                String(n.id) ===
+                String(id)
+        );
+
+    if (!item) {
+        return;
+    }
+
+    item.read = true;
+
+    saveNotifications(
+        notifications
+    );
+
+    renderNotifications();
+
+}
+
+
+/* =====================================
+   DELETE
+===================================== */
+
+function deleteNotification(
+    id
+) {
+
+    const notifications =
+        getNotifications()
+            .filter(
+                item =>
+                    String(item.id) !==
+                    String(id)
+            );
+
+    saveNotifications(
+        notifications
+    );
+
+    renderNotifications();
+
+    showNotificationToast(
+        "Notification removed"
+    );
+
+}
+
+
+/* =====================================
+   CLEAR ALL
+===================================== */
+
+function clearAllNotifications() {
+
+    const notifications =
+        getNotifications();
+
+    if (!notifications.length) {
+
+        showNotificationToast(
+            "No notifications to clear"
+        );
+
+        return;
+    }
+
+
+    localStorage.removeItem(
+        NOTIFICATION_KEY
+    );
+
+    renderNotifications();
+
+    showNotificationToast(
+        "All notifications cleared"
+    );
+
+}
+
+
+/* =====================================
+   FILTERS
+===================================== */
+
+document.querySelectorAll(
+    ".filter-btn"
+).forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                document
+                    .querySelectorAll(
+                        ".filter-btn"
+                    )
+                    .forEach(
+                        btn =>
+                            btn.classList
+                               .remove("active")
+                    );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                activeFilter =
+                    this.dataset.filter;
+
+
+                renderNotifications();
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+
+function showNotificationToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "notificationToast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        generateAutomaticNotifications();
+
+        renderNotifications();
+
+    }
+);
+
+
+/* =====================================
+   REFRESH WHEN RETURNING
+===================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function () {
+
+        if (!document.hidden) {
+
+            generateAutomaticNotifications();
+
+            renderNotifications();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

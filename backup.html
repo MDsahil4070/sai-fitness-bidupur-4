@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="theme-color"
+    content="#070b09">
+
+<title>Backup • Sai Fitness Bidupur</title>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<style>
+
+.backup-page{
+    padding-bottom:110px;
+}
+
+.backup-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid var(--border);
+    border-radius:13px;
+
+    background:var(--card);
+    color:var(--text);
+
+    cursor:pointer;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:18px;
+}
+
+.page-title p{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+
+/* HERO */
+
+.backup-hero{
+    position:relative;
+
+    margin-top:20px;
+    padding:25px 18px;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    border-radius:25px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(57,229,140,.18),
+            transparent 55%
+        ),
+        var(--card);
+
+    border:1px solid var(--border);
+}
+
+.backup-icon{
+    width:70px;
+    height:70px;
+
+    margin:auto;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:22px;
+
+    background:var(--green-soft);
+    color:var(--green);
+
+    font-size:27px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(57,229,140,.12);
+}
+
+.backup-hero h2{
+    margin-top:14px;
+
+    font-size:17px;
+}
+
+.backup-hero p{
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:9px;
+    line-height:1.6;
+}
+
+
+/* INFO */
+
+.info-card{
+    margin-top:15px;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.info-row{
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+
+    padding:10px 0;
+
+    border-bottom:1px solid var(--border);
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-icon{
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:10px;
+
+    background:var(--green-soft);
+    color:var(--green);
+
+    font-size:11px;
+}
+
+.info-text{
+    flex:1;
+}
+
+.info-text strong{
+    display:block;
+    font-size:9px;
+}
+
+.info-text span{
+    display:block;
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:7px;
+}
+
+
+/* ACTIONS */
+
+.section{
+    margin-top:20px;
+}
+
+.section-title{
+    margin-bottom:10px;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.action-card{
+    padding:17px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.action-btn{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:13px;
+
+    margin-bottom:9px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:var(--bg-soft);
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.action-btn:last-child{
+    margin-bottom:0;
+}
+
+.action-btn:active{
+    transform:scale(.98);
+}
+
+.action-btn.primary{
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-dark)
+        );
+
+    color:#06110a;
+
+    border:0;
+}
+
+.action-icon{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:11px;
+
+    background:var(--green-soft);
+    color:var(--green);
+}
+
+.action-btn.primary .action-icon{
+    background:rgba(0,0,0,.10);
+    color:#06110a;
+}
+
+.action-content{
+    flex:1;
+}
+
+.action-content strong{
+    display:block;
+    font-size:10px;
+}
+
+.action-content span{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:7px;
+
+    color:var(--muted);
+}
+
+.action-btn.primary
+.action-content span{
+    color:rgba(6,17,10,.70);
+}
+
+
+/* FILE */
+
+.file-input{
+    display:none;
+}
+
+
+/* STATUS */
+
+.status{
+    display:none;
+
+    margin-top:12px;
+    padding:11px;
+
+    border-radius:12px;
+
+    background:var(--green-soft);
+
+    color:var(--green);
+
+    font-size:8px;
+    font-weight:700;
+
+    text-align:center;
+}
+
+.status.show{
+    display:block;
+}
+
+
+/* WARNING */
+
+.warning{
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,193,7,.05);
+
+    border:1px solid
+        rgba(255,193,7,.15);
+
+    color:#d9c27a;
+
+    font-size:8px;
+
+    line-height:1.6;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app-container backup-page">
+
+
+<!-- HEADER -->
+
+<header class="backup-header">
+
+<button
+    class="back-btn"
+    onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="page-title">
+
+<h1>Backup & Restore</h1>
+
+<p>Protect your fitness progress</p>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="backup-hero">
+
+<div class="backup-icon">
+
+<i class="fa-solid fa-cloud-arrow-up"></i>
+
+</div>
+
+<h2>Your Fitness Data</h2>
+
+<p>
+Create a backup of your profile, workouts,
+diet, goals, body tracking and other
+Sai Fitness data.
+</p>
+
+</section>
+
+
+<!-- DATA INFO -->
+
+<section class="info-card">
+
+<div class="info-row">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+<div class="info-text">
+
+<strong>Profile</strong>
+
+<span>Name, age, height, weight & goal</span>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-dumbbell"></i>
+
+</div>
+
+<div class="info-text">
+
+<strong>Workout</strong>
+
+<span>Workout history & progress</span>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-utensils"></i>
+
+</div>
+
+<div class="info-text">
+
+<strong>Diet & Water</strong>
+
+<span>Meals and hydration tracking</span>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-bullseye"></i>
+
+</div>
+
+<div class="info-text">
+
+<strong>Goals & Body</strong>
+
+<span>Goals, BMI and measurements</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BACKUP -->
+
+<section class="section">
+
+<div class="section-title">
+Backup
+</div>
+
+<div class="action-card">
+
+<button
+    class="action-btn primary"
+    onclick="exportBackup()">
+
+<div class="action-icon">
+
+<i class="fa-solid fa-download"></i>
+
+</div>
+
+<div class="action-content">
+
+<strong>Export Backup</strong>
+
+<span>
+Save all fitness data as a JSON file
+</span>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- RESTORE -->
+
+<section class="section">
+
+<div class="section-title">
+Restore
+</div>
+
+<div class="action-card">
+
+<input
+    type="file"
+    id="backupFile"
+    class="file-input"
+    accept=".json,application/json"
+    onchange="importBackup(event)">
+
+
+<button
+    class="action-btn"
+    onclick="document.getElementById('backupFile').click()">
+
+<div class="action-icon">
+
+<i class="fa-solid fa-upload"></i>
+
+</div>
+
+<div class="action-content">
+
+<strong>Import Backup</strong>
+
+<span>
+Restore data from a previous backup
+</span>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+</div>
+
+<div
+    class="status"
+    id="backupStatus">
+</div>
+
+</section>
+
+
+<!-- WARNING -->
+
+<div class="warning">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+&nbsp;
+
+<strong>Important:</strong>
+
+Keep your backup JSON file somewhere safe.
+Importing a backup will replace the matching
+Sai Fitness data currently stored on this device.
+
+</div>
+
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+
+<a href="workout.html">
+
+<i class="fa-solid fa-dumbbell"></i>
+
+<span>Workout</span>
+
+</a>
+
+
+<a href="diet.html">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>Diet</span>
+
+</a>
+
+
+<a href="progress.html">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>Progress</span>
+
+</a>
+
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+
+<script>
+
+/* =========================================
+   BACKUP KEYS
+========================================= */
+
+const BACKUP_KEYS = [
+
+    "saiFitnessData",
+
+    "saiProfileData",
+
+    "saiProgressData",
+
+    "saiBodyData",
+
+    "saiDietData",
+
+    "saiWater",
+
+    "saiWaterHistory",
+
+    "saiCompletedExercises",
+
+    "saiWorkoutHistory",
+
+    "saiSelectedExercise",
+
+    "saiGoalTargets",
+
+    "saiNotifications"
+
+];
+
+
+/* =========================================
+   GET ALL DATA
+========================================= */
+
+function collectBackupData(){
+
+    const data = {};
+
+    BACKUP_KEYS.forEach(
+        key => {
+
+            const value =
+                localStorage.getItem(key);
+
+            if(value !== null){
+
+                try{
+
+                    data[key] =
+                        JSON.parse(value);
+
+                }catch{
+
+                    data[key] =
+                        value;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    return data;
+
+}
+
+
+/* =========================================
+   EXPORT
+========================================= */
+
+function exportBackup(){
+
+    try{
+
+        const backup = {
+
+            app:
+                "Sai Fitness Bidupur",
+
+            version:
+                1,
+
+            createdAt:
+                new Date().toISOString(),
+
+            data:
+                collectBackupData()
+
+        };
+
+
+        const json =
+            JSON.stringify(
+                backup,
+                null,
+                2
+            );
+
+
+        const blob =
+            new Blob(
+                [json],
+                {
+                    type:
+                        "application/json"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        const date =
+            new Date()
+                .toISOString()
+                .slice(0,10);
+
+
+        link.href = url;
+
+        link.download =
+            "sai-fitness-backup-" +
+            date +
+            ".json";
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        URL.revokeObjectURL(url);
+
+
+        showBackupStatus(
+            "Backup exported successfully ✓"
+        );
+
+
+    }catch(error){
+
+        showBackupStatus(
+            "Backup export failed"
+        );
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================
+   IMPORT
+========================================= */
+
+function importBackup(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file)
+        return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(){
+
+            try{
+
+                const backup =
+                    JSON.parse(
+                        reader.result
+                    );
+
+
+                /* Validate */
+
+                if(
+                    !backup ||
+                    backup.app !==
+                    "Sai Fitness Bidupur" ||
+                    !backup.data ||
+                    typeof backup.data !==
+                    "object"
+                ){
+
+                    throw new Error(
+                        "Invalid backup"
+                    );
+
+                }
+
+
+                const confirmed =
+                    confirm(
+                        "Restore this backup? Current matching fitness data will be replaced."
+                    );
+
+
+                if(!confirmed){
+
+                    event.target.value = "";
+
+                    return;
+
+                }
+
+
+                let restored = 0;
+
+
+                BACKUP_KEYS.forEach(
+                    key => {
+
+                        if(
+                            Object.prototype
+                                .hasOwnProperty
+                                .call(
+                                    backup.data,
+                                    key
+                                )
+                        ){
+
+                            localStorage.setItem(
+                                key,
+                                JSON.stringify(
+                                    backup.data[key]
+                                )
+                            );
+
+                            restored++;
+
+                        }
+
+                    }
+                );
+
+
+                showBackupStatus(
+                    restored +
+                    " data sections restored successfully ✓"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        location.href =
+                            "index.html";
+
+                    },
+                    1000
+                );
+
+
+            }catch(error){
+
+                showBackupStatus(
+                    "Invalid or damaged backup file"
+                );
+
+                console.error(error);
+
+            }
+
+
+            event.target.value = "";
+
+        };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+function showBackupStatus(message){
+
+    const status =
+        document.getElementById(
+            "backupStatus"
+        );
+
+    status.textContent =
+        message;
+
+    status.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        () => {
+
+            status.classList.remove(
+                "show"
+            );
+
+        },
+        3500
+    );
+
+}
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

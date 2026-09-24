@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="theme-color"
+    content="#070b09">
+
+<title>Profile • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<style>
+
+/* =========================================
+   PROFILE PAGE
+========================================= */
+
+.profile-page{
+    padding-bottom:110px;
+}
+
+
+/* HEADER */
+
+.profile-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid var(--border);
+    border-radius:13px;
+
+    background:var(--card);
+    color:var(--text);
+
+    cursor:pointer;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:18px;
+}
+
+.page-title p{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+
+/* HERO */
+
+.profile-hero{
+    position:relative;
+
+    margin-top:20px;
+    padding:24px 18px;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    border-radius:26px;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(57,229,140,.20),
+            transparent 48%
+        ),
+        linear-gradient(
+            145deg,
+            #111b15,
+            #0c120f
+        );
+
+    border:1px solid var(--border);
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.18);
+}
+
+.profile-hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    right:-70px;
+    top:-70px;
+
+    border-radius:50%;
+
+    background:rgba(57,229,140,.06);
+}
+
+.avatar-wrap{
+    position:relative;
+
+    width:88px;
+    height:88px;
+
+    margin:auto;
+}
+
+.avatar{
+    width:88px;
+    height:88px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-dark)
+        );
+
+    color:#06110a;
+
+    font-size:30px;
+    font-weight:800;
+
+    border:4px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 12px 35px rgba(57,229,140,.22);
+}
+
+.online-dot{
+    position:absolute;
+
+    right:3px;
+    bottom:5px;
+
+    width:17px;
+    height:17px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    border:3px solid #101713;
+}
+
+.profile-name{
+    margin-top:13px;
+
+    font-size:19px;
+    font-weight:800;
+}
+
+.profile-location{
+    margin-top:4px;
+
+    color:var(--muted);
+    font-size:9px;
+}
+
+.profile-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+
+    margin-top:10px;
+    padding:6px 11px;
+
+    border-radius:50px;
+
+    background:var(--green-soft);
+    color:var(--green);
+
+    font-size:8px;
+    font-weight:700;
+}
+
+
+/* STATS */
+
+.profile-stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin-top:18px;
+}
+
+.profile-stat{
+    padding:12px 5px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:1px solid var(--border);
+}
+
+.profile-stat strong{
+    display:block;
+
+    font-size:15px;
+}
+
+.profile-stat span{
+    display:block;
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+
+/* QUICK LINKS */
+
+.quick-section{
+    margin-top:20px;
+}
+
+.section-heading{
+    margin-bottom:10px;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.quick-links{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+}
+
+.quick-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:13px;
+
+    text-decoration:none;
+
+    border-radius:16px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    transition:.2s;
+}
+
+.quick-link:active{
+    transform:scale(.97);
+}
+
+.quick-link-icon{
+    width:36px;
+    height:36px;
+
+    display:grid;
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:11px;
+
+    background:var(--green-soft);
+    color:var(--green);
+}
+
+.quick-link strong{
+    display:block;
+
+    font-size:9px;
+}
+
+.quick-link span{
+    display:block;
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:7px;
+}
+
+
+/* SECTION */
+
+.settings-section{
+    margin-top:20px;
+}
+
+
+/* FORM */
+
+.form-card{
+    padding:17px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.form-group{
+    margin-bottom:13px;
+}
+
+.form-group:last-child{
+    margin-bottom:0;
+}
+
+.form-label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:var(--muted);
+
+    font-size:9px;
+    font-weight:600;
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+
+    left:12px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.profile-input,
+.profile-select{
+
+    width:100%;
+
+    padding:
+        12px
+        12px
+        12px
+        35px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    outline:none;
+
+    background:var(--bg-soft);
+    color:var(--text);
+
+    font-family:inherit;
+    font-size:10px;
+}
+
+.profile-input:focus,
+.profile-select:focus{
+    border-color:
+        rgba(57,229,140,.45);
+}
+
+.save-btn{
+    width:100%;
+
+    margin-top:5px;
+
+    padding:12px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-dark)
+        );
+
+    color:#06110a;
+
+    font-family:inherit;
+
+    font-size:10px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* BODY SUMMARY */
+
+.body-summary{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+}
+
+.body-card{
+    padding:15px;
+
+    border-radius:17px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.body-card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.body-icon{
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:10px;
+
+    background:var(--green-soft);
+    color:var(--green);
+}
+
+.body-card strong{
+    display:block;
+
+    margin-top:10px;
+
+    font-size:17px;
+}
+
+.body-card span{
+    display:block;
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+
+/* BMI */
+
+.bmi-card{
+    margin-top:10px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.bmi-top{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+}
+
+.bmi-title{
+    font-size:11px;
+    font-weight:800;
+}
+
+.bmi-category{
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:9px;
+}
+
+.bmi-value{
+    font-size:25px;
+    font-weight:800;
+
+    color:var(--green);
+}
+
+.bmi-bar{
+    position:relative;
+
+    height:8px;
+
+    margin-top:16px;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4299e1 0 25%,
+            #39e58c 25% 50%,
+            #f6ad55 50% 75%,
+            #f56565 75%
+        );
+}
+
+.bmi-marker{
+    position:absolute;
+
+    top:50%;
+
+    width:13px;
+    height:13px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:white;
+
+    border:3px solid var(--green);
+
+    box-shadow:
+        0 0 0 2px rgba(0,0,0,.2);
+
+    transition:left .4s ease;
+}
+
+.bmi-labels{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:7px;
+}
+
+
+/* GOAL */
+
+.goal-card{
+    padding:18px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.goal-top{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+}
+
+.goal-title{
+    font-size:11px;
+    font-weight:800;
+}
+
+.goal-value{
+    color:var(--green);
+
+    font-size:10px;
+    font-weight:800;
+}
+
+.goal-bar{
+    height:9px;
+
+    margin-top:14px;
+
+    overflow:hidden;
+
+    border-radius:50px;
+
+    background:#1b241f;
+}
+
+.goal-fill{
+    width:0;
+
+    height:100%;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green-dark),
+            var(--green)
+        );
+
+    transition:width .5s ease;
+}
+
+.goal-info{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+
+/* SETTINGS */
+
+.setting-card{
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.setting-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+    border-bottom:0;
+}
+
+.setting-icon{
+    width:37px;
+    height:37px;
+
+    display:grid;
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:11px;
+
+    background:var(--green-soft);
+
+    color:var(--green);
+}
+
+.setting-info{
+    flex:1;
+}
+
+.setting-info strong{
+    display:block;
+
+    font-size:10px;
+}
+
+.setting-info span{
+    display:block;
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+
+/* SWITCH */
+
+.switch{
+    position:relative;
+
+    width:42px;
+    height:23px;
+
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+
+    inset:0;
+
+    cursor:pointer;
+
+    border-radius:50px;
+
+    background:#29312d;
+
+    transition:.25s;
+}
+
+.slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:17px;
+    height:17px;
+
+    left:3px;
+    top:3px;
+
+    border-radius:50%;
+
+    background:white;
+
+    transition:.25s;
+}
+
+.switch input:checked + .slider{
+    background:var(--green-dark);
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(19px);
+}
+
+
+/* DANGER */
+
+.danger-card{
+    padding:16px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,107,107,.05);
+
+    border:1px solid
+        rgba(255,107,107,.15);
+}
+
+.danger-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--danger);
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.danger-card p{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    line-height:1.5;
+}
+
+.reset-btn{
+    width:100%;
+
+    margin-top:12px;
+
+    padding:11px;
+
+    border:1px solid
+        rgba(255,107,107,.25);
+
+    border-radius:11px;
+
+    background:transparent;
+
+    color:var(--danger);
+
+    font-family:inherit;
+
+    font-size:9px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* LIGHT MODE */
+
+body.light-mode{
+    --bg:#f3f7f4;
+    --bg-soft:#eaf0ec;
+    --card:#ffffff;
+    --card-2:#f5f8f6;
+    --text:#142019;
+    --muted:#66756d;
+    --border:rgba(0,0,0,.08);
+}
+
+
+/* MOBILE */
+
+@media(max-width:360px){
+
+    .quick-links{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app-container profile-page">
+
+
+<!-- HEADER -->
+
+<header class="profile-header">
+
+<button
+    class="back-btn"
+    onclick="history.back()">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="page-title">
+
+<h1>My Profile</h1>
+
+<p>Manage your fitness profile</p>
+
+</div>
+
+</header>
+
+
+<!-- PROFILE HERO -->
+
+<section class="profile-hero">
+
+<div class="avatar-wrap">
+
+<div
+    class="avatar"
+    id="profileAvatar">
+
+    S
+
+</div>
+
+<div class="online-dot"></div>
+
+</div>
+
+
+<div
+    class="profile-name"
+    id="profileHeroName">
+
+    Sai Fitness Member
+
+</div>
+
+
+<div class="profile-location">
+
+Sai Fitness • Bidupur
+
+</div>
+
+
+<div class="profile-badge">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Fitness Member
+
+</div>
+
+
+<div class="profile-stats">
+
+<div class="profile-stat">
+
+<strong id="heroWeight">--</strong>
+
+<span>Weight kg</span>
+
+</div>
+
+
+<div class="profile-stat">
+
+<strong id="heroAge">--</strong>
+
+<span>Age</span>
+
+</div>
+
+
+<div class="profile-stat">
+
+<strong id="heroBMI">--</strong>
+
+<span>BMI</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- QUICK ACCESS -->
+
+<section class="quick-section">
+
+<div class="section-heading">
+Quick Access
+</div>
+
+<div class="quick-links">
+
+
+<a
+    href="progress.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-chart-line"></i>
+
+</div>
+
+<div>
+
+<strong>Progress</strong>
+
+<span>View analytics</span>
+
+</div>
+
+</a>
+
+
+<a
+    href="body.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-weight-scale"></i>
+
+</div>
+
+<div>
+
+<strong>Body Tracking</strong>
+
+<span>BMI & measurements</span>
+
+</div>
+
+</a>
+
+
+<a
+    href="achievements.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-trophy"></i>
+
+</div>
+
+<div>
+
+<strong>Achievements</strong>
+
+<span>Badges & milestones</span>
+
+</div>
+
+</a>
+
+
+<a
+    href="notifications.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-bell"></i>
+
+</div>
+
+<div>
+
+<strong>Notifications</strong>
+
+<span>Fitness reminders</span>
+
+</div>
+
+</a>
+
+
+<!-- BACKUP -->
+
+<a
+    href="backup.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-cloud-arrow-up"></i>
+
+</div>
+
+<div>
+
+<strong>Backup</strong>
+
+<span>Save & restore data</span>
+
+</div>
+
+</a>
+
+
+<!-- SETTINGS -->
+
+<a
+    href="settings.html"
+    class="quick-link">
+
+<div class="quick-link-icon">
+
+<i class="fa-solid fa-gear"></i>
+
+</div>
+
+<div>
+
+<strong>Settings</strong>
+
+<span>App preferences</span>
+
+</div>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- PERSONAL INFORMATION -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Personal Information
+</div>
+
+
+<div class="form-card">
+
+
+<div class="form-group">
+
+<label class="form-label">
+Full Name
+</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-user input-icon"></i>
+
+<input
+    id="nameInput"
+    class="profile-input"
+    type="text"
+    placeholder="Enter your name">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">
+Age
+</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-cake-candles input-icon"></i>
+
+<input
+    id="ageInput"
+    class="profile-input"
+    type="number"
+    min="10"
+    max="100"
+    placeholder="Your age">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">
+Height (cm)
+</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-ruler-vertical input-icon"></i>
+
+<input
+    id="heightInput"
+    class="profile-input"
+    type="number"
+    min="100"
+    max="250"
+    placeholder="Height in cm">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">
+Current Weight (kg)
+</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-weight-scale input-icon"></i>
+
+<input
+    id="weightInput"
+    class="profile-input"
+    type="number"
+    min="20"
+    max="300"
+    step="0.1"
+    placeholder="Current weight">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">
+Fitness Goal
+</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-bullseye input-icon"></i>
+
+<select
+    id="goalInput"
+    class="profile-select">
+
+<option value="Fitness">
+General Fitness
+</option>
+
+<option value="Weight Loss">
+Weight Loss
+</option>
+
+<option value="Muscle Gain">
+Muscle Gain
+</option>
+
+<option value="Strength">
+Strength
+</option>
+
+<option value="Endurance">
+Endurance
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+    class="save-btn"
+    onclick="saveProfile()">
+
+<i class="fa-solid fa-check"></i>
+
+Save Profile
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- BODY SUMMARY -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Body Overview
+</div>
+
+<div class="body-summary">
+
+
+<div class="body-card">
+
+<div class="body-card-top">
+
+<div class="body-icon">
+
+<i class="fa-solid fa-ruler-vertical"></i>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-dots"
+   style="color:var(--muted);font-size:9px;">
+</i>
+
+</div>
+
+<strong id="bodyHeight">--</strong>
+
+<span>Height cm</span>
+
+</div>
+
+
+<div class="body-card">
+
+<div class="body-card-top">
+
+<div class="body-icon">
+
+<i class="fa-solid fa-bullseye"></i>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-dots"
+   style="color:var(--muted);font-size:9px;">
+</i>
+
+</div>
+
+<strong id="bodyGoalWeight">--</strong>
+
+<span>Goal Weight kg</span>
+
+</div>
+
+
+<div class="body-card">
+
+<div class="body-card-top">
+
+<div class="body-icon">
+
+<i class="fa-solid fa-person-running"></i>
+
+</div>
+
+<i class="fa-solid fa-fire"
+   style="color:var(--muted);font-size:9px;">
+</i>
+
+</div>
+
+<strong id="bodyWorkouts">0</strong>
+
+<span>Total Workouts</span>
+
+</div>
+
+
+<div class="body-card">
+
+<div class="body-card-top">
+
+<div class="body-icon">
+
+<i class="fa-solid fa-fire-flame-curved"></i>
+
+</div>
+
+<i class="fa-solid fa-bolt"
+   style="color:var(--muted);font-size:9px;">
+</i>
+
+</div>
+
+<strong id="bodyCalories">0</strong>
+
+<span>Calories Burned</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BMI -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+BMI & Body Status
+</div>
+
+
+<div class="bmi-card">
+
+<div class="bmi-top">
+
+<div>
+
+<div class="bmi-title">
+Body Mass Index
+</div>
+
+<div
+    class="bmi-category"
+    id="bmiCategory">
+
+Add height and weight to calculate BMI
+
+</div>
+
+</div>
+
+
+<div
+    class="bmi-value"
+    id="bmiValue">
+
+--
+
+</div>
+
+</div>
+
+
+<div class="bmi-bar">
+
+<div
+    class="bmi-marker"
+    id="bmiMarker"
+    style="left:10%;">
+
+</div>
+
+</div>
+
+
+<div class="bmi-labels">
+
+<span>Under</span>
+
+<span>Normal</span>
+
+<span>Over</span>
+
+<span>High</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GOAL -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Fitness Goal
+</div>
+
+
+<div class="goal-card">
+
+<div class="goal-top">
+
+<div class="goal-title"
+     id="goalTitle">
+
+General Fitness
+
+</div>
+
+<div
+    class="goal-value"
+    id="goalPercent">
+
+0%
+
+</div>
+
+</div>
+
+
+<div class="goal-bar">
+
+<div
+    class="goal-fill"
+    id="goalFill">
+
+</div>
+
+</div>
+
+
+<div class="goal-info">
+
+<span id="goalCurrent">
+Current: -- kg
+</span>
+
+<span id="goalTarget">
+Target: -- kg
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+App Settings
+</div>
+
+
+<div class="setting-card">
+
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-bell"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Notifications</strong>
+
+<span>
+Workout and fitness reminders
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="notificationToggle"
+    onchange="toggleNotifications()">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-moon"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Dark Mode</strong>
+
+<span>
+Use the dark fitness interface
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="darkModeToggle"
+    onchange="toggleDarkMode()">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-database"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Local Data</strong>
+
+<span>
+Your fitness data is stored on this device
+</span>
+
+</div>
+
+<i
+    class="fa-solid fa-shield-halved"
+    style="color:var(--green);">
+</i>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RESET -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Data Management
+</div>
+
+
+<div class="danger-card">
+
+<div class="danger-title">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+Reset App Data
+
+</div>
+
+
+<p>
+This will remove your profile, workout progress,
+diet data, water tracking and other locally stored
+fitness data.
+</p>
+
+
+<button
+    class="reset-btn"
+    onclick="resetAllFitnessData()">
+
+<i class="fa-solid fa-trash"></i>
+
+Reset All Data
+
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+
+<a href="workout.html">
+
+<i class="fa-solid fa-dumbbell"></i>
+
+<span>Workout</span>
+
+</a>
+
+
+<a href="diet.html">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>Diet</span>
+
+</a>
+
+
+<a href="progress.html">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>Progress</span>
+
+</a>
+
+
+<a
+    href="profile.html"
+    class="active">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+
+<script>
+
+/* =========================================
+   DEFAULT PROFILE
+========================================= */
+
+const defaultProfile = {
+
+    name:"Sai Fitness Member",
+
+    age:"",
+
+    height:"",
+
+    weight:72,
+
+    goal:"Fitness",
+
+    notifications:true,
+
+    darkMode:true
+
+};
+
+
+/* =========================================
+   GET PROFILE
+========================================= */
+
+function getProfile(){
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem(
+                "saiProfileData"
+            )
+        );
+
+    return {
+
+        ...defaultProfile,
+
+        ...(saved || {})
+
+    };
+
+}
+
+
+/* =========================================
+   GET FITNESS DATA
+========================================= */
+
+function getProfileFitness(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiFitnessData"
+        )
+    ) || {
+
+        calories:0,
+
+        minutes:0,
+
+        workouts:0,
+
+        streak:0
+
+    };
+
+}
+
+
+/* =========================================
+   GET BODY DATA
+========================================= */
+
+function getProfileBody(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiBodyData"
+        )
+    ) || {};
+
+}
+
+
+/* =========================================
+   GET PROGRESS DATA
+========================================= */
+
+function getProfileProgress(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "saiProgressData"
+        )
+    ) || {
+
+        currentWeight:72,
+
+        goalWeight:65
+
+    };
+
+}
+
+
+/* =========================================
+   SAVE PROFILE
+========================================= */
+
+function saveProfile(){
+
+    const old =
+        getProfile();
+
+    const profile = {
+
+        ...old,
+
+        name:
+            document.getElementById(
+                "nameInput"
+            ).value.trim()
+            ||
+            "Sai Fitness Member",
+
+        age:
+            document.getElementById(
+                "ageInput"
+            ).value,
+
+        height:
+            document.getElementById(
+                "heightInput"
+            ).value,
+
+        weight:
+            Number(
+                document.getElementById(
+                    "weightInput"
+                ).value
+            ) || 72,
+
+        goal:
+            document.getElementById(
+                "goalInput"
+            ).value,
+
+        notifications:
+            document.getElementById(
+                "notificationToggle"
+            ).checked,
+
+        darkMode:
+            document.getElementById(
+                "darkModeToggle"
+            ).checked
+
+    };
+
+
+    localStorage.setItem(
+        "saiProfileData",
+        JSON.stringify(profile)
+    );
+
+
+    /* Sync Progress */
+
+    const progress =
+        getProfileProgress();
+
+    progress.currentWeight =
+        profile.weight;
+
+    localStorage.setItem(
+        "saiProgressData",
+        JSON.stringify(progress)
+    );
+
+
+    /* Sync Body */
+
+    const body =
+        getProfileBody();
+
+    body.weight =
+        profile.weight;
+
+    if(profile.height){
+
+        body.height =
+            Number(profile.height);
+
+    }
+
+    if(profile.age){
+
+        body.age =
+            Number(profile.age);
+
+    }
+
+    localStorage.setItem(
+        "saiBodyData",
+        JSON.stringify(body)
+    );
+
+
+    updateProfileUI();
+
+    showToast(
+        "Profile saved successfully ✓"
+    );
+
+}
+
+
+/* =========================================
+   LOAD FORM
+========================================= */
+
+function loadProfileForm(){
+
+    const profile =
+        getProfile();
+
+    document.getElementById(
+        "nameInput"
+    ).value =
+        profile.name;
+
+    document.getElementById(
+        "ageInput"
+    ).value =
+        profile.age;
+
+    document.getElementById(
+        "heightInput"
+    ).value =
+        profile.height;
+
+    document.getElementById(
+        "weightInput"
+    ).value =
+        profile.weight;
+
+    document.getElementById(
+        "goalInput"
+    ).value =
+        profile.goal;
+
+    document.getElementById(
+        "notificationToggle"
+    ).checked =
+        profile.notifications !== false;
+
+    document.getElementById(
+        "darkModeToggle"
+    ).checked =
+        profile.darkMode !== false;
+
+}
+
+
+/* =========================================
+   BMI
+========================================= */
+
+function calculateBMI(){
+
+    const profile =
+        getProfile();
+
+    const body =
+        getProfileBody();
+
+    const height =
+        Number(
+            profile.height ||
+            body.height
+        );
+
+    const weight =
+        Number(
+            profile.weight ||
+            body.weight
+        );
+
+    if(
+        !height ||
+        !weight ||
+        height <= 0 ||
+        weight <= 0
+    ){
+
+        return null;
+
+    }
+
+    const meters =
+        height / 100;
+
+    return weight /
+        (
+            meters *
+            meters
+        );
+
+}
+
+
+/* =========================================
+   BMI CATEGORY
+========================================= */
+
+function getBMICategory(bmi){
+
+    if(bmi < 18.5)
+        return "Underweight";
+
+    if(bmi < 25)
+        return "Normal range";
+
+    if(bmi < 30)
+        return "Overweight";
+
+    return "High BMI range";
+
+}
+
+
+/* =========================================
+   GOAL PROGRESS
+========================================= */
+
+function calculateGoalProgress(){
+
+    const profile =
+        getProfile();
+
+    const progress =
+        getProfileProgress();
+
+    const current =
+        Number(
+            profile.weight ||
+            progress.currentWeight
+        );
+
+    const target =
+        Number(
+            progress.goalWeight
+        ) || 65;
+
+    if(
+        !current ||
+        !target
+    ){
+
+        return 0;
+
+    }
+
+
+    /* Weight loss */
+
+    if(
+        profile.goal === "Weight Loss"
+    ){
+
+        const start =
+            Number(
+                progress.startWeight
+            ) || current;
+
+        if(start <= target)
+            return 100;
+
+        const value =
+            (
+                (start - current) /
+                (start - target)
+            ) * 100;
+
+        return Math.max(
+            0,
+            Math.min(
+                100,
+                value
+            )
+        );
+
+    }
+
+
+    /* Other goals */
+
+    if(
+        current === target
+    )
+        return 100;
+
+    return 50;
+
+}
+
+
+/* =========================================
+   UPDATE PROFILE UI
+========================================= */
+
+function updateProfileUI(){
+
+    const profile =
+        getProfile();
+
+    const fitness =
+        getProfileFitness();
+
+    const body =
+        getProfileBody();
+
+    const progress =
+        getProfileProgress();
+
+
+    /* NAME */
+
+    document.getElementById(
+        "profileHeroName"
+    ).textContent =
+        profile.name;
+
+
+    /* AVATAR */
+
+    const firstLetter =
+        (
+            profile.name
+            .trim()
+            .charAt(0)
+            ||
+            "S"
+        ).toUpperCase();
+
+    document.getElementById(
+        "profileAvatar"
+    ).textContent =
+        firstLetter;
+
+
+    /* BASIC STATS */
+
+    document.getElementById(
+        "heroWeight"
+    ).textContent =
+        profile.weight || "--";
+
+    document.getElementById(
+        "heroAge"
+    ).textContent =
+        profile.age || "--";
+
+
+    /* BMI */
+
+    const bmi =
+        calculateBMI();
+
+    if(bmi){
+
+        document.getElementById(
+            "heroBMI"
+        ).textContent =
+            bmi.toFixed(1);
+
+        document.getElementById(
+            "bmiValue"
+        ).textContent =
+            bmi.toFixed(1);
+
+        document.getElementById(
+            "bmiCategory"
+        ).textContent =
+            getBMICategory(bmi);
+
+
+        let marker =
+            ((bmi - 15) / 25) * 100;
+
+        marker =
+            Math.max(
+                3,
+                Math.min(
+                    97,
+                    marker
+                )
+            );
+
+        document.getElementById(
+            "bmiMarker"
+        ).style.left =
+            marker + "%";
+
+    }else{
+
+        document.getElementById(
+            "heroBMI"
+        ).textContent =
+            "--";
+
+        document.getElementById(
+            "bmiValue"
+        ).textContent =
+            "--";
+
+        document.getElementById(
+            "bmiCategory"
+        ).textContent =
+            "Add height and weight to calculate BMI";
+
+    }
+
+
+    /* BODY */
+
+    document.getElementById(
+        "bodyHeight"
+    ).textContent =
+        (
+            profile.height ||
+            body.height ||
+            "--"
+        );
+
+    document.getElementById(
+        "bodyGoalWeight"
+    ).textContent =
+        (
+            progress.goalWeight ||
+            body.goalWeight ||
+            "--"
+        );
+
+
+    /* FITNESS */
+
+    document.getElementById(
+        "bodyWorkouts"
+    ).textContent =
+        fitness.workouts || 0;
+
+    document.getElementById(
+        "bodyCalories"
+    ).textContent =
+        fitness.calories || 0;
+
+
+    /* GOAL */
+
+    let goalText =
+        "General Fitness";
+
+    if(profile.goal)
+        goalText =
+            profile.goal;
+
+    document.getElementById(
+        "goalTitle"
+    ).textContent =
+        goalText;
+
+
+    const goalPercent =
+        Math.round(
+            calculateGoalProgress()
+        );
+
+    document.getElementById(
+        "goalPercent"
+    ).textContent =
+        goalPercent + "%";
+
+    document.getElementById(
+        "goalFill"
+    ).style.width =
+        goalPercent + "%";
+
+
+    document.getElementById(
+        "goalCurrent"
+    ).textContent =
+        "Current: " +
+        (
+            profile.weight ||
+            progress.currentWeight ||
+            "--"
+        ) +
+        " kg";
+
+
+    document.getElementById(
+        "goalTarget"
+    ).textContent =
+        "Target: " +
+        (
+            progress.goalWeight ||
+            body.goalWeight ||
+            "--"
+        ) +
+        " kg";
+
+}
+
+
+/* =========================================
+   NOTIFICATIONS
+========================================= */
+
+function toggleNotifications(){
+
+    const profile =
+        getProfile();
+
+    profile.notifications =
+        document.getElementById(
+            "notificationToggle"
+        ).checked;
+
+    localStorage.setItem(
+        "saiProfileData",
+        JSON.stringify(profile)
+    );
+
+    showToast(
+        profile.notifications
+            ? "Notifications enabled 🔔"
+            : "Notifications disabled"
+    );
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+function toggleDarkMode(){
+
+    const profile =
+        getProfile();
+
+    profile.darkMode =
+        document.getElementById(
+            "darkModeToggle"
+        ).checked;
+
+    localStorage.setItem(
+        "saiProfileData",
+        JSON.stringify(profile)
+    );
+
+
+    if(profile.darkMode){
+
+        document.body.classList.remove(
+            "light-mode"
+        );
+
+    }else{
+
+        document.body.classList.add(
+            "light-mode"
+        );
+
+    }
+
+
+    showToast(
+        profile.darkMode
+            ? "Dark mode enabled 🌙"
+            : "Light mode enabled ☀️"
+    );
+
+}
+
+
+/* =========================================
+   LIVE INPUT
+========================================= */
+
+[
+    "heightInput",
+    "weightInput"
+].forEach(
+    id => {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "input",
+                function(){
+
+                    const profile =
+                        getProfile();
+
+                    profile.height =
+                        document.getElementById(
+                            "heightInput"
+                        ).value;
+
+                    profile.weight =
+                        Number(
+                            document.getElementById(
+                                "weightInput"
+                            ).value
+                        ) || 0;
+
+                    localStorage.setItem(
+                        "saiProfileData",
+                        JSON.stringify(profile)
+                    );
+
+                    updateProfileUI();
+
+                }
+            );
+
+    }
+);
+
+
+/* =========================================
+   RESET ALL DATA
+========================================= */
+
+function resetAllFitnessData(){
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to reset all Sai Fitness data?"
+        );
+
+    if(!confirmed)
+        return;
+
+
+    const keys = [
+
+        "saiFitnessData",
+
+        "saiProfileData",
+
+        "saiProgressData",
+
+        "saiBodyData",
+
+        "saiDietData",
+
+        "saiWater",
+
+        "saiWaterHistory",
+
+        "saiCompletedExercises",
+
+        "saiWorkoutHistory",
+
+        "saiSelectedExercise",
+
+        "saiGoalTargets",
+
+        "saiNotifications",
+
+        "saiAppSettings"
+
+    ];
+
+
+    keys.forEach(
+        key =>
+            localStorage.removeItem(key)
+    );
+
+
+    showToast(
+        "All fitness data reset"
+    );
+
+
+    setTimeout(
+        () => location.reload(),
+        700
+    );
+
+}
+
+
+/* =========================================
+   INIT
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadProfileForm();
+
+        const profile =
+            getProfile();
+
+        if(profile.darkMode === false){
+
+            document.body.classList.add(
+                "light-mode"
+            );
+
+        }
+
+        updateProfileUI();
+
+    }
+);
+
+
+/* =========================================
+   PAGE REFRESH SYNC
+========================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            loadProfileForm();
+
+            updateProfileUI();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

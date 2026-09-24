@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b09">
+
+    <title>Body Tracking • Sai Fitness Bidupur</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #070b09;
+            color: #e8f1eb;
+            font-family: "Inter", sans-serif;
+            padding-bottom: 95px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            padding: 18px 16px 30px;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            width: 43px;
+            height: 43px;
+            border-radius: 14px;
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.07);
+            color: #e8f1eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .header-title p {
+            margin: 4px 0 0;
+            color: #7f8d85;
+            font-size: 10px;
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(57,229,140,.20),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    145deg,
+                    #12251b,
+                    #0d1511
+                );
+            border: 1px solid rgba(57,229,140,.13);
+            border-radius: 23px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 1px solid rgba(57,229,140,.08);
+            right: -35px;
+            bottom: -50px;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hero-icon {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            border-radius: 16px;
+            background: rgba(57,229,140,.11);
+            color: #39e58c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h2 {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .hero-text p {
+            margin: 5px 0 0;
+            color: #89968e;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* BMI CARD */
+
+        .bmi-card {
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 21px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .section-head h3 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .section-head span {
+            color: #6f7d75;
+            font-size: 9px;
+        }
+
+        .bmi-main {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .bmi-circle {
+            width: 108px;
+            height: 108px;
+            flex: 0 0 108px;
+            border-radius: 50%;
+            background:
+                conic-gradient(
+                    #39e58c 0deg,
+                    #39e58c var(--bmi-progress, 0deg),
+                    #1b2720 var(--bmi-progress, 0deg),
+                    #1b2720 360deg
+                );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bmi-circle::before {
+            content: "";
+            position: absolute;
+            inset: 8px;
+            background: #101713;
+            border-radius: 50%;
+        }
+
+        .bmi-value {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .bmi-value strong {
+            display: block;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .bmi-value span {
+            color: #6f7d75;
+            font-size: 9px;
+        }
+
+        .bmi-info {
+            flex: 1;
+        }
+
+        .bmi-category {
+            display: inline-flex;
+            padding: 6px 9px;
+            border-radius: 9px;
+            background: rgba(57,229,140,.10);
+            color: #39e58c;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .bmi-info p {
+            margin: 0;
+            color: #78857e;
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .bmi-scale {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 5px;
+            margin-top: 17px;
+        }
+
+        .scale-item {
+            text-align: center;
+        }
+
+        .scale-bar {
+            height: 5px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            background: #263029;
+        }
+
+        .scale-item:nth-child(1) .scale-bar {
+            background: #5cb8ff;
+        }
+
+        .scale-item:nth-child(2) .scale-bar {
+            background: #39e58c;
+        }
+
+        .scale-item:nth-child(3) .scale-bar {
+            background: #ffc14d;
+        }
+
+        .scale-item:nth-child(4) .scale-bar {
+            background: #ff7474;
+        }
+
+        .scale-item span {
+            color: #68766e;
+            font-size: 7px;
+        }
+
+        /* INPUT CARD */
+
+        .card {
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 21px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 11px;
+        }
+
+        .field {
+            position: relative;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            display: block;
+            color: #7e8c84;
+            font-size: 9px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            height: 46px;
+            padding: 0 45px 0 13px;
+            border-radius: 13px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: #0b100d;
+            color: #e8f1eb;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .input-wrap input:focus {
+            border-color: rgba(57,229,140,.45);
+            box-shadow: 0 0 0 3px rgba(57,229,140,.06);
+        }
+
+        .input-wrap span {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #56635c;
+            font-size: 9px;
+        }
+
+        /* WEIGHT */
+
+        .weight-progress {
+            background: #101713;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 21px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .weight-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .weight-box span {
+            display: block;
+            color: #69776f;
+            font-size: 9px;
+            margin-bottom: 4px;
+        }
+
+        .weight-box strong {
+            font-size: 19px;
+        }
+
+        .weight-box.right {
+            text-align: right;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 9px;
+            border-radius: 20px;
+            background: #1b2520;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #18b968,
+                #39e58c
+            );
+            transition: width .5s ease;
+        }
+
+        .progress-message {
+            margin: 10px 0 0;
+            color: #78857e;
+            font-size: 9px;
+        }
+
+        /* MEASUREMENTS */
+
+        .measurement-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 9px;
+        }
+
+        .measurement {
+            background: #0b100d;
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 15px;
+            padding: 13px;
+        }
+
+        .measurement-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .measurement-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: rgba(57,229,140,.09);
+            color: #39e58c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .measurement span {
+            color: #6d7b73;
+            font-size: 9px;
+        }
+
+        .measurement strong {
+            display: block;
+            margin-top: 9px;
+            font-size: 17px;
+        }
+
+        /* SAVE */
+
+        .save-btn {
+            width: 100%;
+            height: 49px;
+            border: 0;
+            border-radius: 14px;
+            background: #39e58c;
+            color: #06120b;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 14px;
+            box-shadow: 0 8px 25px rgba(57,229,140,.10);
+        }
+
+        .save-btn:active {
+            transform: scale(.98);
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 85px;
+            transform: translate(-50%,20px);
+            opacity: 0;
+            pointer-events: none;
+            background: #18231d;
+            color: #e8f1eb;
+            border: 1px solid rgba(57,229,140,.18);
+            border-radius: 13px;
+            padding: 11px 15px;
+            font-size: 10px;
+            font-weight: 700;
+            z-index: 999;
+            transition: .25s ease;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%,0);
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 496px;
+            height: 66px;
+            background: rgba(16,23,19,.96);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 21px;
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            z-index: 100;
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #68766e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 10px;
+        }
+
+        .nav-item i {
+            font-size: 16px;
+        }
+
+        .nav-item.active {
+            color: #39e58c;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <div class="header-title">
+            <h1>Body Tracking</h1>
+            <p>Track your body & fitness progress</p>
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-top">
+
+            <div class="hero-icon">
+                <i class="fa-solid fa-person"></i>
+            </div>
+
+            <div class="hero-text">
+
+                <h2>Know Your Body 💪</h2>
+
+                <p>
+                    Track weight, BMI and measurements
+                    to understand your fitness progress.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BMI -->
+
+    <section class="bmi-card">
+
+        <div class="section-head">
+
+            <h3>BMI Overview</h3>
+
+            <span>Based on height & weight</span>
+
+        </div>
+
+
+        <div class="bmi-main">
+
+            <div class="bmi-circle"
+                 id="bmiCircle">
+
+                <div class="bmi-value">
+
+                    <strong id="bmiValue">
+                        --
+                    </strong>
+
+                    <span>BMI</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="bmi-info">
+
+                <div class="bmi-category"
+                     id="bmiCategory">
+                    Enter details
+                </div>
+
+                <p id="bmiMessage">
+                    Add your height and weight
+                    below to calculate BMI.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="bmi-scale">
+
+            <div class="scale-item">
+                <div class="scale-bar"></div>
+                <span>Under 18.5</span>
+            </div>
+
+            <div class="scale-item">
+                <div class="scale-bar"></div>
+                <span>18.5–24.9</span>
+            </div>
+
+            <div class="scale-item">
+                <div class="scale-bar"></div>
+                <span>25–29.9</span>
+            </div>
+
+            <div class="scale-item">
+                <div class="scale-bar"></div>
+                <span>30+</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BASIC DETAILS -->
+
+    <section class="card">
+
+        <div class="section-head">
+
+            <h3>Body Details</h3>
+
+            <span>Update anytime</span>
+
+        </div>
+
+
+        <div class="input-grid">
+
+            <div class="field">
+
+                <label>
+                    Height
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="heightInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="100"
+                        max="250"
+                        placeholder="170">
+
+                    <span>cm</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Current Weight
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="weightInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="20"
+                        max="300"
+                        step="0.1"
+                        placeholder="72">
+
+                    <span>kg</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Goal Weight
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="goalWeightInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="20"
+                        max="300"
+                        step="0.1"
+                        placeholder="65">
+
+                    <span>kg</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Age
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="ageInput"
+                        type="number"
+                        inputmode="numeric"
+                        min="10"
+                        max="100"
+                        placeholder="20">
+
+                    <span>yrs</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="save-btn"
+                onclick="saveBodyData()">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+            &nbsp; Save Body Details
+
+        </button>
+
+    </section>
+
+
+    <!-- WEIGHT PROGRESS -->
+
+    <section class="weight-progress">
+
+        <div class="section-head">
+
+            <h3>Weight Goal</h3>
+
+            <span id="weightProgressPercent">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="weight-values">
+
+            <div class="weight-box">
+
+                <span>Current</span>
+
+                <strong id="currentWeightDisplay">
+                    -- kg
+                </strong>
+
+            </div>
+
+
+            <div class="weight-box right">
+
+                <span>Target</span>
+
+                <strong id="goalWeightDisplay">
+                    -- kg
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-track">
+
+            <div class="progress-fill"
+                 id="weightProgressFill">
+            </div>
+
+        </div>
+
+
+        <p class="progress-message"
+           id="weightProgressMessage">
+            Add your current and goal weight.
+        </p>
+
+    </section>
+
+
+    <!-- MEASUREMENTS -->
+
+    <section class="card">
+
+        <div class="section-head">
+
+            <h3>Body Measurements</h3>
+
+            <span>Optional</span>
+
+        </div>
+
+
+        <div class="measurement-grid">
+
+            <div class="measurement">
+
+                <div class="measurement-top">
+
+                    <div class="measurement-icon">
+                        <i class="fa-solid fa-ruler-horizontal"></i>
+                    </div>
+
+                    <span>Chest</span>
+
+                </div>
+
+                <strong id="chestDisplay">
+                    -- in
+                </strong>
+
+            </div>
+
+
+            <div class="measurement">
+
+                <div class="measurement-top">
+
+                    <div class="measurement-icon">
+                        <i class="fa-solid fa-circle-dot"></i>
+                    </div>
+
+                    <span>Waist</span>
+
+                </div>
+
+                <strong id="waistDisplay">
+                    -- in
+                </strong>
+
+            </div>
+
+
+            <div class="measurement">
+
+                <div class="measurement-top">
+
+                    <div class="measurement-icon">
+                        <i class="fa-solid fa-hand-fist"></i>
+                    </div>
+
+                    <span>Arms</span>
+
+                </div>
+
+                <strong id="armsDisplay">
+                    -- in
+                </strong>
+
+            </div>
+
+
+            <div class="measurement">
+
+                <div class="measurement-top">
+
+                    <div class="measurement-icon">
+                        <i class="fa-solid fa-person-walking"></i>
+                    </div>
+
+                    <span>Thighs</span>
+
+                </div>
+
+                <strong id="thighsDisplay">
+                    -- in
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MEASUREMENT INPUTS -->
+
+    <section class="card">
+
+        <div class="section-head">
+
+            <h3>Update Measurements</h3>
+
+            <span>inches</span>
+
+        </div>
+
+
+        <div class="input-grid">
+
+            <div class="field">
+
+                <label>Chest</label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="chestInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="10"
+                        max="100"
+                        step="0.1"
+                        placeholder="38">
+
+                    <span>in</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Waist</label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="waistInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="10"
+                        max="100"
+                        step="0.1"
+                        placeholder="32">
+
+                    <span>in</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Arms</label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="armsInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="5"
+                        max="50"
+                        step="0.1"
+                        placeholder="14">
+
+                    <span>in</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Thighs</label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="thighsInput"
+                        type="number"
+                        inputmode="decimal"
+                        min="10"
+                        max="60"
+                        step="0.1"
+                        placeholder="21">
+
+                    <span>in</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="save-btn"
+                onclick="saveMeasurements()">
+
+            <i class="fa-solid fa-ruler-combined"></i>
+            &nbsp; Save Measurements
+
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+
+    </a>
+
+    <a href="workout.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-dumbbell"></i>
+        <span>Workout</span>
+
+    </a>
+
+    <a href="diet.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-utensils"></i>
+        <span>Diet</span>
+
+    </a>
+
+    <a href="progress.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Progress</span>
+
+    </a>
+
+    <a href="profile.html"
+       class="nav-item">
+
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+
+    </a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+<script>
+
+"use strict";
+
+
+/* =====================================
+   STORAGE
+===================================== */
+
+const BODY_KEY =
+    "saiBodyData";
+
+
+const DEFAULT_BODY = {
+
+    height: 170,
+
+    weight: 72,
+
+    goalWeight: 65,
+
+    age: 20,
+
+    chest: 38,
+
+    waist: 32,
+
+    arms: 14,
+
+    thighs: 21
+
+};
+
+
+/* =====================================
+   LOAD
+===================================== */
+
+function getBodyData() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    BODY_KEY
+                )
+            );
+
+        return {
+            ...DEFAULT_BODY,
+            ...(saved || {})
+        };
+
+    } catch (error) {
+
+        return {
+            ...DEFAULT_BODY
+        };
+
+    }
+
+}
+
+
+/* =====================================
+   SAVE
+===================================== */
+
+function saveBodyStorage(data) {
+
+    localStorage.setItem(
+        BODY_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================
+   BMI
+===================================== */
+
+function calculateBMI(
+    weight,
+    height
+) {
+
+    if (
+        !weight ||
+        !height ||
+        weight <= 0 ||
+        height <= 0
+    ) {
+
+        return null;
+
+    }
+
+
+    const heightMeters =
+        height / 100;
+
+
+    return (
+        weight /
+        (
+            heightMeters *
+            heightMeters
+        )
+    );
+
+}
+
+
+/* =====================================
+   BMI CATEGORY
+===================================== */
+
+function getBMICategory(
+    bmi
+) {
+
+    if (bmi === null) {
+
+        return {
+
+            title: "Enter details",
+
+            message:
+                "Add your height and weight to calculate BMI."
+
+        };
+
+    }
+
+
+    if (bmi < 18.5) {
+
+        return {
+
+            title: "Underweight",
+
+            message:
+                "Your BMI is below the standard healthy range."
+
+        };
+
+    }
+
+
+    if (bmi < 25) {
+
+        return {
+
+            title: "Healthy Range",
+
+            message:
+                "Your BMI falls within the standard healthy range."
+
+        };
+
+    }
+
+
+    if (bmi < 30) {
+
+        return {
+
+            title: "Overweight",
+
+            message:
+                "Your BMI is above the standard healthy range."
+
+        };
+
+    }
+
+
+    return {
+
+        title: "Obesity Range",
+
+        message:
+            "Your BMI is in the obesity range. Consider discussing health goals with a qualified professional."
+
+    };
+
+}
+
+
+/* =====================================
+   UPDATE BMI
+===================================== */
+
+function updateBMI(data) {
+
+    const bmi =
+        calculateBMI(
+            Number(data.weight),
+            Number(data.height)
+        );
+
+
+    const value =
+        document.getElementById(
+            "bmiValue"
+        );
+
+    const category =
+        document.getElementById(
+            "bmiCategory"
+        );
+
+    const message =
+        document.getElementById(
+            "bmiMessage"
+        );
+
+    const circle =
+        document.getElementById(
+            "bmiCircle"
+        );
+
+
+    if (bmi === null) {
+
+        value.textContent = "--";
+
+        category.textContent =
+            "Enter details";
+
+        message.textContent =
+            "Add your height and weight below to calculate BMI.";
+
+        circle.style.setProperty(
+            "--bmi-progress",
+            "0deg"
+        );
+
+        return;
+    }
+
+
+    const rounded =
+        bmi.toFixed(1);
+
+
+    const result =
+        getBMICategory(bmi);
+
+
+    value.textContent =
+        rounded;
+
+
+    category.textContent =
+        result.title;
+
+
+    message.textContent =
+        result.message;
+
+
+    const progress =
+        Math.min(
+            Math.max(
+                bmi / 40,
+                0
+            ),
+            1
+        ) * 360;
+
+
+    circle.style.setProperty(
+        "--bmi-progress",
+        progress + "deg"
+    );
+
+}
+
+
+/* =====================================
+   WEIGHT PROGRESS
+===================================== */
+
+function updateWeightProgress(data) {
+
+    const current =
+        Number(data.weight);
+
+
+    const goal =
+        Number(data.goalWeight);
+
+
+    const currentDisplay =
+        document.getElementById(
+            "currentWeightDisplay"
+        );
+
+
+    const goalDisplay =
+        document.getElementById(
+            "goalWeightDisplay"
+        );
+
+
+    const percentDisplay =
+        document.getElementById(
+            "weightProgressPercent"
+        );
+
+
+    const fill =
+        document.getElementById(
+            "weightProgressFill"
+        );
+
+
+    const message =
+        document.getElementById(
+            "weightProgressMessage"
+        );
+
+
+    currentDisplay.textContent =
+        current
+            ? current + " kg"
+            : "-- kg";
+
+
+    goalDisplay.textContent =
+        goal
+            ? goal + " kg"
+            : "-- kg";
+
+
+    if (
+        !current ||
+        !goal
+    ) {
+
+        percentDisplay.textContent =
+            "0%";
+
+        fill.style.width =
+            "0%";
+
+        message.textContent =
+            "Add your current and goal weight.";
+
+        return;
+    }
+
+
+    let percent = 0;
+
+
+    if (current === goal) {
+
+        percent = 100;
+
+    } else {
+
+        /*
+         * Since no starting weight is stored,
+         * this represents closeness to goal rather
+         * than total journey progress.
+         */
+
+        percent =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    100 -
+                    (
+                        Math.abs(
+                            current -
+                            goal
+                        ) /
+                        Math.max(
+                            current,
+                            goal
+                        )
+                    ) *
+                    100
+                )
+            );
+
+    }
+
+
+    percent =
+        Math.round(percent);
+
+
+    percentDisplay.textContent =
+        percent + "%";
+
+
+    fill.style.width =
+        percent + "%";
+
+
+    const difference =
+        Math.abs(
+            current -
+            goal
+        ).toFixed(1);
+
+
+    if (current === goal) {
+
+        message.textContent =
+            "You've reached your target weight 🎯";
+
+    } else if (current > goal) {
+
+        message.textContent =
+            difference +
+            " kg remaining to reach your goal.";
+
+    } else {
+
+        message.textContent =
+            difference +
+            " kg difference from your goal.";
+
+    }
+
+}
+
+
+/* =====================================
+   MEASUREMENTS
+===================================== */
+
+function updateMeasurements(data) {
+
+    document.getElementById(
+        "chestDisplay"
+    ).textContent =
+        data.chest
+            ? data.chest + " in"
+            : "-- in";
+
+
+    document.getElementById(
+        "waistDisplay"
+    ).textContent =
+        data.waist
+            ? data.waist + " in"
+            : "-- in";
+
+
+    document.getElementById(
+        "armsDisplay"
+    ).textContent =
+        data.arms
+            ? data.arms + " in"
+            : "-- in";
+
+
+    document.getElementById(
+        "thighsDisplay"
+    ).textContent =
+        data.thighs
+            ? data.thighs + " in"
+            : "-- in";
+
+}
+
+
+/* =====================================
+   LOAD INPUTS
+===================================== */
+
+function loadBodyInputs() {
+
+    const data =
+        getBodyData();
+
+
+    document.getElementById(
+        "heightInput"
+    ).value =
+        data.height || "";
+
+
+    document.getElementById(
+        "weightInput"
+    ).value =
+        data.weight || "";
+
+
+    document.getElementById(
+        "goalWeightInput"
+    ).value =
+        data.goalWeight || "";
+
+
+    document.getElementById(
+        "ageInput"
+    ).value =
+        data.age || "";
+
+
+    document.getElementById(
+        "chestInput"
+    ).value =
+        data.chest || "";
+
+
+    document.getElementById(
+        "waistInput"
+    ).value =
+        data.waist || "";
+
+
+    document.getElementById(
+        "armsInput"
+    ).value =
+        data.arms || "";
+
+
+    document.getElementById(
+        "thighsInput"
+    ).value =
+        data.thighs || "";
+
+}
+
+
+/* =====================================
+   SYNC PROGRESS PAGE
+===================================== */
+
+function syncProgressData(data) {
+
+    let progress = {};
+
+    try {
+
+        progress =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiProgressData"
+                )
+            ) || {};
+
+    } catch (error) {
+
+        progress = {};
+
+    }
+
+
+    progress.currentWeight =
+        Number(data.weight) || 0;
+
+
+    progress.goalWeight =
+        Number(data.goalWeight) || 0;
+
+
+    progress.chest =
+        Number(data.chest) || 0;
+
+
+    progress.waist =
+        Number(data.waist) || 0;
+
+
+    progress.arms =
+        Number(data.arms) || 0;
+
+
+    progress.thighs =
+        Number(data.thighs) || 0;
+
+
+    localStorage.setItem(
+        "saiProgressData",
+        JSON.stringify(progress)
+    );
+
+}
+
+
+/* =====================================
+   SYNC PROFILE
+===================================== */
+
+function syncProfileWeight(
+    weight
+) {
+
+    try {
+
+        const profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiProfileData"
+                )
+            ) || {};
+
+
+        if (weight) {
+
+            profile.weight =
+                Number(weight);
+
+        }
+
+
+        localStorage.setItem(
+            "saiProfileData",
+            JSON.stringify(profile)
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Profile sync skipped."
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   SAVE BODY
+===================================== */
+
+function saveBodyData() {
+
+    const data =
+        getBodyData();
+
+
+    const height =
+        Number(
+            document.getElementById(
+                "heightInput"
+            ).value
+        );
+
+
+    const weight =
+        Number(
+            document.getElementById(
+                "weightInput"
+            ).value
+        );
+
+
+    const goalWeight =
+        Number(
+            document.getElementById(
+                "goalWeightInput"
+            ).value
+        );
+
+
+    const age =
+        Number(
+            document.getElementById(
+                "ageInput"
+            ).value
+        );
+
+
+    if (
+        !height ||
+        height < 100 ||
+        height > 250
+    ) {
+
+        showBodyToast(
+            "Enter a valid height"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !weight ||
+        weight < 20 ||
+        weight > 300
+    ) {
+
+        showBodyToast(
+            "Enter a valid weight"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !goalWeight ||
+        goalWeight < 20 ||
+        goalWeight > 300
+    ) {
+
+        showBodyToast(
+            "Enter a valid goal weight"
+        );
+
+        return;
+
+    }
+
+
+    data.height =
+        height;
+
+
+    data.weight =
+        weight;
+
+
+    data.goalWeight =
+        goalWeight;
+
+
+    if (
+        age >= 10 &&
+        age <= 100
+    ) {
+
+        data.age =
+            age;
+
+    }
+
+
+    saveBodyStorage(
+        data
+    );
+
+
+    syncProgressData(
+        data
+    );
+
+
+    syncProfileWeight(
+        weight
+    );
+
+
+    refreshBody();
+
+
+    showBodyToast(
+        "Body details saved ✓"
+    );
+
+}
+
+
+/* =====================================
+   SAVE MEASUREMENTS
+===================================== */
+
+function saveMeasurements() {
+
+    const data =
+        getBodyData();
+
+
+    const values = {
+
+        chest:
+            Number(
+                document.getElementById(
+                    "chestInput"
+                ).value
+            ),
+
+        waist:
+            Number(
+                document.getElementById(
+                    "waistInput"
+                ).value
+            ),
+
+        arms:
+            Number(
+                document.getElementById(
+                    "armsInput"
+                ).value
+            ),
+
+        thighs:
+            Number(
+                document.getElementById(
+                    "thighsInput"
+                ).value
+            )
+
+    };
+
+
+    if (
+        values.chest &&
+        (
+            values.chest < 10 ||
+            values.chest > 100
+        )
+    ) {
+
+        showBodyToast(
+            "Enter valid chest measurement"
+        );
+
+        return;
+    }
+
+
+    if (
+        values.waist &&
+        (
+            values.waist < 10 ||
+            values.waist > 100
+        )
+    ) {
+
+        showBodyToast(
+            "Enter valid waist measurement"
+        );
+
+        return;
+    }
+
+
+    if (
+        values.arms &&
+        (
+            values.arms < 5 ||
+            values.arms > 50
+        )
+    ) {
+
+        showBodyToast(
+            "Enter valid arm measurement"
+        );
+
+        return;
+    }
+
+
+    if (
+        values.thighs &&
+        (
+            values.thighs < 10 ||
+            values.thighs > 60
+        )
+    ) {
+
+        showBodyToast(
+            "Enter valid thigh measurement"
+        );
+
+        return;
+    }
+
+
+    if (values.chest) {
+        data.chest =
+            values.chest;
+    }
+
+    if (values.waist) {
+        data.waist =
+            values.waist;
+    }
+
+    if (values.arms) {
+        data.arms =
+            values.arms;
+    }
+
+    if (values.thighs) {
+        data.thighs =
+            values.thighs;
+    }
+
+
+    saveBodyStorage(
+        data
+    );
+
+
+    syncProgressData(
+        data
+    );
+
+
+    refreshBody();
+
+
+    showBodyToast(
+        "Measurements saved ✓"
+    );
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let bodyToastTimer;
+
+
+function showBodyToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        bodyToastTimer
+    );
+
+
+    bodyToastTimer =
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+
+/* =====================================
+   REFRESH
+===================================== */
+
+function refreshBody() {
+
+    const data =
+        getBodyData();
+
+
+    updateBMI(
+        data
+    );
+
+
+    updateWeightProgress(
+        data
+    );
+
+
+    updateMeasurements(
+        data
+    );
+
+}
+
+
+/* =====================================
+   LIVE BMI PREVIEW
+===================================== */
+
+document.getElementById(
+    "heightInput"
+).addEventListener(
+    "input",
+    function () {
+
+        const data =
+            getBodyData();
+
+
+        data.height =
+            Number(this.value);
+
+
+        data.weight =
+            Number(
+                document.getElementById(
+                    "weightInput"
+                ).value
+            );
+
+
+        updateBMI(
+            data
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "weightInput"
+).addEventListener(
+    "input",
+    function () {
+
+        const data =
+            getBodyData();
+
+
+        data.height =
+            Number(
+                document.getElementById(
+                    "heightInput"
+                ).value
+            );
+
+
+        data.weight =
+            Number(this.value);
+
+
+        updateBMI(
+            data
+        );
+
+    }
+);
+
+
+/* =====================================
+   START
+===================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadBodyInputs();
+
+        refreshBody();
+
+    }
+);
+
+
+/* =====================================
+   RETURN TO PAGE
+===================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function () {
+
+        if (!document.hidden) {
+
+            loadBodyInputs();
+
+            refreshBody();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+</html>

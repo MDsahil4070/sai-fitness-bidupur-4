@@ -1,0 +1,899 @@
+/* =========================================
+   SAI FITNESS BIDUPUR
+   PRO MOBILE FITNESS UI
+========================================= */
+
+:root {
+    --bg: #070b09;
+    --bg-soft: #0c120f;
+
+    --card: #101713;
+    --card-2: #141c17;
+
+    --green: #39e58c;
+    --green-dark: #18b968;
+    --green-soft: rgba(57, 229, 140, 0.12);
+
+    --white: #ffffff;
+    --text: #e8f1eb;
+    --muted: #8b9990;
+
+    --border: rgba(255, 255, 255, 0.07);
+
+    --danger: #ff6b6b;
+
+    --radius: 20px;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(57, 229, 140, 0.08),
+            transparent 35%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    font-family: "Inter", sans-serif;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   APP CONTAINER
+========================================= */
+
+.app {
+    width: 100%;
+    max-width: 520px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding:
+        env(safe-area-inset-top)
+        16px
+        calc(90px + env(safe-area-inset-bottom))
+        16px;
+
+    position: relative;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.top-header {
+    min-height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
+
+    padding: 8px 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(7, 11, 9, 0.97),
+            rgba(7, 11, 9, 0.82),
+            transparent
+        );
+
+    backdrop-filter: blur(12px);
+}
+
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-width: 0;
+}
+
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.brand-sub {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+
+    white-space: nowrap;
+}
+
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 13px;
+
+    border: 1px solid var(--border);
+
+    background: var(--card);
+
+    color: var(--text);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+
+.icon-btn:active {
+    transform: scale(.91);
+}
+
+
+.icon-btn:hover {
+    background: var(--green-soft);
+    color: var(--green);
+}
+
+
+/* =========================================
+   GENERAL CARDS
+========================================= */
+
+.card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+.card + .card {
+    margin-top: 13px;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+button {
+    font-family: inherit;
+}
+
+
+.primary-btn {
+    width: 100%;
+
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-dark)
+        );
+
+    color: #06100a;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 24px rgba(57, 229, 140, .14);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.primary-btn:active {
+    transform: scale(.97);
+}
+
+
+.primary-btn:hover {
+    box-shadow:
+        0 12px 30px rgba(57, 229, 140, .22);
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(57, 229, 140, .18),
+            transparent 38%
+        ),
+        linear-gradient(
+            135deg,
+            #111b15,
+            #0b110e
+        );
+
+    border: 1px solid rgba(57, 229, 140, .14);
+
+    border-radius: 24px;
+
+    padding: 22px;
+
+    margin-bottom: 15px;
+}
+
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    right: -55px;
+    bottom: -55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(57, 229, 140, .06);
+}
+
+
+.hero h1 {
+    font-size: 27px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+.hero p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+
+.stat-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 14px 10px;
+
+    text-align: center;
+}
+
+
+.stat-icon {
+    color: var(--green);
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+
+.stat-value {
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+
+.stat-label {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin:
+        21px 0
+        11px;
+}
+
+
+.section-title h2 {
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+.section-title span {
+    color: var(--green);
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+.quick-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 11px;
+}
+
+
+.quick-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+
+.quick-item:active {
+    transform: scale(.97);
+}
+
+
+.quick-item:hover {
+    border-color:
+        rgba(57, 229, 140, .25);
+
+    background:
+        rgba(57, 229, 140, .05);
+}
+
+
+.quick-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: var(--green-soft);
+
+    color: var(--green);
+}
+
+
+.quick-item strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 3px;
+}
+
+
+.quick-item small {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================================
+   WORKOUT CARD
+========================================= */
+
+.workout-card {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111a15,
+            #0c120f
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 18px;
+}
+
+
+.workout-card h3 {
+    font-size: 16px;
+
+    margin-bottom: 5px;
+}
+
+
+.workout-card p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================
+   MOTIVATION
+========================================= */
+
+.motivation {
+    padding: 18px;
+
+    border-radius: 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(57,229,140,.12),
+            rgba(57,229,140,.03)
+        );
+
+    border:
+        1px solid rgba(57,229,140,.15);
+
+    text-align: center;
+
+    margin-top: 15px;
+}
+
+
+.motivation i {
+    color: var(--green);
+
+    font-size: 21px;
+
+    margin-bottom: 9px;
+}
+
+
+.motivation strong {
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+
+.motivation span {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+========================================= */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 50%;
+
+    bottom:
+        calc(
+            10px +
+            env(safe-area-inset-bottom)
+        );
+
+    transform: translateX(-50%);
+
+    width:
+        min(
+            calc(100% - 24px),
+            490px
+        );
+
+    z-index: 100;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 5px;
+
+    padding: 8px;
+
+    background:
+        rgba(15, 22, 18, .94);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 21px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35);
+
+    backdrop-filter: blur(18px);
+}
+
+
+.bottom-nav a {
+    min-height: 52px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    border-radius: 15px;
+
+    text-decoration: none;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    transition:
+        .2s ease;
+}
+
+
+.bottom-nav a i {
+    font-size: 17px;
+}
+
+
+.bottom-nav a.active {
+    background: var(--green-soft);
+
+    color: var(--green);
+}
+
+
+.bottom-nav a:active {
+    transform: scale(.92);
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 88px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 200;
+
+    max-width:
+        calc(100% - 40px);
+
+    padding: 12px 17px;
+
+    border-radius: 13px;
+
+    background: #18221c;
+
+    border:
+        1px solid
+        rgba(57,229,140,.18);
+
+    color: var(--text);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+    text-align: center;
+}
+
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes pop {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+
+}
+
+
+.hero {
+    animation:
+        fadeUp .45s ease both;
+}
+
+
+.card,
+.workout-card,
+.quick-item,
+.stat-card {
+    animation:
+        fadeUp .5s ease both;
+}
+
+
+/* =========================================
+   LIGHT MODE
+========================================= */
+
+body.light-mode {
+    --bg: #f4f8f5;
+    --bg-soft: #edf3ef;
+
+    --card: #ffffff;
+    --card-2: #f0f5f2;
+
+    --text: #16201a;
+    --muted: #68756d;
+
+    --border: rgba(0,0,0,.08);
+}
+
+
+body.light-mode .top-header {
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(244,248,245,.97),
+            rgba(244,248,245,.82),
+            transparent
+        );
+}
+
+
+body.light-mode .bottom-nav {
+    background:
+        rgba(255,255,255,.94);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.12);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 360px) {
+
+    .app {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    .hero h1 {
+        font-size: 23px;
+    }
+
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+
+    .quick-item {
+        padding: 12px;
+    }
+
+
+    .quick-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+
+@media (min-width: 700px) {
+
+    body {
+        background:
+            radial-gradient(
+                circle at center,
+                #101a14,
+                #050705 65%
+            );
+    }
+
+
+    .app {
+        border-left:
+            1px solid rgba(255,255,255,.03);
+
+        border-right:
+            1px solid rgba(255,255,255,.03);
+    }
+
+}

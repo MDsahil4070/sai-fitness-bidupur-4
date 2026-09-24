@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#070b09">
+
+    <title>Offline • Sai Fitness</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <main style="
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:24px;
+    ">
+
+        <section style="
+            width:100%;
+            max-width:420px;
+            text-align:center;
+            padding:35px 25px;
+            background:#101713;
+            border:1px solid rgba(255,255,255,.07);
+            border-radius:24px;
+        ">
+
+            <div style="
+                width:80px;
+                height:80px;
+                margin:0 auto 20px;
+                border-radius:24px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:rgba(57,229,140,.12);
+                color:#39e58c;
+                font-size:34px;
+            ">
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+
+            <h1 style="
+                margin:0 0 10px;
+                color:#fff;
+                font-size:25px;
+            ">
+                You're Offline
+            </h1>
+
+            <p style="
+                color:#8b9990;
+                line-height:1.6;
+                margin-bottom:25px;
+            ">
+                Internet connection नहीं है।
+                कुछ features अभी भी उपलब्ध हो सकते हैं।
+            </p>
+
+            <button
+                onclick="location.reload()"
+                style="
+                    width:100%;
+                    border:0;
+                    padding:14px 18px;
+                    border-radius:14px;
+                    background:#39e58c;
+                    color:#06100a;
+                    font-weight:800;
+                    font-size:15px;
+                    cursor:pointer;
+                "
+            >
+                <i class="fa-solid fa-rotate-right"></i>
+                Try Again
+            </button>
+
+            <a
+                href="index.html"
+                style="
+                    display:block;
+                    margin-top:14px;
+                    color:#39e58c;
+                    text-decoration:none;
+                    font-weight:700;
+                "
+            >
+                Go to Dashboard
+            </a>
+
+        </section>
+
+    </main>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

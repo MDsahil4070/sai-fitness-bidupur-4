@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="theme-color"
+    content="#070b09">
+
+<title>Settings • Sai Fitness Bidupur</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<style>
+
+/* =========================================
+   SETTINGS PAGE
+========================================= */
+
+.settings-page{
+    padding-bottom:110px;
+}
+
+
+/* HEADER */
+
+.settings-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid var(--border);
+    border-radius:13px;
+
+    background:var(--card);
+    color:var(--text);
+
+    cursor:pointer;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:18px;
+}
+
+.page-title p{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+
+/* HERO */
+
+.settings-hero{
+    position:relative;
+
+    margin-top:20px;
+    padding:22px 18px;
+
+    overflow:hidden;
+
+    border-radius:23px;
+
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(57,229,140,.18),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #111b15,
+            #0c120f
+        );
+
+    border:1px solid var(--border);
+}
+
+.settings-hero-icon{
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:15px;
+
+    background:var(--green-soft);
+    color:var(--green);
+
+    font-size:20px;
+
+    box-shadow:
+        0 8px 25px rgba(57,229,140,.10);
+}
+
+.settings-hero h2{
+    margin-top:13px;
+
+    font-size:17px;
+    font-weight:800;
+}
+
+.settings-hero p{
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:9px;
+    line-height:1.5;
+}
+
+
+/* SECTION */
+
+.settings-section{
+    margin-top:20px;
+}
+
+.section-heading{
+    margin-bottom:10px;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+
+/* SETTING CARD */
+
+.setting-card{
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+}
+
+.setting-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-height:66px;
+
+    padding:13px 14px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+    border-bottom:0;
+}
+
+
+/* ICON */
+
+.setting-icon{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:11px;
+
+    background:var(--green-soft);
+
+    color:var(--green);
+
+    font-size:13px;
+}
+
+
+/* INFO */
+
+.setting-info{
+    flex:1;
+
+    min-width:0;
+}
+
+.setting-info strong{
+    display:block;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.setting-info span{
+    display:block;
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:7.5px;
+
+    line-height:1.4;
+}
+
+
+/* SWITCH */
+
+.switch{
+    position:relative;
+
+    width:42px;
+    height:23px;
+
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+
+    inset:0;
+
+    cursor:pointer;
+
+    border-radius:50px;
+
+    background:#29312d;
+
+    transition:.25s;
+}
+
+.slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:17px;
+    height:17px;
+
+    left:3px;
+    top:3px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    transition:.25s;
+}
+
+.switch input:checked + .slider{
+    background:var(--green-dark);
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(19px);
+}
+
+
+/* SELECT */
+
+.unit-select{
+    min-width:78px;
+
+    padding:8px 25px 8px 9px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+    background:var(--bg-soft);
+    color:var(--text);
+
+    font-family:inherit;
+
+    font-size:8px;
+}
+
+
+/* LINK ROW */
+
+.settings-link{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-height:66px;
+
+    padding:13px 14px;
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    border-bottom:1px solid var(--border);
+
+    transition:.2s;
+}
+
+.settings-link:last-child{
+    border-bottom:0;
+}
+
+.settings-link:active{
+    transform:scale(.985);
+}
+
+.settings-link-arrow{
+    color:var(--muted);
+
+    font-size:9px;
+}
+
+
+/* STATUS */
+
+.status-badge{
+    padding:5px 8px;
+
+    border-radius:50px;
+
+    background:var(--green-soft);
+
+    color:var(--green);
+
+    font-size:7px;
+    font-weight:800;
+}
+
+
+/* ABOUT */
+
+.about-card{
+    padding:18px;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    text-align:center;
+}
+
+.about-logo{
+    width:55px;
+    height:55px;
+
+    display:grid;
+    place-items:center;
+
+    margin:auto;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green-dark)
+        );
+
+    color:#06110a;
+
+    font-size:21px;
+    font-weight:800;
+
+    box-shadow:
+        0 10px 30px rgba(57,229,140,.18);
+}
+
+.about-card h3{
+    margin-top:12px;
+
+    font-size:14px;
+    font-weight:800;
+}
+
+.about-card p{
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+.version{
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:5px 9px;
+
+    border-radius:50px;
+
+    background:var(--bg-soft);
+
+    color:var(--muted);
+
+    font-size:7px;
+}
+
+
+/* DANGER */
+
+.danger-card{
+    padding:16px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,107,107,.05);
+
+    border:1px solid
+        rgba(255,107,107,.15);
+}
+
+.danger-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--danger);
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.danger-card p{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    line-height:1.5;
+}
+
+.reset-btn{
+    width:100%;
+
+    margin-top:12px;
+
+    padding:11px;
+
+    border:1px solid
+        rgba(255,107,107,.25);
+
+    border-radius:11px;
+
+    background:transparent;
+
+    color:var(--danger);
+
+    font-family:inherit;
+
+    font-size:9px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* TOAST */
+
+.settings-toast{
+    position:fixed;
+
+    left:50%;
+    bottom:82px;
+
+    z-index:9999;
+
+    transform:
+        translate(-50%,20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    max-width:calc(100% - 30px);
+
+    padding:11px 15px;
+
+    border-radius:12px;
+
+    background:#151d18;
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    font-size:9px;
+    font-weight:700;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
+
+    transition:.3s;
+}
+
+.settings-toast.show{
+    transform:
+        translate(-50%,0);
+
+    opacity:1;
+}
+
+
+/* LIGHT MODE */
+
+body.light-mode{
+    --bg:#f3f7f4;
+    --bg-soft:#eaf0ec;
+    --card:#ffffff;
+    --card-2:#f5f8f6;
+    --text:#142019;
+    --muted:#66756d;
+    --border:rgba(0,0,0,.08);
+}
+
+
+/* MOBILE */
+
+@media(max-width:360px){
+
+    .setting-info span{
+        font-size:7px;
+    }
+
+    .unit-select{
+        min-width:70px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app-container settings-page">
+
+
+<!-- HEADER -->
+
+<header class="settings-header">
+
+<button
+    class="back-btn"
+    onclick="history.back()">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="page-title">
+
+<h1>Settings</h1>
+
+<p>Customize your fitness experience</p>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="settings-hero">
+
+<div class="settings-hero-icon">
+
+<i class="fa-solid fa-sliders"></i>
+
+</div>
+
+<h2>App Preferences</h2>
+
+<p>
+Control notifications, appearance, sound,
+units and other Sai Fitness preferences.
+</p>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Experience
+</div>
+
+
+<div class="setting-card">
+
+
+<!-- NOTIFICATIONS -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-bell"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Notifications</strong>
+
+<span>
+Workout reminders and fitness updates
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="notificationsToggle">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<!-- VIBRATION -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-mobile-screen-button"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Vibration</strong>
+
+<span>
+Vibrate for timers and important actions
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="vibrationToggle">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<!-- SOUND -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-volume-high"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Sound Effects</strong>
+
+<span>
+Play small sounds for app interactions
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="soundToggle">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<!-- DARK MODE -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-moon"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Dark Mode</strong>
+
+<span>
+Use the dark fitness interface
+</span>
+
+</div>
+
+<label class="switch">
+
+<input
+    type="checkbox"
+    id="darkModeToggle">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- UNITS -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Units
+</div>
+
+
+<div class="setting-card">
+
+
+<!-- WEIGHT -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-weight-scale"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Weight Unit</strong>
+
+<span>
+Choose how body weight is displayed
+</span>
+
+</div>
+
+<select
+    class="unit-select"
+    id="weightUnit">
+
+<option value="kg">
+Kilogram
+</option>
+
+<option value="lb">
+Pound
+</option>
+
+</select>
+
+</div>
+
+
+<!-- HEIGHT -->
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-ruler-vertical"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Height Unit</strong>
+
+<span>
+Choose your preferred height unit
+</span>
+
+</div>
+
+<select
+    class="unit-select"
+    id="heightUnit">
+
+<option value="cm">
+Centimeter
+</option>
+
+<option value="ft">
+Feet
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DATA -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Data & Storage
+</div>
+
+
+<div class="setting-card">
+
+
+<a
+    href="backup.html"
+    class="settings-link">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-cloud-arrow-up"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Backup & Restore</strong>
+
+<span>
+Save your fitness data or restore a backup
+</span>
+
+</div>
+
+<i
+    class="fa-solid fa-chevron-right settings-link-arrow">
+</i>
+
+</a>
+
+
+<div class="setting-row">
+
+<div class="setting-icon">
+
+<i class="fa-solid fa-database"></i>
+
+</div>
+
+<div class="setting-info">
+
+<strong>Storage</strong>
+
+<span>
+Fitness data is currently stored locally
+</span>
+
+</div>
+
+<span class="status-badge">
+LOCAL
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+About
+</div>
+
+
+<div class="about-card">
+
+<div class="about-logo">
+S
+</div>
+
+<h3>
+Sai Fitness Bidupur
+</h3>
+
+<p>
+Your personal fitness tracking companion
+</p>
+
+<span class="version">
+Version 1.0.0
+</span>
+
+</div>
+
+</section>
+
+
+<!-- RESET -->
+
+<section class="settings-section">
+
+<div class="section-heading">
+Danger Zone
+</div>
+
+
+<div class="danger-card">
+
+<div class="danger-title">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+Reset All Data
+
+</div>
+
+<p>
+This permanently removes locally stored profile,
+workout, diet, progress, water, goals and settings.
+Create a backup first if you want to keep your data.
+</p>
+
+<button
+    class="reset-btn"
+    id="resetBtn">
+
+<i class="fa-solid fa-trash"></i>
+
+Reset Everything
+
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="settings-toast"
+    id="settingsToast">
+
+Settings saved
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+
+<a href="workout.html">
+
+<i class="fa-solid fa-dumbbell"></i>
+
+<span>Workout</span>
+
+</a>
+
+
+<a href="diet.html">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>Diet</span>
+
+</a>
+
+
+<a href="progress.html">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>Progress</span>
+
+</a>
+
+
+<a
+    href="profile.html"
+    class="active">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+
+<script>
+
+/* =========================================
+   SETTINGS STORAGE
+========================================= */
+
+const defaultSettings = {
+
+    notifications:true,
+
+    vibration:true,
+
+    sound:true,
+
+    darkMode:true,
+
+    weightUnit:"kg",
+
+    heightUnit:"cm"
+
+};
+
+
+/* =========================================
+   GET SETTINGS
+========================================= */
+
+function getAppSettings(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "saiAppSettings"
+                )
+            );
+
+        return {
+
+            ...defaultSettings,
+
+            ...(saved || {})
+
+        };
+
+    }catch(error){
+
+        return {
+            ...defaultSettings
+        };
+
+    }
+
+}
+
+
+/* =========================================
+   SAVE SETTINGS
+========================================= */
+
+function saveAppSettings(settings){
+
+    localStorage.setItem(
+        "saiAppSettings",
+        JSON.stringify(settings)
+    );
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showSettingsToast(message){
+
+    const toast =
+        document.getElementById(
+            "settingsToast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(
+        window.settingsToastTimer
+    );
+
+    window.settingsToastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            1800
+        );
+
+}
+
+
+/* =========================================
+   APPLY THEME
+========================================= */
+
+function applySettingsTheme(){
+
+    const settings =
+        getAppSettings();
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "saiProfileData"
+            )
+        ) || {};
+
+    const darkMode =
+        settings.darkMode !== false &&
+        profile.darkMode !== false;
+
+    if(darkMode){
+
+        document.body.classList.remove(
+            "light-mode"
+        );
+
+    }else{
+
+        document.body.classList.add(
+            "light-mode"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD SETTINGS
+========================================= */
+
+function loadSettings(){
+
+    const settings =
+        getAppSettings();
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "saiProfileData"
+            )
+        ) || {};
+
+
+    document.getElementById(
+        "notificationsToggle"
+    ).checked =
+        profile.notifications !== false &&
+        settings.notifications !== false;
+
+
+    document.getElementById(
+        "vibrationToggle"
+    ).checked =
+        settings.vibration !== false;
+
+
+    document.getElementById(
+        "soundToggle"
+    ).checked =
+        settings.sound !== false;
+
+
+    document.getElementById(
+        "darkModeToggle"
+    ).checked =
+        settings.darkMode !== false &&
+        profile.darkMode !== false;
+
+
+    document.getElementById(
+        "weightUnit"
+    ).value =
+        settings.weightUnit || "kg";
+
+
+    document.getElementById(
+        "heightUnit"
+    ).value =
+        settings.heightUnit || "cm";
+
+}
+
+
+/* =========================================
+   UPDATE PROFILE SETTINGS
+========================================= */
+
+function updateProfileSettings(key,value){
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "saiProfileData"
+            )
+        ) || {
+
+            name:"Sai Fitness Member",
+
+            notifications:true,
+
+            darkMode:true
+
+        };
+
+
+    profile[key] =
+        value;
+
+
+    localStorage.setItem(
+        "saiProfileData",
+        JSON.stringify(profile)
+    );
+
+}
+
+
+/* =========================================
+   NOTIFICATIONS
+========================================= */
+
+document
+    .getElementById(
+        "notificationsToggle"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const value =
+                this.checked;
+
+            const settings =
+                getAppSettings();
+
+            settings.notifications =
+                value;
+
+            saveAppSettings(
+                settings
+            );
+
+            updateProfileSettings(
+                "notifications",
+                value
+            );
+
+            showSettingsToast(
+                value
+                    ? "Notifications enabled 🔔"
+                    : "Notifications disabled"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   VIBRATION
+========================================= */
+
+document
+    .getElementById(
+        "vibrationToggle"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const settings =
+                getAppSettings();
+
+            settings.vibration =
+                this.checked;
+
+            saveAppSettings(
+                settings
+            );
+
+            if(
+                this.checked &&
+                "vibrate" in navigator
+            ){
+
+                navigator.vibrate(80);
+
+            }
+
+            showSettingsToast(
+                this.checked
+                    ? "Vibration enabled 📳"
+                    : "Vibration disabled"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   SOUND
+========================================= */
+
+document
+    .getElementById(
+        "soundToggle"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const settings =
+                getAppSettings();
+
+            settings.sound =
+                this.checked;
+
+            saveAppSettings(
+                settings
+            );
+
+            showSettingsToast(
+                this.checked
+                    ? "Sound effects enabled 🔊"
+                    : "Sound effects disabled"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+document
+    .getElementById(
+        "darkModeToggle"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const value =
+                this.checked;
+
+            const settings =
+                getAppSettings();
+
+            settings.darkMode =
+                value;
+
+            saveAppSettings(
+                settings
+            );
+
+            updateProfileSettings(
+                "darkMode",
+                value
+            );
+
+            applySettingsTheme();
+
+            showSettingsToast(
+                value
+                    ? "Dark mode enabled 🌙"
+                    : "Light mode enabled ☀️"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   WEIGHT UNIT
+========================================= */
+
+document
+    .getElementById(
+        "weightUnit"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const settings =
+                getAppSettings();
+
+            settings.weightUnit =
+                this.value;
+
+            saveAppSettings(
+                settings
+            );
+
+            showSettingsToast(
+                "Weight unit updated ✓"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   HEIGHT UNIT
+========================================= */
+
+document
+    .getElementById(
+        "heightUnit"
+    )
+    .addEventListener(
+        "change",
+        function(){
+
+            const settings =
+                getAppSettings();
+
+            settings.heightUnit =
+                this.value;
+
+            saveAppSettings(
+                settings
+            );
+
+            showSettingsToast(
+                "Height unit updated ✓"
+            );
+
+        }
+    );
+
+
+/* =========================================
+   RESET EVERYTHING
+========================================= */
+
+document
+    .getElementById(
+        "resetBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            const confirmed =
+                confirm(
+                    "Reset all Sai Fitness data? This cannot be undone."
+                );
+
+            if(!confirmed)
+                return;
+
+
+            const keys = [
+
+                "saiFitnessData",
+
+                "saiProfileData",
+
+                "saiProgressData",
+
+                "saiBodyData",
+
+                "saiDietData",
+
+                "saiWater",
+
+                "saiWaterHistory",
+
+                "saiCompletedExercises",
+
+                "saiWorkoutHistory",
+
+                "saiSelectedExercise",
+
+                "saiGoalTargets",
+
+                "saiNotifications",
+
+                "saiAppSettings"
+
+            ];
+
+
+            keys.forEach(
+                key =>
+                    localStorage.removeItem(
+                        key
+                    )
+            );
+
+
+            showSettingsToast(
+                "All data has been reset"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    location.href =
+                        "index.html";
+
+                },
+                800
+            );
+
+        }
+    );
+
+
+/* =========================================
+   INIT
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        applySettingsTheme();
+
+        loadSettings();
+
+    }
+);
+
+
+/* =========================================
+   PAGE VISIBILITY SYNC
+========================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            applySettingsTheme();
+
+            loadSettings();
+
+        }
+
+    }
+);
+
+</script>
+<script src="app.js"></script>
+</body>
+
+</html>
